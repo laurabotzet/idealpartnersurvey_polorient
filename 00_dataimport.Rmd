@@ -1,0 +1,78 @@
+---
+title: "00_import data"
+author: "Laura Botzet"
+date: "5 August 2019"
+output: html_document
+---
+
+## Library
+```{r Library}
+library(Hmisc)
+library(dplyr)
+```
+
+
+## Data
+Load raw data from Clue.
+```{r Data}
+fulldata = read.csv(file = "ideal_partners_data.csv", sep = ",")
+fulldata = fulldata[-1,-1] #first row includes labels, first column just numbers the rows
+```
+
+## Select Variables
+We only need certain variables from the dataset. Columns will be renamed according to the preregistration "The Link Between Age and Ideal Partner Preferences in Women"
+```{r Select Variables}
+fulldata_selected = fulldata %>%
+  select(# Age
+         age = age,
+         
+         # Ideal Partner Prefs:
+         pref_imp_kind = lt_kindness_importance,
+         pref_level_kind = lt_kindness_level,
+         pref_imp_supportive = lt_supportive_importance,
+         pref_level_supportive = lt_supportive_level,
+         pref_imp_attractive_body = lt_attractive_body_importance,
+         pref_level_attractive_body = lt_attractive_body_level,
+         pref_imp_attractive_face = lt_attractive_face_importance,
+         pref_level_attractive_face = lt_attractive_face_level,
+         pref_imp_financially_secure = lt_financial_security_importance,
+         pref_level_financially_secure = lt_financial_security_level,
+         pref_imp_successful_ambitous = lt_ambition_importance,
+         pref_level_successful_ambitous = lt_ambition_level,
+         pref_imp_confident = lt_confidence_importance,
+         pref_level_confident = lt_confidence_level,
+         pref_imp_assertive = lt_assertive_importance,
+         pref_level_assertive = lt_assertive_level,
+         pref_imp_intelligence = lt_intelligence_importance,
+         pref_level_intelligence = lt_intelligence_level,
+         pref_imp_educated = lt_education_importance,
+         pref_level_educated = lt_education_level,
+         pref_imp_parenting = lt_number_of_children,
+         pref_level_parenting = lt_wants_to_parent,
+         
+         # Acceptable Age Range:
+         pref_age_min = lt_ideal_min_age,
+         pref_age_max = lt_ideal_max_age,
+         
+         # Random Effects (Country and Language)
+         country = country,
+         language = language,
+         
+         # Reasons for exclusion
+         sex = gender,
+         sexual_orientation = sexual.orientation,
+         relationship = recent_relationships, # the recent relationship variable needs to be wrangled later
+         relationship1 = recent_relationships.1,
+         relationship2 = recent_relationships.2,
+         relationship3 = recent_relationships.3,
+         relationship4 = recent_relationships.4,
+         relationship5 = recent_relationships.5,
+         answer_accuracy = answer_accuracy
+         )
+```
+
+## Save Dataset
+```{r Save Dataset}
+write.csv(fulldata_selected, file = "fulldata_selected.csv")
+```
+
