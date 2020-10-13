@@ -1,0 +1,593 @@
+---
+title: "05_analyses"
+author: "Laura Botzet"
+date: "10 August 2019"
+output: 
+  html_document:
+    code_folding: "hide"
+---
+
+## Analyses {.tabset}
+
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(dplyr)
+```
+
+
+### Functions
+```{r}
+model_age_rmslope_rmintercept = function(outcome){
+  lmer(outcome ~ age + (1 + age | country),
+       data = data_included_documented %>%
+         select(outcome = outcome,
+                age, country))
+}
+
+model_age_rmintercept = function(outcome){
+  lmer(outcome ~ age + (1 | country),
+       data = data_included_documented %>%
+         select(outcome = outcome,
+                age, country))
+}
+
+runbothmodels = function(outcome){
+  model = suppressWarnings(model_age_rmslope_rmintercept(outcome))
+  if(!is.null(model@optinfo$conv$lme4$code)){
+    print("Model including random slope did not converge. --> Exclude random slope.")
+    model =  model_age_rmintercept(outcome)
+  }
+  else{
+    print("Model including random slope did converge.")
+    model = model
+  }
+}
+
+```
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+
+### Analysis {.tabset}
+If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
+Instead we will z-standardize outcomes separately for each country.
+
+#### Ideal Partner Preferences {.tabset}
+##### 3.1.1. Hypotheses on kindness and supportiveness. - Importance {.tabset}
+3.1.1.1. There is no link between age and women’s importance ratings for partner’s kindness and supportiveness (~ warmth-trustworthiness).
+Outcome: Importance ratings for partner’s kindness and supportiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_kind_supportive = runbothmodels(outcome = 'ippref_kind_supportive')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_kind_supportive)
+confint(model_ippref_kind_supportive, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_kind_supportive, method = "basic")
+ci(standardize_parameters(model_ippref_kind_supportive, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_kind_supportive ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.1. Hypotheses on kindness and supportiveness. - Level {.tabset}
+3.1.1.2. There is no link between age and women’s preferences for the levels of kindness and supportiveness (~ warmth-trustworthiness).
+Outcome: Preferences for the levels of kindness and supportiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_level_kind_supportive = runbothmodels(outcome = 'ippref_level_kind_supportive')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_level_kind_supportive)
+confint(model_ippref_level_kind_supportive, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_level_kind_supportive, method = "basic")
+ci(standardize_parameters(model_ippref_level_kind_supportive, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_level_kind_supportive ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+
+##### 3.1.2. Hypotheses on attractiveness. - Importance {.tabset}
+3.1.2.1. There is no link between age and women’s importance ratings for partner’s attractiveness (~ vitality-attractiveness).
+8.2.1.2.1. Outcome: Importance ratings for partner’s attractiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_attractiveness = runbothmodels(outcome = 'ippref_attractiveness')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_attractiveness)
+confint(model_ippref_attractiveness, level = 0.995)
+
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_attractiveness, method = "basic")
+ci(standardize_parameters(model_ippref_attractiveness, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_attractiveness ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.2. Hypotheses on attractiveness. - Level {.tabset}
+3.1.2.2. There is no link between age and women’s preferences for the levels of attractiveness (~ vitality-attractiveness).
+Outcome: Preferences for the levels of attractiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_level_attractiveness = runbothmodels(outcome = 'ippref_level_attractiveness')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_level_attractiveness)
+confint(model_ippref_level_attractiveness, level = 0.995)
+
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_level_attractiveness, method = "basic")
+ci(standardize_parameters(model_ippref_level_attractiveness, method = "basic", ci = 0.995))
+
+```
+
+###### Plot
+```{r}
+lmer(ippref_level_attractiveness ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.3. Hypotheses on financial security and successfulness. - Importance {.tabset}
+3.1.3.1. There is no link between age and women’s importance ratings for partner’s financial security and successfulness (~ status-ressources).
+Outcome: Importance ratings for partner’s financial security and successfulness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_financiallysecure_sussessful = runbothmodels(outcome = 'ippref_financiallysecure_sussessful')
+
+```
+
+###### Summary
+```{r}
+summary(model_ippref_financiallysecure_sussessful)
+confint(model_ippref_financiallysecure_sussessful, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_financiallysecure_sussessful, method = "basic")
+ci(standardize_parameters(model_ippref_financiallysecure_sussessful, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_financiallysecure_sussessful ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.3. Hypotheses on financial security and successfulness. - Level {.tabset}
+3.1.3.2. There is no link between age and women’s preferences for the levels of financial security and successfulness (~ status-ressources).
+Outcome: Preferences for the levels of financial security and successfulness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_level_financiallysecure_sussessful = runbothmodels(outcome = 'ippref_level_financiallysecure_sussessful')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_level_financiallysecure_sussessful)
+confint(model_ippref_financiallysecure_sussessful, level = 0.995)
+
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_level_financiallysecure_sussessful, method = "basic")
+ci(standardize_parameters(model_ippref_level_financiallysecure_sussessful, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_level_financiallysecure_sussessful ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.4. Hypotheses on confidence and assertiveness. - Importance {.tabset}
+3.1.4.1. There is no link between age and women’s importance ratings for partner’s confidence and assertiveness.
+Outcome: Importance ratings for partner’s confidence and assertiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_confident_assertive = runbothmodels(outcome = 'ippref_confident_assertive')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_confident_assertive)
+confint(model_ippref_confident_assertive, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_confident_assertive, method = "basic")
+ci(standardize_parameters(model_ippref_confident_assertive, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_confident_assertive ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.4. Hypotheses on confidence and assertiveness. - Level {.tabset}
+3.1.4.2. There is no link between age and women’s preferences for the levels of confidence and assertiveness.
+Outcome: Preferences for the levels of confidence and assertiveness. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_level_confident_assertive = runbothmodels(outcome = 'ippref_level_confident_assertive')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_level_confident_assertive)
+confint(model_ippref_level_confident_assertive, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_level_confident_assertive, method = "basic")
+ci(standardize_parameters(model_ippref_level_confident_assertive, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_level_confident_assertive ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.5. Hypotheses on education and intelligence. - Importance {.tabset}
+3.1.5.1. There is no link between age and women’s importance ratings for partner’s education and intelligence.
+Outcome: Importance ratings for partner’s education and intelligence. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_intelligence_educated = runbothmodels(outcome = 'ippref_intelligence_educated')
+```
+
+###### Summary
+```{r}
+summary(model_ippref_intelligence_educated)
+confint(model_ippref_intelligence_educated, level = 0.995)
+
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_intelligence_educated, method = "basic")
+ci(standardize_parameters(model_ippref_intelligence_educated, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(ippref_intelligence_educated ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.5. Hypotheses on education and intelligence. - Level {.tabset}
+3.1.5.2. There is no link between age and women’s preferences for the levels of education and intelligence.
+Outcome: Preferences for the levels of education and intelligence. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ippref_leve_intelligence_educated = runbothmodels(outcome = 'ippref_level_intelligence_educated')
+model_ippref_leve_intelligence_educated = lmer(ippref_level_intelligence_educated ~ age + (1| country),
+                                data = data_included_documented)
+```
+
+###### Summary
+```{r}
+summary(model_ippref_leve_intelligence_educated)
+confint(model_ippref_leve_intelligence_educated, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ippref_leve_intelligence_educated, method = "basic")
+ci(standardize_parameters(model_ippref_leve_intelligence_educated, method = "basic", ci = 0.995))
+
+```
+
+###### Plot
+```{r}
+lmer(ippref_level_intelligence_educated ~ age + (1 + age | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.6. Hypotheses on parenting intention. - Importance Linear {.tabset}
+3.1.6.1.1. There is a positive linear link between age and women’s importance rating for a partner sharing their preference for number of children.
+Outcome: Importance rating for a partner sharing their preference for number of children. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_imp_parenting = lmer(pref_imp_parenting ~ age + (1 + age| country),
+                                data = data_included_documented)
+```
+"Model including random slope did not converge. --> Exclude random slope."
+```{r}
+model_pref_imp_parenting = lmer(pref_imp_parenting ~ age + (1| country),
+                                data = data_included_documented)
+```
+
+###### Summary
+```{r}
+summary(model_pref_imp_parenting)
+confint(model_pref_imp_parenting, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_imp_parenting, method = "basic")
+ci(standardize_parameters(model_pref_imp_parenting, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_imp_parenting ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.6. Hypotheses on parenting intention. - Importance Quadratic {.tabset}
+3.1.6.1.2. In addition, there is a negative quadratic link between age and women’s importance rating for a partner sharing their preference for number of children.
+Outcome: Importance rating for a partner sharing their preference for number of children. Predictors: Age, quadratic effect of age. Random intercept and random slope for country.
+###### Models
+```{r}
+model_pref_imp_parenting = lmer(pref_imp_parenting ~ age + I(age^2) +
+                                  (1 + age| country),
+                                data = data_included_documented %>% filter(!is.na(age)))
+```
+"Model including random slope did not converge. --> Exclude random slope."
+```{r}
+model_pref_imp_parenting = lmer(pref_imp_parenting ~ age + I(age^2) +
+                                  (1| country),
+                                data = data_included_documented %>% filter(!is.na(age)))
+```
+
+###### Summary
+```{r}
+summary(model_pref_imp_parenting)
+confint(model_pref_imp_parenting, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_imp_parenting, method = "basic")
+ci(standardize_parameters(model_pref_imp_parenting, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_imp_parenting ~ age + I(age^2) + (1| country),
+     data = data_included_documented %>% filter(!is.na(age))) %>%
+  allEffects() %>%
+  plot()
+```
+
+##### 3.1.6. Hypotheses on parenting intention. - Level Linear {.tabset}
+3.1.6.2.1. There is a positive linear link between age and women’s preference for the level of partner’s intention to become a parent.
+Outcome: Preference for the level of partner’s intention to become a parent. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_parenting = lmer(pref_level_parenting ~ age + (1 + age| country),
+                                data = data_included_documented)
+```
+"Model including random slope did not converge. --> Exclude random slope."
+```{r}
+model_pref_level_parenting = lmer(pref_level_parenting ~ age + (1| country),
+                                data = data_included_documented)
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_parenting)
+confint(model_pref_level_parenting, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_parenting, method = "basic")
+ci(standardize_parameters(model_pref_level_parenting, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_parenting ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### 3.1.6. Hypotheses on parenting intention. - Level Quadratic {.tabset}
+3.1.6.2.2. In addition, there is a negative quadratic link between age and women’s preference for the level of partner’s intention to become a parent.
+Outcome: Preference for the level of partner’s intention to become a parent. Predictors: Age, quadratic effect of age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_parenting = lmer(pref_level_parenting ~ age + I(age^2) + (1 + age| country),
+                                data = data_included_documented %>% filter(!is.na(age)))
+```
+"Model including random slope did not converge. --> Exclude random slope."
+```{r}
+model_pref_level_parenting = lmer(pref_level_parenting ~ age + I(age^2) + (1| country),
+                                data = data_included_documented %>% filter(!is.na(age)))
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_parenting)
+confint(model_pref_level_parenting, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_parenting, method = "basic")
+ci(standardize_parameters(model_pref_level_parenting, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_parenting ~ I(age^2) + (1| country),
+     data = data_included_documented %>% filter(!is.na(age))) %>%
+  allEffects() %>%
+  plot()
+```
+
+#### Age Range {.tabset}
+##### Age Range {.tabset}
+3.2.1. There is no link between age and age-range deemed acceptable by women in an ideal partner.
+Outcome: Age-range deemed acceptable. Predictor: Age. Random intercept and random slope for country.
+###### Models
+```{r}
+model_pref_age_range = runbothmodels(outcome = 'pref_age_range')
+```
+
+###### Summary
+```{r}
+summary(model_pref_age_range)
+confint(model_pref_age_range, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_age_range, method = "basic")
+ci(standardize_parameters(model_pref_age_range, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_age_range ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### Youngest Age acceptable {.tabset}
+3.2.2. There is a positive link between age and youngest age deemed acceptable by women in an ideal partner.
+Outcome: Youngest age deemed acceptable relative to own age. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_age_min_rel = runbothmodels(outcome = 'pref_age_min_rel')
+```
+
+###### Summary
+```{r}
+summary(model_pref_age_min_rel)
+confint(model_pref_age_min_rel, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_age_min_rel, method = "basic")
+ci(standardize_parameters(model_pref_age_min_rel, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_age_min_rel ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+
+##### Oldest Age acceptable {.tabset}
+3.2.3. There is a negative link between age and oldest age deemed acceptable by women in an ideal partner.
+Outcome: Oldest age deemed acceptable relative to own age. Predictor: Age. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_age_max_rel = runbothmodels(outcome = 'pref_age_max_rel')
+```
+
+###### Summary
+```{r}
+summary(model_pref_age_max_rel)
+confint(model_pref_age_max_rel, level = 0.995)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_age_max_rel, method = "basic")
+ci(standardize_parameters(model_pref_age_max_rel, method = "basic", ci = 0.995))
+```
+
+###### Plot
+```{r}
+lmer(pref_age_max_rel ~ age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```

@@ -1,0 +1,120 @@
+---
+title: "05_analyses"
+author: "Laura Botzet"
+date: "10 August 2019"
+output: 
+  html_document:
+    code_folding: "hide"
+---
+
+## Analyses {.tabset}
+
+### Library
+```{r Library}
+library(apaTables)
+library(formr)
+# library(effects)
+# library(effectsize)
+# library(lme4)
+# library(sjstats)
+# library(lmerTest)
+library(dplyr)
+```
+
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+
+data_included_documented = data_included_documented %>%
+  filter(!is.na(age))
+```
+
+### Missingness pattern
+```{r}
+crosstabs(~ is.na(data_included_documented$pref_imp_kind) +
+            is.na(data_included_documented$pref_imp_supportive))
+```
+
+### Correlations for ideal partner preferences
+```{r}
+cor.test(data_included_documented$pref_imp_kind,
+         data_included_documented$pref_imp_supportive,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_level_kind,
+         data_included_documented$pref_level_supportive,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_imp_attractive_body,
+         data_included_documented$pref_imp_attractive_face,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_level_attractive_body,
+         data_included_documented$pref_level_attractive_face,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_imp_financially_secure,
+         data_included_documented$pref_imp_successful_ambitous,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_level_financially_secure,
+         data_included_documented$pref_level_successful_ambitous,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_imp_confident,
+         data_included_documented$pref_imp_assertive,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_level_confident,
+         data_included_documented$pref_level_assertive,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_imp_intelligence,
+         data_included_documented$pref_imp_educated,
+         conf.level = 0.995)
+
+cor.test(data_included_documented$pref_level_intelligence,
+         data_included_documented$pref_level_educated,
+         conf.level = 0.995)
+```
+
+### Language
+```{r}
+n = length(data_included_documented)
+
+table(data_included_documented$language)
+
+round((table(data_included_documented$language)/n)*100,2)
+```
+
+### Country
+```{r}
+country_absolute = as.data.frame(table(data_included_documented$country))
+
+country_freq = as.data.frame(round((table(data_included_documented$country)/n)*100,
+                                   2))
+
+
+country = left_join(country_absolute, country_freq, by = "Var1")
+
+write.table(country, file = "country.txt", sep = ",")
+```
+
+### Descriptives and Correlation Table
+```{r}
+cor = data_included_documented %>%
+  select(age,
+         ippref_kind_supportive, ippref_level_kind_supportive,
+         ippref_attractiveness, ippref_level_attractiveness,
+         ippref_financiallysecure_sussessful, ippref_level_financiallysecure_sussessful,
+         ippref_confident_assertive, ippref_level_confident_assertive,
+         ippref_intelligence_educated, ippref_level_intelligence_educated,
+         pref_imp_parenting, pref_level_parenting,
+         pref_age_range, pref_age_max_rel, pref_age_min_rel) %>%
+  mutate(pref_age_min_rel = -pref_age_min_rel)
+apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
+
+```
+

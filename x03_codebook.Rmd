@@ -1,0 +1,241 @@
+---
+title: "03_Codebook"
+author: "Laura Botzet"
+date: "10 August 2019"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_folding: 'hide'
+    self_contained: true
+  pdf_document:
+    toc: yes
+    toc_depth: 4
+    latex_engine: xelatex
+---
+
+## Setup
+Here, we're just setting a few options.
+```{r Setup}
+knitr::opts_chunk$set(
+  warning = TRUE, # show warnings during codebook generation
+  message = TRUE, # show messages during codebook generation
+  error = TRUE, # do not interrupt codebook generation in case of errors,
+                # usually better for debugging
+  echo = TRUE  # show R code
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+pander::panderOptions("table.split.table", Inf)
+```
+
+
+## Library
+```{r Library}
+library(labelled)
+library(codebook)
+library(formr)
+library(dplyr)
+```
+
+
+## Data
+Load selected data based on 02_exclusion
+```{r Data}
+data_included = read.csv(file = "data_included.csv")[,-1]
+```
+
+## Information about Data
+### Variable Labels
+```{r Variable Labels}
+var_label(data_included) = list(
+  age = "How old are you?",
+  pref_imp_kind = "Kind - How important is it to you?",
+  pref_level_kind = "Level of kindness - How kind should your partner be?",
+  pref_imp_supportive = "Supportive - How important is it to you?",
+  pref_level_supportive = "Supportive - How supportive should your partner be?",
+  pref_imp_attractive_body = "Attractive body - How important is it to you?",
+  pref_level_attractive_body = "Attractive body - How attractive should your partner's body be?",
+  pref_imp_attractive_face = "Attractive face - How important is it to you?",
+  pref_level_attractive_face = "Attractive face - How attractive should your partner's face be?",
+  pref_imp_financially_secure = "Financially secure - How important is it to you?",
+  pref_level_financially_secure = "Financial security - How financially secure should your partner be?",
+  pref_imp_successful_ambitous = "Successful/ambitious - How important is it to you?",
+  pref_level_successful_ambitous = "Successful/ambitious - How successful/ambitious should your partner be?",
+  pref_imp_confident = "Confident - How important is it to you?",
+  pref_level_confident = "Level of confidence - How confident should your partner be?",
+  pref_imp_assertive = "Assertive - How important is it to you?",
+  pref_level_assertive = "Level of assertiveness - How assertive should your partner be?",
+  pref_imp_intelligence = "Intelligent - How important is it to you?",
+  pref_level_intelligence = "Level of intelligence - How intelligent should your partner be?",
+  pref_imp_educated = "Educated - How important is it to you?",
+  pref_level_educated = "Level of education - How educated should your partner be?",
+  pref_imp_parenting = "Shares my preference for number of children - How important is it to you?",
+  pref_level_parenting = "Wants to be a parent - How much should your partner want to be a parent?",
+  pref_age_min = "The acceptable age range for my long-term partner is at least __ years old…",
+  pref_age_max = "...and no more than __ years old.",
+  country = "In what country do you live?",
+  language = "Language of Survey",
+  sex = "Do you identify as…",
+  sexual_orientation = "How would you describe your current sexual orientation?",
+  relationship = "Select your relationships during the past 3 months. Choose as many as you like",
+  answer_accuracy = "We understand that sometimes people fill out questionnaires for fun and give answers that may not be accurate. In the interest of scientific accuracy, we will exclude those responses from our final analysis. Please choose one of the statements below:"
+)
+```
+
+### Value Labels
+```{r Value Labels}
+val_labels(data_included$pref_imp_kind) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_kind) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_supportive) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_supportive) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_attractive_body) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_attractive_body) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_attractive_face) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_attractive_face) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_financially_secure) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_financially_secure) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_successful_ambitous) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_successful_ambitous) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_confident) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_confident) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_assertive) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_assertive) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_intelligence) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_intelligence) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_educated) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_educated) =
+  c("not at all" = 0, "very" = 6)
+
+val_labels(data_included$pref_imp_parenting) =
+  c("not at all important" = 0, "very important" = 6)
+val_labels(data_included$pref_level_parenting) =
+  c("does not want" = 0, "very much wants" = 6)
+```
+
+## Scales Ideal Partner Preferences
+### Importance
+```{r Scale Ideal Partner Preferences Importance}
+data_included$ippref_kind_supportive = data_included %>%
+  select(pref_imp_kind, pref_imp_supportive) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_attractiveness = data_included %>%
+  select(pref_imp_attractive_body, pref_imp_attractive_face) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_financiallysecure_sussessful = data_included %>%
+  select(pref_imp_financially_secure, pref_imp_successful_ambitous) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_confident_assertive = data_included %>%
+  select(pref_imp_confident, pref_imp_assertive) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_intelligence_educated = data_included %>%
+  select(pref_imp_intelligence, pref_imp_educated) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_overallaspiration = data_included %>%
+  select(pref_imp_kind, pref_imp_supportive,
+         pref_imp_attractive_body, pref_imp_attractive_face,
+         pref_imp_financially_secure, pref_imp_successful_ambitous,
+         pref_imp_confident, pref_imp_assertive,
+         pref_imp_intelligence, pref_imp_educated) %>%
+  aggregate_and_document_scale()
+```
+
+### Level
+```{r Scale Ideal Partner Preferences Level}
+data_included$ippref_level_kind_supportive = data_included %>%
+  select(pref_level_kind, pref_level_supportive) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_level_attractiveness = data_included %>%
+  select(pref_level_attractive_body, pref_level_attractive_face) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_level_financiallysecure_sussessful = data_included %>%
+  select(pref_level_financially_secure, pref_level_successful_ambitous) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_level_confident_assertive = data_included %>%
+  select(pref_level_confident, pref_level_assertive) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_level_intelligence_educated = data_included %>%
+  select(pref_level_intelligence, pref_level_educated) %>%
+  aggregate_and_document_scale()
+
+data_included$ippref_level_overallaspiration = data_included %>%
+  select(pref_level_kind, pref_level_supportive,
+         pref_level_attractive_body, pref_level_attractive_face,
+         pref_level_financially_secure, pref_level_successful_ambitous,
+         pref_level_confident, pref_level_assertive,
+         pref_level_intelligence, pref_level_educated) %>%
+  aggregate_and_document_scale()
+```
+
+## Ideal Age Range
+```{r Ideal Age Range}
+data_included = data_included %>%
+  mutate(pref_age_range = pref_age_max - pref_age_min,
+         pref_age_max_rel = pref_age_max - age,
+         pref_age_min_rel = age - pref_age_min) %>%
+  select(-pref_age_max, -pref_age_min)
+```
+
+### Negative ideal age range
+If age range is negative, age range has to be set as missing
+This is the case for`r sum(data_included$pref_age_range < 0, na.rm = T)` people
+```{r Negative ideal age range}
+data_included = data_included %>%
+  mutate(pref_age_range = ifelse(pref_age_range < 0, NA, pref_age_range), 
+         pref_age_max_rel = ifelse(pref_age_range < 0, NA, pref_age_max_rel), 
+         pref_age_min_rel = ifelse(pref_age_range < 0, NA, pref_age_min_rel))
+```
+
+```{r}
+qplot(data_included$pref_age_range)
+x = data_included %>% filter(pref_age_range == 90)
+```
+
+## Create Codebook
+```{r create codebook}
+codebook(data_included)
+```
+
+## Save Data
+```{r Save}
+data_included_documented = data_included
+write.csv(data_included_documented, file = "data_included_documented.csv")
+```
+

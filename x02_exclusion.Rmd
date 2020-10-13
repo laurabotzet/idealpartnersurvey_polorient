@@ -1,0 +1,125 @@
+---
+title: "02_exclusion"
+author: "Laura Botzet"
+date: "6 August 2019"
+output: html_document
+---
+
+## Library
+```{r Library}
+library(formr)
+library(dplyr)
+```
+
+
+## Data
+Load selected data based on 01_datawrangling
+```{r Data}
+fulldata_selected_wrangled = read.csv(file = "fulldata_selected_wrangled.csv")[,-1]
+```
+
+## Exclusion Process
+```{r Exclusion Process}
+data_included = fulldata_selected_wrangled
+```
+
+### All participants younger than 18
+In total, we will exclude `r sum(fulldata_selected_wrangled$age < 18, na.rm = T)` participants because they are younger than 18.
+```{r Age}
+data_included = fulldata_selected_wrangled %>%
+  filter(age >= 18 |
+         is.na(age))
+
+table(is.na(data_included$age))
+```
+
+### All participants who do not identify as women
+In total, we will exclude `r sum(fulldata_selected_wrangled$sex == "Man", fulldata_selected_wrangled$sex == "Genderqueer/Nonbinary", fulldata_selected_wrangled$sex == "None of the above", fulldata_selected_wrangled$sex == "Prefer not to say", fulldata_selected_wrangled$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
+
+Consecutively, this means we will exclude `r sum(data_included$sex == "Man", data_included$sex == "Genderqueer/Nonbinary", data_included$sex == "None of the above", data_included$sex == "Prefer not to say", data_included$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
+
+```{r Sex}
+data_included = data_included %>%
+  filter((sex != "Man" &
+         sex != "Genderqueer/Nonbinary" &
+         sex != "None of the above" &
+         sex != "Prefer not to say" &
+         sex != "Other")  |
+         is.na(sex))
+
+table(data_included$sex)
+table(is.na(data_included$sex))
+```
+
+
+### All participants who do not identify as heterosexual
+In total, we will exclude `r sum(fulldata_selected_wrangled$sexual_orientation == "Lesbian/Gay/Homosexual", fulldata_selected_wrangled$sexual_orientation == "Bisexual/Pansexual", fulldata_selected_wrangled$sexual_orientation == "Queer", fulldata_selected_wrangled$sexual_orientation == "Asexual", fulldata_selected_wrangled$sexual_orientation == "Prefer not to say", fulldata_selected_wrangled$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)
+
+Consecutively, this means we will exclude `r sum(data_included$sexual_orientation == "Lesbian/Gay/Homosexual", data_included$sexual_orientation == "Bisexual/Pansexual", data_included$sexual_orientation == "Queer", data_included$sexual_orientation == "Asexual", data_included$sexual_orientation == "Prefer not to say", data_included$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)  
+```{r Sexuality}
+data_included = data_included %>%
+  filter((sexual_orientation != "Lesbian/Gay/Homosexual" & sexual_orientation != "Bisexual/Pansexual" &
+         sexual_orientation != "Queer" & sexual_orientation != "Asexual" &
+         sexual_orientation != "Prefer not to say" & sexual_orientation != "Other") |
+         is.na(sexual_orientation))
+
+table(data_included$sexual_orientation)
+table(is.na(data_included$sexual_orientation))
+```
+
+### All participants who indicated being in a relationship
+In total, we will exclude `r sum(fulldata_selected_wrangled$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(fulldata_selected_wrangled$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
+
+Consecutively, we will exclude `r sum(data_included$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", data_included$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", data_included$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(data_included$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
+
+
+```{r Relationship}
+data_included_test1 = data_included %>%
+  filter((!(relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship") &
+         !(relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship") &
+         !(relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners") &
+         !(relationship %contains% "Other")) |
+         is.na(relationship))
+
+table(data_included_test1$relationship)
+table(is.na(data_included_test1$relationship))
+```
+
+#### Relationship check: With old relationships variable
+Just to make sure, that our data wrangling earlier worked, we will check the exclusion process based on old relationships variable
+```{r Relationship Check}
+data_included_test2 = data_included %>%
+  filter(relationship1 != "True") %>%
+  filter(relationship3 != "True") %>%
+  filter(relationship4 != "True") %>%
+  filter(relationship5 != "True")
+
+data_included = data_included_test1 %>%
+  # Drop unneccessary relationship variables
+  select(-relationship1, -relationship2, -relationship3, -relationship4, -relationship5) 
+```
+
+
+### All participants who did not answer the survey seriously or chose not to answer the seriousness question
+In total, we will exclude `r sum(fulldata_selected_wrangled$answer_accuracy == "I did not answer seriously; please disregard my information.", fulldata_selected_wrangled$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
+
+Consecutively, we will exclude `r sum(data_included$answer_accuracy == "I did not answer seriously; please disregard my information.", data_included$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
+
+```{r Accuracy}
+data_included = data_included %>%
+  filter((answer_accuracy != "I did not answer seriously; please disregard my information." &
+         answer_accuracy != "I choose not to answer.") |
+         is.na(answer_accuracy))
+```
+
+@PROBLEM: We still have `r sum(is.na(data_included$answer_accuracy))` missings for answer_accuracy here. In the preregistration we did not state that we will exclude them. (@Tanja, @preregistration)
+```{r Accuracy Missings}
+missings = data_included %>% filter(is.na(answer_accuracy))
+```
+
+
+## Save Data
+```{r Save Data}
+write.csv(data_included, file = "data_included.csv")
+```
+
