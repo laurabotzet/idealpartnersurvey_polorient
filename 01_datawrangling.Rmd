@@ -1,0 +1,228 @@
+---
+title: "01_datawrangling"
+author: "Lena Kuschel"
+date: "13 10 2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Library
+```{r Library}
+library(car)
+library(psych)
+library(dplyr)
+```
+
+
+## Data
+Load selected data based on 00_dataimport
+```{r Data}
+fulldata_selected_lim = read.csv(file = "fulldata_selected_lim.csv")[,-1]
+```
+
+
+## Inspect Data
+```{r Inspect Data}
+colnames(fulldata_selected_lim)
+
+fulldata_selected_lim_wrangled = fulldata_selected_lim
+```
+
+
+### Age
+Participants younger than 18 were able to insert age but the survey was ended for them afterwards.
+```{r Age}
+table(fulldata_selected_lim_wrangled$age)
+```
+Set all numbers > 100 as missing:
+```{r Age 2}
+sum(fulldata_selected_lim_wrangled$age > 100)
+# This means that age is set as missing for 15 people (for the limited data frame 0 people)
+
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(age = ifelse(age > 100, NA, age))
+
+table(is.na(fulldata_selected_wrangled$age))
+
+table(fulldata_selected_lim_wrangled$age < 18)
+# 26638 people were not allowed to participate in the survey because they were younger than 18 (for the limited data frame 15 people)
+```
+
+### Political Orientation
+Political Orientation item should range from 0 to 6
+```{r Political Orientation}
+fulldata_selected_lim_wrangled %>%
+  select("political_orientation") %>%
+  lapply(table)
+#Political orientation ranges from 0 to 6 
+```
+
+### Preferred Relationship Options
+Interest in being single, Interest in sexual (non-romantic) relationships, Interest in non-monogamous relationships and Interest in monogamous relationships items should range from 0 to 6 
+```{r Preferred Relationship Options}
+fulldata_selected_lim_wrangled %>%
+  select(starts_with("interest_")) %>%
+  lapply(table)
+# variables for preferred relationship options range from 0 to 6 
+```
+@PROBLEM @Laura Variable interest monogamous relationships ist falsch geschrieben 
+
+### Rename variable interest monogamous relationships
+```{r rename variable interest monogamous relationships }
+fulldata_selected_lim_wrangled <- rename.variable(fulldata_selected_lim_wrangled, "inteterst_monrel", "interest_monrel")
+rename.variable(fulldata_selected_lim_wrangled, inteterst_monrel, interest_monrel)
+rename(fulldata_selected_lim_wrangled, "interest_monrel" = "inteterst_monrel")
+```
+@PROBLEM @Laura funktioniert nicht 
+
+### Political, ethnical, religious similarity
+Preferences for political, ethnical and religious similarity items should range from 0 to 6 
+```{r Political, ethnical and religious similarity}
+fulldata_selected_lim_wrangled %>%
+  select("pref_politicalsim", "pref_ethnicalsim", "pref_religioussim") %>%
+  lapply(table)
+#Political, ethnical and religious similarity all range from 0 to 6 
+```
+
+### Ideal Partner Preferences
+All ideal partner preference items should range from 0 to 6 
+```{r Ideal Partner Preferences}
+fulldata_selected_lim_wrangled %>%
+  select(starts_with("pref_")) %>%
+  select(-pref_politicalsim, -pref_ethnicalsim, -pref_religioussim) %>%
+  lapply(table)
+# I presume that all items range from 0 to 6 (here in the limited data frame some have a smaller range)
+```
+
+### Ideal Age and Ideal Height
+## Importance Age
+Item should range from 0 to 6 
+```{r Importance Age}
+
+```
+
+## Ideal Age
+## Importance Height
+Item should range from 0 to 6 
+##Ideal Height
+Item needs to be transformed to a factor variable (instead of character)?
+
+### Country
+```{r Country}
+table(fulldata_selected_lim_wrangled$country)
+table(is.na(fulldata_selected_lim_wrangled$country))
+# in the limited data set FALSE in 100 cases -> no n.a. 
+```
+
+### Language
+Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
+```{r Language}
+table(fulldata_selected_lim_wrangled$language)
+table(is.na(fulldata_selected_lim_wrangled$country))
+# in the limited data set 100 participants, who answered the survey in russian. FALSE in 100 cases -> no n.a.
+```
+
+### Sex
+Categories: Woman; Genderqueer/Nonbinary; Man; None of the above; Prefer not to say; Other
+```{r Sex}
+table(fulldata_selected_lim_wrangled$sex)
+# 15 missing values in limited data set, Genderqueer/Nonbinary:2, Man: 6, Prefer not to say: 1, Woman: 76
+
+# Set missing values as NA
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(sex = as.character(sex),
+         sex = ifelse(sex == "", NA, sex),
+         sex = factor(sex))
+
+table(fulldata_selected_lim_wrangled$sex)
+
+table(is.na(fulldata_selected_lim_wrangled$sex))
+# in the limited data set, 15 NA for sex
+```
+
+### Sexual Orientation
+heterosexual; Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other
+```{r Sexual Orientation}
+table(fulldata_selected_lim_wrangled$sexual_orientation)
+# in the limited dataset: 15 missing cases, bisexual/pansexual:11, Lesbian/Gay/Homosexual: 1, Other: 1, Prefer not to say:1, Straight/Heterosexual: 71
+
+# Set missing values as NA
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(sexual_orientation = as.character(sexual_orientation),
+         sexual_orientation = ifelse(sexual_orientation == "", NA, sexual_orientation),
+         sexual_orientation = factor(sexual_orientation))
+
+table(fulldata_selected_lim_wrangled$sexual_orientation)
+
+table(is.na(fulldata_selected_lim_wrangled$sexual_orientation))
+# true in 15 cases -> 15 NA for sexual orientation (in limited dataset)
+```
+
+### Relationship Variable
+@Laura I can't quite comprehend what you have done with the relationship variable in your skript. Maybe you could explain it to me in our next meeting.
+
+### Answer accuracy
+I took the survey seriously; please use my information in the study.; I did not answer seriously, please disregard my information; I choose not to answer
+```{r Answer accuracy}
+table(fulldata_selected_lim_wrangled$answer_accuracy)
+# 25 missing cases, I choose not to answer:1, I did not answer seriously; please disregard my information: 1, I took the survey seriously; please use my information in the study:73
+
+# Set missing values as NA
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(answer_accuracy = as.character(answer_accuracy),
+         answer_accuracy = ifelse(answer_accuracy == "", NA, answer_accuracy),
+         answer_accuracy = factor(answer_accuracy))
+
+table(fulldata_selected_lim_wrangled$answer_accuracy)
+
+table(is.na(fulldata_selected_lim_wrangled$answer_accuracy))
+# false in 75 cases, true in 25 cases (25 NA)
+
+fulldata_selected_lim_wrangled %>%
+  select(sex, answer_accuracy) %>%
+  missingness_patterns()
+```
+@Laura what is the function missingness_patterns doing? (i get an error message due to R not able to find the function)
+@Laura I know set the missing values as NA, we decided to include the missing cases. Are we doing that in a later step or do i have to undo the setting of missing values as NA here?
+
+
+
+## Creating new variables for Ideal Partner Preferences
+```{r}
+fulldata_selected_lim_wrangled$pref_level_kind-supportive <- rowMeans(fulldata_selected_lim_wrangled [,c(10:11)],na.rm=TRUE)
+ #@Laura Code funktioniert nicht 
+
+fulldata_selected_lim_wrangled %>% 
+  mutate(fulldata_selected_lim_wrangled, pref_level_kind-supportive = rowMeans (select (fulldata_selected_lim_wrangled, pref_level_kind, pref_level_supportive, na.rm = TRUE))
+        # @Laura funktioniert auch nicht
+
+ fulldata_selected_lim_wrangled <- cbind(fulldata_selected_lim_wrangled, pref_level_kind-supportive = rowMeans (fulldata_selected_lim_wrangled [10:11], na.rm =TRUE))
+ 
+ #@Laura funktioniert auch nicht
+ 
+
+mutate(fulldata_selected_lim_wrangled, pref_level_kind-supportive <- rowMeans(pref_level_kind, pref_level_supportive, na.rm = TRUE))
+#@Laura auch falsch
+
+fulldata_selected_lim_wrangled %>% 
+  mutate(pref_level_kind-supportive = mean(pref_level_kind, pref_level_supportive))
+
+fulldata_selected_lim_wrangled %>% 
+  mutate(pref_level_kind-supportive = colMeans(pref_level_kind, pref_level_supportive,na.rm = FALSE, dims= 1L ))
+
+#@PROBLEM @Laura R hat ein Problem mit dem '=' 
+
+fulldata_selected_lim_wrangled <- fulldata_selected_lim_wrangled %>% 
+  group_by(pref_level_kind) %>% 
+  mutate(pref_level_kind-supportive = mean(pref_level_supportive))
+#@ PROBLEM siehe oben 
+```
+
+### Trying out a simple linear regression
+```{r Trying out a simple linear regression}
+lm(political_orientation ~ age, data = fulldata_selected_lim_wrangled)
+```
+
+
+
