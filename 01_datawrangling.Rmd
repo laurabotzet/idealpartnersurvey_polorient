@@ -11,6 +11,7 @@ editor_options:
 ```{r Library}
 library(car)
 library(psych)
+library(ggplot2)
 library(dplyr)
 ```
 
@@ -190,6 +191,14 @@ fulldata_selected_lim_wrangled %>%
 
 ## Creating new variables for Ideal Partner Preferences
 ```{r}
+fulldata_selected_lim_wrangled = fulldata_selected_lim %>% 
+  mutate(pref_level_kind_supportive = (pref_level_kind + pref_level_supportive)/2,
+         pref_level_attractiveness = (pref_level_attractive_body +
+                                        pref_level_attractive_face)/2)
+
+table(fulldata_selected_lim_wrangled$pref_level_kind_supportive)
+qplot(fulldata_selected_lim_wrangled$pref_level_attractiveness)
+
 fulldata_selected_lim_wrangled$pref_level_kind-supportive <- rowMeans(fulldata_selected_lim_wrangled [,c(10:11)],na.rm=TRUE)
  #@Laura Code funktioniert nicht 
 
@@ -202,11 +211,15 @@ fulldata_selected_lim_wrangled %>%
  #@Laura funktioniert auch nicht
  
 
-mutate(fulldata_selected_lim_wrangled, pref_level_kind-supportive <- rowMeans(pref_level_kind, pref_level_supportive, na.rm = TRUE))
+ 
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(pref_level_kind_supportive = rowMeans(fulldata_selected_lim_wrangled$pref_level_kind,
+                                          fulldata_selected_lim_wrangled$pref_level_supportive,
+                                               na.rm = TRUE))
 #@Laura auch falsch
+#@Lena: sorry, immer noch falsch :)
 
-fulldata_selected_lim_wrangled %>% 
-  mutate(pref_level_kind-supportive = mean(pref_level_kind, pref_level_supportive))
+
 
 fulldata_selected_lim_wrangled %>% 
   mutate(pref_level_kind-supportive = colMeans(pref_level_kind, pref_level_supportive,na.rm = FALSE, dims= 1L ))
