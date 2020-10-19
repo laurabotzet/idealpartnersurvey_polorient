@@ -20,7 +20,7 @@ fulldata = fulldata[-1,-1] #first row includes labels, first column just numbers
 ```
 
 ## Select Variables
-We only need certain variables from the dataset. Columns will be renamed according to the preregistration "Political Orientation ind its Relationship with Preferred Relationship Options and Partner Preferences in Single Women"
+We only need certain variables from the dataset. Columns will be renamed according to the preregistration "Political Orientation and its Relationship with Preferred Relationship Options and Partner Preferences in Single Women"
 ```{r Select Variables}
 fulldata_selected = fulldata %>%
   select(# Political Orientation
@@ -33,7 +33,7 @@ fulldata_selected = fulldata %>%
          interest_single = interest_being_single,
          interest_sexrel = interest_non_sexual_relations,
          interest_nonmonrel = interest_nonmonogamous_relations,
-         inteterst_monrel = interest_monogamous_relations,
+         interest_monrel = interest_monogamous_relations,
          
          # Political, Ethnical, Religious Similarity
          pref_politicalsim = lt_politcal_similarity,
@@ -46,7 +46,7 @@ fulldata_selected = fulldata %>%
          pref_level_attractive_body = lt_attractive_body_level,
          pref_level_attractive_face = lt_attractive_face_level,
          pref_level_financially_secure = lt_financial_security_level,
-         pref_level_successful_ambitous = lt_ambition_level,
+         pref_level_successful_ambitious = lt_ambition_level,
          pref_level_confident = lt_confidence_level,
          pref_level_assertive = lt_assertive_level,
          pref_level_intelligence = lt_intelligence_level,
@@ -76,7 +76,7 @@ fulldata_selected = fulldata %>%
 ```
 
 ## Limit dataset
-```{r}
+```{r Limit dataset}
 fulldata_selected_lim = fulldata_selected[1:100,]
 ```
 
