@@ -38,7 +38,9 @@ pander::panderOptions("table.split.table", Inf)
 library(labelled)
 library(codebook)
 library(formr)
+library(ggplot2)
 library(dplyr)
+
 ```
 
 

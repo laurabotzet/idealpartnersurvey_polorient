@@ -114,10 +114,9 @@ table(is.na(data_lim_included$political_orientation))
 #3 NA in limited data frame -> 21 heterosexual women who are 18 years or older and single stated their political orientation
 
 data_lim_included = data_lim_included %>%
-  filter(is.na(political_orientation))
+  filter(!is.na(political_orientation))
 
 ```
-@PROBLEM @Laura rows with single, heterosexual women who are 18 years or older but have not indicated their political orientation still remain in the dataset although I want to exlude them. The Code above will transform the dataset so that only the 3 participants who did not indicate their political orientation remain in the dataset (I want to do the opposite)
 
 ### All participants who did not answer the survey seriously or chose not to answer the seriousness question
 In total, we will exclude `r sum(fulldata_selected_lim_wrangled$answer_accuracy == "I did not answer seriously; please disregard my information.", fulldata_selected_lim_wrangled$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
@@ -131,7 +130,7 @@ data_lim_included = data_lim_included %>%
          is.na(answer_accuracy))
 ```
 
-@PROBLEM: We still have `r sum(is.na(data_included$answer_accuracy))` missings for answer_accuracy here. 
+We have `r sum(is.na(data_included$answer_accuracy))` missings for answer_accuracy here. As mentioned in the preregistration, we will include these participants in our analyses.
 ```{r Accuracy Missings}
 missings = data_lim_included %>% filter(is.na(answer_accuracy))
 ```
@@ -139,5 +138,5 @@ missings = data_lim_included %>% filter(is.na(answer_accuracy))
 
 ## Save Data
 ```{r Save Data}
-write.csv(data_included, file = "data_included.csv")
+write.csv(data_lim_included, file = "data_lim_included.csv")
 ```
