@@ -1,0 +1,137 @@
+---
+title: "04_descriptives"
+author: "Lena Kuschel"
+date: "21 10 2020"
+output: 
+  html_document:
+    code_folding: "hide"
+editor_options: 
+  chunk_output_type: console
+---
+
+## Analyses {.tabset}
+
+### Library
+```{r Library}
+library(apaTables)
+library(formr)
+# library(effects)
+# library(effectsize)
+# library(lme4)
+# library(sjstats)
+# library(lmerTest)
+library(dplyr)
+```
+
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_lim_included_documented = read.csv(file = "data_lim_included_documented.csv")[,-1]
+
+data_lim_included_documented = data_lim_included_documented %>%
+  filter(!is.na(age))
+```
+
+### Missingness pattern
+```{r}
+crosstabs(~ is.na(data_lim_included_documented$pref_level_kind) +
+            is.na(data_lim_included_documented$pref_level_supportive))
+```
+FALSE for 21 observations -> all missings have been previously excluded
+
+###Summary
+```{r Summary}
+summary(data_lim_included_documented)
+```
+
+
+### Political Orientation
+```{r Political Orientation}
+mean(data_lim_included_documented$political_orientation)
+sd(data_lim_included_documented$political_orientation)
+qplot(data_lim_included_documented$political_orientation)
+```
+
+### Age
+```{r Age}
+mean(data_lim_included_documented$age)
+sd(data_lim_included_documented$age)
+range(data_lim_included_documented$age)
+qplot(data_lim_included_documented$age)
+```
+
+### Correlations for ideal partner preferences
+```{r Correlations for ideal partner preferences}
+cor.test(data_lim_included_documented$pref_level_kind,
+         data_lim_included_documented$pref_level_supportive,
+         conf.level = 0.997)
+
+cor.test(data_lim_included_documented$pref_level_attractive_body,
+         data_lim_included_documented$pref_level_attractive_face,
+         conf.level = 0.997)
+
+cor.test(data_lim_included_documented$pref_level_financially_secure,
+         data_lim_included_documented$pref_level_successful_ambitous,
+         conf.level = 0.997)
+
+cor.test(data_lim_included_documented$pref_level_confident,
+         data_lim_included_documented$pref_level_assertive,
+         conf.level = 0.997)
+
+cor.test(data_lim_included_documented$pref_level_intelligence,
+         data_lim_included_documented$pref_level_educated,
+         conf.level = 0.997)
+```
+
+### Language
+```{r}
+n = length(data_lim_included_documented)
+
+table(data_lim_included_documented$language)
+
+round((table(data_lim_included_documented$language)/n)*100,2)
+```
+@Laura Was genau hast du hier berechnet? Die prozentualen Anteile wie viele Fragebögen in welchen Sprachen ausgefüllt wurden? Evtl. macht es hier für mich auch gerade wenig Sinn wegen des limitierten Datensatzes.
+
+### Country
+```{r}
+country_absolute = as.data.frame(table(data_lim_included_documented$country))
+
+country_freq = as.data.frame(round((table(data_lim_included_documented$country)/n)*100,2))
+
+country = left_join(country_absolute, country_freq, by = "Var1")
+
+write.table(country, file = "country.txt", sep = ",")
+```
+
+### Descriptives and Correlation Table
+```{r}
+cor = data_lim_included_documented %>%
+  select(political_orientation,
+          age,
+         interest_single,
+         interest_sexrel, 
+         interest_nonmonrel, 
+         #interest_monrel, 
+         inteterst_monrel,
+         pref_politicalsim, 
+         pref_ethnicalsim, 
+         pref_religioussim,
+         pref_level_kind_supportive, 
+         pref_level_attractiveness, 
+         pref_level_financially_secure_successful_ambitious, 
+         pref_level_confident_assertive,
+         pref_level_intelligence_educated, 
+         imp_age, 
+         ideal_age, 
+         imp_height, 
+         ideal_height, 
+         ideal_age_rel) %>%
+apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
+
+```
+@Laura: For the descriptives including ideal_age? or from here on only ideal_age_rel?
+@Problem @Laura R will not create a correlation table. Error message:
+Fehler in as.data.frame.default(data) : 
+  cannot coerce class ‘"function"’ to a data.frame
