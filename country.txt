@@ -1,0 +1,9 @@
+"Var1","Freq.x","Freq.y"
+"1","Belarus",1,2.86
+"2","Estonia",1,2.86
+"3","Georgia",1,2.86
+"4","Germany",1,2.86
+"5","Poland",1,2.86
+"6","Russia",12,34.29
+"7","Turkmenistan",1,2.86
+"8","Ukraine",3,8.57
