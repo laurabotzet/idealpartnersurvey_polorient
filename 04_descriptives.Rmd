@@ -86,13 +86,12 @@ cor.test(data_lim_included_documented$pref_level_intelligence,
 
 ### Language
 ```{r}
-n = length(data_lim_included_documented)
+n = nrow(data_lim_included_documented)
 
 table(data_lim_included_documented$language)
 
 round((table(data_lim_included_documented$language)/n)*100,2)
 ```
-@Laura Was genau hast du hier berechnet? Die prozentualen Anteile wie viele Fragebögen in welchen Sprachen ausgefüllt wurden? Evtl. macht es hier für mich auch gerade wenig Sinn wegen des limitierten Datensatzes.
 
 ### Country
 ```{r}
@@ -125,13 +124,11 @@ cor = data_lim_included_documented %>%
          pref_level_intelligence_educated, 
          imp_age, 
          ideal_age, 
-         imp_height, 
-         ideal_height, 
-         ideal_age_rel) %>%
+         imp_height) 
+         #ideal_height) 
+         #ideal_age_rel)
+round(cor(cor, use="complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
 
 ```
-@Laura: For the descriptives including ideal_age? or from here on only ideal_age_rel?
-@Problem @Laura R will not create a correlation table. Error message:
-Fehler in as.data.frame.default(data) : 
-  cannot coerce class ‘"function"’ to a data.frame
+

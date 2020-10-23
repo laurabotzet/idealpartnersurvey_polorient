@@ -118,7 +118,7 @@ fulldata_selected_lim_wrangled %>%
   select(-pref_politicalsim, -pref_ethnicalsim, -pref_religioussim) %>%
   md_pattern()
 ```
-@PROBLEM @Laura R is not able to find function missingness_patterns. Which package is needed?
+
 
 ### Ideal Age and Ideal Height
 ## Importance Age
@@ -176,13 +176,20 @@ qplot(fulldata_selected_lim_wrangled$imp_height)
 ##Ideal Height
 Item has the options: much shorter than me, shorter than me, around the same height as me, taller than me, much taller than me
 ```{r Ideal Height}
+# Transforming variable ideal_height in a numeric variable
+
+#fulldata_selected_lim_wrangled$ideal_height <- #as.factor(fulldata_selected_lim_wrangled$ideal_height)
+
+#fulldata_selected_lim_wrangled$ideal_height <- #as.numeric(fulldata_selected_lim_wrangled$ideal_height)
+
+
 fulldata_selected_lim_wrangled %>%
   select("ideal_height") %>%
   lapply(table)
 
 qplot(fulldata_selected_lim_wrangled$ideal_height)
 ```
-
+@PROBLEM: imp_height still needs to be transformed to a numeric variable ranging from -2 to 2 
 
 ### Country
 ```{r Country}
@@ -299,7 +306,7 @@ fulldata_selected_lim_wrangled %>%
   select(sex, answer_accuracy) %>%
   md_pattern()
 ```
-@PROBLEM @Laura function missingness_patterns not working
+
 
 ## Creating new variables for Ideal Partner Preferences
 ```{r}
