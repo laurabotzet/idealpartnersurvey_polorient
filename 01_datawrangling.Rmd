@@ -14,6 +14,7 @@ library(psych)
 library(ggplot2)
 library(formr)
 library(dplyr)
+library(codebook)
 ```
 
 
@@ -115,7 +116,7 @@ qplot(fulldata_selected_lim_wrangled$pref_level_educated)
 fulldata_selected_lim_wrangled %>%
   select(starts_with("pref_")) %>%
   select(-pref_politicalsim, -pref_ethnicalsim, -pref_religioussim) %>%
-  missingness_patterns()
+  md_pattern()
 ```
 @PROBLEM @Laura R is not able to find function missingness_patterns. Which package is needed?
 
@@ -149,7 +150,7 @@ sum(fulldata_selected_lim_wrangled$ideal_age > 100, na.rm = T)
 
 
 fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
-  mutate (ideal_age = ifelse(ideal_age > 100, NA, ideal_age)
+  mutate(ideal_age = ifelse(ideal_age > 100, NA, ideal_age))
           
 table(is.na(fulldata_selected_lim_wrangled$ideal_age))
 
@@ -296,7 +297,7 @@ table(is.na(fulldata_selected_lim_wrangled$answer_accuracy))
 
 fulldata_selected_lim_wrangled %>%
   select(sex, answer_accuracy) %>%
-  missingness_patterns()
+  md_pattern()
 ```
 @PROBLEM @Laura function missingness_patterns not working
 

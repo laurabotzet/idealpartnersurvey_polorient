@@ -9,10 +9,6 @@ html_document:
     toc_float: true
     code_folding: 'hide'
     self_contained: true
-  pdf_document:
-    toc: yes
-    toc_depth: 4
-    latex_engine: xelatex
 editor_options: 
   chunk_output_type: console
 ---
