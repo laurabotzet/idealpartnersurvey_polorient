@@ -110,6 +110,12 @@ data_included = data_included %>%
   filter((answer_accuracy != "I did not answer seriously; please disregard my information." &
          answer_accuracy != "I choose not to answer.") |
          is.na(answer_accuracy))
+
+data_included = data_included %>%
+  filter((answer_accuracy ==
+            "I took the survey seriously; please use my information in the study.") |
+         is.na(answer_accuracy))
+
 ```
 
 @PROBLEM: We still have `r sum(is.na(data_included$answer_accuracy))` missings for answer_accuracy here. In the preregistration we did not state that we will exclude them. (@Tanja, @preregistration)
