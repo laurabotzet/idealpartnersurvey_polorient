@@ -176,24 +176,32 @@ qplot(fulldata_selected_lim_wrangled$imp_height)
 ##Ideal Height
 Item has the options: much shorter than me, shorter than me, around the same height as me, taller than me, much taller than me
 ```{r Ideal Height}
-# Transforming variable ideal_height in a numeric variable
-#as factor
-fulldata_selected_lim_wrangled$ideal_height <- as.factor(fulldata_selected_lim_wrangled$ideal_height)
+table(fulldata_selected_lim_wrangled$ideal_height)
 
-# much shorter than me = -2, shorter than me = -1, around the same height as me = 0, taller than me = 1, much taller than me = 2 
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(ideal_height = ifelse(ideal_height == "", NA, ideal_height),
+         ideal_height_numeric = as.factor(ideal_height))
 
-recode(fulldata_selected_lim_wrangled$ideal_height, 'much shorter than me' = -2,'shorter than me' = -1, 'around the same height as me' = 0, 'taller than me' = 1, 'much taller than me' = 2, .default = NULL, .missing = NULL)
+fulldata_selected_lim_wrangled$ideal_height_numeric = 
+  recode(fulldata_selected_lim_wrangled$ideal_height_numeric,
+         'much shorter than me' = -2,'shorter than me' = -1,
+         'around the same height as me' = 0, 'taller than me' = 1,
+         'much taller than me' = 2, .default = NULL, .missing = NULL)
 
-
-fulldata_selected_lim_wrangled$ideal_height <- as.numeric(fulldata_selected_lim_wrangled$ideal_height)
-#hier nimmt R scheinbar willkürliche Werte statt die oben mir recode() zugewiesenen 
-
+crosstabs(~ideal_height_numeric + ideal_height, data = fulldata_selected_lim_wrangled)
+table(fulldata_selected_lim_wrangled$ideal_height)
+class(fulldata_selected_lim_wrangled$ideal_height_numeric)
+levels(fulldata_selected_lim_wrangled$ideal_height_numeric)
 
 fulldata_selected_lim_wrangled %>%
-  select("ideal_height") %>%
+  select("ideal_height_numeric") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$ideal_height)
+qplot(fulldata_selected_lim_wrangled$ideal_height_numeric)
+
+fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+  mutate(ideal_height = ideal_height_numeric) %>%
+  select(-ideal_height_numeric)
 ```
 @PROBLEM: imp_height still needs to be transformed to a numeric variable ranging from -2 to 2 
 
