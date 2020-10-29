@@ -398,29 +398,28 @@ library(dplyr)</code></pre>
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>Load selected data based on 01_datawrangling</p>
-<pre class="r"><code>fulldata_selected_lim_wrangled = read.csv(file = &quot;fulldata_selected_lim_wrangled.csv&quot;)[,-1]</code></pre>
+<pre class="r"><code>fulldata_selected_wrangled = read.csv(file = &quot;fulldata_selected_wrangled.csv&quot;)[,-1]</code></pre>
 </div>
 <div id="exclusion-process" class="section level2">
 <h2>Exclusion Process</h2>
-<pre class="r"><code>data_lim_included = fulldata_selected_lim_wrangled</code></pre>
+<pre class="r"><code>data_included = fulldata_selected_wrangled</code></pre>
 <div id="all-participants-younger-than-18" class="section level3">
 <h3>All participants younger than 18</h3>
-<p>In total, we will exclude 15 participants because they are younger than 18.</p>
-<pre class="r"><code>data_lim_included = fulldata_selected_lim_wrangled %&gt;%
+<p>In total, we will exclude 26638 participants because they are younger than 18.</p>
+<pre class="r"><code>data_included = fulldata_selected_wrangled %&gt;%
   filter(age &gt;= 18 |
          is.na(age))
 
-table(is.na(data_lim_included$age))</code></pre>
+table(is.na(data_included$age))</code></pre>
 <pre><code>## 
-## FALSE 
-##    85</code></pre>
-<pre class="r"><code>#15 participants are exluded because they are younger than 18 years old</code></pre>
+## FALSE  TRUE 
+## 68085    15</code></pre>
 </div>
 <div id="all-participants-who-do-not-identify-as-women" class="section level3">
 <h3>All participants who do not identify as women</h3>
-<p>In total, we will exclude 9 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
-<p>Consecutively, this means we will exclude 9 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
-<pre class="r"><code>data_lim_included = data_lim_included %&gt;%
+<p>In total, we will exclude 3221 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
+<p>Consecutively, this means we will exclude 3221 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
+<pre class="r"><code>data_included = data_included %&gt;%
   filter((sex != &quot;Man&quot; &amp;
          sex != &quot;Genderqueer/Nonbinary&quot; &amp;
          sex != &quot;None of the above&quot; &amp;
@@ -428,101 +427,98 @@ table(is.na(data_lim_included$age))</code></pre>
          sex != &quot;Other&quot;)  |
          is.na(sex))
 
-table(data_lim_included$sex)</code></pre>
+table(data_included$sex)</code></pre>
 <pre><code>## 
 ## Woman 
-##    76</code></pre>
-<pre class="r"><code>table(is.na(data_lim_included$sex))</code></pre>
+## 64879</code></pre>
+<pre class="r"><code>table(is.na(data_included$sex))</code></pre>
 <pre><code>## 
 ## FALSE 
-##    76</code></pre>
-<pre class="r"><code>#85-76 = 9 -&gt; 9 participants are excluded because they are no women </code></pre>
+## 64879</code></pre>
 </div>
 <div id="all-participants-who-do-not-identify-as-heterosexual" class="section level3">
 <h3>All participants who do not identify as heterosexual</h3>
-<p>In total, we will exclude 14 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
-<p>Consecutively, this means we will exclude 10 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
-<pre class="r"><code>data_lim_included = data_lim_included %&gt;%
+<p>In total, we will exclude 13454 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
+<p>Consecutively, this means we will exclude 11946 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
+<pre class="r"><code>data_included = data_included %&gt;%
   filter((sexual_orientation != &quot;Lesbian/Gay/Homosexual&quot; &amp; sexual_orientation != &quot;Bisexual/Pansexual&quot; &amp;
          sexual_orientation != &quot;Queer&quot; &amp; sexual_orientation != &quot;Asexual&quot; &amp;
          sexual_orientation != &quot;Prefer not to say&quot; &amp; sexual_orientation != &quot;Other&quot;) |
          is.na(sexual_orientation))
 
-table(data_lim_included$sexual_orientation)</code></pre>
+table(data_included$sexual_orientation)</code></pre>
 <pre><code>## 
 ## Straight/Heterosexual 
-##                    66</code></pre>
-<pre class="r"><code>table(is.na(data_lim_included$sexual_orientation)) </code></pre>
+##                 52933</code></pre>
+<pre class="r"><code>table(is.na(data_included$sexual_orientation)) </code></pre>
 <pre><code>## 
 ## FALSE 
-##    66</code></pre>
-<pre class="r"><code>#76-66= 10 -&gt; 10 participants are excluded because they are not straight/heterosexual</code></pre>
+## 52933</code></pre>
 </div>
 <div id="all-participants-who-indicated-being-in-a-relationship" class="section level3">
 <h3>All participants who indicated being in a relationship</h3>
-<p>In total, we will exclude 55 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 0 participants where it was not sure whether they were currently single (Other).</p>
-<p>Consecutively, we will exclude 42 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 0 participants where it was not sure whether they were currently single (Other).</p>
-<pre class="r"><code>data_lim_included_test1 = data_lim_included %&gt;%
+<p>In total, we will exclude 45276 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 304 participants where it was not sure whether they were currently single (Other).</p>
+<p>Consecutively, we will exclude 35605 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 214 participants where it was not sure whether they were currently single (Other).</p>
+<pre class="r"><code>data_included_test1 = data_included %&gt;%
   filter((!(relationship %contains% &quot;New (less than 1 month old) romantic and/or sexual relationship&quot;) &amp;
          !(relationship %contains% &quot;Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship&quot;) &amp;
          !(relationship %contains% &quot;Long-term committed/exclusive sexual relationship with one or more partners&quot;) &amp;
          !(relationship %contains% &quot;Other&quot;)) |
          is.na(relationship))
 
-table(data_lim_included_test1$relationship)</code></pre>
+table(data_included_test1$relationship)</code></pre>
 <pre><code>## 
-##  Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  
-##                                                                             4 
-##                No romantic or sexual relationships during the past 3 months,  
-##                                                                            18</code></pre>
-<pre class="r"><code>table(is.na(data_lim_included_test1$relationship))</code></pre>
+##                                                                Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  
+##                                                                                                                                        3408 
+##                                                                              No romantic or sexual relationships during the past 3 months,  
+##                                                                                                                                       11976 
+## No romantic or sexual relationships during the past 3 months,  Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  
+##                                                                                                                                         158</code></pre>
+<pre class="r"><code>table(is.na(data_included_test1$relationship))</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
-##    22     2</code></pre>
-<pre class="r"><code>#for limited dataset 2 NA -&gt; 22 heterosexual women who are 18 years or older are single (i.e. either in a short-term (casual) sexual relationship (e.g. hookups or one-night-stands) or in no romantic or sexual relationship during the past 3 months)</code></pre>
+## 15542  2602</code></pre>
 <div id="relationship-check-with-old-relationships-variable" class="section level4">
 <h4>Relationship check: With old relationships variable</h4>
 <p>Just to make sure, that our data wrangling earlier worked, we will check the exclusion process based on old relationships variable</p>
-<pre class="r"><code>data_lim_included_test2 = data_lim_included %&gt;%
+<pre class="r"><code>data_included_test2 = data_included %&gt;%
   filter(relationship1 != &quot;True&quot;) %&gt;%
   filter(relationship3 != &quot;True&quot;) %&gt;%
   filter(relationship4 != &quot;True&quot;) %&gt;%
   filter(relationship5 != &quot;True&quot;)
 
-data_lim_included = data_lim_included_test1 %&gt;%
+data_included = data_included_test1 %&gt;%
   # Drop unneccessary relationship variables
   select(-relationship1, -relationship2, -relationship3, -relationship4, -relationship5) </code></pre>
 </div>
 </div>
 <div id="all-participants-who-did-not-specify-their-political-orientation" class="section level3">
 <h3>All participants who did not specify their political orientation</h3>
-<pre class="r"><code>data_lim_included = data_lim_included %&gt;%
+<pre class="r"><code>data_included = data_included %&gt;%
   mutate(political_orientation = ifelse(political_orientation == &quot;&quot;, NA, political_orientation))
 
-table(is.na(data_lim_included$political_orientation))</code></pre>
+table(is.na(data_included$political_orientation))</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
-##    21     3</code></pre>
-<pre class="r"><code>#3 NA in limited data frame -&gt; 21 heterosexual women who are 18 years or older and single stated their political orientation
-
-data_lim_included = data_lim_included %&gt;%
+## 13815  4329</code></pre>
+<pre class="r"><code>data_included = data_included %&gt;%
   filter(!is.na(political_orientation))</code></pre>
 </div>
 <div id="all-participants-who-did-not-answer-the-survey-seriously-or-chose-not-to-answer-the-seriousness-question" class="section level3">
 <h3>All participants who did not answer the survey seriously or chose not to answer the seriousness question</h3>
-<p>In total, we will exclude 2 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
-<p>Consecutively, we will exclude 0 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
-<pre class="r"><code>data_lim_included = data_lim_included %&gt;%
+<p>In total, we will exclude 2070 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
+<p>Consecutively, we will exclude 558 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
+<pre class="r"><code>data_included = data_included %&gt;%
   filter((answer_accuracy != &quot;I did not answer seriously; please disregard my information.&quot; &amp;
          answer_accuracy != &quot;I choose not to answer.&quot;) |
          is.na(answer_accuracy))</code></pre>
-<p>We have 2 missings for answer_accuracy here. As mentioned in the preregistration, we will include these participants in our analyses.</p>
-<pre class="r"><code>missings = data_lim_included %&gt;% filter(is.na(answer_accuracy))</code></pre>
+<p>We have 796 missings for answer_accuracy here. As mentioned in the preregistration, we will include these participants in our analyses.</p>
+<pre class="r"><code>missings = data_included %&gt;% filter(is.na(answer_accuracy))</code></pre>
 </div>
 </div>
 <div id="save-data" class="section level2">
 <h2>Save Data</h2>
-<pre class="r"><code>write.csv(data_lim_included, file = &quot;data_lim_included.csv&quot;)</code></pre>
+<pre class="r"><code>write.csv(data_included, file = &quot;data_included.csv&quot;)</code></pre>
 </div>
 
 
