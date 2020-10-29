@@ -21,99 +21,103 @@ library(codebook)
 ## Data
 Load selected data based on 00_dataimport
 ```{r Data}
-fulldata_selected_lim = read.csv(file = "fulldata_selected_lim.csv")[,-1]
+fulldata_selected = read.csv(file = "fulldata_selected.csv")[,-1]
 ```
 
 
 ## Inspect Data
 ```{r Inspect Data}
-colnames(fulldata_selected_lim)
+colnames(fulldata_selected)
 
-fulldata_selected_lim_wrangled = fulldata_selected_lim
+fulldata_selected_wrangled = fulldata_selected
+
+#Correct typo in variable interest_monrel
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
+  rename(interest_monrel = inteterst_monrel)
+
+#Correct typo in variable pref_level_successful_ambitious
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
+  rename(pref_level_successful_ambitious = pref_level_successful_ambitous)
 ```
 
 
 ### Age
 Participants younger than 18 were able to insert age but the survey was ended for them afterwards.
 ```{r Age}
-table(fulldata_selected_lim_wrangled$age)
+table(fulldata_selected_wrangled$age)
 ```
 Set all numbers > 100 as missing:
 ```{r Age 2}
-sum(fulldata_selected_lim_wrangled$age > 100)
-# This means that age is set as missing for 15 people (for the limited data frame 0 people)
+sum(fulldata_selected_wrangled$age > 100)
+# This means that age is set as missing for 15 people
 
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(age = ifelse(age > 100, NA, age))
 
-table(is.na(fulldata_selected_lim_wrangled$age))
+table(is.na(fulldata_selected_wrangled$age))
 
-table(fulldata_selected_lim_wrangled$age < 18)
-# 26638 people were not allowed to participate in the survey because they were younger than 18 (for the limited data frame 15 people)
+table(fulldata_selected_wrangled$age < 18)
+# 26638 people were not allowed to participate in the survey because they were younger than 18
 ```
 
 ### Political Orientation
 Political Orientation item should range from 0 to 6
 ```{r Political Orientation}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("political_orientation") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$political_orientation)
-#Political orientation ranges from 0 to 6 
+qplot(fulldata_selected_wrangled$political_orientation)
 ```
 
 ### Preferred Relationship Options
 Interest in being single, interest in sexual (non-romantic) relationships, interest in non-monogamous relationships and interest in monogamous relationships items should range from 0 to 6 
 ```{r Preferred Relationship Options}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select(starts_with("interest_")) %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$interest_single)
-qplot(fulldata_selected_lim_wrangled$interest_sexrel)
-qplot(fulldata_selected_lim_wrangled$interest_nonmonrel)
-qplot(fulldata_selected_lim_wrangled$inteterst_monrel)
-# variables for preferred relationship options range from 0 to 6 
+qplot(fulldata_selected_wrangled$interest_single)
+qplot(fulldata_selected_wrangled$interest_sexrel)
+qplot(fulldata_selected_wrangled$interest_nonmonrel)
+qplot(fulldata_selected_wrangled$interest_monrel)
 ```
-@PROBLEM @Laura Variable interest monogamous relationships ist im limitierten Datensatz falsch geschrieben 
+ 
 
 ### Political, ethnical, religious similarity
 Preferences for political, ethnical and religious similarity items should range from 0 to 6 
 ```{r Political, ethnical and religious similarity}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("pref_politicalsim", "pref_ethnicalsim", "pref_religioussim") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$pref_politicalsim)
-qplot(fulldata_selected_lim_wrangled$pref_ethnicalsim)
-qplot(fulldata_selected_lim_wrangled$pref_religioussim)
+qplot(fulldata_selected_wrangled$pref_politicalsim)
+qplot(fulldata_selected_wrangled$pref_ethnicalsim)
+qplot(fulldata_selected_wrangled$pref_religioussim)
 
-#Political, ethnical and religious similarity all range from 0 to 6 
 ```
 
 ### Ideal Partner Preferences
 All ideal partner preference items should range from 0 to 6 
 ```{r Ideal Partner Preferences}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select(starts_with("pref_")) %>%
   select(-pref_politicalsim, -pref_ethnicalsim, -pref_religioussim) %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$pref_level_kind)
-qplot(fulldata_selected_lim_wrangled$pref_level_supportive)
-qplot(fulldata_selected_lim_wrangled$pref_level_attractive_body)
-qplot(fulldata_selected_lim_wrangled$pref_level_attractive_face)
-qplot(fulldata_selected_lim_wrangled$pref_level_financially_secure)
-qplot(fulldata_selected_lim_wrangled$pref_level_successful_ambitous)
-qplot(fulldata_selected_lim_wrangled$pref_level_confident)
-qplot(fulldata_selected_lim_wrangled$pref_level_assertive)
-qplot(fulldata_selected_lim_wrangled$pref_level_intelligence)
-qplot(fulldata_selected_lim_wrangled$pref_level_educated)
+qplot(fulldata_selected_wrangled$pref_level_kind)
+qplot(fulldata_selected_wrangled$pref_level_supportive)
+qplot(fulldata_selected_wrangled$pref_level_attractive_body)
+qplot(fulldata_selected_wrangled$pref_level_attractive_face)
+qplot(fulldata_selected_wrangled$pref_level_financially_secure)
+qplot(fulldata_selected_wrangled$pref_level_successful_ambitious)
+qplot(fulldata_selected_wrangled$pref_level_confident)
+qplot(fulldata_selected_wrangled$pref_level_assertive)
+qplot(fulldata_selected_wrangled$pref_level_intelligence)
+qplot(fulldata_selected_wrangled$pref_level_educated)
 
-# I presume that all items range from 0 to 6 (here in the limited data frame some have a smaller range)
 
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select(starts_with("pref_")) %>%
   select(-pref_politicalsim, -pref_ethnicalsim, -pref_religioussim) %>%
   md_pattern()
@@ -124,148 +128,137 @@ fulldata_selected_lim_wrangled %>%
 ## Importance Age
 Item should range from 0 to 6 
 ```{r Importance Age}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("imp_age") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$imp_age)
+qplot(fulldata_selected_wrangled$imp_age)
 
-#Importance Age item ranges from 0 to 6 
 ```
 
 ## Ideal Age
 This item is in open format style
 ```{r Ideal Age}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("ideal_age") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$ideal_age)
-#Ideal Age item ranges from 15 to 45 (in limited data frame)
+qplot(fulldata_selected_wrangled$ideal_age)
 ```
 Variable ideal_age was not restricted to a reasonable number, thus numbers larger than 100 were possible. To deal with this we will set all numbers >= 100 as missing.
 ```{r Ideal Age 2}
-sum(fulldata_selected_lim_wrangled$ideal_age > 100, na.rm = T)
-# This means that ideal_age is set as missing for 0 people (for limited data frame)
+sum(fulldata_selected_wrangled$ideal_age > 100, na.rm = T)
 
-
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(ideal_age = ifelse(ideal_age > 100, NA, ideal_age))
           
-table(is.na(fulldata_selected_lim_wrangled$ideal_age))
+table(is.na(fulldata_selected_wrangled$ideal_age))
 
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select(ideal_age) %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$ideal_age)
+qplot(fulldata_selected_wrangled$ideal_age)
 ```
 
 
 ## Importance Height
 Item should range from 0 to 6 
 ```{r Importance Height}
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("imp_height") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$imp_height)
-#Importance Height item ranges from 0 to 6
+qplot(fulldata_selected_wrangled$imp_height)
 ```
 
 ##Ideal Height
 Item has the options: much shorter than me, shorter than me, around the same height as me, taller than me, much taller than me
 ```{r Ideal Height}
-table(fulldata_selected_lim_wrangled$ideal_height)
+table(fulldata_selected_wrangled$ideal_height)
 
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(ideal_height = ifelse(ideal_height == "", NA, ideal_height),
          ideal_height_numeric = as.factor(ideal_height))
 
-fulldata_selected_lim_wrangled$ideal_height_numeric = 
-  recode(fulldata_selected_lim_wrangled$ideal_height_numeric,
+fulldata_selected_wrangled$ideal_height_numeric = 
+  recode(fulldata_selected_wrangled$ideal_height_numeric,
          'much shorter than me' = -2,'shorter than me' = -1,
          'around the same height as me' = 0, 'taller than me' = 1,
          'much taller than me' = 2, .default = NULL, .missing = NULL)
 
-crosstabs(~ideal_height_numeric + ideal_height, data = fulldata_selected_lim_wrangled)
-table(fulldata_selected_lim_wrangled$ideal_height)
-class(fulldata_selected_lim_wrangled$ideal_height_numeric)
-levels(fulldata_selected_lim_wrangled$ideal_height_numeric)
+crosstabs(~ideal_height_numeric + ideal_height, data = fulldata_selected_wrangled)
+table(fulldata_selected_wrangled$ideal_height)
+class(fulldata_selected_wrangled$ideal_height_numeric)
+levels(fulldata_selected_wrangled$ideal_height_numeric)
 
-fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled %>%
   select("ideal_height_numeric") %>%
   lapply(table)
 
-qplot(fulldata_selected_lim_wrangled$ideal_height_numeric)
+qplot(fulldata_selected_wrangled$ideal_height_numeric)
 
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(ideal_height = ideal_height_numeric) %>%
   select(-ideal_height_numeric)
 ```
-@PROBLEM: imp_height still needs to be transformed to a numeric variable ranging from -2 to 2 
+
 
 ### Country
 ```{r Country}
-table(fulldata_selected_lim_wrangled$country)
-table(is.na(fulldata_selected_lim_wrangled$country))
-# in the limited data set FALSE in 100 cases -> no n.a. 
+table(fulldata_selected_wrangled$country)
+table(is.na(fulldata_selected_wrangled$country))
 ```
 
 ### Language
 Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
 ```{r Language}
-table(fulldata_selected_lim_wrangled$language)
-table(is.na(fulldata_selected_lim_wrangled$country))
-# in the limited data set 100 participants, who answered the survey in russian. FALSE in 100 cases -> no n.a.
+table(fulldata_selected_wrangled$language)
+table(is.na(fulldata_selected_wrangled$country))
 ```
 
 ### Sex
 Categories: Woman; Genderqueer/Nonbinary; Man; None of the above; Prefer not to say; Other
 ```{r Sex}
-table(fulldata_selected_lim_wrangled$sex)
-# 15 missing values in limited data set, Genderqueer/Nonbinary:2, Man: 6, Prefer not to say: 1, Woman: 76
+table(fulldata_selected_wrangled$sex)
 
 # Set missing values as NA
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(sex = as.character(sex),
          sex = ifelse(sex == "", NA, sex),
          sex = factor(sex))
 
-table(fulldata_selected_lim_wrangled$sex)
+table(fulldata_selected_wrangled$sex)
 
-table(is.na(fulldata_selected_lim_wrangled$sex))
-# in the limited data set, 15 NA for sex
+table(is.na(fulldata_selected_wrangled$sex))
 ```
 
 ### Sexual Orientation
 heterosexual; Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other
 ```{r Sexual Orientation}
-table(fulldata_selected_lim_wrangled$sexual_orientation)
-# in the limited dataset: 15 missing cases, bisexual/pansexual:11, Lesbian/Gay/Homosexual: 1, Other: 1, Prefer not to say:1, Straight/Heterosexual: 71
+table(fulldata_selected_wrangled$sexual_orientation)
 
 # Set missing values as NA
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(sexual_orientation = as.character(sexual_orientation),
          sexual_orientation = ifelse(sexual_orientation == "", NA, sexual_orientation),
          sexual_orientation = factor(sexual_orientation))
 
-table(fulldata_selected_lim_wrangled$sexual_orientation)
+table(fulldata_selected_wrangled$sexual_orientation)
 
-table(is.na(fulldata_selected_lim_wrangled$sexual_orientation))
-# true in 15 cases -> 15 NA for sexual orientation (in limited dataset)
+table(is.na(fulldata_selected_wrangled$sexual_orientation))
 ```
 
 ### Relationship Variable
 ```{r Relationship variable}
-table(fulldata_selected_lim_wrangled$relationship) #No romantic or sexual relationships during the past 3 months
-table(fulldata_selected_lim_wrangled$relationship1) #Other
-table(fulldata_selected_lim_wrangled$relationship2) #Short-term (casual) sexual relationship (e.g. hookups or one-night-stands)
-table(fulldata_selected_lim_wrangled$relationship3) #New (less than 1 month old) romantic and/or sexual relationship 
-table(fulldata_selected_lim_wrangled$relationship4) #Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship
-table(fulldata_selected_lim_wrangled$relationship5)#Long-term committed/exclusive sexual relationship with one or more partners
+table(fulldata_selected_wrangled$relationship) #No romantic or sexual relationships during the past 3 months
+table(fulldata_selected_wrangled$relationship1) #Other
+table(fulldata_selected_wrangled$relationship2) #Short-term (casual) sexual relationship (e.g. hookups or one-night-stands)
+table(fulldata_selected_wrangled$relationship3) #New (less than 1 month old) romantic and/or sexual relationship 
+table(fulldata_selected_wrangled$relationship4) #Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship
+table(fulldata_selected_wrangled$relationship5)#Long-term committed/exclusive sexual relationship with one or more partners
 
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(relationship = ifelse(relationship == "True",
                                "No romantic or sexual relationships during the past 3 months, ",
                                ""),
@@ -291,10 +284,10 @@ fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
                                relationship),
          relationship = ifelse(relationship == "", NA, relationship))
 
-table(fulldata_selected_lim_wrangled$relationship)
+table(fulldata_selected_wrangled$relationship)
 
 # Check whether command worked correctly
-table(fulldata_selected_lim_wrangled$relationship %contains% "No romantic or sexual relationships during the past 3 months") 
+table(fulldata_selected_wrangled$relationship %contains% "No romantic or sexual relationships during the past 3 months") 
 #true in 26 cases, false in 57 cases -> for the limited data frame: 26 singles
 ```
 
@@ -302,21 +295,20 @@ table(fulldata_selected_lim_wrangled$relationship %contains% "No romantic or sex
 ### Answer accuracy
 I took the survey seriously; please use my information in the study.; I did not answer seriously, please disregard my information; I choose not to answer
 ```{r Answer accuracy}
-table(fulldata_selected_lim_wrangled$answer_accuracy)
-# 25 missing cases, I choose not to answer:1, I did not answer seriously; please disregard my information: 1, I took the survey seriously; please use my information in the study:73
+table(fulldata_selected_wrangled$answer_accuracy)
 
 # Set missing values as NA
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>%
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(answer_accuracy = as.character(answer_accuracy),
          answer_accuracy = ifelse(answer_accuracy == "", NA, answer_accuracy),
          answer_accuracy = factor(answer_accuracy))
 
-table(fulldata_selected_lim_wrangled$answer_accuracy)
+table(fulldata_selected_wrangled$answer_accuracy)
 
-table(is.na(fulldata_selected_lim_wrangled$answer_accuracy))
-# false in 75 cases, true in 25 cases (25 NA)
+table(is.na(fulldata_selected_wrangled$answer_accuracy))
 
-fulldata_selected_lim_wrangled %>%
+
+fulldata_selected_wrangled %>%
   select(sex, answer_accuracy) %>%
   md_pattern()
 ```
@@ -324,37 +316,36 @@ fulldata_selected_lim_wrangled %>%
 
 ## Creating new variables for Ideal Partner Preferences
 ```{r}
-fulldata_selected_lim_wrangled = fulldata_selected_lim_wrangled %>% 
+fulldata_selected_wrangled = fulldata_selected_wrangled %>% 
   mutate(pref_level_kind_supportive = (pref_level_kind + pref_level_supportive)/2,
          pref_level_attractiveness = (pref_level_attractive_body +
                                         pref_level_attractive_face)/2,
-         pref_level_financially_secure_successful_ambitious = (pref_level_financially_secure + pref_level_successful_ambitous)/2,
+         pref_level_financially_secure_successful_ambitious = (pref_level_financially_secure + pref_level_successful_ambitious)/2,
          pref_level_confident_assertive = (pref_level_confident + pref_level_assertive)/2, 
          pref_level_intelligence_educated = (pref_level_intelligence + pref_level_educated)/2)
 
-table(fulldata_selected_lim_wrangled$pref_level_kind_supportive)
-table(fulldata_selected_lim_wrangled$pref_level_attractiveness)
-table(fulldata_selected_lim_wrangled$pref_level_financially_secure_successful_ambitious)
-table(fulldata_selected_lim_wrangled$pref_level_confident_assertive)
-table(fulldata_selected_lim_wrangled$pref_level_intelligence_educated)
+table(fulldata_selected_wrangled$pref_level_kind_supportive)
+table(fulldata_selected_wrangled$pref_level_attractiveness)
+table(fulldata_selected_wrangled$pref_level_financially_secure_successful_ambitious)
+table(fulldata_selected_wrangled$pref_level_confident_assertive)
+table(fulldata_selected_wrangled$pref_level_intelligence_educated)
 
 
-qplot(fulldata_selected_lim_wrangled$pref_level_kind_supportive)
-qplot(fulldata_selected_lim_wrangled$pref_level_attractiveness)
-qplot(fulldata_selected_lim_wrangled$pref_level_financially_secure_successful_ambitious)
-qplot(fulldata_selected_lim_wrangled$pref_level_confident_assertive)
-qplot(fulldata_selected_lim_wrangled$pref_level_intelligence_educated)
+qplot(fulldata_selected_wrangled$pref_level_kind_supportive)
+qplot(fulldata_selected_wrangled$pref_level_attractiveness)
+qplot(fulldata_selected_wrangled$pref_level_financially_secure_successful_ambitious)
+qplot(fulldata_selected_wrangled$pref_level_confident_assertive)
+qplot(fulldata_selected_wrangled$pref_level_intelligence_educated)
 ```
-@Laura item pref_level_successful_ambitious is written incorrectly in limited data frame (pref_level_successful_ambitous)
 
 ### Trying out a simple linear regression
 ```{r Trying out a simple linear regression}
-lm(political_orientation ~ age, data = fulldata_selected_lim_wrangled)
+lm(political_orientation ~ age, data = fulldata_selected_wrangled)
 ```
 
 ## Save Data
 ```{r Save data}
-write.csv(fulldata_selected_lim_wrangled, file = "fulldata_selected_lim_wrangled.csv")
+write.csv(fulldata_selected_wrangled, file = "fulldata_selected_wrangled.csv")
 ```
 
 
