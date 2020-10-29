@@ -36,27 +36,24 @@ library(codebook)
 library(formr)
 library(ggplot2)
 library(dplyr)
-
 ```
-
 
 ## Data
 Load selected data based on 02_exclusion
 ```{r Data}
-data_lim_included = read.csv(file = "data_lim_included.csv")[,-1]
+data_included = read.csv(file = "data_included.csv")[,-1]
 ```
 
 ## Information about Data
 ### Variable Labels
 ```{r Variable Labels}
-var_label(data_lim_included) = list(
+var_label(data_included) = list(
   political_orientation = "Where would you place yourself on the political spectrum?",
   age = "How old are you?",
   interest_single = "How interested are you in each of the following relationship options at some time in the future? - Being non-partnered (e.g., solo, single, not committed)",
   interest_sexrel = "How interested are you in each of the following relationship options at some time in the future? - Having sexual, non-romantic relationship(s) (e.g., hookups, one-night stands)",
   interest_nonmonrel = "How interested are you in each of the following relationship options at some time in the future? -Having non-monogamous relationship(s)",
-  #interest_monrel = "How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)",
-  inteterst_monrel = "How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)",
+  interest_monrel = "How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)",
   pref_politicalsim = "Similar political beliefs and values as me - How important is it to you?", 
   pref_ethnicalsim = "Ethnicity/race - Should your partner's ethnicity/race be different or the same as you?",
   pref_religioussim = "Similar religious beliefs as me - How important is it to you",
@@ -65,7 +62,7 @@ var_label(data_lim_included) = list(
   pref_level_attractive_body = "Attractive body - How attractive should your partner's body be?",
   pref_level_attractive_face = "Attractive face - How attractive should your partner's face be?",
   pref_level_financially_secure = "Financial security - How financially secure should your partner be?",
-  pref_level_successful_ambitous = "Successful/ambitious - How successful/ambitious should your partner be?",
+  pref_level_successful_ambitious = "Successful/ambitious - How successful/ambitious should your partner be?",
   pref_level_confident = "Level of confidence - How confident should your partner be?",
   pref_level_assertive = "Level of assertiveness - How assertive should your partner be?",
   pref_level_intelligence = "Level of intelligence - How intelligent should your partner be?",
@@ -86,73 +83,72 @@ var_label(data_lim_included) = list(
 ### Value Labels
 ```{r Value Labels}
 
-val_labels(data_lim_included$political_orientation)=
+val_labels(data_included$political_orientation)=
   c("LEFT" = 0, "RIGHT" = 6)
 
-val_labels(data_lim_included$interest_single)=
+val_labels(data_included$interest_single)=
   c("not at all interested" = 0, "very interested" = 6)
-val_labels(data_lim_included$interest_sexrel)=
+val_labels(data_included$interest_sexrel)=
   c("not at all interested" = 0, "very interested" = 6)
-val_labels(data_lim_included$interest_nonmonrel)=
+val_labels(data_included$interest_nonmonrel)=
   c("not at all interested" = 0, "very interested" = 6)
-#val_labels(data_lim_included$interest_monrel)=
-  #c("not at all interested" = 0, "very interested" = 6)
-val_labels(data_lim_included$inteterst_nonmonrel)=
+val_labels(data_included$interest_monrel)=
   c("not at all interested" = 0, "very interested" = 6)
 
-val_labels(data_lim_included$pref_politicalsim)=
+
+val_labels(data_included$pref_politicalsim)=
   c("not at all important" = 0, "very important" = 6)
-val_labels(data_lim_included$pref_ethnicalsim)=
+val_labels(data_included$pref_ethnicalsim)=
   c("different from me" = 0, "same as me" = 6)
-val_labels(data_lim_included$pref_religioussim)=
+val_labels(data_included$pref_religioussim)=
   c("not at all important" = 0, "very important" = 6)
 
 
-val_labels(data_lim_included$pref_level_kind) =
+val_labels(data_included$pref_level_kind) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_supportive) =
+val_labels(data_included$pref_level_supportive) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_attractive_body) =
+val_labels(data_included$pref_level_attractive_body) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_attractive_face) =
+val_labels(data_included$pref_level_attractive_face) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_financially_secure) =
+val_labels(data_included$pref_level_financially_secure) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_successful_ambitous) =
+val_labels(data_included$pref_level_successful_ambitious) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_confident) =
+val_labels(data_included$pref_level_confident) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_assertive) =
+val_labels(data_included$pref_level_assertive) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_intelligence) =
+val_labels(data_included$pref_level_intelligence) =
   c("not at all" = 0, "very" = 6)
-val_labels(data_lim_included$pref_level_educated) =
+val_labels(data_included$pref_level_educated) =
   c("not at all" = 0, "very" = 6)
 
-val_labels(data_lim_included$imp_age) =
+val_labels(data_included$imp_age) =
   c("not at all important" = 0, "very important" = 6)
-val_labels(data_lim_included$imp_height) =
+val_labels(data_included$imp_height) =
   c("not at all important" = 0, "very important" = 6)
 ```
 
 ## Relative Ideal Age 
 Ideal long-term partner's age will be be calculated as relative age discrepancy between ideal partner’s age and women’s own age which will be calculated by subtracting women’s own age from ideal partner’s age
 ```{r Ideal Age Range}
-data_lim_included = data_lim_included %>%
+data_included = data_included %>%
   mutate(ideal_age_rel = ideal_age - age)
 ```
 
 ```{r}
-qplot(data_lim_included$ideal_age_rel)
+qplot(data_included$ideal_age_rel)
 ```
 
 ## Create Codebook
 ```{r create codebook}
-codebook(data_lim_included)
+codebook(data_included)
 ```
 
 ## Save Data
 ```{r Save}
-data_lim_included_documented = data_lim_included
-write.csv(data_lim_included_documented, file = "data_lim_included_documented.csv")
+data_included_documented = data_included
+write.csv(data_included_documented, file = "data_included_documented.csv")
 ```
