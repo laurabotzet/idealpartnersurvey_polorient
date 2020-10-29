@@ -1,9 +1,146 @@
 "Var1","Freq.x","Freq.y"
-"1","Belarus",1,2.86
-"2","Estonia",1,2.86
-"3","Georgia",1,2.86
-"4","Germany",1,2.86
-"5","Poland",1,2.86
-"6","Russia",12,34.29
-"7","Turkmenistan",1,2.86
-"8","Ukraine",3,8.57
+"1","Afghanistan",1,0.01
+"2","Albania",2,0.02
+"3","Algeria",7,0.05
+"4","Andorra",6,0.05
+"5","Antigua and Barbuda",2,0.02
+"6","Argentina",217,1.64
+"7","Armenia",2,0.02
+"8","Aruba",1,0.01
+"9","Australia",133,1
+"10","Austria",197,1.49
+"11","Bahamas, The",1,0.01
+"12","Bahrain",3,0.02
+"13","Barbados",1,0.01
+"14","Belarus",13,0.1
+"15","Belgium",102,0.77
+"16","Belize",1,0.01
+"17","Benin",2,0.02
+"18","Bolivia",23,0.17
+"19","Bosnia and Herzegovina",6,0.05
+"20","Botswana",1,0.01
+"21","Brazil",806,6.08
+"22","Bulgaria",9,0.07
+"23","Burma",1,0.01
+"24","Cameroon",3,0.02
+"25","Canada",337,2.54
+"26","Central African Republic",2,0.02
+"27","Chile",154,1.16
+"28","China",90,0.68
+"29","Colombia",387,2.92
+"30","Costa Rica",47,0.35
+"31","Cote d'Ivoire",1,0.01
+"32","Croatia",6,0.05
+"33","Cuba",1,0.01
+"34","Czechia",11,0.08
+"35","Denmark",395,2.98
+"36","Dominica",2,0.02
+"37","Dominican Republic",41,0.31
+"38","East Timor (see Timor-Leste)",1,0.01
+"39","Ecuador",102,0.77
+"40","Egypt",3,0.02
+"41","El Salvador",26,0.2
+"42","Estonia",12,0.09
+"43","Ethiopia",1,0.01
+"44","Fiji",1,0.01
+"45","Finland",31,0.23
+"46","France",2012,15.18
+"47","Georgia",3,0.02
+"48","Germany",1845,13.92
+"49","Ghana",3,0.02
+"50","Greece",4,0.03
+"51","Grenada",1,0.01
+"52","Guatemala",61,0.46
+"53","Guinea-Bissau",1,0.01
+"54","Guyana",3,0.02
+"55","Haiti",4,0.03
+"56","Honduras",18,0.14
+"57","Hong Kong",8,0.06
+"58","Hungary",9,0.07
+"59","Iceland",5,0.04
+"60","India",45,0.34
+"61","Indonesia",18,0.14
+"62","Iran",7,0.05
+"63","Iraq",1,0.01
+"64","Ireland",59,0.45
+"65","Israel",13,0.1
+"66","Italy",968,7.3
+"67","Jamaica",6,0.05
+"68","Japan",290,2.19
+"69","Jordan",2,0.02
+"70","Kazakhstan",9,0.07
+"71","Kenya",6,0.05
+"72","Korea, South",4,0.03
+"73","Kuwait",1,0.01
+"74","Kyrgyzstan",2,0.02
+"75","Latvia",8,0.06
+"76","Lebanon",3,0.02
+"77","Liechtenstein",1,0.01
+"78","Lithuania",3,0.02
+"79","Luxembourg",13,0.1
+"80","Macedonia",1,0.01
+"81","Madagascar",1,0.01
+"82","Malaysia",17,0.13
+"83","Maldives",1,0.01
+"84","Mali",2,0.02
+"85","Malta",2,0.02
+"86","Marshall Islands",1,0.01
+"87","Mauritania",1,0.01
+"88","Mauritius",2,0.02
+"89","Mexico",1157,8.73
+"90","Micronesia",1,0.01
+"91","Monaco",1,0.01
+"92","Montenegro",1,0.01
+"93","Morocco",16,0.12
+"94","Namibia",4,0.03
+"95","Nepal",1,0.01
+"96","Netherlands",44,0.33
+"97","New Zealand",34,0.26
+"98","Nicaragua",15,0.11
+"99","Nigeria",6,0.05
+"100","Norway",12,0.09
+"101","Pakistan",8,0.06
+"102","Palestinian Territories",2,0.02
+"103","Panama",15,0.11
+"104","Paraguay",11,0.08
+"105","Peru",119,0.9
+"106","Philippines",36,0.27
+"107","Poland",7,0.05
+"108","Portugal",51,0.38
+"109","Qatar",2,0.02
+"110","Romania",24,0.18
+"111","Russia",155,1.17
+"112","Saint Lucia",2,0.02
+"113","Saint Vincent and the Grenadines",1,0.01
+"114","Saudi Arabia",6,0.05
+"115","Senegal",5,0.04
+"116","Serbia",5,0.04
+"117","Singapore",26,0.2
+"118","Sint Maarten",1,0.01
+"119","Slovakia",3,0.02
+"120","Slovenia",3,0.02
+"121","South Africa",29,0.22
+"122","South Korea",1,0.01
+"123","South Sudan",1,0.01
+"124","Spain",562,4.24
+"125","Sri Lanka",3,0.02
+"126","Swaziland",1,0.01
+"127","Sweden",27,0.2
+"128","Switzerland",279,2.11
+"129","Syria",1,0.01
+"130","Taiwan",7,0.05
+"131","Tanzania",1,0.01
+"132","Thailand",4,0.03
+"133","Trinidad and Tobago",8,0.06
+"134","Tunisia",7,0.05
+"135","Turkey",8,0.06
+"136","Turkmenistan",2,0.02
+"137","Uganda",1,0.01
+"138","Ukraine",21,0.16
+"139","United Arab Emirates",14,0.11
+"140","United Kingdom",499,3.77
+"141","United States of America",1254,9.46
+"142","Uruguay",24,0.18
+"143","Venezuela",67,0.51
+"144","Vietnam",2,0.02
+"145","Zimbabwe",1,0.01

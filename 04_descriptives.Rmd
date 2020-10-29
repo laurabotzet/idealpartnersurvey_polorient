@@ -21,83 +21,83 @@ library(formr)
 # library(sjstats)
 # library(lmerTest)
 library(dplyr)
+library(ggplot2)
 ```
 
 
 ### Data
 Load selected data based on 03_codebook
 ```{r}
-data_lim_included_documented = read.csv(file = "data_lim_included_documented.csv")[,-1]
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 
-data_lim_included_documented = data_lim_included_documented %>%
+data_included_documented = data_included_documented %>%
   filter(!is.na(age))
 ```
 
 ### Missingness pattern
 ```{r}
-crosstabs(~ is.na(data_lim_included_documented$pref_level_kind) +
-            is.na(data_lim_included_documented$pref_level_supportive))
+crosstabs(~ is.na(data_included_documented$pref_level_kind) +
+            is.na(data_included_documented$pref_level_supportive))
 ```
-FALSE for 21 observations -> all missings have been previously excluded
 
 ###Summary
 ```{r Summary}
-summary(data_lim_included_documented)
+summary(data_included_documented)
 ```
 
 
 ### Political Orientation
 ```{r Political Orientation}
-mean(data_lim_included_documented$political_orientation)
-sd(data_lim_included_documented$political_orientation)
-qplot(data_lim_included_documented$political_orientation)
+mean(data_included_documented$political_orientation)
+sd(data_included_documented$political_orientation)
+qplot(data_included_documented$political_orientation)
 ```
 
 ### Age
 ```{r Age}
-mean(data_lim_included_documented$age)
-sd(data_lim_included_documented$age)
-range(data_lim_included_documented$age)
-qplot(data_lim_included_documented$age)
+mean(data_included_documented$age)
+sd(data_included_documented$age)
+range(data_included_documented$age)
+qplot(data_included_documented$age)
 ```
 
 ### Correlations for ideal partner preferences
 ```{r Correlations for ideal partner preferences}
-cor.test(data_lim_included_documented$pref_level_kind,
-         data_lim_included_documented$pref_level_supportive,
+cor.test(data_included_documented$pref_level_kind,
+         data_included_documented$pref_level_supportive,
          conf.level = 0.997)
 
-cor.test(data_lim_included_documented$pref_level_attractive_body,
-         data_lim_included_documented$pref_level_attractive_face,
+cor.test(data_included_documented$pref_level_attractive_body,
+         data_included_documented$pref_level_attractive_face,
          conf.level = 0.997)
 
-cor.test(data_lim_included_documented$pref_level_financially_secure,
-         data_lim_included_documented$pref_level_successful_ambitous,
+cor.test(data_included_documented$pref_level_financially_secure,
+         data_included_documented$pref_level_successful_ambitious,
          conf.level = 0.997)
 
-cor.test(data_lim_included_documented$pref_level_confident,
-         data_lim_included_documented$pref_level_assertive,
+cor.test(data_included_documented$pref_level_confident,
+         data_included_documented$pref_level_assertive,
          conf.level = 0.997)
 
-cor.test(data_lim_included_documented$pref_level_intelligence,
-         data_lim_included_documented$pref_level_educated,
+cor.test(data_included_documented$pref_level_intelligence,
+         data_included_documented$pref_level_educated,
          conf.level = 0.997)
 ```
 
 ### Language
 ```{r}
-n = nrow(data_lim_included_documented)
+n = nrow(data_included_documented)
 
-table(data_lim_included_documented$language)
+table(data_included_documented$language)
 
-round((table(data_lim_included_documented$language)/n)*100,2)
+round((table(data_included_documented$language)/n)*100,2)
 ```
 
 ### Country
 ```{r}
-country_absolute = as.data.frame(table(data_lim_included_documented$country))
+country_absolute = as.data.frame(table(data_included_documented$country))
 
-country_freq = as.data.frame(round((table(data_lim_included_documented$country)/n)*100,2))
+country_freq = as.data.frame(round((table(data_included_documented$country)/n)*100,2))
 
 country = left_join(country_absolute, country_freq, by = "Var1")
 
@@ -106,14 +106,13 @@ write.table(country, file = "country.txt", sep = ",")
 
 ### Descriptives and Correlation Table
 ```{r}
-cor = data_lim_included_documented %>%
+cor = data_included_documented %>%
   select(political_orientation,
           age,
          interest_single,
          interest_sexrel, 
          interest_nonmonrel, 
-         #interest_monrel, 
-         inteterst_monrel,
+         interest_monrel, 
          pref_politicalsim, 
          pref_ethnicalsim, 
          pref_religioussim,
@@ -124,8 +123,8 @@ cor = data_lim_included_documented %>%
          pref_level_intelligence_educated, 
          imp_age, 
          ideal_age, 
-         imp_height) 
-         #ideal_height) 
+         imp_height, 
+         ideal_height) 
          #ideal_age_rel)
 round(cor(cor, use="complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
