@@ -41,6 +41,8 @@ In total, we will exclude `r sum(fulldata_selected_wrangled$sex == "Man", fullda
 Consecutively, this means we will exclude `r sum(data_included$sex == "Man", data_included$sex == "Genderqueer/Nonbinary", data_included$sex == "None of the above", data_included$sex == "Prefer not to say", data_included$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
 
 ```{r Sex}
+table(data_included$sex)
+
 data_included = data_included %>%
   filter((sex != "Man" &
          sex != "Genderqueer/Nonbinary" &
@@ -59,6 +61,8 @@ In total, we will exclude `r sum(fulldata_selected_wrangled$sexual_orientation =
 
 Consecutively, this means we will exclude `r sum(data_included$sexual_orientation == "Lesbian/Gay/Homosexual", data_included$sexual_orientation == "Bisexual/Pansexual", data_included$sexual_orientation == "Queer", data_included$sexual_orientation == "Asexual", data_included$sexual_orientation == "Prefer not to say", data_included$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)  
 ```{r Sexuality}
+table(data_included$sexual_orientation)
+
 data_included = data_included %>%
   filter((sexual_orientation != "Lesbian/Gay/Homosexual" & sexual_orientation != "Bisexual/Pansexual" &
          sexual_orientation != "Queer" & sexual_orientation != "Asexual" &
@@ -76,6 +80,8 @@ Consecutively, we will exclude `r sum(data_included$relationship %contains% "New
 
 
 ```{r Relationship}
+table(data_included$relationship)
+
 data_included_test1 = data_included %>%
   filter((!(relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship") &
          !(relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship") &
@@ -118,6 +124,7 @@ In total, we will exclude `r sum(fulldata_selected_wrangled$answer_accuracy == "
 Consecutively, we will exclude `r sum(data_included$answer_accuracy == "I did not answer seriously; please disregard my information.", data_included$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
 
 ```{r Accuracy}
+table(data_included$answer_accuracy)
 data_included = data_included %>%
   filter((answer_accuracy != "I did not answer seriously; please disregard my information." &
          answer_accuracy != "I choose not to answer.") |
