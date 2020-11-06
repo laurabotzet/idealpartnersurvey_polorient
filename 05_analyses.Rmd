@@ -1,0 +1,546 @@
+---
+title: "05_analyses"
+author: "Lena Kuschel"
+date: "02 November 2020"
+output: 
+  html_document:
+    code_folding: "hide"
+editor_options: 
+  chunk_output_type: console
+---
+
+## Analyses {.tabset}
+
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(dplyr)
+```
+
+
+### Functions
+```{r}
+model_political_orientation_rmslope_rmintercept = function(outcome){
+  lmer(outcome ~ political_orientation + (1 + political_orientation | country),
+       data = data_included_documented %>%
+         select(outcome = outcome,
+                political_orientation, country))
+}
+
+model_political_orientation_rmintercept = function(outcome){
+  lmer(outcome ~ political_orientation + (1 | country),
+       data = data_included_documented %>%
+         select(outcome = outcome,
+                political_orientation, country))
+}
+
+runbothmodels = function(outcome){
+  model = suppressWarnings(model_political_orientation_rmslope_rmintercept(outcome))
+  if(!is.null(model@optinfo$conv$lme4$code)){
+    print("Model including random slope did not converge. --> Exclude random slope.")
+    model =  model_political_orientation_rmintercept(outcome)
+  }
+  else{
+    print("Model including random slope did converge.")
+    model = model
+  }
+}
+```
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+
+### Analysis {.tabset}
+If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
+Instead we will z-standardize outcomes separately for each country.
+
+#### Preferred Relationship Options {.tabset}
+##### H1a Interest in Single Life {.tabset}
+H1a There is a negative linear link between right-wing political orientation and women’s interest in being single.  
+Outcome: Ratings for interest in single life. Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_interest_single = runbothmodels(outcome = 'interest_single')
+```
+
+###### Summary
+```{r}
+summary(model_interest_single)
+confint(model_interest_single, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_single, method = "basic")
+ci(standardize_parameters(model_interest_single, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(interest_single ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H1b Interest in sexual, non-romantic relationships {.tabset}
+H1b There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
+Outcome: Ratings for interest in having sexual, non-romantic relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_interest_sexrel = runbothmodels(outcome = 'interest_sexrel')
+```
+
+###### Summary
+```{r}
+summary(model_interest_sexrel)
+confint(model_interest_sexrel, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_sexrel, method = "basic")
+ci(standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(interest_sexrel ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H1c Interest in non-monogamous relationships {.tabset}
+H1c There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
+Outcome: Ratings for interest in having non-monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_interest_nonmonrel = runbothmodels(outcome = 'interest_nonmonrel')
+```
+
+###### Summary
+```{r}
+summary(model_interest_nonmonrel)
+confint(model_interest_nonmonrel, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_nonmonrel, method = "basic")
+ci(standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(interest_nonmonrel ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H1d Interest in monogamous relationships {.tabset}
+H1d There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
+Outcome: Ratings for interest in having monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_interest_monrel = runbothmodels(outcome = 'interest_monrel')
+```
+
+###### Summary
+```{r}
+summary(model_interest_monrel)
+confint(model_interest_monrel, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_monrel, method = "basic")
+ci(standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(interest_monrel ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### Political, ethnic and religious similarity {.tabset}
+##### H2a Preference for similarity in political beliefs {.tabset}
+H2a There is no linear link between right-wing political orientation and women’s preferences for partner’s similar political beliefs and values when controlling for a quadratic link. 
+There is a positive quadratic link between right-wing political orientation and women’s preferences for partner’s similar political beliefs and values when controlling for a linear link.
+Outcome: Preference ratings for partner's similar political beliefs and values.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_politicalsim = runbothmodels(outcome = 'pref_politicalsim')
+```
+@PROBLEM: How to run models for expected quadrratic effect?
+###### Summary
+```{r}
+summary(model_interest_monrel)
+confint(model_interest_monrel, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_monrel, method = "basic")
+ci(standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(interest_monrel ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H2b Preference for similarity in ethnicity/race {.tabset}
+H2b There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar ethnicity/race. 
+Outcome: Preference ratings for partner's similar ethnicity/race.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_ethnicalsim = runbothmodels(outcome = 'pref_ethnicalsim')
+```
+
+###### Summary
+```{r}
+summary(model_pref_ethnicalsim)
+confint(model_pref_ethnicalsim, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_ethnicalsim, method = "basic")
+ci(standardize_parameters(model_pref_ethnicalsim, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_ethnicalsim ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H2c Preference for similarity in religion {.tabset}
+H2c There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar religious beliefs.  
+Outcome: Preference ratings for partner's similar religious beliefs.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_religioussim = runbothmodels(outcome = 'pref_religioussim')
+```
+
+###### Summary
+```{r}
+summary(model_pref_religioussim)
+confint(model_pref_religioussim, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_religioussim, method = "basic")
+ci(standardize_parameters(model_pref_religioussim, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_religioussim ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### Ideal Partner Preferences {.tabset}
+##### H3a Preference for the level of financial security- successfulness {.tabset}
+H3a There is a positive linear link between right-wing political orientation and women’s preferences for the level of financial security and successfulness.  
+Outcome: Level ratings for partner's financial security-successfulness.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_financially_secure_successful_ambitious = runbothmodels(outcome = 'pref_level_financially_secure_successful_ambitious')
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_financially_secure_successful_ambitious)
+confint(model_pref_level_financially_secure_successful_ambitious, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic")
+ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H3b Preference for the level of kindness-supportiveness {.tabset}
+H3b There is no link between right-wing political orientation and women’s preferences for the level of kindness and supportiveness.  
+Outcome: Level ratings for partner's kindness-supportiveness.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_kind_supportive = runbothmodels(outcome = 'pref_level_kind_supportive')
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_kind_supportive)
+confint(model_pref_level_kind_supportive, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_kind_supportive, method = "basic")
+ci(standardize_parameters(model_pref_level_kind_supportive, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_kind_supportive ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H3c Preference for the level of attractiveness {.tabset}
+H3c There is no link between right-wing political orientation and women’s preferences for the level of attractiveness.  
+Outcome: Level ratings for partner's attractiveness.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_attractiveness = runbothmodels(outcome = 'pref_level_attractiveness')
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_attractiveness)
+confint(model_pref_level_attractiveness, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_attractiveness, method = "basic")
+ci(standardize_parameters(model_pref_level_attractiveness, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_attractiveness ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H3d Preference for the level of confidence-assertiveness {.tabset}
+H3d There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
+Outcome: Level ratings for partner's confidence-assertiveness.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_confident_assertive = runbothmodels(outcome = 'pref_level_confident_assertive')
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_confident_assertive)
+confint(model_pref_level_confident_assertive, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_confident_assertive, method = "basic")
+ci(standardize_parameters(model_pref_level_confident_assertive, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_confident_assertive ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H3e Preference for the level of education-intelligence {.tabset}
+H3e There is no link between right-wing political orientation and women’s preferences for the level of education and intelligence.  
+Outcome: Level ratings for partner's education-intelligence.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_pref_level_intelligence_educated = runbothmodels(outcome = 'pref_level_intelligence_educated')
+```
+
+###### Summary
+```{r}
+summary(model_pref_level_intelligence_educated)
+confint(model_pref_level_intelligence_educated, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_intelligence_educated, method = "basic")
+ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(pref_level_intelligence_educated ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### Ideal age and height {.tabset}
+##### H4a(1) Importance Ratings for partner's age {.tabset}
+H4a(1) There is a positive linear link between right-wing political orientation and women’s importance ratings for partner’s age. 
+Outcome: Importance ratings for partner's age.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_imp_age = runbothmodels(outcome = 'imp_age')
+```
+
+###### Summary
+```{r}
+summary(model_imp_age)
+confint(model_imp_age, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_imp_age, method = "basic")
+ci(standardize_parameters(model_imp_age, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(imp_age ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H4a(2)Level Ratings for partner's age {.tabset}
+H4a(2) There is a positive linear link between right-wing political orientation and the relative age discrepancy between ideal partner’s age and women’s age. (discrepancy calculated as ideal partner’s age – women’s age)
+Outcome: Discrepancy between level ratings for ideal partner's age and women's age (ideal_age_rel)
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ideal_age_rel = runbothmodels(outcome = 'ideal_age_rel')
+```
+
+###### Summary
+```{r}
+summary(model_ideal_age_rel)
+confint(model_ideal_age_rel, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ideal_age_rel, method = "basic")
+ci(standardize_parameters(model_ideal_age_rel, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(ideal_age_rel ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H4b(1) Importance Ratings for partner's height {.tabset}
+H4b(1) There is a positive linear link between right-wing political orientation and women’s importance ratings for partner’s height.
+Outcome: Importance ratings for partner's height.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_imp_height = runbothmodels(outcome = 'imp_height')
+```
+
+###### Summary
+```{r}
+summary(model_imp_height)
+confint(model_imp_height, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_imp_height, method = "basic")
+ci(standardize_parameters(model_imp_height, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(imp_height ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+##### H4b(2)Level Ratings for partner's height {.tabset}
+H4b(2) There is a positive linear link between right-wing political orientation and ideal partner’s height.
+Outcome: Level ratings for ideal partner's height.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+###### Models
+```{r}
+model_ideal_height = runbothmodels(outcome = 'ideal_height')
+```
+
+###### Summary
+```{r}
+summary(model_ideal_height)
+confint(model_ideal_height, level = 0.997)
+```
+
+###### Standardized Coefficients
+```{r}
+standardize_parameters(model_ideal_height, method = "basic")
+ci(standardize_parameters(model_ideal_height, method = "basic", ci = 0.997))
+```
+
+###### Plot
+```{r}
+lmer(ideal_height ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+@IMPORTANT: Check assumptions & perform robustness checks (including age as a covariate in all models)
