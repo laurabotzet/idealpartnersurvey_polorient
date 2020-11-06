@@ -22,42 +22,11 @@ library(lmerTest)
 library(dplyr)
 ```
 
-
-### Functions
-```{r}
-model_political_orientation_rmslope_rmintercept = function(outcome){
-  lmer(outcome ~ political_orientation + (1 + political_orientation | country),
-       data = data_included_documented %>%
-         select(outcome = outcome,
-                political_orientation, country))
-}
-
-model_political_orientation_rmintercept = function(outcome){
-  lmer(outcome ~ political_orientation + (1 | country),
-       data = data_included_documented %>%
-         select(outcome = outcome,
-                political_orientation, country))
-}
-
-runbothmodels = function(outcome){
-  model = suppressWarnings(model_political_orientation_rmslope_rmintercept(outcome))
-  if(!is.null(model@optinfo$conv$lme4$code)){
-    print("Model including random slope did not converge. --> Exclude random slope.")
-    model =  model_political_orientation_rmintercept(outcome)
-  }
-  else{
-    print("Model including random slope did converge.")
-    model = model
-  }
-}
-```
-
 ### Data
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
-
 
 ### Analysis {.tabset}
 If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
@@ -70,7 +39,10 @@ Outcome: Ratings for interest in single life. Predictor: Political Orientation. 
 
 ###### Models
 ```{r}
-model_interest_single = runbothmodels(outcome = 'interest_single')
+model_interest_single <- lmer(interest_single ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+
+#drop random slope as model did not converge:
+model_interest_single <- lmer(interest_single ~ political_orientation + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -99,7 +71,7 @@ Outcome: Ratings for interest in having sexual, non-romantic relationships. Pred
 
 ###### Models
 ```{r}
-model_interest_sexrel = runbothmodels(outcome = 'interest_sexrel')
+model_interest_sexrel <- lmer(interest_sexrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -128,7 +100,10 @@ Outcome: Ratings for interest in having non-monogamous relationships. Predictor:
 
 ###### Models
 ```{r}
-model_interest_nonmonrel = runbothmodels(outcome = 'interest_nonmonrel')
+model_interest_nonmonrel <- lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+
+#drop random slope as model did not converge:
+model_interest_nonmonrel <- lmer(interest_nonmonrel ~ political_orientation + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -157,7 +132,7 @@ Outcome: Ratings for interest in having monogamous relationships. Predictor: Pol
 
 ###### Models
 ```{r}
-model_interest_monrel = runbothmodels(outcome = 'interest_monrel')
+model_interest_monrel <- lmer(interest_monrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -189,24 +164,24 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_politicalsim = runbothmodels(outcome = 'pref_politicalsim')
+
 ```
 @PROBLEM: How to run models for expected quadrratic effect?
 ###### Summary
 ```{r}
-summary(model_interest_monrel)
-confint(model_interest_monrel, level = 0.997)
+summary(model_pref_politicalsim)
+confint(model_pref_politicalsim, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_monrel, method = "basic")
-ci(standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997))
+standardize_parameters(model_pref_politicalsim, method = "basic")
+ci(standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997))
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_monrel ~ political_orientation + (1 | country),
+lmer(pref_politicalsim ~ political_orientation + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -219,7 +194,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_ethnicalsim = runbothmodels(outcome = 'pref_ethnicalsim')
+model_pref_ethnicalsim <- lmer(pref_ethnicalsim ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -249,7 +224,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_religioussim = runbothmodels(outcome = 'pref_religioussim')
+model_pref_religioussim <- lmer(pref_religioussim ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -274,15 +249,15 @@ lmer(pref_religioussim ~ political_orientation + (1 | country),
 
 #### Ideal Partner Preferences {.tabset}
 ##### H3a Preference for the level of financial security- successfulness {.tabset}
-H3a There is a positive linear link between right-wing political orientation and women’s preferences for the level of financial security and successfulness.  
+H3a There is a positive linear link between right-wing political orientation and women’s preferences for the level of financial security and successfulness.
 Outcome: Level ratings for partner's financial security-successfulness.
 Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_financially_secure_successful_ambitious = runbothmodels(outcome = 'pref_level_financially_secure_successful_ambitious')
+model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
-
+@PROBLEM? error message: boundary (singular) fit: see ?isSingular (model runs)
 ###### Summary
 ```{r}
 summary(model_pref_level_financially_secure_successful_ambitious)
@@ -294,7 +269,7 @@ confint(model_pref_level_financially_secure_successful_ambitious, level = 0.997)
 standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic")
 ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic", ci = 0.997))
 ```
-
+@PROBLEM? Bei Berechnung der CI kommen NA für die sigma(R: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings()))
 ###### Plot
 ```{r}
 lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1 | country),
@@ -310,7 +285,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_kind_supportive = runbothmodels(outcome = 'pref_level_kind_supportive')
+model_pref_level_kind_supportive <- lmer(pref_level_kind_supportive ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -340,7 +315,10 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_attractiveness = runbothmodels(outcome = 'pref_level_attractiveness')
+model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+
+#Model failed to converge with 1 negative eigenvalue, drop random slope:
+model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -370,7 +348,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_confident_assertive = runbothmodels(outcome = 'pref_level_confident_assertive')
+model_pref_level_confident_assertive <- lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -378,6 +356,7 @@ model_pref_level_confident_assertive = runbothmodels(outcome = 'pref_level_confi
 summary(model_pref_level_confident_assertive)
 confint(model_pref_level_confident_assertive, level = 0.997)
 ```
+@PROBLEM? R: Es gab 50 oder mehr Warnungen
 
 ###### Standardized Coefficients
 ```{r}
@@ -400,7 +379,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_intelligence_educated = runbothmodels(outcome = 'pref_level_intelligence_educated')
+model_pref_level_intelligence_educated <- lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -431,13 +410,13 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_imp_age = runbothmodels(outcome = 'imp_age')
+model_imp_age <- lmer(imp_age ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
 summary(model_imp_age)
-confint(model_imp_age, level = 0.997)
+confint(model_imp_age, level= 0.997)
 ```
 
 ###### Standardized Coefficients
@@ -461,7 +440,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_ideal_age_rel = runbothmodels(outcome = 'ideal_age_rel')
+model_ideal_age_rel <- lmer(ideal_age_rel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -491,9 +470,9 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_imp_height = runbothmodels(outcome = 'imp_height')
+model_imp_height <- lmer(imp_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
-
+@PROBLEM? R:boundary (singular) fit: see ?isSingular
 ###### Summary
 ```{r}
 summary(model_imp_height)
@@ -521,7 +500,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_ideal_height = runbothmodels(outcome = 'ideal_height')
+model_ideal_height <- lmer(ideal_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
@@ -529,7 +508,13 @@ model_ideal_height = runbothmodels(outcome = 'ideal_height')
 summary(model_ideal_height)
 confint(model_ideal_height, level = 0.997)
 ```
-
+@PROBLEM? R: Warnmeldungen:
+1: In FUN(X[[i]], ...) : non-monotonic profile for .sig01
+2: In FUN(X[[i]], ...) : non-monotonic profile for .sig02
+3: In confint.thpr(pp, level = level, zeta = zeta) :
+  bad spline fit for .sig01: falling back to linear interpolation
+4: In confint.thpr(pp, level = level, zeta = zeta) :
+  bad spline fit for .sig02: falling back to linear interpolation
 ###### Standardized Coefficients
 ```{r}
 standardize_parameters(model_ideal_height, method = "basic")

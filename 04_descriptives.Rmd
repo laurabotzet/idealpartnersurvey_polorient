@@ -128,6 +128,5 @@ cor = data_included_documented %>%
          #ideal_age_rel)
 round(cor(cor, use="complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
-
 ```
 
