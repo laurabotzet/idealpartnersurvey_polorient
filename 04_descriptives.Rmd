@@ -126,7 +126,7 @@ cor = data_included_documented %>%
          imp_height, 
          ideal_height) 
          #ideal_age_rel)
-round(cor(cor, use="complete.obs"),2)
+round(cor(cor, use="pairwise.complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
 ```
 
