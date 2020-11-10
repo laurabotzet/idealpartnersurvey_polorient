@@ -166,7 +166,8 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ```{r}
 
 ```
-@PROBLEM: How to run models for expected quadrratic effect?
+@PROBLEM: How to run models for expected quadratic effect?
+
 ###### Summary
 ```{r}
 summary(model_pref_politicalsim)
