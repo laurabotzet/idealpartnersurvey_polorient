@@ -53,8 +53,8 @@ confint(model_interest_single, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_single, method = "basic")
-ci(standardize_parameters(model_interest_single, method = "basic", ci = 0.997))
+standardize_parameters(model_interest_single, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_single, method = "basic", ci = 0.997))
 ```
 
 ###### Plot
@@ -82,13 +82,13 @@ confint(model_interest_sexrel, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_sexrel, method = "basic")
-ci(standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997))
+standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997))
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_sexrel ~ political_orientation + (1 | country),
+lmer(interest_sexrel ~ political_orientation + (1 + political_orientation| country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -114,8 +114,8 @@ confint(model_interest_nonmonrel, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_nonmonrel, method = "basic")
-ci(standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997))
+standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997))
 ```
 
 ###### Plot
@@ -143,13 +143,14 @@ confint(model_interest_monrel, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_monrel, method = "basic")
-ci(standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997))
+standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_interest_monrel, method = "basic"), ci = 0.997) #calculate by hand to get exact numbers
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_monrel ~ political_orientation + (1 | country),
+lmer(interest_monrel ~ political_orientation + (1 + political_orientation| country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -164,9 +165,18 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
+library(ggplot2)
+ggplot(data_included_documented, (aes(x = political_orientation, y = pref_politicalsim))) +
+  geom_jitter(alpha = 0.05) +
+  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1, conf.int=0.95, fill="lightblue")+
+  stat_summary(geom="line", fun.y=mean, linetype="dashed")
 
+#graph to look for u shaped pattern
+
+model_pref_politicalsim = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) +
+                                 (1+political_orientation|country),
+                               data = data_included_documented)
 ```
-@PROBLEM: How to run models for expected quadratic effect?
 
 ###### Summary
 ```{r}
@@ -176,17 +186,71 @@ confint(model_pref_politicalsim, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_politicalsim, method = "basic")
-ci(standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997))
+standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997))
 ```
 
 ###### Plot
 ```{r}
-lmer(pref_politicalsim ~ political_orientation + (1 | country),
-       data = data_included_documented) %>%
-    allEffects() %>%
-    plot()
+library(RColorBrewer)#evtl. installieren
+
+effects1 = lmer(pref_politicalsim ~ political_orientation + (1 | country),
+             data = data_included_documented) %>%
+  allEffects(confidence.level = 0.997, xlevels = 49) %>%
+  as.data.frame()
+
+effects1 = as.data.frame(effects1$political_orientation)
+
+n = data_included_documented %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  count()
+
+plot1 = ggplot() +
+  geom_jitter(data = data_included_documented, aes(x = political_orientation, y = pref_politicalsim),
+              alpha = 0.05) +
+  geom_line(data = effects1, aes(x = political_orientation, y = fit)) +
+  geom_ribbon(data = effects1, aes(x = political_orientation, ymin = lower, ymax = upper),
+              fill = brewer.pal(9,"Blues")[8], alpha = 0.8) +
+  scale_x_continuous(name = "Political Orientation") +
+  scale_y_continuous(name = "Importance\nPolitical Similarity",
+                     limits = c(-0.5,6.5),
+                     breaks = c(0,1,2,3,4,5,6)) +
+  ggtitle(paste0(
+      "H2a Preference for similarity in political beliefs (n = ",
+      prettyNum(n$n, big.mark = ",", preserve.width = "none"),
+      ")"))
+plot1
+
+
+effects2 = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) +
+                  (1 + political_orientation | country),
+             data = data_included_documented) %>%
+  allEffects(confidence.level = 0.997, xlevels = 49) %>%
+  as.data.frame()
+
+effects2 = as.data.frame(effects2$political_orientation)
+
+n = data_included_documented %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  count()
+
+plot2 = ggplot() +
+  geom_jitter(data = data_included_documented, aes(x = political_orientation,
+                                                   y = pref_politicalsim), alpha = 0.05) +
+  geom_line(data = effects2, aes(x = political_orientation, y = fit)) +
+  geom_ribbon(data = effects2, aes(x = political_orientation, ymin = lower, ymax = upper),
+              fill = brewer.pal(9,"Blues")[8], alpha = 0.8) +
+  scale_x_continuous(name = "Political Orientation") +
+  scale_y_continuous(name = "Importance\nPolitical Similarity",
+                     limits = c(-0.5,6.5),
+                     breaks = c(0,1,2,3,4,5,6)) +
+  ggtitle(paste0(
+      "H2a Preference for similarity in political beliefs (n = ",
+      prettyNum(n$n, big.mark = ",", preserve.width = "none"),
+      ")"))
+plot2
 ```
+
 
 ##### H2b Preference for similarity in ethnicity/race {.tabset}
 H2b There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar ethnicity/race. 
@@ -257,8 +321,10 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ###### Models
 ```{r}
 model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+
+model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1|country), data = data_included_documented)
 ```
-@PROBLEM? error message: boundary (singular) fit: see ?isSingular (model runs)
+@PROBLEM? error message: boundary (singular) fit: see ?isSingular (model runs) --> model does not converge, fit without random slope
 ###### Summary
 ```{r}
 summary(model_pref_level_financially_secure_successful_ambitious)
@@ -270,7 +336,7 @@ confint(model_pref_level_financially_secure_successful_ambitious, level = 0.997)
 standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic")
 ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic", ci = 0.997))
 ```
-@PROBLEM? Bei Berechnung der CI kommen NA für die sigma(R: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings()))
+@PROBLEM? Bei Berechnung der CI kommen NA für die sigma(R: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())) --> Laura!
 ###### Plot
 ```{r}
 lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1 | country),
