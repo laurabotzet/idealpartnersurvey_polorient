@@ -1,15 +1,13 @@
 ---
-title: "05_analyses"
+title: "06_robustness_analyses"
 author: "Lena Kuschel"
-date: "02 November 2020"
-output: 
-  html_document:
-    code_folding: "hide"
+date: "10 November 2020"
+output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-
-## Analyses {.tabset}
+## Robustness Analyses {.tabset}
+Here, we perform additional robustness checks including age in each model as a covariate. 
 
 ### Library
 ```{r Library}
@@ -28,38 +26,30 @@ Load selected data based on 03_codebook
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
-### Analysis {.tabset}
-If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
-Instead we will z-standardize outcomes separately for each country.
-
 #### Preferred Relationship Options {.tabset}
 ##### H1a Interest in Single Life {.tabset}
 H1a There is a negative linear link between right-wing political orientation and women’s interest in being single.  
-Outcome: Ratings for interest in single life. Predictor: Political Orientation. Random intercept and random slope for country.
+Outcome: Ratings for interest in single life. Predictor: Political Orientation & Age. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-#model_interest_single <- lmer(interest_single ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
-
-#drop random slope as model did not converge:
-model_interest_single <- lmer(interest_single ~ political_orientation + (1|country), data = data_included_documented)
+model_interest_single_robustcheck <- lmer(interest_single ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_interest_single)
-confint(model_interest_single, level = 0.997)
+summary(model_interest_single_robustcheck)
+confint(model_interest_single_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_single, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_interest_single, method = "basic"), ci = 0.997)
+standardize_parameters(model_interest_single_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_single ~ political_orientation + (1 | country),
+lmer(interest_single ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -71,24 +61,23 @@ Outcome: Ratings for interest in having sexual, non-romantic relationships. Pred
 
 ###### Models
 ```{r}
-model_interest_sexrel <- lmer(interest_sexrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+model_interest_sexrel_robustcheck <- lmer(interest_sexrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_interest_sexrel)
-confint(model_interest_sexrel, level = 0.997)
+summary(model_interest_sexrel_robustcheck)
+confint(model_interest_sexrel_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_interest_sexrel, method = "basic"), ci = 0.997)
+standardize_parameters(model_interest_sexrel_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_sexrel ~ political_orientation + (1 + political_orientation| country),
+lmer(interest_sexrel ~ political_orientation + age + (1 + political_orientation| country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -100,27 +89,23 @@ Outcome: Ratings for interest in having non-monogamous relationships. Predictor:
 
 ###### Models
 ```{r}
-#model_interest_nonmonrel <- lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
-
-#drop random slope as model did not converge:
-model_interest_nonmonrel <- lmer(interest_nonmonrel ~ political_orientation + (1|country), data = data_included_documented)
+model_interest_nonmonrel_robustcheck <- lmer(interest_nonmonrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_interest_nonmonrel)
-confint(model_interest_nonmonrel, level = 0.997)
+summary(model_interest_nonmonrel_robustcheck)
+confint(model_interest_nonmonrel_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_interest_nonmonrel, method = "basic"), ci = 0.997)
+standardize_parameters(model_interest_nonmonrel_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_nonmonrel ~ political_orientation + (1 | country),
+lmer(interest_nonmonrel ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -132,25 +117,26 @@ Outcome: Ratings for interest in having monogamous relationships. Predictor: Pol
 
 ###### Models
 ```{r}
-model_interest_monrel <- lmer(interest_monrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_interest_monrel_robustcheck <- lmer(interest_monrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
+
+#drop random slope as model did not converge
+model_interest_monrel_robustcheck <- lmer(interest_monrel ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_interest_monrel)
-confint(model_interest_monrel, level = 0.997)
+summary(model_interest_monrel_robustcheck)
+confint(model_interest_monrel_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997)
-
-ci(standardize_parameters(model_interest_monrel, method = "basic"), ci = 0.997) #calculate by hand to get exact numbers
+standardize_parameters(model_interest_monrel_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-lmer(interest_monrel ~ political_orientation + (1 + political_orientation| country),
+lmer(interest_monrel ~ political_orientation + age + (1| country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -250,7 +236,7 @@ plot2 = ggplot() +
       ")"))
 plot2
 ```
-
+@Lena skipped robustness analyses for political similarity
 
 ##### H2b Preference for similarity in ethnicity/race {.tabset}
 H2b There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar ethnicity/race. 
@@ -259,24 +245,26 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_ethnicalsim <- lmer(pref_ethnicalsim ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_pref_ethnicalsim_robustcheck <- lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
+
+#drop random slope as model did not converge
+model_pref_ethnicalsim_robustcheck <- lmer(pref_ethnicalsim ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_pref_ethnicalsim)
-confint(model_pref_ethnicalsim, level = 0.997)
+summary(model_pref_ethnicalsim_robustcheck)
+confint(model_pref_ethnicalsim_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_ethnicalsim, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_ethnicalsim, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_ethnicalsim_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-lmer(pref_ethnicalsim ~ political_orientation + (1+political_orientation|country),
+lmer(pref_ethnicalsim ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -289,19 +277,18 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_religioussim <- lmer(pref_religioussim ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+model_pref_religioussim_robustcheck <- lmer(pref_religioussim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_pref_religioussim)
-confint(model_pref_religioussim, level = 0.997)
+summary(model_pref_religioussim_robustcheck)
+confint(model_pref_religioussim_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_religioussim, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_religioussim, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_religioussim_robustcheck, method = "basic", ci = 0.997)
 ```
 
 ###### Plot
@@ -320,28 +307,29 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-#model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_pref_level_financially_secure_successful_ambitious_robustcheck <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 
 #drop random slope as model did not converge
-model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1|country), data = data_included_documented)
+model_pref_level_financially_secure_successful_ambitious_robustcheck <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_pref_level_financially_secure_successful_ambitious)
-confint(model_pref_level_financially_secure_successful_ambitious, level = 0.997)
+summary(model_pref_level_financially_secure_successful_ambitious_robustcheck)
+confint(model_pref_level_financially_secure_successful_ambitious_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_level_financially_secure_successful_ambitious_robustcheck, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious_robustcheck, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
 ```
-@PROBLEM? Bei Berechnung der CI kommen NA für die sigma(R: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())) --> Laura!
-Update 10.11.20: Fehlermeldung kommt nun nicht mehr mit Modell ohne random slope
+
 ###### Plot
 ```{r}
-lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1 | country),
+lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
@@ -354,32 +342,33 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_kind_supportive <- lmer(pref_level_kind_supportive ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_pref_level_kind_supportive_robustcheck <- lmer(pref_level_kind_supportive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
+
+#drop random slope as model did not converge
+model_pref_level_kind_supportive_robustcheck <- lmer(pref_level_kind_supportive ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_pref_level_kind_supportive)
-confint(model_pref_level_kind_supportive, level = 0.997)
+summary(model_pref_level_kind_supportive_robustcheck)
+confint(model_pref_level_kind_supportive_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Bei der Berechnung der (unstandardisierten) KI kommt die Fehlermeldung: 
-Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())
-obwohl Modell konvergiert
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_level_kind_supportive, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_level_kind_supportive, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_level_kind_supportive_robustcheck, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_pref_level_kind_supportive_robustcheck, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
 ```
 
 ###### Plot
 ```{r}
-lmer(pref_level_kind_supportive ~ political_orientation + (1+political_orientation|country),
+lmer(pref_level_kind_supportive ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Hier beim Plot kommmt dieselbe Warnmeldung wie oben bei den KI 
 
 ##### H3c Preference for the level of attractiveness {.tabset}
 H3c There is no link between right-wing political orientation and women’s preferences for the level of attractiveness.  
@@ -388,36 +377,31 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-#model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_pref_level_attractiveness_robustcheck <- lmer(pref_level_attractiveness ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 
 #Model failed to converge with 1 negative eigenvalue, drop random slope:
-model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1|country), data = data_included_documented)
+model_pref_level_attractiveness_robustcheck <- lmer(pref_level_attractiveness ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Hier kommt wieder dieselbe Warnmeldung 
-Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())
 
 ###### Summary
 ```{r}
-summary(model_pref_level_attractiveness)
-confint(model_pref_level_attractiveness, level = 0.997)
+summary(model_pref_level_attractiveness_robustcheck)
+confint(model_pref_level_attractiveness_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Bei beiden Fehlermeldung: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings()
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_level_attractiveness, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_level_attractiveness, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_level_attractiveness_robustcheck, method = "basic", ci = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s.oben
 
 ###### Plot
 ```{r}
-lmer(pref_level_attractiveness ~ political_orientation + (1 | country),
+lmer(pref_level_attractiveness ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
+
 
 ##### H3d Preference for the level of confidence-assertiveness {.tabset}
 H3d There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
@@ -426,32 +410,30 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_confident_assertive <- lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_pref_level_confident_assertive_robustcheck <- lmer(pref_level_confident_assertive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented) 
+
+#drop random slope as model did not converge
+model_pref_level_confident_assertive_robustcheck <- lmer(pref_level_confident_assertive ~ political_orientation + age + (1|country), data = data_included_documented) 
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Summary
 ```{r}
-summary(model_pref_level_confident_assertive)
-confint(model_pref_level_confident_assertive, level = 0.997)
+summary(model_pref_level_confident_assertive_robustcheck)
+confint(model_pref_level_confident_assertive_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_level_confident_assertive, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_level_confident_assertive, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_level_confident_assertive_robustcheck, method = "basic", ci = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country),
+lmer(pref_level_confident_assertive ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ##### H3e Preference for the level of education-intelligence {.tabset}
 H3e There is no link between right-wing political orientation and women’s preferences for the level of education and intelligence.  
@@ -460,34 +442,30 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_pref_level_intelligence_educated <- lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+model_pref_level_intelligence_educated_robustcheck <- lmer(pref_level_intelligence_educated ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Warnmeldung s. oben (Warnmeldung erscheint auch wenn Modell ohne random slope)
 
 ###### Summary
 ```{r}
-summary(model_pref_level_intelligence_educated)
-confint(model_pref_level_intelligence_educated, level = 0.997)
+summary(model_pref_level_intelligence_educated_robustcheck)
+confint(model_pref_level_intelligence_educated_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_level_intelligence_educated, method = "basic", ci = 0.997)
+standardize_parameters(model_pref_level_intelligence_educated_robustcheck, method = "basic", ci = 0.997)
 
-ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic"), ci = 0.997)
+ci(standardize_parameters(model_pref_level_intelligence_educated_robustcheck, method = "basic"), ci = 0.997)
 #calculate by hand to get exact numbers
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country),
+lmer(pref_level_intelligence_educated ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 #### Ideal age and height {.tabset}
 ##### H4a(1) Importance Ratings for partner's age {.tabset}
@@ -497,32 +475,27 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_imp_age <- lmer(imp_age ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+model_imp_age_robustcheck <- lmer(imp_age ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Summary
 ```{r}
-summary(model_imp_age)
-confint(model_imp_age, level= 0.997)
+summary(model_imp_age_robustcheck)
+confint(model_imp_age_robustcheck, level= 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_imp_age, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_imp_age, method = "basic"), ci = 0.997)
+standardize_parameters(model_imp_age_robustcheck, method = "basic", ci = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(imp_age ~ political_orientation + (1+political_orientation|country),
+lmer(imp_age ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ##### H4a(2)Level Ratings for partner's age {.tabset}
 H4a(2) There is a positive linear link between right-wing political orientation and the relative age discrepancy between ideal partner’s age and women’s age. (discrepancy calculated as ideal partner’s age – women’s age)
@@ -531,32 +504,27 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-model_ideal_age_rel <- lmer(ideal_age_rel ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+model_ideal_age_rel_robustcheck <- lmer(ideal_age_rel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Summary
 ```{r}
-summary(model_ideal_age_rel)
-confint(model_ideal_age_rel, level = 0.997)
+summary(model_ideal_age_rel_robustcheck)
+confint(model_ideal_age_rel_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_ideal_age_rel, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_ideal_age_rel, method = "basic"), ci = 0.997)
+standardize_parameters(model_ideal_age_rel_robustcheck, method = "basic", ci = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(ideal_age_rel ~ political_orientation + (1+political_orientation|country),
+lmer(ideal_age_rel ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ##### H4b(1) Importance Ratings for partner's height {.tabset}
 H4b(1) There is a positive linear link between right-wing political orientation and women’s importance ratings for partner’s height.
@@ -565,35 +533,33 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-#model_imp_height <- lmer(imp_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_imp_height_robustcheck <- lmer(imp_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 
 #drop random slope as model did not converge
-model_imp_height <- lmer(imp_height ~ political_orientation + (1|country), data = data_included_documented)
+model_imp_height_robustcheck <- lmer(imp_height ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Summary
 ```{r}
-summary(model_imp_height)
-confint(model_imp_height, level = 0.997)
+summary(model_imp_height_robustcheck)
+confint(model_imp_height_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_imp_height, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_imp_height, method = "basic"), ci = 0.997)
+standardize_parameters(model_imp_height_robustcheck, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_imp_height_robustcheck, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(imp_height ~ political_orientation + (1 | country),
+lmer(imp_height ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ##### H4b(2)Level Ratings for partner's height {.tabset}
 H4b(2) There is a positive linear link between right-wing political orientation and ideal partner’s height.
@@ -602,34 +568,28 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-#model_ideal_height <- lmer(ideal_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
+#model_ideal_height_robustcheck <- lmer(ideal_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented)
 
 #drop random slope as model did not converge
-model_ideal_height <- lmer(ideal_height ~ political_orientation + (1|country), data = data_included_documented)
+model_ideal_height_robustcheck <- lmer(ideal_height ~ political_orientation + age + (1|country), data = data_included_documented)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Summary
 ```{r}
-summary(model_ideal_height)
-confint(model_ideal_height, level = 0.997)
+summary(model_ideal_height_robustcheck)
+confint(model_ideal_height_robustcheck, level = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_ideal_height, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_ideal_height, method = "basic"), ci = 0.997)
+standardize_parameters(model_ideal_height_robustcheck, method = "basic", ci = 0.997)
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
 ###### Plot
 ```{r}
-lmer(ideal_height ~ political_orientation + (1 | country),
+lmer(ideal_height ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-@PROBLEM @Laura Warnmeldung s. oben
 
-@IMPORTANT: Check assumptions & perform robustness checks (including age as a covariate in all models)
