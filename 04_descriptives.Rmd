@@ -50,6 +50,7 @@ summary(data_included_documented)
 ```{r Political Orientation}
 mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
+range(data_included_documented$political_orientation)
 qplot(data_included_documented$political_orientation)
 ```
 

@@ -369,7 +369,9 @@ obwohl Modell konvergiert
 ###### Standardized Coefficients
 ```{r}
 standardize_parameters(model_pref_level_kind_supportive, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_level_kind_supportive, method = "basic"), ci = 0.997)
+
+ci(standardize_parameters(model_pref_level_kind_supportive, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
 ```
 
 ###### Plot
@@ -474,9 +476,8 @@ confint(model_pref_level_intelligence_educated, level = 0.997)
 ###### Standardized Coefficients
 ```{r}
 standardize_parameters(model_pref_level_intelligence_educated, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic"), ci = 0.997)
 
-ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic"), ci = 0.997)
-#calculate by hand to get exact numbers
 ```
 @PROBLEM @Laura Warnmeldung s. oben
 
