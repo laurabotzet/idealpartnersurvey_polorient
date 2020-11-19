@@ -11,10 +11,10 @@ editor_options:
 ```{r Library}
 library(car)
 library(psych)
-library(ggplot2)
+#library(ggplot2)
 library(formr)
 library(dplyr)
-library(codebook)
+#library(codebook)
 ```
 
 
@@ -338,14 +338,8 @@ qplot(fulldata_selected_wrangled$pref_level_confident_assertive)
 qplot(fulldata_selected_wrangled$pref_level_intelligence_educated)
 ```
 
-### Trying out a simple linear regression
-```{r Trying out a simple linear regression}
-lm(political_orientation ~ age, data = fulldata_selected_wrangled)
-```
 
 ## Save Data
 ```{r Save data}
 write.csv(fulldata_selected_wrangled, file = "fulldata_selected_wrangled.csv")
 ```
-
-

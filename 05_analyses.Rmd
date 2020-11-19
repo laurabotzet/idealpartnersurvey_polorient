@@ -14,10 +14,10 @@ editor_options:
 ### Library
 ```{r Library}
 library(formr)
-library(effects)
+#library(effects)
 library(effectsize)
-library(lme4)
-library(sjstats)
+#library(lme4)
+#library(sjstats)
 library(lmerTest)
 library(dplyr)
 ```
@@ -337,8 +337,7 @@ confint(model_pref_level_financially_secure_successful_ambitious, level = 0.997)
 standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic"), ci = 0.997)
 ```
-@PROBLEM? Bei Berechnung der CI kommen NA für die sigma(R: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())) --> Laura!
-Update 10.11.20: Fehlermeldung kommt nun nicht mehr mit Modell ohne random slope
+
 ###### Plot
 ```{r}
 lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1 | country),
@@ -391,7 +390,7 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ```{r}
 #model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1+political_orientation|country), data = data_included_documented)
 
-#Model failed to converge with 1 negative eigenvalue, drop random slope:
+#Model failed to converge, drop random slope:
 model_pref_level_attractiveness <- lmer(pref_level_attractiveness ~ political_orientation + (1|country), data = data_included_documented)
 ```
 
@@ -604,5 +603,3 @@ lmer(ideal_height ~ political_orientation + (1 | country),
     allEffects() %>%
     plot()
 ```
-
-@IMPORTANT: Check assumptions & perform robustness checks (including age as a covariate in all models)

@@ -42,6 +42,7 @@ model_interest_single_robustcheck <- lmer(interest_single ~ political_orientatio
 summary(model_interest_single_robustcheck)
 confint(model_interest_single_robustcheck, level = 0.997)
 ```
+@PROBLEM: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())
 
 ###### Standardized Coefficients
 ```{r}
@@ -161,21 +162,21 @@ ggplot(data_included_documented, (aes(x = political_orientation, y = pref_politi
 
 #graph to look for u shaped pattern
 
-model_pref_politicalsim = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) +
+model_pref_politicalsim_robustcheck = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) + age +
                                  (1+political_orientation|country),
                                data = data_included_documented)
 ```
 
 ###### Summary
 ```{r}
-summary(model_pref_politicalsim)
-confint(model_pref_politicalsim, level = 0.997)
+summary(model_pref_politicalsim_robustcheck)
+confint(model_pref_politicalsim_robustcheck, level = 0.997)
 ```
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_politicalsim, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_politicalsim_robustcheck, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_pref_politicalsim_robustcheck, method = "basic"), ci = 0.997)
 ```
 
 ###### Plot
@@ -452,6 +453,7 @@ model_pref_level_intelligence_educated_robustcheck <- lmer(pref_level_intelligen
 summary(model_pref_level_intelligence_educated_robustcheck)
 confint(model_pref_level_intelligence_educated_robustcheck, level = 0.997)
 ```
+@PROBLEM: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())
 
 ###### Standardized Coefficients
 ```{r}

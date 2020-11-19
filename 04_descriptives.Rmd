@@ -31,7 +31,7 @@ Load selected data based on 03_codebook
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 
 data_included_documented = data_included_documented %>%
-  filter(!is.na(age))
+  filter(!is.na(political_orientation))
 ```
 
 ### Missingness pattern
