@@ -1,0 +1,55 @@
+---
+title: "08_graphs_exploratory"
+author: "Lena Kuschel"
+date: "30 November 2020"
+output: 
+  html_document:
+    code_folding: "hide"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Graphs {.tabset}
+
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(ggplot2)
+library(tidyr)
+library(ggpubr)
+library(RColorBrewer)
+library(coefplot)
+library(dplyr)
+
+
+
+apatheme = theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+```
+
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+data_included_documented = data_included_documented %>%
+  filter(!is.na(political_orientation)) #check
+```
+
+
+
+```{r}
+x = as.data.frame(table(data_included_documented$country)) %>% arrange(-Freq)
+x # inklusive Spanien
+```
