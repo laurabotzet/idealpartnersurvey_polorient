@@ -162,9 +162,9 @@ multiplot = ggplot(all_models_interest, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid")) +
@@ -286,9 +286,9 @@ multiplot = ggplot(all_models_similarity, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
@@ -424,9 +424,9 @@ multiplot = ggplot(all_models_ipp, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
@@ -546,9 +546,9 @@ multiplot = ggplot(all_models_ageheight, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
