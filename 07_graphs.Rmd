@@ -135,11 +135,14 @@ all_models_interest <- rbind(
   filter(Parameter == "political_orientation")
 
 all_models_interest$hypothesis = factor(
-  rep(c("H1a) Interest in Single Life", "H1b) Interest in Sexual, Non-Romantic Relationships",
-        "H1c) Interest in Non-Monogamous Relationships", "H1d) Interest in Monogamous Relationships"),
+  rep(c("H1a) Interest in Single Life", "H1b) Interest in Sexual,\nNon-Romantic Relationships",
+        "H1c) Interest in Non-Monogamous Relationships",
+        "H1d) Interest in Monogamous Relationships"),
       2),
-  levels = c("H1d) Interest in Monogamous Relationships", "H1c) Interest in Non-Monogamous Relationships",
-             "H1b) Interest in Sexual, Non-Romantic Relationships", "H1a) Interest in Single Life"))
+  levels = c("H1d) Interest in Monogamous Relationships",
+             "H1c) Interest in Non-Monogamous Relationships",
+             "H1b) Interest in Sexual,\nNon-Romantic Relationships",
+             "H1a) Interest in Single Life"))
 
 all_models_interest$type = factor(
   c(rep("Main Analyses", 4), rep("Robustness Analyses", 4)),
@@ -164,7 +167,8 @@ multiplot = ggplot(all_models_interest, aes(hypothesis, Std_Coefficient)) +
         legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
-                                         size=0.5, linetype="solid")) + guides(col = guide_legend(reverse= TRUE))
+                                         size=0.5, linetype="solid")) +
+  guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
 @PROBLEM Ich würde gerne den Text der Hypothesen auf der y-Achse unterteilen (einen Teil davon in eine nächste Zeile schieben). Mit \n funktioniert es aber nicht -> R macht dann ein NA an die Stelle des "Hypothesentextes"
@@ -210,7 +214,6 @@ ggplot(data = data_included_nomiss_politicalsim,
                conf.int=0.997, fill="lightblue")+
   stat_summary(geom="line", fun.y=mean, linetype="dashed")+
   stat_summary(geom="point", fun.y=mean, color="red")
- 
 ```
 
 ### Figure 4 {.tabset}
