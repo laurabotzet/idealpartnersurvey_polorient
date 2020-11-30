@@ -18,6 +18,8 @@ library(lme4)
 library(sjstats)
 library(lmerTest)
 library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
 ```
 
 ### Data
@@ -154,14 +156,6 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 
 ###### Models
 ```{r}
-library(ggplot2)
-ggplot(data_included_documented, (aes(x = political_orientation, y = pref_politicalsim))) +
-  geom_jitter(alpha = 0.05) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1, conf.int=0.95, fill="lightblue")+
-  stat_summary(geom="line", fun.y=mean, linetype="dashed")
-
-#graph to look for u shaped pattern
-
 model_pref_politicalsim_robustcheck = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) + age +
                                  (1+political_orientation|country),
                                data = data_included_documented)
@@ -175,15 +169,13 @@ confint(model_pref_politicalsim_robustcheck, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_politicalsim_robustcheck, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_politicalsim_robustcheck, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_politicalsim_robustcheck, method = "refit", ci = 0.997)
+#ci(standardize_parameters(model_pref_politicalsim_robustcheck, method = "refit"), ci = 0.997)
 ```
 
 ###### Plot
 ```{r}
-library(RColorBrewer)#evtl. installieren
-
-effects1 = lmer(pref_politicalsim ~ political_orientation + (1 | country),
+effects1 = lmer(pref_politicalsim ~ political_orientation + age + (1|country),
              data = data_included_documented) %>%
   allEffects(confidence.level = 0.997, xlevels = 49) %>%
   as.data.frame()
@@ -211,7 +203,7 @@ plot1 = ggplot() +
 plot1
 
 
-effects2 = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) +
+effects2 = lmer(pref_politicalsim ~ political_orientation + age + I(political_orientation^2) +
                   (1 + political_orientation | country),
              data = data_included_documented) %>%
   allEffects(confidence.level = 0.997, xlevels = 49) %>%
@@ -239,7 +231,6 @@ plot2 = ggplot() +
       ")"))
 plot2
 ```
-@Lena skipped robustness analyses for political similarity
 
 ##### H2b Preference for similarity in ethnicity/race {.tabset}
 H2b There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar ethnicity/race. 
