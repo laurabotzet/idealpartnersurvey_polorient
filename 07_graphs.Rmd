@@ -179,6 +179,40 @@ dev.off()
 ###Figure 3 {.tabset}
 Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
+```{r}
+data_included_nomiss_politicalsim = data_included_documented %>%
+  filter(!is.na(pref_politicalsim))
+
+model_pref_politicalsim = lmer(pref_politicalsim ~
+                                 political_orientation + 
+                                 I(political_orientation^2) +
+                                 (1+political_orientation|country),
+                               data = data_included_nomiss_politicalsim)
+
+model_pref_politicalsim_pred = predict(model_pref_politicalsim)
+
+data_included_nomiss_politicalsim$pref_politicalsim_pred =
+  model_pref_politicalsim_pred
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim)) +
+  geom_jitter(alpha = .10) +
+  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+               conf.int=0.997, fill="#86BDDB")+
+  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
+  stat_summary(geom="point", fun.y=mean, color="#084594") +
+  apatheme
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim_pred)) +
+  geom_jitter(alpha = .10) +
+  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+               conf.int=0.997, fill="lightblue")+
+  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
+  stat_summary(geom="point", fun.y=mean, color="red")
+ 
+```
+
 ### Figure 4 {.tabset}
 Effect size estimates of linear effects of political orientation on preferred ethnical and religious similarity for main analyses and one robustness analysis.
 

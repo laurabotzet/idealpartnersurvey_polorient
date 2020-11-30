@@ -165,14 +165,6 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 
 ###### Models
 ```{r}
-library(ggplot2)
-ggplot(data_included_documented, (aes(x = political_orientation, y = pref_politicalsim))) +
-  geom_jitter(alpha = 0.05) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1, conf.int=0.95, fill="lightblue")+
-  stat_summary(geom="line", fun.y=mean, linetype="dashed")
-
-#graph to look for u shaped pattern
-
 model_pref_politicalsim = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) +
                                  (1+political_orientation|country),
                                data = data_included_documented)
@@ -186,8 +178,8 @@ confint(model_pref_politicalsim, level = 0.997)
 
 ###### Standardized Coefficients
 ```{r}
-standardize_parameters(model_pref_politicalsim, method = "basic", ci = 0.997)
-#ci(standardize_parameters(model_pref_politicalsim, method = "basic"), ci = 0.997)
+standardize_parameters(model_pref_politicalsim, method = "refit", ci = 0.997)
+#ci(standardize_parameters(model_pref_politicalsim, method = "refit"), ci = 0.997)
 ```
 
 ###### Plot

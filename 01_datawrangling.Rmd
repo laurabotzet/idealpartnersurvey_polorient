@@ -11,8 +11,9 @@ editor_options:
 ```{r Library}
 library(car)
 library(psych)
-#library(ggplot2)
+library(ggplot2)
 library(formr)
+library(codebook)
 library(dplyr)
 #library(codebook)
 ```
@@ -30,14 +31,6 @@ fulldata_selected = read.csv(file = "fulldata_selected.csv")[,-1]
 colnames(fulldata_selected)
 
 fulldata_selected_wrangled = fulldata_selected
-
-#Correct typo in variable interest_monrel
-fulldata_selected_wrangled = fulldata_selected_wrangled %>%
-  rename(interest_monrel = inteterst_monrel)
-
-#Correct typo in variable pref_level_successful_ambitious
-fulldata_selected_wrangled = fulldata_selected_wrangled %>%
-  rename(pref_level_successful_ambitious = pref_level_successful_ambitous)
 ```
 
 
