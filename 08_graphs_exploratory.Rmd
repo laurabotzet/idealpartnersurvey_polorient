@@ -184,6 +184,114 @@ models_interest_sexrel_graph = left_join(left_join(models_interest_sexrel_coef,
   mutate(outcome = "H1b) Interest in Sexual,\nNon-Romantic Relationships")
 ```
 
+#### H2a Preference for similarity in political beliefs
+##### Linear Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_lin_confint_low = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_politicalsim_lin_confint_high = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_politicalsim_lin_graph = left_join(left_join(models_pref_politicalsim_lin_coef,
+                                         models_pref_politicalsim_lin_confint_low,
+                                         by = "name"),
+                                         models_pref_politicalsim_lin_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect")
+```
+
+##### Quadratic Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_quad_confint_low = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_politicalsim_quad_confint_high = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_politicalsim_quad_graph = left_join(left_join(models_pref_politicalsim_quad_coef,
+                                         models_pref_politicalsim_quad_confint_low,
+                                         by = "name"),
+                                         models_pref_politicalsim_quad_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect")
+```
+
+
 #### H3a Preference for the level of financial security- successfulness 
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
@@ -239,9 +347,12 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(left
 #### Combine
 ```{r}
 data_graph = rbind(models_interest_single_graph, models_interest_sexrel_graph,
-                   models_pref_level_financially_secure_successful_ambitious_graph) %>%
+                   models_pref_level_financially_secure_successful_ambitious_graph,
+                   models_pref_politicalsim_lin_graph, models_pref_politicalsim_quad_graph) %>%
   mutate(outcome = factor(outcome,
                           levels = c("H3a) Financial Security-Successfulness",
+                                     "H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect",
+                                     "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect",
                                      "H1b) Interest in Sexual,\nNon-Romantic Relationships",
                                    "H1a) Interest in Single Life")))
 
@@ -262,7 +373,7 @@ data_graph$name = factor(rep(c(
          sum(data_included_documented_rescon$country == "Brazil"), ")"),
   paste0("Spain (n = ",
          sum(data_included_documented_rescon$country == "Spain"), ")")),
-  3))
+  5))
 
 l_countries = levels(data_graph$name)
 data_graph$name = factor(data_graph$name,
@@ -272,7 +383,7 @@ data_graph$name = factor(data_graph$name,
                                     l_countries[6])))
 ```
 
-### Graph
+### Graph Multiplot
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_pointrange(data = data_graph,
@@ -286,7 +397,7 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   # scale_colour_manual(values = c("#86BDDB", "#084594"))  +
-  labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
         legend.text = element_text(size = 10),
@@ -297,3 +408,39 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
 multiplot
 ```
 
+###Graph Political Similarity
+Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
+
+```{r}
+data_included_nomiss_politicalsim = data_included_documented_rescon %>%
+  filter(!is.na(pref_politicalsim))
+
+model_pref_politicalsim = lmer(pref_politicalsim ~
+                                 political_orientation + 
+                                 I(political_orientation^2) +
+                                 (1|country),
+                               data = data_included_nomiss_politicalsim)
+
+model_pref_politicalsim_pred = predict(model_pref_politicalsim)
+
+data_included_nomiss_politicalsim$pref_politicalsim_pred =
+  model_pref_politicalsim_pred
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim,
+           color = country, fill = country)) +
+  geom_jitter(alpha = .10) +
+  #stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+  #             conf.int=0.997, alpha = 0.05)+
+  stat_summary(geom="line", fun.y=mean, linetype="solid")+
+  stat_summary(geom="point", fun.y=mean) +
+  apatheme
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim_pred, color = country)) +
+  geom_jitter(alpha = .10) +
+  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+               conf.int=0.997, fill="lightblue")+
+  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
+  stat_summary(geom="point", fun.y=mean, color="red")
+```
