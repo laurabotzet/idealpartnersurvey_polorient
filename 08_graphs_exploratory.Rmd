@@ -442,5 +442,5 @@ ggplot(data = data_included_nomiss_politicalsim,
   stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
                conf.int=0.997, fill="lightblue")+
   stat_summary(geom="line", fun.y=mean, linetype="dashed")+
-  stat_summary(geom="point", fun.y=mean, color="red")
+  stat_summary(geom="point", fun.y=mean)
 ```
