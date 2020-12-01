@@ -3,6 +3,8 @@ title: "00_import data"
 author: "Lena Kuschel"
 date: "13 October 2020"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Library

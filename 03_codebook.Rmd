@@ -44,6 +44,7 @@ Load selected data based on 02_exclusion
 data_included = read.csv(file = "data_included.csv")[,-1]
 ```
 
+
 ## Information about Data
 ### Variable Labels
 ```{r Variable Labels}

@@ -14,12 +14,14 @@ editor_options:
 ### Library
 ```{r Library}
 library(formr)
-#library(effects)
+library(effects)
 library(effectsize)
 #library(lme4)
-#library(sjstats)
+library(sjstats)
 library(lmerTest)
 library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
 ```
 
 ### Data
@@ -184,8 +186,6 @@ standardize_parameters(model_pref_politicalsim, method = "refit", ci = 0.997)
 
 ###### Plot
 ```{r}
-library(RColorBrewer)#evtl. installieren
-
 effects1 = lmer(pref_politicalsim ~ political_orientation + (1 | country),
              data = data_included_documented) %>%
   allEffects(confidence.level = 0.997, xlevels = 49) %>%
