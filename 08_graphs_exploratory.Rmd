@@ -25,7 +25,13 @@ library(tidyr)
 library(ggpubr)
 library(RColorBrewer)
 library(coefplot)
+library(tibble)
+library(purrr) # for running multiple regression
+library(broom)
+library(lm.beta)
 library(dplyr)
+library(stringr)
+library(tidyr)
 
 
 
@@ -43,13 +49,398 @@ apatheme = theme_bw() +
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
-data_included_documented = data_included_documented %>%
-  filter(!is.na(political_orientation)) #check
 ```
 
 
+### Inclusion of data
+```{r}
+countries = as.data.frame(table(data_included_documented$country)) %>%
+  arrange(-Freq)
+
+countries
+```
+We will include all countries with more than 500 participants. This allows us to show effect sizes for a diverse range of countries.
+Diversity of countries is indicated by:
+
+* location: European (France, Germany, Italy, Spain); North American (United States of America); South American (Mexico, Brazil)
+* language: French (France); German (Germany); English (United States of America); Spanish (Mexico, Spain); Italian (Italy); Portugues (Brazil)
+* culture: Western (France, Germany, Italy, Spain, United States of America); Non-Wester (Mexico, Brazil)
+
+Sample sizes of other countries are too small (n < 500) to reach any conclusions.
 
 ```{r}
-x = as.data.frame(table(data_included_documented$country)) %>% arrange(-Freq)
-x # inklusive Spanien
+seven_countries = countries %>% filter(Freq > 500)
+data_included_documented_rescon = data_included_documented %>%
+  filter(country %in% seven_countries$Var1)
+```
+
+```{r}
+countries_rescon = as.data.frame(table(data_included_documented_rescon$country)) %>%
+  arrange(-Freq)
+countries_rescon
+```
+
+### Models
+#### H1a Interest in Single Life
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(interest_single, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_interest_single = data_included_documented_rescon_wide %>%
+  select(-interest_single) %>%
+  map(~lm(data_included_documented_rescon_wide$interest_single ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_interest_single_coef = models_interest_single %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_interest_single_confint_low = models_interest_single %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_interest_single_confint_high = models_interest_single %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_interest_single_graph = left_join(left_join(models_interest_single_coef,
+                                         models_interest_single_confint_low,
+                                         by = "name"),
+                                         models_interest_single_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H1a) Interest in Single Life")
+```
+####  H1b Interest in sexual, non-romantic relationships
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(interest_sexrel, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_interest_sexrel = data_included_documented_rescon_wide %>%
+  select(-interest_sexrel) %>%
+  map(~lm(data_included_documented_rescon_wide$interest_sexrel ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_interest_sexrel_coef = models_interest_sexrel %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_interest_sexrel_confint_low = models_interest_sexrel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_interest_sexrel_confint_high = models_interest_sexrel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_interest_sexrel_graph = left_join(left_join(models_interest_sexrel_coef,
+                                         models_interest_sexrel_confint_low,
+                                         by = "name"),
+                                         models_interest_sexrel_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H1b) Interest in Sexual,\nNon-Romantic Relationships")
+```
+
+#### H2a Preference for similarity in political beliefs
+##### Linear Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_lin_confint_low = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_politicalsim_lin_confint_high = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_politicalsim_lin_graph = left_join(left_join(models_pref_politicalsim_lin_coef,
+                                         models_pref_politicalsim_lin_confint_low,
+                                         by = "name"),
+                                         models_pref_politicalsim_lin_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect")
+```
+
+##### Quadratic Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_quad_confint_low = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_politicalsim_quad_confint_high = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_politicalsim_quad_graph = left_join(left_join(models_pref_politicalsim_quad_coef,
+                                         models_pref_politicalsim_quad_confint_low,
+                                         by = "name"),
+                                         models_pref_politicalsim_quad_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect")
+```
+
+
+#### H3a Preference for the level of financial security- successfulness 
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_level_financially_secure_successful_ambitious, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_level_financially_secure_successful_ambitious = data_included_documented_rescon_wide %>%
+  select(-pref_level_financially_secure_successful_ambitious) %>%
+  map(~lm(data_included_documented_rescon_wide$pref_level_financially_secure_successful_ambitious ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_financially_secure_successful_ambitious_coef = models_pref_level_financially_secure_successful_ambitious %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_financially_secure_successful_ambitious_confint_low = models_pref_level_financially_secure_successful_ambitious %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_level_financially_secure_successful_ambitious_confint_high = models_pref_level_financially_secure_successful_ambitious %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_level_financially_secure_successful_ambitious_graph = left_join(left_join(models_pref_level_financially_secure_successful_ambitious_coef,
+                                         models_pref_level_financially_secure_successful_ambitious_confint_low,
+                                         by = "name"),
+                                         models_pref_level_financially_secure_successful_ambitious_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H3a) Financial Security-Successfulness")
+```
+
+#### Combine
+```{r}
+data_graph = rbind(models_interest_single_graph, models_interest_sexrel_graph,
+                   models_pref_level_financially_secure_successful_ambitious_graph,
+                   models_pref_politicalsim_lin_graph, models_pref_politicalsim_quad_graph) %>%
+  mutate(outcome = factor(outcome,
+                          levels = c("H3a) Financial Security-Successfulness",
+                                     "H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect",
+                                     "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect",
+                                     "H1b) Interest in Sexual,\nNon-Romantic Relationships",
+                                   "H1a) Interest in Single Life")))
+
+
+data_graph$name = factor(rep(c(
+  paste0("France (n = ",
+         sum(data_included_documented_rescon$country == "France"), ")"),
+  paste0("Germany (n = ",
+         sum(data_included_documented_rescon$country == "Germany"), ")"),
+  paste0("United States of America (n = ",
+         sum(data_included_documented_rescon$country == "United States of America"),
+         ")"),
+  paste0("Mexico (n = ",
+         sum(data_included_documented_rescon$country == "Mexico"), ")"),
+  paste0("Italy (n = ",
+         sum(data_included_documented_rescon$country == "Italy"), ")"),
+  paste0("Brazil (n = ",
+         sum(data_included_documented_rescon$country == "Brazil"), ")"),
+  paste0("Spain (n = ",
+         sum(data_included_documented_rescon$country == "Spain"), ")")),
+  5))
+
+l_countries = levels(data_graph$name)
+data_graph$name = factor(data_graph$name,
+                         levels = rev(c(l_countries[2], l_countries[3],
+                                    l_countries[7], l_countries[5],
+                                    l_countries[4], l_countries[1],
+                                    l_countries[6])))
+```
+
+### Graph Multiplot
+```{r}
+multiplot = ggplot(data_graph, aes(outcome, mean)) +
+  geom_pointrange(data = data_graph,
+                  mapping = aes(x = outcome, y = mean,
+                                ymin = conf_low , ymax = conf_high , group = name,
+                                color = name),
+                  position = position_dodge(width=0.3)) + 
+  geom_hline(yintercept = 0, size = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  coord_flip() +
+  apatheme +
+  # scale_colour_manual(values = c("#86BDDB", "#084594"))  +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        plot.title = element_text(hjust = 0),
+        legend.background = element_rect(fill="grey", 
+                                         size=0.5, linetype="solid")) +
+  guides(col = guide_legend(reverse= TRUE))
+multiplot
+```
+
+###Graph Political Similarity
+Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
+
+```{r}
+data_included_nomiss_politicalsim = data_included_documented_rescon %>%
+  filter(!is.na(pref_politicalsim))
+
+model_pref_politicalsim = lmer(pref_politicalsim ~
+                                 political_orientation + 
+                                 I(political_orientation^2) +
+                                 (1|country),
+                               data = data_included_nomiss_politicalsim)
+
+model_pref_politicalsim_pred = predict(model_pref_politicalsim)
+
+data_included_nomiss_politicalsim$pref_politicalsim_pred =
+  model_pref_politicalsim_pred
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim,
+           color = country, fill = country)) +
+  geom_jitter(alpha = .10) +
+  #stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+  #             conf.int=0.997, alpha = 0.05)+
+  stat_summary(geom="line", fun.y=mean, linetype="solid")+
+  stat_summary(geom="point", fun.y=mean) +
+  apatheme
+
+ggplot(data = data_included_nomiss_politicalsim,
+       aes(x = political_orientation, y = pref_politicalsim_pred, color = country)) +
+  geom_jitter(alpha = .10) +
+  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
+               conf.int=0.997, fill="lightblue")+
+  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
+  stat_summary(geom="point", fun.y=mean)
 ```

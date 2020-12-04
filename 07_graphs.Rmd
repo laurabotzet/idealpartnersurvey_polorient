@@ -137,11 +137,11 @@ all_models_interest <- rbind(
 
 all_models_interest$hypothesis = factor(
   rep(c("H1a) Interest in Single Life", "H1b) Interest in Sexual,\nNon-Romantic Relationships",
-        "H1c) Interest in \nNon-Monogamous Relationships",
-        "H1d) Interest in \nMonogamous Relationships"),
+        "H1c) Interest in Non-Monogamous Relationships",
+        "H1d) Interest in Monogamous Relationships"),
       2),
-  levels = c("H1d) Interest in \nMonogamous Relationships",
-             "H1c) Interest in \nNon-Monogamous Relationships",
+  levels = c("H1d) Interest in Monogamous Relationships",
+             "H1c) Interest in Non-Monogamous Relationships",
              "H1b) Interest in Sexual,\nNon-Romantic Relationships",
              "H1a) Interest in Single Life"))
 
@@ -163,15 +163,16 @@ multiplot = ggplot(all_models_interest, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid")) +
   guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
+@PROBLEM Ich würde gerne den Text der Hypothesen auf der y-Achse unterteilen (einen Teil davon in eine nächste Zeile schieben). Mit \n funktioniert es aber nicht -> R macht dann ein NA an die Stelle des "Hypothesentextes"
 
 #### Save image
 ```{r}
@@ -180,7 +181,7 @@ multiplot
 dev.off()
 ```
 
-### Figure 3 {.tabset}
+###Figure 3 {.tabset}
 Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
 ### Main Analyses
@@ -297,9 +298,9 @@ all_models_similarity <- rbind(
   filter(Parameter == "political_orientation")
 
 all_models_similarity$hypothesis = factor(
-  rep(c("H2b) Preferred \nEthnic Similarity", "H2c) Preferred \nReligious Similarity"),
+  rep(c("H2b) Preferred Ethnic Similarity", "H2c) Preferred Religious Similarity"),
       2),
-  levels = c("H2c) Preferred \nReligious Similarity", "H2b) Preferred \nEthnic Similarity"))
+  levels = c("H2c) Preferred Religious Similarity", "H2b) Preferred Ethnic Similarity"))
 
 all_models_similarity$type = factor(
   c(rep("Main Analyses", 2), rep("Robustness Analyses", 2)),
@@ -319,9 +320,9 @@ multiplot = ggplot(all_models_similarity, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
@@ -417,6 +418,7 @@ model_pref_level_intelligence_educated_robustcheck  <-
 ```
 
 
+
 #### Combine {.active}
 ```{r}
 all_models_ipp <- rbind(
@@ -433,11 +435,11 @@ all_models_ipp <- rbind(
   filter(Parameter == "political_orientation")
 
 all_models_ipp$hypothesis = factor(
-  rep(c("H3a) Financial Security-\nSuccessfulness", "H3b) Kindness-\nSupportiveness",
-        "H3c) Attractiveness", "H3d) Confidence-\nAssertiveness", "H3e) Education-\nIntelligence"),
+  rep(c("H3a) Financial Security-Successfulness", "H3b) Kindness-Supportiveness",
+        "H3c) Attractiveness", "H3d) Confidence-Assertiveness", "H3e) Education-Intelligence"),
       2),
-  levels = c("H3e) Education-\nIntelligence", "H3d) Confidence-\nAssertiveness",
-             "H3c) Attractiveness", "H3b) Kindness-\nSupportiveness", "H3a) Financial Security-\nSuccessfulness" ))
+  levels = c("H3e) Education-Intelligence", "H3d) Confidence-Assertiveness",
+             "H3c) Attractiveness", "H3b) Kindness-Supportiveness", "H3a) Financial Security-Successfulness" ))
 
 all_models_ipp$type = factor(
   c(rep("Main Analyses", 5), rep("Robustness Analyses", 5)),
@@ -457,9 +459,9 @@ multiplot = ggplot(all_models_ipp, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
@@ -541,6 +543,7 @@ model_ideal_height_robustcheck  <-
 ```
 
 
+
 #### Combine {.active}
 ```{r}
 all_models_ageheight <- rbind(
@@ -555,11 +558,11 @@ all_models_ageheight <- rbind(
   filter(Parameter == "political_orientation")
 
 all_models_ageheight$hypothesis = factor(
-  rep(c("H4a(1)) Ideal Age \n(Importance)", "H4a(2)) Ideal Age \n(Level)",
-        "H4b(1)) Ideal Height \n(Importance)", "H4b(2)) Ideal Height \n(Level)"),
+  rep(c("H4a(1)) Ideal Age (Importance)", "H4a(2)) Ideal Age (Level)",
+        "H4b(1)) Ideal Height (Importance)", "H4b(2)) Ideal Height (Level)"),
       2),
-  levels = c("H4b(2)) Ideal Height \n(Level)", "H4b(1)) Ideal Height \n(Importance)",
-             "H4a(2)) Ideal Age \n(Level)", "H4a(1)) Ideal Age \n(Importance)"))
+  levels = c("H4b(2)) Ideal Height (Level)", "H4b(1)) Ideal Height (Importance)",
+             "H4a(2)) Ideal Age (Level)", "H4a(1)) Ideal Age (Importance)"))
 
 all_models_ageheight$type = factor(
   c(rep("Main Analyses", 4), rep("Robustness Analyses", 4)),
@@ -579,9 +582,9 @@ multiplot = ggplot(all_models_ageheight, aes(hypothesis, Std_Coefficient)) +
   apatheme +
   scale_colour_manual(values = c("#86BDDB", "#084594"))  +
   labs(y = "Linear Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
