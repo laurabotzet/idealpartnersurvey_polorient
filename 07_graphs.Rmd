@@ -20,12 +20,14 @@ library(lme4)
 library(sjstats)
 library(lmerTest)
 library(ggplot2)
-#library(tidyr)
-#library(ggpubr)
+library(tidyr)
+library(ggpubr)
 library(RColorBrewer)
-#library(coefplot)
+library(coefplot)
 library(dplyr)
-
+library(tidyverse)
+library (gridExtra)
+library(cowplot)
 
 
 apatheme = theme_bw() +
@@ -120,7 +122,6 @@ model_interest_monrel_robustcheck  <-
 ```
 
 
-
 #### Combine {.active}
 ```{r}
 all_models_interest <- rbind(
@@ -182,37 +183,69 @@ dev.off()
 ### Figure 3 {.tabset}
 Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
+### Main Analyses
 ```{r}
 data_included_nomiss_politicalsim = data_included_documented %>%
   filter(!is.na(pref_politicalsim))
 
+#Model for exact values of preferred political similarity
 model_pref_politicalsim = lmer(pref_politicalsim ~
                                  political_orientation + 
                                  I(political_orientation^2) +
                                  (1+political_orientation|country),
                                data = data_included_nomiss_politicalsim)
 
+#Model for predicted values of preferred political similarity
 model_pref_politicalsim_pred = predict(model_pref_politicalsim)
 
 data_included_nomiss_politicalsim$pref_politicalsim_pred =
   model_pref_politicalsim_pred
 
+#Plotting exact values
 ggplot(data = data_included_nomiss_politicalsim,
        aes(x = political_orientation, y = pref_politicalsim)) +
   geom_jitter(alpha = .10) +
   stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
                conf.int=0.997, fill="#86BDDB")+
-  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
-  stat_summary(geom="point", fun.y=mean, color="#084594") +
-  apatheme
+  stat_summary(geom="line", fun=mean, linetype="dashed")+
+  stat_summary(geom="point", fun=mean, color="#084594") +
+  apatheme +
+  labs(y = "Preferred Political Similarity", x = "Right-Wing Political Orientation")+
+ scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) +
+ scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) 
+  #theme(legend.position = c(0.95, 0.95), 
+   #     legend.justification = c ("right", "top"), 
+    #    legend.background = element_rect(fill="grey", 
+     #                                    size=0.5, linetype="solid"))
+  
+  
+    #scale_fill_identity(guide = 'legend',labels = c('99.7% CI')) +
+  #  scale_colour_manual(
+     #    values =c('#084594'='#084594'), labels = c('Mean'))
 
+#Plotting predicted values
 ggplot(data = data_included_nomiss_politicalsim,
        aes(x = political_orientation, y = pref_politicalsim_pred)) +
   geom_jitter(alpha = .10) +
   stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
-               conf.int=0.997, fill="lightblue")+
-  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
-  stat_summary(geom="point", fun.y=mean, color="red")
+               conf.int=0.997, fill="#86BDDB")+
+  stat_summary(geom="line", fun=mean, linetype="dashed")+
+  stat_summary(geom="point", fun=mean, color="#084594") +
+  apatheme +
+  labs(y = "Preferred Political Similarity \n(Predicted Values)", x = "Right-Wing Political Orientation")+
+ scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
+ scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))
+```
+
+### Combine two graphs
+```{r}
+plot_grid(plot1, plot2)
+```
+@PROBLEM: Did not work
+
+### Robustness Analyses
+```{r}
+
 ```
 
 ### Figure 4 {.tabset}
