@@ -64,7 +64,7 @@ Diversity of countries is indicated by:
 
 * location: European (France, Germany, Italy, Spain); North American (United States of America); South American (Mexico, Brazil)
 * language: French (France); German (Germany); English (United States of America); Spanish (Mexico, Spain); Italian (Italy); Portugues (Brazil)
-* culture: Western (France, Germany, Italy, Spain, United States of America); Non-Wester (Mexico, Brazil)
+* culture: Western (France, Germany, Italy, Spain, United States of America); Non-Western (Mexico, Brazil)
 
 Sample sizes of other countries are too small (n < 500) to reach any conclusions.
 
