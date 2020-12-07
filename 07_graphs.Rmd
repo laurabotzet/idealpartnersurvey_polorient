@@ -241,12 +241,7 @@ ggplot(data = data_included_nomiss_politicalsim,
 
 ### Robustness Analyses
 ```{r}
-#Model for exact values of preferred political similarity (RA)
-model_pref_politicalsim_robustcheck = lmer(pref_politicalsim ~ political_orientation + I(political_orientation^2) + age +
-                                 (1+political_orientation|country),
-                               data = data_included_nomiss_politicalsim)
-
-#Model for predicted values of preferred political similarity (RA)???
+#Model for predicted values of preferred political similarity (RA)
 model_pref_politicalsim_pred_robustcheck = predict(model_pref_politicalsim)
 
 data_included_nomiss_politicalsim$pref_politicalsim_pred =
