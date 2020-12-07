@@ -287,7 +287,7 @@ models_pref_politicalsim_lin_graph = left_join(left_join(models_pref_politicalsi
                                          by = "name"),
                                          models_pref_politicalsim_lin_confint_high,
                                          by = "name") %>%
-  mutate(outcome = "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect")
+  mutate(outcome = "H2a) Preference for Similarity in\nPolitical Beliefs - Linear Effect")
 ```
 
 ##### Quadratic Effect
@@ -403,7 +403,7 @@ data_graph = rbind(models_interest_single_graph, models_interest_sexrel_graph,
                    models_pref_politicalsim_lin_graph, models_pref_politicalsim_quad_graph) %>%
   mutate(outcome = factor(outcome,
                           levels = c("H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect",
-                                     "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect",
+                                     "H2a) Preference for Similarity in\nPolitical Beliefs - Linear Effect",
                                      "H1c) Interest in \nNon-Monogamous Relationships",
                                      "H1b) Interest in Sexual,\nNon-Romantic Relationships",
                                    "H1a) Interest in Single Life")))
@@ -493,7 +493,7 @@ data_graph2$name = factor(data_graph2$name,
                                     l_countries[6])))
 ```
 
-### Graph One Multiplot
+### Graph Two Multiplot
 ```{r}
 multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
   geom_hline(yintercept = 0, size = 1.5)  +

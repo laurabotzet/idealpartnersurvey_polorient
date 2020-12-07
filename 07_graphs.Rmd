@@ -223,7 +223,7 @@ graph_emp =
        aes(x = political_orientation, y = pref_politicalsim)) +
   geom_jitter(alpha = .10) +
   stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 2.575), #adjust mult to 99.7% CI
+               fun.args = list(mult = 3),
                fill="#86BDDB")+
   stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
   stat_summary(geom="point", fun=mean, color="#084594") +
@@ -250,7 +250,7 @@ graph_pred_main =
        aes(x = political_orientation, y = pref_politicalsim_pred)) +
   geom_jitter(alpha = .10) +
   stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 2.575), #adjust mult to 99.7% CI
+               fun.args = list(mult = 3), #adjust mult to 99.7% CI
                fill="#86BDDB")+
   stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
   stat_summary(geom="point", fun=mean, color="#084594") +
@@ -267,7 +267,7 @@ graph_pred_rob =
        aes(x = political_orientation, y = pref_politicalsim_pred)) +
   geom_jitter(alpha = .10) +
   stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 2.575), #adjust mult to 99.7% CI
+               fun.args = list(mult = 3), #adjust mult to 99.7% CI
                fill="#86BDDB")+
   stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
   stat_summary(geom="point", fun=mean, color="#084594") +
