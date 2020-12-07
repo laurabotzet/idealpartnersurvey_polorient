@@ -33,8 +33,6 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 
-
-
 apatheme = theme_bw() +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -132,6 +130,7 @@ models_interest_single_graph = left_join(left_join(models_interest_single_coef,
                                          by = "name") %>%
   mutate(outcome = "H1a) Interest in Single Life")
 ```
+
 ####  H1b Interest in sexual, non-romantic relationships
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
@@ -183,6 +182,59 @@ models_interest_sexrel_graph = left_join(left_join(models_interest_sexrel_coef,
                                          by = "name") %>%
   mutate(outcome = "H1b) Interest in Sexual,\nNon-Romantic Relationships")
 ```
+
+#### H1c Interest in non-monogamous relationships
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(interest_nonmonrel, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_interest_nonmonrel = data_included_documented_rescon_wide %>%
+  select(-interest_nonmonrel) %>%
+  map(~lm(data_included_documented_rescon_wide$interest_nonmonrel ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_interest_nonmonrel_coef = models_interest_nonmonrel %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_interest_nonmonrel_confint_low = models_interest_nonmonrel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_interest_nonmonrel_confint_high = models_interest_nonmonrel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_interest_nonmonrel_graph = left_join(left_join(models_interest_nonmonrel_coef,
+                                         models_interest_nonmonrel_confint_low,
+                                         by = "name"),
+                                         models_interest_nonmonrel_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H1c) Interest in \nNon-Monogamous Relationships")
+```
+
 
 #### H2a Preference for similarity in political beliefs
 ##### Linear Effect
@@ -344,15 +396,15 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(left
   mutate(outcome = "H3a) Financial Security-Successfulness")
 ```
 
-#### Combine
+### Combine Graph One
 ```{r}
 data_graph = rbind(models_interest_single_graph, models_interest_sexrel_graph,
-                   models_pref_level_financially_secure_successful_ambitious_graph,
+                   models_interest_nonmonrel_graph,
                    models_pref_politicalsim_lin_graph, models_pref_politicalsim_quad_graph) %>%
   mutate(outcome = factor(outcome,
-                          levels = c("H3a) Financial Security-Successfulness",
-                                     "H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect",
+                          levels = c("H2a) Preference for Similarity in\nPolitical Beliefs - Quadratic Effect",
                                      "H2a) Preference for Similarity in\nPolitical beliefs - Linear Effect",
+                                     "H1c) Interest in \nNon-Monogamous Relationships",
                                      "H1b) Interest in Sexual,\nNon-Romantic Relationships",
                                    "H1a) Interest in Single Life")))
 
@@ -383,20 +435,20 @@ data_graph$name = factor(data_graph$name,
                                     l_countries[6])))
 ```
 
-### Graph Multiplot
+### Graph One Multiplot
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
+  geom_hline(yintercept = 0, size = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
   geom_pointrange(data = data_graph,
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
                                 color = name),
                   position = position_dodge(width=0.3)) + 
-  geom_hline(yintercept = 0, size = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
   coord_flip() +
   apatheme +
-  # scale_colour_manual(values = c("#86BDDB", "#084594"))  +
+  scale_colour_brewer(palette = "Set1")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
@@ -408,39 +460,60 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
 multiplot
 ```
 
-###Graph Political Similarity
-Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
-
+### Combine Graph Two
 ```{r}
-data_included_nomiss_politicalsim = data_included_documented_rescon %>%
-  filter(!is.na(pref_politicalsim))
+data_graph2 = rbind(models_pref_level_financially_secure_successful_ambitious_graph) %>%
+  mutate(outcome = factor(outcome,
+                          levels = c("H3a) Financial Security-Successfulness")))
 
-model_pref_politicalsim = lmer(pref_politicalsim ~
-                                 political_orientation + 
-                                 I(political_orientation^2) +
-                                 (1|country),
-                               data = data_included_nomiss_politicalsim)
 
-model_pref_politicalsim_pred = predict(model_pref_politicalsim)
+data_graph2$name = factor(rep(c(
+  paste0("France (n = ",
+         sum(data_included_documented_rescon$country == "France"), ")"),
+  paste0("Germany (n = ",
+         sum(data_included_documented_rescon$country == "Germany"), ")"),
+  paste0("United States of America (n = ",
+         sum(data_included_documented_rescon$country == "United States of America"),
+         ")"),
+  paste0("Mexico (n = ",
+         sum(data_included_documented_rescon$country == "Mexico"), ")"),
+  paste0("Italy (n = ",
+         sum(data_included_documented_rescon$country == "Italy"), ")"),
+  paste0("Brazil (n = ",
+         sum(data_included_documented_rescon$country == "Brazil"), ")"),
+  paste0("Spain (n = ",
+         sum(data_included_documented_rescon$country == "Spain"), ")")),
+  1))
 
-data_included_nomiss_politicalsim$pref_politicalsim_pred =
-  model_pref_politicalsim_pred
+l_countries2 = levels(data_graph2$name)
+data_graph2$name = factor(data_graph2$name,
+                         levels = rev(c(l_countries[2], l_countries[3],
+                                    l_countries[7], l_countries[5],
+                                    l_countries[4], l_countries[1],
+                                    l_countries[6])))
+```
 
-ggplot(data = data_included_nomiss_politicalsim,
-       aes(x = political_orientation, y = pref_politicalsim,
-           color = country, fill = country)) +
-  geom_jitter(alpha = .10) +
-  #stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
-  #             conf.int=0.997, alpha = 0.05)+
-  stat_summary(geom="line", fun.y=mean, linetype="solid")+
-  stat_summary(geom="point", fun.y=mean) +
-  apatheme
-
-ggplot(data = data_included_nomiss_politicalsim,
-       aes(x = political_orientation, y = pref_politicalsim_pred, color = country)) +
-  geom_jitter(alpha = .10) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal, width=0.1,
-               conf.int=0.997, fill="lightblue")+
-  stat_summary(geom="line", fun.y=mean, linetype="dashed")+
-  stat_summary(geom="point", fun.y=mean)
+### Graph One Multiplot
+```{r}
+multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
+  geom_hline(yintercept = 0, size = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  geom_pointrange(data = data_graph2,
+                  mapping = aes(x = outcome, y = mean,
+                                ymin = conf_low , ymax = conf_high , group = name,
+                                color = name),
+                  position = position_dodge(width=0.3)) + 
+  coord_flip() +
+  apatheme +
+  scale_colour_brewer(palette = "Set1")  +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        plot.title = element_text(hjust = 0),
+        legend.background = element_rect(fill="grey", 
+                                         size=0.5, linetype="solid")) +
+  guides(col = guide_legend(reverse= TRUE))
+multiplot2
 ```
