@@ -229,7 +229,9 @@ graph_emp =
   apatheme +
   labs(y = "Preferred Political Similarity\n(Empirical Values)", x = "Right-Wing Political Orientation")+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) +
- scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) 
+ scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) +
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15))
 graph_emp
 
 # Dataset predicted values main analyses and robustness analyses
@@ -257,7 +259,9 @@ graph_pred_main =
   labs(y = "Preferred Political Similarity\n(Predicted Values Based on Main Analysis)", x = "Right-Wing Political Orientation")+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
  scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6),
-                    limits = c(1.8,5.5))
+                    limits = c(1.8,5.5)) +
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15))
 graph_pred_main
 
 graph_pred_rob = 
@@ -274,7 +278,9 @@ graph_pred_rob =
   labs(y = "Preferred Political Similarity\n(Predicted Values Based on Robustness Analysis)", x = "Right-Wing Political Orientation")+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
  scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6),
-                    limits = c(1.8,5.5))
+                    limits = c(1.8,5.5))+
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15))
 graph_pred_rob
 ```
 
@@ -291,7 +297,7 @@ graph_mult =
 
 #### Save image
 ```{r}
-jpeg("Figure3.jpeg", width = 600, height = 900,  pointsize = 100, quality = 100)
+jpeg("Figure3.jpeg", width = 1000, height = 1200,  pointsize = 100, quality = 100)
 graph_mult
 dev.off()
 ```

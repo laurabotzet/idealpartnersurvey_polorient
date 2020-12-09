@@ -1040,6 +1040,7 @@ multiplot
 jpeg("Exploratory_01.jpeg", width = 1050, height = 1050, pointsize = 100, quality = 100)
 multiplot
 dev.off()
+```
 
 ### Combine Graph Two
 ```{r}
@@ -1089,12 +1090,19 @@ multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
   apatheme +
   scale_colour_brewer(palette = "Set1")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid")) +
   guides(col = guide_legend(reverse= TRUE))
 multiplot2
+```
+
+#### Save image
+```{r}
+jpeg("Exploratory_02.jpeg", width = 1050, height = 1050, pointsize = 100, quality = 100)
+multiplot2
+dev.off()
 ```
