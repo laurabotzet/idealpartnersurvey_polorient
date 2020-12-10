@@ -1020,10 +1020,10 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
                                 color = name),
-                  position = position_dodge(width=0.3)) + 
+                  position = position_dodge(width=0.4)) + 
   coord_flip() +
   apatheme +
-  scale_colour_brewer(palette = "Accent")  +
+  scale_colour_brewer(palette = "Dark2")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
@@ -1037,7 +1037,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Exploratory_01.jpeg", width = 1050, height = 1050, pointsize = 100, quality = 100)
+jpeg("Exploratory_01.jpeg", width = 1200, height = 1600, pointsize = 100, quality = 100)
 multiplot
 dev.off()
 ```
@@ -1085,10 +1085,10 @@ multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
                                 color = name),
-                  position = position_dodge(width=0.3)) + 
+                  position = position_dodge(width=0.4)) + 
   coord_flip() +
   apatheme +
-  scale_colour_brewer(palette = "Set1")  +
+  scale_colour_brewer(palette = "Dark2")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
@@ -1102,7 +1102,7 @@ multiplot2
 
 #### Save image
 ```{r}
-jpeg("Exploratory_02.jpeg", width = 1050, height = 1050, pointsize = 100, quality = 100)
+jpeg("Exploratory_02.jpeg", width = 1200, height = 1500, pointsize = 100, quality = 100)
 multiplot2
 dev.off()
 ```
