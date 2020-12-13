@@ -1024,7 +1024,7 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
-  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
         legend.text = element_text(size = 15),
@@ -1089,7 +1089,7 @@ multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
-  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
         legend.text = element_text(size = 15),
