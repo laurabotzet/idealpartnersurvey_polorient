@@ -1,0 +1,304 @@
+---
+title: "08_graphs_exploratory"
+author: "Lena Kuschel"
+date: "30 November 2020"
+output: 
+  html_document:
+    code_folding: "hide"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Graphs {.tabset}
+
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(ggplot2)
+library(tidyr)
+library(ggpubr)
+library(RColorBrewer)
+library(coefplot)
+library(tibble)
+library(purrr) # for running multiple regression
+library(broom)
+library(mvmeta)
+library(lm.beta)
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+apatheme = theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+```
+
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+
+### Inclusion of data
+```{r}
+countries = as.data.frame(table(data_included_documented$country)) %>%
+  arrange(-Freq)
+
+countries
+```
+We will include all countries with more than 500 participants. This allows us to show effect sizes for a diverse range of countries.
+Diversity of countries is indicated by:
+
+* location: European (France, Germany, Italy, Spain); North American (United States of America); South American (Mexico, Brazil)
+* language: French (France); German (Germany); English (United States of America); Spanish (Mexico, Spain); Italian (Italy); Portuguese (Brazil)
+* culture: Western (France, Germany, Italy, Spain, United States of America); Non-Western (Mexico, Brazil)
+
+Sample sizes of other countries are too small (n < 500) to reach any conclusions.
+
+```{r}
+seven_countries = countries %>% filter(Freq > 500)
+data_included_documented_rescon = data_included_documented %>%
+  filter(country %in% seven_countries$Var1)
+```
+
+```{r}
+countries_rescon = as.data.frame(table(data_included_documented_rescon$country)) %>%
+  arrange(-Freq)
+countries_rescon
+```
+
+### Models
+#### H1a Interest in Single Life
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(interest_single, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_interest_single = data_included_documented_rescon_wide %>%
+  select(-interest_single) %>%
+  map(~lm(data_included_documented_rescon_wide$interest_single ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_interest_single_coef = models_interest_single %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_interest_single_se = models_interest_single %>%
+  map(summary) %>%
+  tibble(models_interest_single_se = ., Names = names(.)) %>%
+  hoist(models_interest_single_se, coefficients = "coefficients") %>%
+  select(-models_interest_single_se) %>%
+  unnest_wider(., coefficients, names_repair = "universal") %>%
+  select(...5, Names) %>%
+  rename("name" = "Names",
+         "se" = "...5") %>%
+  mutate(name = ifelse(name == "United States of America",
+                       "United.States.of.America", name))
+
+
+models_interest_single_analyses = left_join(models_interest_single_coef,
+                                            models_interest_single_se,
+                                            by = "name") %>%
+  mutate(outcome = "H1a) Interest in Single Life")
+
+models_interest_single_analyses$n = countries_rescon$Freq
+
+model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+
+####  H1b Interest in sexual, non-romantic relationships
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(interest_sexrel, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_interest_sexrel = data_included_documented_rescon_wide %>%
+  select(-interest_sexrel) %>%
+  map(~lm(data_included_documented_rescon_wide$interest_sexrel ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_interest_sexrel_coef = models_interest_sexrel %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_interest_sexrel_se = models_interest_sexrel %>%
+  map(summary) %>%
+  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
+  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
+  select(-models_interest_sexrel_se) %>%
+  unnest_wider(., coefficients, names_repair = "universal") %>%
+  select(...5, Names) %>%
+  rename("name" = "Names",
+         "se" = "...5") %>%
+  mutate(name = ifelse(name == "United States of America",
+                       "United.States.of.America", name))
+
+
+models_interest_sexrel_analyses = left_join(models_interest_sexrel_coef,
+                                            models_interest_sexrel_se,
+                                            by = "name") %>%
+  mutate(outcome = "H1b) Interest in Sexual, Non-Romantic Relationships")
+
+models_interest_sexrel_analyses$n = countries_rescon$Freq
+
+model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+#### H1c Interest in non-monogamous relationships
+
+#### H1d Interest in monogamous relationships
+
+#### H2a Preference for similarity in political beliefs
+##### Linear Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_lin_se = models_pref_politicalsim %>%
+  map(summary) %>%
+  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
+  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
+  select(-models_interest_sexrel_se) %>%
+  unnest_wider(., coefficients, names_repair = "universal") %>%
+  select(...8, Names) %>%
+  rename("name" = "Names",
+         "se" = "...8") %>%
+  mutate(name = ifelse(name == "United States of America",
+                       "United.States.of.America", name))
+
+
+models_pref_politicalsim_lin_analyses = left_join(models_pref_politicalsim_lin_coef,
+                                            models_pref_politicalsim_lin_se,
+                                            by = "name") %>%
+  mutate(outcome = "H2a) Prefered Political Similarity - Linear Effect")
+
+models_pref_politicalsim_lin_analyses$n = countries_rescon$Freq
+
+model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### Quadratic Effect
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_politicalsim = data_included_documented_rescon_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
+            I(scale(.x)^2),
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "I(scale(.x)^2)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+
+models_pref_politicalsim_quad_se = models_pref_politicalsim %>%
+  map(summary) %>%
+  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
+  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
+  select(-models_interest_sexrel_se) %>%
+  unnest_wider(., coefficients, names_repair = "universal") %>%
+  select(...9, Names) %>%
+  rename("name" = "Names",
+         "se" = "...9") %>%
+  mutate(name = ifelse(name == "United States of America",
+                       "United.States.of.America", name))
+
+
+models_pref_politicalsim_quad_analyses = left_join(models_pref_politicalsim_quad_coef,
+                                            models_pref_politicalsim_quad_se,
+                                            by = "name") %>%
+  mutate(outcome = "H2a) Prefered Political Similarity - Quadratic Effect")
+
+models_pref_politicalsim_quad_analyses$n = countries_rescon$Freq
+
+model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+#### H2b Preference for similarity in ethnicity/race
+
+
+#### H2c Preference for similarity in religion
+
+
+#### H3a Preference for the level of financial security- successfulness 
+
+
+#### H3b Preference for the level of kindness-supportiveness
+
+#### H3c Preference for the level of attractiveness
+
+#### H3d Preference for the level of confidence-assertiveness
+
+#### H3e Preference for the level of education-intelligence
+
+#### H4a(1) Ideal age (importance)
+
+#### H4a(2) Ideal age (level)
+
+#### H4b(1) Ideal height (importance)
+
+#### H4b(2) Ideal height (level)
+
