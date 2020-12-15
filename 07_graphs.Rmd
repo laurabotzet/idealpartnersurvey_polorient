@@ -298,7 +298,7 @@ graph_mult =
 
 #### Save image
 ```{r}
-jpeg("Figure3.jpeg", width = 1000, height = 1200,  pointsize = 100, quality = 100)
+jpeg("Figure3.jpeg", width = 1000, height = 1200)
 graph_mult
 dev.off()
 ```
@@ -386,7 +386,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Figure4.jpeg", width = 1050, height = 700, pointsize = 100, quality = 100)
+jpeg("Figure4.jpeg", width = 1050, height = 700)
 multiplot
 dev.off()
 ```
@@ -525,7 +525,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Figure5.jpeg", width = 1050, height = 700, pointsize = 100, quality = 100)
+jpeg("Figure5.jpeg", width = 1050, height = 700)
 multiplot
 dev.off()
 ```
@@ -648,7 +648,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Figure6.jpeg", width = 1050, height = 700, pointsize = 100, quality = 100)
+jpeg("Figure6.jpeg", width = 1050, height = 700)
 multiplot
 dev.off()
 ```
