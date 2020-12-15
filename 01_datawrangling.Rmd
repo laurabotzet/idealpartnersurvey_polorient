@@ -208,9 +208,21 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
 
 ### Country
 ```{r Country}
-table(fulldata_selected_wrangled$country)
+x = table(fulldata_selected_wrangled$country)
 table(is.na(fulldata_selected_wrangled$country))
 ```
+
+#### Problem with South Korea / Korea, South
+```{r}
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
+  mutate(country = ifelse(country == "Korea, South",
+                          "South Korea",
+                          country),
+         country = ifelse(country == "Congo, Democratic Republic of the",
+                          "Congo, Republic of the",
+                          country))
+```
+
 
 ### Language
 Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
