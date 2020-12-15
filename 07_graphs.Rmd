@@ -169,13 +169,14 @@ multiplot = ggplot(all_models_interest, aes(hypothesis, Std_Coefficient)) +
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
                                          size=0.5, linetype="solid")) +
-  guides(col = guide_legend(reverse= TRUE))
+  #theme(legend.position=c(0.8, 0.8)) +
+  guides(col = guide_legend(reverse= TRUE)) 
 multiplot
 ```
 
 #### Save image
 ```{r}
-jpeg("Figure2.jpeg", width = 1050, height = 700, pointsize = 100, quality = 100)
+jpeg("Figure2.jpeg", width = 1050, height = 700)
 multiplot
 dev.off()
 ```
