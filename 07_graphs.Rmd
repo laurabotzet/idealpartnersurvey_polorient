@@ -72,9 +72,7 @@ model_interest_sexrel <-
 model_interest_nonmonrel <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        interest_nonmonrel ~ political_orientation + (1|country),
-        data = data_included_documented),
+      lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_interest_monrel <-
@@ -99,9 +97,7 @@ model_interest_single_robustcheck <-
 model_interest_sexrel_robustcheck <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        interest_sexrel ~ political_orientation + age + (1+political_orientation|country),
-        data = data_included_documented),
+      lmer(interest_sexrel ~ political_orientation + age + (1|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_interest_nonmonrel_robustcheck <-
@@ -181,10 +177,10 @@ multiplot
 dev.off()
 ```
 
-###Figure 3 {.tabset}
+### Figure 3 {.tabset}
 Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
-#### Main Analyses
+#### Main and Robustness Analyses
 ```{r}
 data_included_nomiss_politicalsim = data_included_documented %>%
   filter(!is.na(pref_politicalsim))
@@ -329,8 +325,7 @@ Additionally including age as a predictor
 model_pref_ethnicalsim_robustcheck <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        pref_ethnicalsim ~ political_orientation + age + (1|country), data = data_included_documented),
+      lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_pref_religioussim_robustcheck <-
@@ -406,8 +401,7 @@ model_pref_level_financially_secure_successful_ambitious <-
 model_pref_level_kind_supportive <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        pref_level_kind_supportive ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+      lmer(pref_level_kind_supportive ~ political_orientation + (1|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_pref_level_attractiveness <-
@@ -427,8 +421,7 @@ model_pref_level_confident_assertive <-
 model_pref_level_intelligence_educated <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+      lmer(pref_level_intelligence_educated ~ political_orientation + (1|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 ```
 
@@ -459,15 +452,13 @@ model_pref_level_attractiveness_robustcheck <-
 model_pref_level_confident_assertive_robustcheck  <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        pref_level_confident_assertive ~ political_orientation + age + (1|country), data = data_included_documented),
+      lmer(pref_level_confident_assertive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_pref_level_intelligence_educated_robustcheck  <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        pref_level_intelligence_educated ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+      lmer(pref_level_intelligence_educated ~ political_orientation + age + (1|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 ```
 
@@ -545,8 +536,7 @@ model_imp_age <-
 model_ideal_age_rel <-
   as.data.frame(
     standardize_parameters(
-      lmer(
-        ideal_age_rel ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+      lmer(ideal_age_rel ~ political_orientation + (1|country), data = data_included_documented),
       method = "basic", ci = 0.997))
 
 model_imp_height <-

@@ -1037,7 +1037,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Exploratory_01.jpeg", width = 1200, height = 1600, pointsize = 100, quality = 100)
+jpeg("Exploratory_01.jpeg", width = 1200, height = 1600)
 multiplot
 dev.off()
 ```
@@ -1102,7 +1102,7 @@ multiplot2
 
 #### Save image
 ```{r}
-jpeg("Exploratory_02.jpeg", width = 1200, height = 1500, pointsize = 100, quality = 100)
+jpeg("Exploratory_02.jpeg", width = 1200, height = 1600)
 multiplot2
 dev.off()
 ```
