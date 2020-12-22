@@ -74,12 +74,18 @@ data_included_documented_rescon = data_included_documented %>%
 ```
 
 ```{r}
-countries_rescon = as.data.frame(table(data_included_documented_rescon$country)) %>%
+countries_rescon =
+  data_included_documented_rescon %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
   arrange(-Freq)
+
+
 countries_rescon
 ```
 
-### Models
+### Models {.tabset}
 #### H1a Interest in Single Life
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
@@ -119,6 +125,14 @@ models_interest_single_analyses = left_join(models_interest_single_coef,
                                             models_interest_single_se,
                                             by = "name") %>%
   mutate(outcome = "H1a) Interest in Single Life")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(interest_single)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_interest_single_analyses$n = countries_rescon$Freq
 
@@ -168,6 +182,14 @@ models_interest_sexrel_analyses = left_join(models_interest_sexrel_coef,
                                             by = "name") %>%
   mutate(outcome = "H1b) Interest in Sexual, Non-Romantic Relationships")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(interest_sexrel)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_interest_sexrel_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
@@ -215,6 +237,14 @@ models_interest_nonmonrel_analyses = left_join(models_interest_nonmonrel_coef,
                                             by = "name") %>%
   mutate(outcome = "H1c) Interest in Non-Monogamous Relationships")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(interest_nonmonrel)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_interest_nonmonrel_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_interest_nonmonrel_analyses, S = se^2,
@@ -261,6 +291,14 @@ models_interest_monrel_analyses = left_join(models_interest_monrel_coef,
                                             models_interest_monrel_se,
                                             by = "name") %>%
   mutate(outcome = "H1c) Interest in Monogamous Relationships")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(interest_monrel)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_interest_monrel_analyses$n = countries_rescon$Freq
 
@@ -310,6 +348,14 @@ models_pref_politicalsim_lin_analyses = left_join(models_pref_politicalsim_lin_c
                                             models_pref_politicalsim_lin_se,
                                             by = "name") %>%
   mutate(outcome = "H2a) Prefered Political Similarity - Linear Effect")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_pref_politicalsim_lin_analyses$n = countries_rescon$Freq
 
@@ -407,6 +453,14 @@ models_pref_ethnicalsim_analyses = left_join(models_pref_ethnicalsim_coef,
                                             by = "name") %>%
   mutate(outcome = "H2b) Preferred Ethnic Similarity")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_ethnicalsim)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_pref_ethnicalsim_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_pref_ethnicalsim_analyses, S = se^2,
@@ -453,6 +507,14 @@ models_pref_religioussim_analyses = left_join(models_pref_religioussim_coef,
                                             models_pref_religioussim_se,
                                             by = "name") %>%
   mutate(outcome = "H2c) Preferred Religious Similarity")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_religioussim)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_pref_religioussim_analyses$n = countries_rescon$Freq
 
@@ -501,6 +563,14 @@ models_pref_level_financially_secure_successful_ambitious_analyses = left_join(m
                                             by = "name") %>%
   mutate(outcome = "H3a) Financial Security-Successfulness")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_level_financially_secure_successful_ambitious)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_pref_level_financially_secure_successful_ambitious_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_pref_level_financially_secure_successful_ambitious_analyses, S = se^2,
@@ -547,6 +617,14 @@ models_pref_level_kind_supportive_analyses = left_join(models_pref_level_kind_su
                                             models_pref_level_kind_supportive_se,
                                             by = "name") %>%
   mutate(outcome = "H3b) Kindness-Supportiveness")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_level_kind_supportive)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_pref_level_kind_supportive_analyses$n = countries_rescon$Freq
 
@@ -595,6 +673,14 @@ models_pref_level_attractiveness_analyses = left_join(models_pref_level_attracti
                                             by = "name") %>%
   mutate(outcome = "H3c) Attractiveness")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_level_attractiveness)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_pref_level_attractiveness_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_pref_level_attractiveness_analyses, S = se^2,
@@ -641,6 +727,14 @@ models_pref_level_confident_assertive_analyses = left_join(models_pref_level_con
                                             models_pref_level_confident_assertive_se,
                                             by = "name") %>%
   mutate(outcome = "H3d) Confidence-Assertiveness")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_level_confident_assertive)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_pref_level_confident_assertive_analyses$n = countries_rescon$Freq
 
@@ -689,6 +783,14 @@ models_pref_level_intelligence_educated_analyses = left_join(models_pref_level_i
                                             by = "name") %>%
   mutate(outcome = "H3e) Education-Intelligence")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(pref_level_intelligence_educated)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_pref_level_intelligence_educated_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_pref_level_intelligence_educated_analyses, S = se^2,
@@ -735,6 +837,14 @@ models_imp_age_analyses = left_join(models_imp_age_coef,
                                             models_imp_age_se,
                                             by = "name") %>%
   mutate(outcome = "H4a(1)) Ideal Age (Importance)")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(imp_age)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_imp_age_analyses$n = countries_rescon$Freq
 
@@ -783,6 +893,14 @@ models_ideal_age_rel_analyses = left_join(models_ideal_age_rel_coef,
                                             by = "name") %>%
   mutate(outcome = "H4a(2)) Ideal Age (Level)")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(ideal_age_rel)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_ideal_age_rel_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_ideal_age_rel_analyses, S = se^2,
@@ -830,6 +948,14 @@ models_imp_height_analyses = left_join(models_imp_height_coef,
                                             by = "name") %>%
   mutate(outcome = "H4b(1)) Ideal Height (Importance)")
 
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(imp_height)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
 models_imp_height_analyses$n = countries_rescon$Freq
 
 model = mvmeta(mean ~ 1, data = models_imp_height_analyses, S = se^2,
@@ -876,6 +1002,14 @@ models_ideal_height_analyses = left_join(models_ideal_height_coef,
                                             models_ideal_height_se,
                                             by = "name") %>%
   mutate(outcome = "H4b(2)) Ideal Height (Level)")
+
+countries_rescon =
+  data_included_documented_rescon %>%
+  filter(!is.na(ideal_height)) %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
 
 models_ideal_height_analyses$n = countries_rescon$Freq
 
