@@ -30,7 +30,7 @@ Load selected data based on 03_codebook
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
-### Analysis {.tabset}
+### Analysis {.tabset .active}
 If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
 Instead we will z-standardize outcomes separately for each country.
 
@@ -59,7 +59,7 @@ standardize_parameters(model_interest_single, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_interest_single, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_single ~ political_orientation + (1 | country),
        data = data_included_documented) %>%
@@ -88,7 +88,7 @@ standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_interest_sexrel, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_sexrel ~ political_orientation + (1 + political_orientation| country),
        data = data_included_documented) %>%
@@ -117,7 +117,7 @@ standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_interest_nonmonrel, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -147,7 +147,7 @@ standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997)
 ci(standardize_parameters(model_interest_monrel, method = "basic"), ci = 0.997) #calculate by hand to get exact numbers
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(interest_monrel ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -181,7 +181,7 @@ standardize_parameters(model_pref_politicalsim, method = "refit", ci = 0.997)
 #ci(standardize_parameters(model_pref_politicalsim, method = "refit"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 effects1 = lmer(pref_politicalsim ~ political_orientation + (1 | country),
              data = data_included_documented) %>%
@@ -263,7 +263,7 @@ standardize_parameters(model_pref_ethnicalsim, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_pref_ethnicalsim, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_ethnicalsim ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -293,7 +293,7 @@ standardize_parameters(model_pref_religioussim, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_pref_religioussim, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_religioussim ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -327,7 +327,7 @@ standardize_parameters(model_pref_level_financially_secure_successful_ambitious,
 #ci(standardize_parameters(model_pref_level_financially_secure_successful_ambitious, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1|country),
        data = data_included_documented) %>%
@@ -362,7 +362,7 @@ ci(standardize_parameters(model_pref_level_kind_supportive, method = "basic"), c
 #calculate by hand to get exact numbers
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_level_kind_supportive ~ political_orientation + (1|country),
        data = data_included_documented) %>%
@@ -395,7 +395,7 @@ standardize_parameters(model_pref_level_attractiveness, method = "basic", ci = 0
 #ci(standardize_parameters(model_pref_level_attractiveness, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_level_attractiveness ~ political_orientation + (1|country),
        data = data_included_documented) %>%
@@ -425,7 +425,7 @@ standardize_parameters(model_pref_level_confident_assertive, method = "basic", c
 #ci(standardize_parameters(model_pref_level_confident_assertive, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -460,7 +460,7 @@ ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basi
 #calculate by hand to get exact numbers
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(pref_level_intelligence_educated ~ political_orientation + (1|country),
        data = data_included_documented) %>%
@@ -491,7 +491,7 @@ standardize_parameters(model_imp_age, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_imp_age, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(imp_age ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -557,7 +557,7 @@ standardize_parameters(model_imp_height, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_imp_height, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(imp_height ~ political_orientation + (1|country),
        data = data_included_documented) %>%
@@ -590,7 +590,7 @@ standardize_parameters(model_ideal_height, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_ideal_height, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+######  Plot {.active}
 ```{r}
 lmer(ideal_height ~ political_orientation + (1|country),
        data = data_included_documented) %>%
