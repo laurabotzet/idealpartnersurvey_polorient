@@ -450,8 +450,8 @@ summary {
 </div>
 
 
-<div id="graphs" class="section level2 tabset">
-<h2>Graphs</h2>
+<div id="graphs-exploratory-analysis" class="section level2 tabset">
+<h2>Graphs Exploratory Analysis</h2>
 <div id="library" class="section level3">
 <h3>Library</h3>
 <pre class="r"><code>library(formr)
@@ -1627,7 +1627,7 @@ data_graph$name = factor(data_graph$name,
                                     l_countries[4], l_countries[1],
                                     l_countries[6])))</code></pre>
 </div>
-<div id="graph-one-multiplot" class="section level3">
+<div id="graph-one-multiplot" class="section level3 active">
 <h3>Graph One Multiplot</h3>
 <pre class="r"><code>multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_hline(yintercept = 0, size = 1.5)  +

@@ -524,7 +524,7 @@ standardize_parameters(model_ideal_age_rel, method = "basic", ci = 0.997)
 #ci(standardize_parameters(model_ideal_age_rel, method = "basic"), ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(ideal_age_rel ~ political_orientation + (1|country),
        data = data_included_documented) %>%

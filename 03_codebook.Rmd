@@ -13,7 +13,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
 ## Setup
 Here, we're just setting a few options.
 ```{r Setup}
@@ -27,7 +26,6 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(ggplot2::theme_bw())
 pander::panderOptions("table.split.table", Inf)
 ```
-
 
 ## Library
 ```{r Library}
@@ -43,7 +41,6 @@ Load selected data based on 02_exclusion
 ```{r Data}
 data_included = read.csv(file = "data_included.csv")[,-1]
 ```
-
 
 ## Information about Data
 ### Variable Labels

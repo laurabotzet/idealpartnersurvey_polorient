@@ -9,8 +9,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-## Graphs {.tabset}
+## Exploratory Analyses {.tabset}
 
 ### Library
 ```{r Library}
@@ -43,13 +42,11 @@ apatheme = theme_bw() +
         plot.title = element_text(hjust = 0.5))
 ```
 
-
 ### Data
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
-
 
 ### Inclusion of data
 ```{r}
@@ -85,7 +82,7 @@ countries_rescon =
 countries_rescon
 ```
 
-### Models {.tabset}
+### Models {.tabset .active}
 #### H1a Interest in Single Life
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
@@ -140,7 +137,6 @@ model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
                method = "fixed")
 summary(model)
 ```
-
 
 ####  H1b Interest in sexual, non-romantic relationships
 ```{r}

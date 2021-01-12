@@ -1,7 +1,7 @@
 ---
 title: "04_descriptives"
 author: "Lena Kuschel"
-date: "21 10 2020"
+date: "21 October 2020"
 output: 
   html_document:
     code_folding: "hide"
@@ -24,7 +24,6 @@ library(dplyr)
 library(ggplot2)
 ```
 
-
 ### Data
 Load selected data based on 03_codebook
 ```{r}
@@ -45,7 +44,6 @@ crosstabs(~ is.na(data_included_documented$pref_level_kind) +
 summary(data_included_documented)
 ```
 
-
 ### Political Orientation
 ```{r Political Orientation}
 mean(data_included_documented$political_orientation)
@@ -65,7 +63,6 @@ jpeg("Hist_PO.jpeg", width = 1050, height = 700)
 qplot
 dev.off()
 ```
-@PROBLEM Bild speichert nicht automatisch richtig ab, Bild ist weiß
 
 ### Age
 ```{r Age}
@@ -144,4 +141,3 @@ cor = data_included_documented %>%
 round(cor(cor, use="pairwise.complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
 ```
-

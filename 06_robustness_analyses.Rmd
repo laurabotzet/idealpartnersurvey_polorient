@@ -2,7 +2,9 @@
 title: "06_robustness_analyses"
 author: "Lena Kuschel"
 date: "10 November 2020"
-output: html_document
+output: 
+  html_document:
+  code_folding: "hide"
 editor_options: 
   chunk_output_type: console
 ---
@@ -28,6 +30,10 @@ Load selected data based on 03_codebook
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
+### Analysis {.tabset .active}
+If the model does not converge, we will first exclude the random slope for country. If the model does still not converge, we will subsequently exclude the random intercept for country.
+Instead we will z-standardize outcomes separately for each country.
+
 #### Preferred Relationship Options {.tabset}
 ##### H1a Interest in Single Life {.tabset}
 H1a There is a negative linear link between right-wing political orientation and women’s interest in being single.  
@@ -44,14 +50,13 @@ model_interest_single_robustcheck <- lmer(interest_single ~ political_orientatio
 summary(model_interest_single_robustcheck)
 confint(model_interest_single_robustcheck, level = 0.997)
 ```
-@PROBLEM: Es gab 50 oder mehr Warnungen (Anzeige der ersten 50 mit warnings())
 
 ###### Standardized Coefficients
 ```{r}
 standardize_parameters(model_interest_single_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_single ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -85,7 +90,7 @@ ci(standardize_parameters(model_interest_sexrel_robustcheck, method = "basic"), 
 #calculate by hand to get exact numbers
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_sexrel ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
@@ -113,7 +118,7 @@ confint(model_interest_nonmonrel_robustcheck, level = 0.997)
 standardize_parameters(model_interest_nonmonrel_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_nonmonrel ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
@@ -145,7 +150,7 @@ confint(model_interest_monrel_robustcheck, level = 0.997)
 standardize_parameters(model_interest_monrel_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(interest_monrel ~ political_orientation + age + (1| country),
        data = data_included_documented) %>%
@@ -179,7 +184,7 @@ standardize_parameters(model_pref_politicalsim_robustcheck, method = "refit", ci
 #ci(standardize_parameters(model_pref_politicalsim_robustcheck, method = "refit"), ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 effects1 = lmer(pref_politicalsim ~ political_orientation + age + (1|country),
              data = data_included_documented) %>%
@@ -259,7 +264,7 @@ confint(model_pref_ethnicalsim_robustcheck, level = 0.997)
 standardize_parameters(model_pref_ethnicalsim_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -288,7 +293,7 @@ confint(model_pref_religioussim_robustcheck, level = 0.997)
 standardize_parameters(model_pref_religioussim_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_religioussim ~ political_orientation + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -321,7 +326,7 @@ confint(model_pref_level_financially_secure_successful_ambitious_robustcheck, le
 standardize_parameters(model_pref_level_financially_secure_successful_ambitious_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
@@ -356,7 +361,7 @@ ci(standardize_parameters(model_pref_level_kind_supportive_robustcheck, method =
 #calculate by hand to get exact numbers
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_level_kind_supportive ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
@@ -388,14 +393,13 @@ confint(model_pref_level_attractiveness_robustcheck, level = 0.997)
 standardize_parameters(model_pref_level_attractiveness_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_level_attractiveness ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-
 
 ##### H3d Preference for the level of confidence-assertiveness {.tabset}
 H3d There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
@@ -418,7 +422,7 @@ confint(model_pref_level_confident_assertive_robustcheck, level = 0.997)
 standardize_parameters(model_pref_level_confident_assertive_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_level_confident_assertive ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
@@ -453,7 +457,7 @@ ci(standardize_parameters(model_pref_level_intelligence_educated_robustcheck, me
 #calculate by hand to get exact numbers
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(pref_level_intelligence_educated ~ political_orientation + age + (1|country),
        data = data_included_documented) %>%
@@ -483,7 +487,7 @@ confint(model_imp_age_robustcheck, level= 0.997)
 standardize_parameters(model_imp_age_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(imp_age ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -512,7 +516,7 @@ confint(model_ideal_age_rel_robustcheck, level = 0.997)
 standardize_parameters(model_ideal_age_rel_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(ideal_age_rel ~ political_orientation + age + (1+political_orientation|country),
        data = data_included_documented) %>%
@@ -544,7 +548,7 @@ confint(model_imp_height_robustcheck, level = 0.997)
 standardize_parameters(model_imp_height_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(imp_height ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
@@ -576,11 +580,10 @@ confint(model_ideal_height_robustcheck, level = 0.997)
 standardize_parameters(model_ideal_height_robustcheck, method = "basic", ci = 0.997)
 ```
 
-###### Plot
+###### Plot {.active}
 ```{r}
 lmer(ideal_height ~ political_orientation + age + (1 | country),
        data = data_included_documented) %>%
     allEffects() %>%
     plot()
 ```
-

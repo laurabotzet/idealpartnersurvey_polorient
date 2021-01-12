@@ -39,7 +39,6 @@ apatheme = theme_bw() +
         plot.title = element_text(hjust = 0.5))
 ```
 
-
 ### Data
 Load selected data based on 03_codebook
 ```{r}
@@ -48,7 +47,7 @@ data_included_documented = data_included_documented %>%
   filter(!is.na(political_orientation)) #check
 ```
 
-### Figure 2 {.tabset}
+### Figure 2 {.tabset .active}
 Effect size estimates of linear effects of political orientation on preferred relationship options for main analyses and one robustness analysis.
 
 #### Main Analyses
@@ -180,7 +179,7 @@ dev.off()
 ### Figure 3 {.tabset}
 Effect size estimated of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
-#### Main and Robustness Analyses
+#### Main and Robustness Analyses {.active}
 ```{r}
 data_included_nomiss_politicalsim = data_included_documented %>%
   filter(!is.na(pref_politicalsim))
@@ -462,8 +461,6 @@ model_pref_level_intelligence_educated_robustcheck  <-
       method = "basic", ci = 0.997))
 ```
 
-
-
 #### Combine {.active}
 ```{r}
 all_models_ipp <- rbind(
@@ -512,7 +509,6 @@ multiplot = ggplot(all_models_ipp, aes(hypothesis, Std_Coefficient)) +
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
-
 
 #### Save image
 ```{r}
@@ -586,8 +582,6 @@ model_ideal_height_robustcheck  <-
       method = "basic", ci = 0.997))
 ```
 
-
-
 #### Combine {.active}
 ```{r}
 all_models_ageheight <- rbind(
@@ -634,7 +628,6 @@ multiplot = ggplot(all_models_ageheight, aes(hypothesis, Std_Coefficient)) +
                                          size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
-
 
 #### Save image
 ```{r}

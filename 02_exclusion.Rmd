@@ -13,7 +13,6 @@ library(formr)
 library(dplyr)
 ```
 
-
 ## Data
 Load selected data based on 01_datawrangling
 ```{r Data}
@@ -55,7 +54,6 @@ table(data_included$sex)
 table(is.na(data_included$sex))
 ```
 
-
 ### All participants who do not identify as heterosexual
 In total, we will exclude `r sum(fulldata_selected_wrangled$sexual_orientation == "Lesbian/Gay/Homosexual", fulldata_selected_wrangled$sexual_orientation == "Bisexual/Pansexual", fulldata_selected_wrangled$sexual_orientation == "Queer", fulldata_selected_wrangled$sexual_orientation == "Asexual", fulldata_selected_wrangled$sexual_orientation == "Prefer not to say", fulldata_selected_wrangled$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)
 
@@ -77,7 +75,6 @@ table(is.na(data_included$sexual_orientation))
 In total, we will exclude `r sum(fulldata_selected_wrangled$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(fulldata_selected_wrangled$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
 
 Consecutively, we will exclude `r sum(data_included$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", data_included$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", data_included$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(data_included$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
-
 
 ```{r Relationship}
 table(data_included$relationship)
@@ -135,7 +132,6 @@ We have `r sum(is.na(data_included$answer_accuracy))` missings for answer_accura
 ```{r Accuracy Missings}
 missings = data_included %>% filter(is.na(answer_accuracy))
 ```
-
 
 ## Save Data
 ```{r Save Data}

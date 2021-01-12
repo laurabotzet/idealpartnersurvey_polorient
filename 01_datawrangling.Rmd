@@ -15,7 +15,6 @@ library(ggplot2)
 library(formr)
 library(codebook)
 library(dplyr)
-#library(codebook)
 ```
 
 
@@ -147,6 +146,7 @@ fulldata_selected_wrangled %>%
 
 qplot(fulldata_selected_wrangled$ideal_age)
 ```
+
 Variable ideal_age was not restricted to a reasonable number, thus numbers larger than 100 were possible. To deal with this we will set all numbers >= 100 as missing.
 ```{r Ideal Age 2}
 sum(fulldata_selected_wrangled$ideal_age > 100, na.rm = T)
@@ -162,7 +162,6 @@ fulldata_selected_wrangled %>%
 
 qplot(fulldata_selected_wrangled$ideal_age)
 ```
-
 
 ## Importance Height
 Item should range from 0 to 6 
@@ -222,7 +221,6 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
                           "Congo, Republic of the",
                           country))
 ```
-
 
 ### Language
 Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
@@ -304,7 +302,6 @@ table(fulldata_selected_wrangled$relationship)
 table(fulldata_selected_wrangled$relationship %contains% "No romantic or sexual relationships during the past 3 months") 
 ```
 
-
 ### Answer accuracy
 I took the survey seriously; please use my information in the study.; I did not answer seriously, please disregard my information; I choose not to answer
 ```{r Answer accuracy}
@@ -325,7 +322,6 @@ fulldata_selected_wrangled %>%
   select(sex, answer_accuracy) %>%
   md_pattern()
 ```
-
 
 ## Creating new variables for Ideal Partner Preferences
 ```{r}
@@ -350,7 +346,6 @@ qplot(fulldata_selected_wrangled$pref_level_financially_secure_successful_ambiti
 qplot(fulldata_selected_wrangled$pref_level_confident_assertive)
 qplot(fulldata_selected_wrangled$pref_level_intelligence_educated)
 ```
-
 
 ## Save Data
 ```{r Save data}

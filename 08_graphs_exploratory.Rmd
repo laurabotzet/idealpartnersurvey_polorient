@@ -9,8 +9,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-## Graphs {.tabset}
+## Graphs Exploratory Analysis {.tabset}
 
 ### Library
 ```{r Library}
@@ -42,13 +41,11 @@ apatheme = theme_bw() +
         plot.title = element_text(hjust = 0.5))
 ```
 
-
 ### Data
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
-
 
 ### Inclusion of data
 ```{r}
@@ -1010,7 +1007,7 @@ data_graph$name = factor(data_graph$name,
                                     l_countries[6])))
 ```
 
-### Graph One Multiplot
+### Graph One Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_hline(yintercept = 0, size = 1.5)  +
