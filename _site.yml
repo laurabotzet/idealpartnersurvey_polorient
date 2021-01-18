@@ -1,0 +1,24 @@
+name: birth-order-ifls
+output:
+  html_document:
+    theme: paper
+    code_folding: hide
+    df_print: tibble
+    code_download: yes
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+exclude:
+- packrat
+- '*.rda'
+- '*.pdf'
+- '*.dta'
+- '*.csv'
+- geo
+- '*.csl'
+- '*.bibtex'
+- '*.rds'
+- '*.dta'
+- data
+output_dir: docs
+

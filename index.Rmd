@@ -1,0 +1,31 @@
+---
+title: <font color="#66C2A5">Political Orientation and its Relationships with Preferred Relationship Options and Partner Preferences in Single Women</font>
+csl: apa-custom-no-issue.csl
+---
+
+
+<div class="row">
+
+<div class="col-md-5">
+
+We used these [helper functions](0_helpers.html). These are the [.Rprofile settings](.Rprofile.html)
+
+1. First we [wrangled the data](1_data_import.html).
+2. We [decided which data to keep](2_inclusion.html).
+  - see the [codebook](2_codebook.html) for further details
+3. Then we [analyzed our sample and looked at some descriptives](3_sample_analyses.html).
+4. The main analyses: We [analyzed](4_analyses.html) birth order effects (click here for nice graphs of birth order effects).
+5. Then we [ran some robustness analyses](4_analyses_robust.html).
+6. Additionally, we [imputed missing data](3_imputation.html).
+7. We [checked imputation data](3_imputation_check.html) to see whether imputation was done correctly.
+8. And [analyzed imputed data](4_analyses_imputed_data.html) for birth order effects.
+
+More information about the [Indonesian Family Life Survey (IFLS)](http://www.rand.org/labor/FLS/IFLS.html).
+
+
+</div>
+
+
+</div>
+<div class="clearfix"></div>
+
