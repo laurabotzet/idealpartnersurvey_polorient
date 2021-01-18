@@ -1,10 +1,33 @@
-name: birth-order-ifls
+name: idealpartnersurvey_polorient
+output_dir: docs
+navbar:
+  title: Political Orientation
+  left:
+  - text: Exclusion
+    href: 1_exclusion.html
+  - text: Data Wrangling
+    href: 2_datawrangling.html
+  - text: Descriptives
+    href: 3_descriptives.html
+  - text: Codebook
+    href: 4_codebook.html
+  - text: Selection Effects
+    href: 5_analyses_selection.html
+  - text: Effects of Contraceptives
+    href: 6_analyses_effects.html
+  - text: Sensitivity Analyses
+    href: 7_analyses_sensitivity.html
+  right:
+  - text: ''
+    icon: fa-github
+    href: https://github.com/laurabotzet/idealpartnersurvey_polorient
 output:
   html_document:
     theme: paper
     code_folding: hide
     df_print: tibble
     code_download: yes
+    highlight: zenburn
     css: styles.css
     lib_dir: site_libs
     self_contained: no
@@ -14,11 +37,10 @@ exclude:
 - '*.pdf'
 - '*.dta'
 - '*.csv'
-- geo
 - '*.csl'
 - '*.bibtex'
+- '*.xlsx'
 - '*.rds'
-- '*.dta'
+- '*.docx'
 - data
-output_dir: docs
-
+- "renv"
