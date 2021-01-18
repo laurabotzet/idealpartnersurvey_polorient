@@ -8,7 +8,7 @@ csl: apa-custom-no-issue.csl
 
 <div class="col-md-5">
 
-We used these [helper functions](0_helpers.html). These are the [.Rprofile settings](.Rprofile.html)
+These are the [.Rprofile settings](.Rprofile.html)
 
 1. First we [wrangled the data](1_data_import.html).
 2. We [decided which data to keep](2_inclusion.html).
