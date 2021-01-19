@@ -9,7 +9,7 @@ editor_options:
 
 
 <div class="col-md-6 col-md-offset-1">
-![Ttitle for Picture](Figure5.jpeg)
+![Distributions of Participants](Figure5.jpeg)
 </div>
 
 <div class="col-md-5">

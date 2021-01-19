@@ -278,25 +278,25 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="1_exclusion.html">Exclusion</a>
+  <a href="01_datawrangling.html">Data Wrangling</a>
 </li>
 <li>
-  <a href="2_datawrangling.html">Data Wrangling</a>
+  <a href="02_exclusion.html">Exclusion</a>
 </li>
 <li>
-  <a href="3_descriptives.html">Descriptives</a>
+  <a href="03_codebook.html">Codebook</a>
 </li>
 <li>
-  <a href="4_codebook.html">Codebook</a>
+  <a href="04_descriptives.html">Descriptives</a>
 </li>
 <li>
-  <a href="5_analyses_selection.html">Selection Effects</a>
+  <a href="05_analyses.html">Main Analyses</a>
 </li>
 <li>
-  <a href="6_analyses_effects.html">Effects of Contraceptives</a>
+  <a href="06_robustness_analyses.html">Robustness Analyses</a>
 </li>
 <li>
-  <a href="7_analyses_sensitivity.html">Sensitivity Analyses</a>
+  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -335,7 +335,7 @@ $(document).ready(function () {
 <div class="col-md-6 col-md-offset-1">
 <div class="figure">
 <img src="Figure5.jpeg" alt="" />
-<p class="caption">Ttitle for Picture</p>
+<p class="caption">Distributions of Participants</p>
 </div>
 </div>
 <div class="col-md-5">
@@ -360,7 +360,7 @@ $(document).ready(function () {
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPlBvbGl0aWNhbCBPcmllbnRhdGlvbiBhbmQgaXRzIFJlbGF0aW9uc2hpcHMgd2l0aCBQcmVmZXJyZWQgUmVsYXRpb25zaGlwIE9wdGlvbnMgYW5kIFBhcnRuZXIgUHJlZmVyZW5jZXMgaW4gU2luZ2xlIFdvbWVuPC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQoNCjxkaXYgY2xhc3M9InJvdyI+DQoNCg0KPGRpdiBjbGFzcz0iY29sLW1kLTYgY29sLW1kLW9mZnNldC0xIj4NCiFbVHRpdGxlIGZvciBQaWN0dXJlXShGaWd1cmU1LmpwZWcpDQo8L2Rpdj4NCg0KPGRpdiBjbGFzcz0iY29sLW1kLTUiPg0KDQpUaGVzZSBhcmUgdGhlIFsuUnByb2ZpbGUgc2V0dGluZ3NdKC5ScHJvZmlsZS5odG1sKQ0KDQoxLiBGaXJzdCB3ZSBbd3JhbmdsZWQgdGhlIGRhdGFdKDFfZGF0YV9pbXBvcnQuaHRtbCkuDQoyLiBXZSBbZGVjaWRlZCB3aGljaCBkYXRhIHRvIGtlZXBdKDJfaW5jbHVzaW9uLmh0bWwpLg0KICAtIHNlZSB0aGUgW2NvZGVib29rXSgyX2NvZGVib29rLmh0bWwpIGZvciBmdXJ0aGVyIGRldGFpbHMNCjMuIFRoZW4gd2UgW2FuYWx5emVkIG91ciBzYW1wbGUgYW5kIGxvb2tlZCBhdCBzb21lIGRlc2NyaXB0aXZlc10oM19zYW1wbGVfYW5hbHlzZXMuaHRtbCkuDQo0LiBUaGUgbWFpbiBhbmFseXNlczogV2UgW2FuYWx5emVkXSg0X2FuYWx5c2VzLmh0bWwpIGJpcnRoIG9yZGVyIGVmZmVjdHMgKGNsaWNrIGhlcmUgZm9yIG5pY2UgZ3JhcGhzIG9mIGJpcnRoIG9yZGVyIGVmZmVjdHMpLg0KNS4gVGhlbiB3ZSBbcmFuIHNvbWUgcm9idXN0bmVzcyBhbmFseXNlc10oNF9hbmFseXNlc19yb2J1c3QuaHRtbCkuDQo2LiBBZGRpdGlvbmFsbHksIHdlIFtpbXB1dGVkIG1pc3NpbmcgZGF0YV0oM19pbXB1dGF0aW9uLmh0bWwpLg0KNy4gV2UgW2NoZWNrZWQgaW1wdXRhdGlvbiBkYXRhXSgzX2ltcHV0YXRpb25fY2hlY2suaHRtbCkgdG8gc2VlIHdoZXRoZXIgaW1wdXRhdGlvbiB3YXMgZG9uZSBjb3JyZWN0bHkuDQo4LiBBbmQgW2FuYWx5emVkIGltcHV0ZWQgZGF0YV0oNF9hbmFseXNlc19pbXB1dGVkX2RhdGEuaHRtbCkgZm9yIGJpcnRoIG9yZGVyIGVmZmVjdHMuDQoNCk1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhlIFtJbmRvbmVzaWFuIEZhbWlseSBMaWZlIFN1cnZleSAoSUZMUyldKGh0dHA6Ly93d3cucmFuZC5vcmcvbGFib3IvRkxTL0lGTFMuaHRtbCkuDQoNCg0KPC9kaXY+DQoNCjwvZGl2Pg0KDQoNCg0KPC9kaXY+DQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPlBvbGl0aWNhbCBPcmllbnRhdGlvbiBhbmQgaXRzIFJlbGF0aW9uc2hpcHMgd2l0aCBQcmVmZXJyZWQgUmVsYXRpb25zaGlwIE9wdGlvbnMgYW5kIFBhcnRuZXIgUHJlZmVyZW5jZXMgaW4gU2luZ2xlIFdvbWVuPC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQoNCjxkaXYgY2xhc3M9InJvdyI+DQoNCg0KPGRpdiBjbGFzcz0iY29sLW1kLTYgY29sLW1kLW9mZnNldC0xIj4NCiFbRGlzdHJpYnV0aW9ucyBvZiBQYXJ0aWNpcGFudHNdKEZpZ3VyZTUuanBlZykNCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJjb2wtbWQtNSI+DQoNClRoZXNlIGFyZSB0aGUgWy5ScHJvZmlsZSBzZXR0aW5nc10oLlJwcm9maWxlLmh0bWwpDQoNCjEuIEZpcnN0IHdlIFt3cmFuZ2xlZCB0aGUgZGF0YV0oMV9kYXRhX2ltcG9ydC5odG1sKS4NCjIuIFdlIFtkZWNpZGVkIHdoaWNoIGRhdGEgdG8ga2VlcF0oMl9pbmNsdXNpb24uaHRtbCkuDQogIC0gc2VlIHRoZSBbY29kZWJvb2tdKDJfY29kZWJvb2suaHRtbCkgZm9yIGZ1cnRoZXIgZGV0YWlscw0KMy4gVGhlbiB3ZSBbYW5hbHl6ZWQgb3VyIHNhbXBsZSBhbmQgbG9va2VkIGF0IHNvbWUgZGVzY3JpcHRpdmVzXSgzX3NhbXBsZV9hbmFseXNlcy5odG1sKS4NCjQuIFRoZSBtYWluIGFuYWx5c2VzOiBXZSBbYW5hbHl6ZWRdKDRfYW5hbHlzZXMuaHRtbCkgYmlydGggb3JkZXIgZWZmZWN0cyAoY2xpY2sgaGVyZSBmb3IgbmljZSBncmFwaHMgb2YgYmlydGggb3JkZXIgZWZmZWN0cykuDQo1LiBUaGVuIHdlIFtyYW4gc29tZSByb2J1c3RuZXNzIGFuYWx5c2VzXSg0X2FuYWx5c2VzX3JvYnVzdC5odG1sKS4NCjYuIEFkZGl0aW9uYWxseSwgd2UgW2ltcHV0ZWQgbWlzc2luZyBkYXRhXSgzX2ltcHV0YXRpb24uaHRtbCkuDQo3LiBXZSBbY2hlY2tlZCBpbXB1dGF0aW9uIGRhdGFdKDNfaW1wdXRhdGlvbl9jaGVjay5odG1sKSB0byBzZWUgd2hldGhlciBpbXB1dGF0aW9uIHdhcyBkb25lIGNvcnJlY3RseS4NCjguIEFuZCBbYW5hbHl6ZWQgaW1wdXRlZCBkYXRhXSg0X2FuYWx5c2VzX2ltcHV0ZWRfZGF0YS5odG1sKSBmb3IgYmlydGggb3JkZXIgZWZmZWN0cy4NCg0KTW9yZSBpbmZvcm1hdGlvbiBhYm91dCB0aGUgW0luZG9uZXNpYW4gRmFtaWx5IExpZmUgU3VydmV5IChJRkxTKV0oaHR0cDovL3d3dy5yYW5kLm9yZy9sYWJvci9GTFMvSUZMUy5odG1sKS4NCg0KDQo8L2Rpdj4NCg0KPC9kaXY+DQoNCg0KDQo8L2Rpdj4NCg0KDQo=</div>
 
 
 

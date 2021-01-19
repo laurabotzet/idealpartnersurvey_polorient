@@ -3,20 +3,20 @@ output_dir: docs
 navbar:
   title: Political Orientation
   left:
-  - text: Exclusion
-    href: 1_exclusion.html
   - text: Data Wrangling
-    href: 2_datawrangling.html
-  - text: Descriptives
-    href: 3_descriptives.html
+    href: 01_datawrangling.html
+  - text: Exclusion
+    href: 02_exclusion.html
   - text: Codebook
-    href: 4_codebook.html
-  - text: Selection Effects
-    href: 5_analyses_selection.html
-  - text: Effects of Contraceptives
-    href: 6_analyses_effects.html
-  - text: Sensitivity Analyses
-    href: 7_analyses_sensitivity.html
+    href: 03_codebook.html
+  - text: Descriptives
+    href: 04_descriptives.html
+  - text: Main Analyses
+    href: 05_analyses.html
+  - text: Robustness Analyses
+    href: 06_robustness_analyses.html
+  - text: Exploratory Analyses
+    href: 09_analyses_exploratory.html
   right:
   - text: ''
     icon: fa-github
