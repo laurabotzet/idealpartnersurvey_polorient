@@ -1,10 +1,16 @@
 ---
 title: <font color="#66C2A5">Political Orientation and its Relationships with Preferred Relationship Options and Partner Preferences in Single Women</font>
 csl: apa-custom-no-issue.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
-
 <div class="row">
+
+
+<div class="col-md-6 col-md-offset-1">
+![Ttitle for Picture](Figure5.jpeg)
+</div>
 
 <div class="col-md-5">
 
@@ -25,7 +31,10 @@ More information about the [Indonesian Family Life Survey (IFLS)](http://www.ran
 
 </div>
 
+</div>
+
+
 
 </div>
-<div class="clearfix"></div>
+
 
