@@ -4,7 +4,7 @@ author: "Lena Kuschel"
 date: "10 November 2020"
 output: 
   html_document:
-  code_folding: "hide"
+    code_folding: "hide"
 editor_options: 
   chunk_output_type: console
 ---

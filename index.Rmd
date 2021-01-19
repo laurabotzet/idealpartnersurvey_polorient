@@ -37,4 +37,6 @@ More information about the [Indonesian Family Life Survey (IFLS)](http://www.ran
 
 </div>
 
+## Authors
+Lena Kuschel (lena.kuschel@stud.uni-goetttingen.de)
 
