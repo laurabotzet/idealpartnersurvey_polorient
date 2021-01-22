@@ -33,6 +33,6 @@ editor_options:
 
 </div>
 
-## Authors
+#### Authors
 Lena Kuschel (lena.kuschel@stud.uni-goetttingen.de)
 
