@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-
+## {.tabset}
 
 ### Library
 ```{r Library}
@@ -32,18 +32,18 @@ data_included_documented = data_included_documented %>%
   filter(!is.na(political_orientation))
 ```
 
-### Missingness pattern
+### Missingness Pattern {.tabset}
 ```{r}
 crosstabs(~ is.na(data_included_documented$pref_level_kind) +
             is.na(data_included_documented$pref_level_supportive))
 ```
 
-###Summary
+### Summary {.tabset}
 ```{r Summary}
 summary(data_included_documented)
 ```
 
-### Political Orientation
+### Political Orientation {.tabset .active}
 ```{r Political Orientation}
 mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
@@ -56,14 +56,14 @@ qplot(data_included_documented$political_orientation)+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))
 ```
 
-#### Save image
+#### Save Image
 ```{r}
 jpeg("Hist_PO.jpeg", width = 1050, height = 700)
 qplot
 dev.off()
 ```
 
-### Age
+### Age {.tabset}
 ```{r Age}
 mean(data_included_documented$age)
 sd(data_included_documented$age)
@@ -71,7 +71,7 @@ range(data_included_documented$age)
 qplot(data_included_documented$age)
 ```
 
-### Correlations for ideal partner preferences
+### Correlations for Ideal Partner Preferences {.tabset}
 ```{r Correlations for ideal partner preferences}
 cor.test(data_included_documented$pref_level_kind,
          data_included_documented$pref_level_supportive,
@@ -94,7 +94,7 @@ cor.test(data_included_documented$pref_level_intelligence,
          conf.level = 0.997)
 ```
 
-### Language
+### Language {.tabset}
 ```{r}
 n = nrow(data_included_documented)
 
@@ -103,7 +103,7 @@ table(data_included_documented$language)
 round((table(data_included_documented$language)/n)*100,2)
 ```
 
-### Country
+### Country {.tabset}
 ```{r}
 country_absolute = as.data.frame(table(data_included_documented$country))
 
@@ -115,7 +115,7 @@ country
 write.table(country, file = "country.txt", sep = ",")
 ```
 
-### Descriptives and Correlation Table
+### Descriptives and Correlation Table {.tabset}
 ```{r}
 cor = data_included_documented %>%
   select(political_orientation,

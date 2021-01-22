@@ -1,13 +1,15 @@
 ---
-title: "01_datawrangling"
-author: "Lena Kuschel"
-date: "13 October 2020"
-output: html_document
+title: <font color="#66C2A5">Data Wrangling</font>
+csl: apa-custom-no-issue.csl
+output: 
+  html_document:
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
 ---
+## {.tabset}
 
-## Library
+### Library
 ```{r Library}
 library(car)
 library(psych)
@@ -18,14 +20,14 @@ library(dplyr)
 ```
 
 
-## Data
+### Data
 Load selected data based on 00_dataimport
 ```{r Data}
 fulldata_selected = read.csv(file = "fulldata_selected.csv")[,-1]
 ```
 
 
-## Inspect Data
+### Inspect Data {.tabset .active}
 ```{r Inspect Data}
 colnames(fulldata_selected)
 
@@ -34,16 +36,16 @@ fulldata_selected_wrangled = fulldata_selected
 
 Correct typo in variable pref_level_successful_ambitious
 ```{r Correct typo in variable pref_level_successful_ambitious}
-#fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, pref_level_successful_ambitious= pref_level_successful_ambitous)
+fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, pref_level_successful_ambitious= pref_level_successful_ambitous)
 ```
 
 Correct typo in variable interest_monrel
 ```{r Correct typo in variable interest_monrel}
-#fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, interest_monrel = inteterst_monrel)
+fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, interest_monrel = inteterst_monrel)
 ```
 
 
-### Age
+### Age {.tabset}
 Participants younger than 18 were able to insert age but the survey was ended for them afterwards.
 ```{r Age}
 table(fulldata_selected_wrangled$age)
@@ -62,7 +64,7 @@ table(fulldata_selected_wrangled$age < 18)
 # 26638 people were not allowed to participate in the survey because they were younger than 18
 ```
 
-### Political Orientation
+### Political Orientation {.tabset}
 Political Orientation item should range from 0 to 6
 ```{r Political Orientation}
 fulldata_selected_wrangled %>%
@@ -72,7 +74,7 @@ fulldata_selected_wrangled %>%
 qplot(fulldata_selected_wrangled$political_orientation)
 ```
 
-### Preferred Relationship Options
+### Preferred Relationship Options {.tabset}
 Interest in being single, interest in sexual (non-romantic) relationships, interest in non-monogamous relationships and interest in monogamous relationships items should range from 0 to 6 
 ```{r Preferred Relationship Options}
 fulldata_selected_wrangled %>%
@@ -86,7 +88,7 @@ qplot(fulldata_selected_wrangled$interest_monrel)
 ```
  
 
-### Political, ethnical, religious similarity
+### Political, Ethnical, and Religious Similarity {.tabset}
 Preferences for political, ethnical and religious similarity items should range from 0 to 6 
 ```{r Political, ethnical and religious similarity}
 fulldata_selected_wrangled %>%
@@ -98,7 +100,7 @@ qplot(fulldata_selected_wrangled$pref_ethnicalsim)
 qplot(fulldata_selected_wrangled$pref_religioussim)
 ```
 
-### Ideal Partner Preferences
+### Ideal Partner Preferences {.tabset}
 All ideal partner preference items should range from 0 to 6 
 ```{r Ideal Partner Preferences}
 fulldata_selected_wrangled %>%
@@ -125,8 +127,8 @@ fulldata_selected_wrangled %>%
 ```
 
 
-### Ideal Age and Ideal Height
-## Importance Age
+### Ideal Age and Ideal Height {.tabset}
+#### Importance Age
 Item should range from 0 to 6 
 ```{r Importance Age}
 fulldata_selected_wrangled %>%
@@ -137,7 +139,7 @@ qplot(fulldata_selected_wrangled$imp_age)
 
 ```
 
-## Ideal Age
+### Ideal Age
 This item is in open format style
 ```{r Ideal Age}
 fulldata_selected_wrangled %>%
@@ -163,7 +165,7 @@ fulldata_selected_wrangled %>%
 qplot(fulldata_selected_wrangled$ideal_age)
 ```
 
-## Importance Height
+### Importance Height
 Item should range from 0 to 6 
 ```{r Importance Height}
 fulldata_selected_wrangled %>%
@@ -173,7 +175,7 @@ fulldata_selected_wrangled %>%
 qplot(fulldata_selected_wrangled$imp_height)
 ```
 
-##Ideal Height
+### Ideal Height
 Item has the options: much shorter than me, shorter than me, around the same height as me, taller than me, much taller than me
 ```{r Ideal Height}
 table(fulldata_selected_wrangled$ideal_height)
@@ -205,13 +207,13 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
 ```
 
 
-### Country
+### Country {.tabset}
 ```{r Country}
 x = table(fulldata_selected_wrangled$country)
 table(is.na(fulldata_selected_wrangled$country))
 ```
 
-#### Problem with South Korea / Korea, South
+### Problem With South Korea / Korea, South {.tabset}
 ```{r}
 fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(country = ifelse(country == "Korea, South",
@@ -222,14 +224,14 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
                           country))
 ```
 
-### Language
+### Language {.tabset}
 Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
 ```{r Language}
 table(fulldata_selected_wrangled$language)
 table(is.na(fulldata_selected_wrangled$country))
 ```
 
-### Sex
+### Sex {.tabset}
 Categories: Woman; Genderqueer/Nonbinary; Man; None of the above; Prefer not to say; Other
 ```{r Sex}
 table(fulldata_selected_wrangled$sex)
@@ -245,7 +247,7 @@ table(fulldata_selected_wrangled$sex)
 table(is.na(fulldata_selected_wrangled$sex))
 ```
 
-### Sexual Orientation
+### Sexual Orientation {.tabset}
 heterosexual; Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other
 ```{r Sexual Orientation}
 table(fulldata_selected_wrangled$sexual_orientation)
@@ -261,7 +263,7 @@ table(fulldata_selected_wrangled$sexual_orientation)
 table(is.na(fulldata_selected_wrangled$sexual_orientation))
 ```
 
-### Relationship Variable
+### Relationship Variable {.tabset}
 ```{r Relationship variable}
 table(fulldata_selected_wrangled$relationship) #No romantic or sexual relationships during the past 3 months
 table(fulldata_selected_wrangled$relationship1) #Other
@@ -302,7 +304,7 @@ table(fulldata_selected_wrangled$relationship)
 table(fulldata_selected_wrangled$relationship %contains% "No romantic or sexual relationships during the past 3 months") 
 ```
 
-### Answer accuracy
+### Answer Accuracy {.tabset}
 I took the survey seriously; please use my information in the study.; I did not answer seriously, please disregard my information; I choose not to answer
 ```{r Answer accuracy}
 table(fulldata_selected_wrangled$answer_accuracy)
@@ -323,7 +325,7 @@ fulldata_selected_wrangled %>%
   md_pattern()
 ```
 
-## Creating new variables for Ideal Partner Preferences
+### Creating new Variables for Ideal Partner Preferences {.tabset}
 ```{r}
 fulldata_selected_wrangled = fulldata_selected_wrangled %>% 
   mutate(pref_level_kind_supportive = (pref_level_kind + pref_level_supportive)/2,
@@ -347,7 +349,7 @@ qplot(fulldata_selected_wrangled$pref_level_confident_assertive)
 qplot(fulldata_selected_wrangled$pref_level_intelligence_educated)
 ```
 
-## Save Data
+### Save Data
 ```{r Save data}
 write.csv(fulldata_selected_wrangled, file = "fulldata_selected_wrangled.csv")
 ```

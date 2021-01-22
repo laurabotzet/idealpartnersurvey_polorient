@@ -9,24 +9,20 @@ editor_options:
 
 
 <div class="col-md-6 col-md-offset-1">
-![Distributions of Participants](Figure5.jpeg)
+![Country Distribution of Participants](map_country_distribution_4.jpeg)
 </div>
 
 <div class="col-md-5">
 
-These are the [.Rprofile settings](.Rprofile.html)
 
-1. First we [wrangled the data](1_data_import.html).
-2. We [decided which data to keep](2_inclusion.html).
-  - see the [codebook](2_codebook.html) for further details
-3. Then we [analyzed our sample and looked at some descriptives](3_sample_analyses.html).
-4. The main analyses: We [analyzed](4_analyses.html) birth order effects (click here for nice graphs of birth order effects).
-5. Then we [ran some robustness analyses](4_analyses_robust.html).
-6. Additionally, we [imputed missing data](3_imputation.html).
-7. We [checked imputation data](3_imputation_check.html) to see whether imputation was done correctly.
-8. And [analyzed imputed data](4_analyses_imputed_data.html) for birth order effects.
+1. First we [wrangled the data](01_datawrangling.html).
+2. We [decided which data to keep](02_exclusion.html).
+  - see the [codebook](03_codebook.html) for further details
+3. Then we [looked at some descriptives](04_descriptives.html).
+4. The main analyses: We [analyzed](05_analyses.html) effects of right-wing political orientation on preferred relationship options and partner preferences.
+5. Then we [ran some robustness analyses](06_robustness_analyses.html) additionally including age as a covariate in each model.
+6. Additionally, we [conducted exploratory analyses](09_analyses_exploratory.html) as we we were interested in the heterogeneity in relationships between countries.
 
-More information about the [Indonesian Family Life Survey (IFLS)](http://www.rand.org/labor/FLS/IFLS.html).
 
 
 </div>

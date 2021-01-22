@@ -1,14 +1,13 @@
 ---
-title: "06_robustness_analyses"
-author: "Lena Kuschel"
-date: "10 November 2020"
+title: <font color="#66C2A5">Robustness Analyses</font>
+csl: apa-custom-no-issue.csl
 output: 
   html_document:
     code_folding: "hide"
 editor_options: 
   chunk_output_type: console
 ---
-## Robustness Analyses {.tabset}
+## {.tabset}
 Here, we perform additional robustness checks including age in each model as a covariate. 
 
 ### Library
@@ -64,7 +63,7 @@ lmer(interest_single ~ political_orientation + age + (1+political_orientation|co
     plot()
 ```
 
-##### H1b Interest in sexual, non-romantic relationships {.tabset}
+##### H1b Interest in Sexual, Non-Romantic Relationships {.tabset}
 H1b There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
 Outcome: Ratings for interest in having sexual, non-romantic relationships. Predictors: Political Orientation & Age. Random intercept and random slope for country.
 
@@ -98,7 +97,7 @@ lmer(interest_sexrel ~ political_orientation + age + (1|country),
     plot()
 ```
 
-##### H1c Interest in non-monogamous relationships {.tabset}
+##### H1c Interest in Non-Monogamous Relationships {.tabset}
 H1c There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
 Outcome: Ratings for interest in having non-monogamous relationships. Predictors: Political Orientation & Age. Random intercept and random slope for country.
 
@@ -126,7 +125,7 @@ lmer(interest_nonmonrel ~ political_orientation + age + (1 | country),
     plot()
 ```
 
-##### H1d Interest in monogamous relationships {.tabset}
+##### H1d Interest in Monogamous Relationships {.tabset}
 H1d There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
 Outcome: Ratings for interest in having monogamous relationships. 
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -158,8 +157,8 @@ lmer(interest_monrel ~ political_orientation + age + (1| country),
     plot()
 ```
 
-#### Political, ethnic and religious similarity {.tabset}
-##### H2a Preference for similarity in political beliefs {.tabset}
+#### Political, Ethnic, and Religious Similarity {.tabset}
+##### H2a Preference for Similarity in Political Beliefs {.tabset}
 H2a There is no linear link between right-wing political orientation and women’s preferences for partner’s similar political beliefs and values when controlling for a quadratic link. 
 There is a positive quadratic link between right-wing political orientation and women’s preferences for partner’s similar political beliefs and values when controlling for a linear link.
 Outcome: Preference ratings for partner's similar political beliefs and values.
@@ -243,7 +242,7 @@ plot2 = ggplot() +
 plot2
 ```
 
-##### H2b Preference for similarity in ethnicity/race {.tabset}
+##### H2b Preference for Similarity in Ethnicity/Race {.tabset}
 H2b There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar ethnicity/race. 
 Outcome: Preference ratings for partner's similar ethnicity/race.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -272,7 +271,7 @@ lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|c
     plot()
 ```
 
-##### H2c Preference for similarity in religion {.tabset}
+##### H2c Preference for Similarity in Religion {.tabset}
 H2c There is a positive linear link between right-wing political orientation and women’s preferences for partner’s similar religious beliefs.  
 Outcome: Preference ratings for partner's similar religious beliefs.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -302,7 +301,7 @@ lmer(pref_religioussim ~ political_orientation + (1+political_orientation|countr
 ```
 
 #### Ideal Partner Preferences {.tabset}
-##### H3a Preference for the level of financial security- successfulness {.tabset}
+##### H3a Preference for the Level of Financial Security- Successfulness {.tabset}
 H3a There is a positive linear link between right-wing political orientation and women’s preferences for the level of financial security and successfulness.
 Outcome: Level ratings for partner's financial security-successfulness.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -334,7 +333,7 @@ lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation 
     plot()
 ```
 
-##### H3b Preference for the level of kindness-supportiveness {.tabset}
+##### H3b Preference for the Level of Kindness-Supportiveness {.tabset}
 H3b There is no link between right-wing political orientation and women’s preferences for the level of kindness and supportiveness.  
 Outcome: Level ratings for partner's kindness-supportiveness.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -369,7 +368,7 @@ lmer(pref_level_kind_supportive ~ political_orientation + age + (1|country),
     plot()
 ```
 
-##### H3c Preference for the level of attractiveness {.tabset}
+##### H3c Preference for the Level of Attractiveness {.tabset}
 H3c There is no link between right-wing political orientation and women’s preferences for the level of attractiveness.  
 Outcome: Level ratings for partner's attractiveness.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -401,7 +400,7 @@ lmer(pref_level_attractiveness ~ political_orientation + age + (1 | country),
     plot()
 ```
 
-##### H3d Preference for the level of confidence-assertiveness {.tabset}
+##### H3d Preference for the Level of Confidence-Assertiveness {.tabset}
 H3d There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
 Outcome: Level ratings for partner's confidence-assertiveness.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -430,7 +429,7 @@ lmer(pref_level_confident_assertive ~ political_orientation + age + (1|country),
     plot()
 ```
 
-##### H3e Preference for the level of education-intelligence {.tabset}
+##### H3e Preference for the Level of Education-Intelligence {.tabset}
 H3e There is no link between right-wing political orientation and women’s preferences for the level of education and intelligence.  
 Outcome: Level ratings for partner's education-intelligence.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -465,8 +464,8 @@ lmer(pref_level_intelligence_educated ~ political_orientation + age + (1|country
     plot()
 ```
 
-#### Ideal age and height {.tabset}
-##### H4a(1) Importance Ratings for partner's age {.tabset}
+#### Ideal Age and Height {.tabset}
+##### H4a(1) Importance Ratings for Partner's Age {.tabset}
 H4a(1) There is a positive linear link between right-wing political orientation and women’s importance ratings for partner’s age. 
 Outcome: Importance ratings for partner's age.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -495,7 +494,7 @@ lmer(imp_age ~ political_orientation + age + (1+political_orientation|country),
     plot()
 ```
 
-##### H4a(2)Level Ratings for partner's age {.tabset}
+##### H4a(2) Level Ratings for Partner's Age {.tabset}
 H4a(2) There is a positive linear link between right-wing political orientation and the relative age discrepancy between ideal partner’s age and women’s age. (discrepancy calculated as ideal partner’s age – women’s age)
 Outcome: Discrepancy between level ratings for ideal partner's age and women's age (ideal_age_rel)
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -524,7 +523,7 @@ lmer(ideal_age_rel ~ political_orientation + age + (1+political_orientation|coun
     plot()
 ```
 
-##### H4b(1) Importance Ratings for partner's height {.tabset}
+##### H4b(1) Importance Ratings for Partner's Height {.tabset}
 H4b(1) There is a positive linear link between right-wing political orientation and women’s importance ratings for partner’s height.
 Outcome: Importance ratings for partner's height.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.
@@ -556,7 +555,7 @@ lmer(imp_height ~ political_orientation + age + (1 | country),
     plot()
 ```
 
-##### H4b(2)Level Ratings for partner's height {.tabset}
+##### H4b(2) Level Ratings for Partner's Height {.tabset}
 H4b(2) There is a positive linear link between right-wing political orientation and ideal partner’s height.
 Outcome: Level ratings for ideal partner's height.
 Predictors: Political Orientation & Age. Random intercept and random slope for country.

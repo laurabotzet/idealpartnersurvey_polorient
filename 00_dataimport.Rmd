@@ -1,8 +1,9 @@
 ---
-title: "00_dataimport"
-author: "Lena Kuschel"
-date: "13 October 2020"
-output: html_document
+title: <font color="#66C2A5">Data Import</font>
+csl: apa-custom-no-issue.csl
+output: 
+  html_document:
+    code_folding: "hide"
 editor_options: 
   chunk_output_type: console
 ---
@@ -77,7 +78,7 @@ fulldata_selected = fulldata %>%
          )
 ```
 
-## Limit dataset
+## Limit Dataset
 ```{r Limit dataset}
 fulldata_selected_lim = fulldata_selected[1:100,]
 ```

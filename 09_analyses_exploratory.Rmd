@@ -1,7 +1,6 @@
 ---
-title: "09_analyses_exploratory"
-author: "Lena Kuschel"
-date: "16 December 2020"
+title: <font color="#66C2A5">Exploratory Analyses</font>
+csl: apa-custom-no-issue.csl
 output: 
   html_document:
     code_folding: "hide"
@@ -9,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Exploratory Analyses {.tabset}
+## {.tabset}
 
 ### Library
 ```{r Library}
@@ -48,7 +47,7 @@ Load selected data based on 03_codebook
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
-### Inclusion of data
+### Inclusion of Data
 ```{r}
 countries = as.data.frame(table(data_included_documented$country)) %>%
   arrange(-Freq)
@@ -83,7 +82,8 @@ countries_rescon
 ```
 
 ### Models {.tabset .active}
-#### H1a Interest in Single Life
+#### Preferred Relationship Options {.tabset .active}
+##### H1a Interest in Single Life {.tabset .active}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -138,7 +138,7 @@ model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
 summary(model)
 ```
 
-####  H1b Interest in sexual, non-romantic relationships
+##### H1b Interest in Sexual, Non-Romantic Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -193,7 +193,7 @@ model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
 summary(model)
 ```
 
-#### H1c Interest in non-monogamous relationships
+##### H1c Interest in Non-Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -248,7 +248,7 @@ model = mvmeta(mean ~ 1, data = models_interest_nonmonrel_analyses, S = se^2,
 summary(model)
 ```
 
-#### H1d Interest in monogamous relationships
+##### H1d Interest in Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -303,8 +303,9 @@ model = mvmeta(mean ~ 1, data = models_interest_monrel_analyses, S = se^2,
 summary(model)
 ```
 
-#### H2a Preference for similarity in political beliefs
-##### Linear Effect
+#### Political, Ethnic, and Religious Similarity {.tabset}
+##### H2a Preference for Similarity in Political Beliefs {.tabset}
+###### Linear Effect
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -360,7 +361,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
 summary(model)
 ```
 
-##### Quadratic Effect
+###### Quadratic Effect
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -409,7 +410,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses, S = se^2
 summary(model)
 ```
 
-#### H2b Preference for similarity in ethnicity/race
+##### H2b Preference for Similarity in Ethnicity/Race {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -464,7 +465,7 @@ model = mvmeta(mean ~ 1, data = models_pref_ethnicalsim_analyses, S = se^2,
 summary(model)
 ```
 
-#### H2c Preference for similarity in religion
+##### H2c Preference for Similarity in Religion {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -519,7 +520,8 @@ model = mvmeta(mean ~ 1, data = models_pref_religioussim_analyses, S = se^2,
 summary(model)
 ```
 
-#### H3a Preference for the level of financial security- successfulness
+#### Ideal Partner Preferences {.tabset}
+##### H3a Preference for the Level of Financial Security- Successfulness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -574,7 +576,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_financially_secure_successful_
 summary(model)
 ```
 
-#### H3b Preference for the level of kindness-supportiveness
+##### H3b Preference for the Level of Kindness-Supportiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -629,7 +631,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_kind_supportive_analyses, S = 
 summary(model)
 ```
 
-#### H3c Preference for the level of attractiveness
+##### H3c Preference for the Level of Attractiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -684,7 +686,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_attractiveness_analyses, S = s
 summary(model)
 ```
 
-#### H3d Preference for the level of confidence-assertiveness
+##### H3d Preference for the Level of Confidence-Assertiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -739,7 +741,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_confident_assertive_analyses, 
 summary(model)
 ```
 
-#### H3e Preference for the level of education-intelligence
+##### H3e Preference for the Level of Education-Intelligence {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -794,7 +796,8 @@ model = mvmeta(mean ~ 1, data = models_pref_level_intelligence_educated_analyses
 summary(model)
 ```
 
-#### H4a(1) Ideal age (importance)
+#### Ideal Age and Height {.tabset}
+##### H4a(1) Ideal Age (Importance) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -849,7 +852,7 @@ model = mvmeta(mean ~ 1, data = models_imp_age_analyses, S = se^2,
 summary(model)
 ```
 
-#### H4a(2) Ideal age (level)
+##### H4a(2) Ideal Age (Level) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -904,7 +907,7 @@ model = mvmeta(mean ~ 1, data = models_ideal_age_rel_analyses, S = se^2,
 summary(model)
 ```
 
-#### H4b(1) Ideal height (importance)
+##### H4b(1) Ideal Height (Importance) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -959,7 +962,7 @@ model = mvmeta(mean ~ 1, data = models_imp_height_analyses, S = se^2,
 summary(model)
 ```
 
-#### H4b(2) Ideal height (level)
+##### H4b(2) Ideal Height (Level) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%

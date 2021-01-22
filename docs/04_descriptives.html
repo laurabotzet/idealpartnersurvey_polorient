@@ -492,6 +492,8 @@ $(document).ready(function () {
 </div>
 
 
+<div id="section" class="section level2 tabset">
+<h2></h2>
 <div id="library" class="section level3">
 <h3>Library</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(apaTables)</span>
@@ -523,15 +525,17 @@ $(document).ready(function () {
 <span id="cb7-3"><a href="#cb7-3"></a>data_included_documented =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(political_orientation))</span></code></pre></div>
 </div>
-<div id="missingness-pattern" class="section level3">
-<h3>Missingness pattern</h3>
+<div id="missingness-pattern" class="section level3 tabset">
+<h3>Missingness Pattern</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">crosstabs</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_kind) <span class="op">+</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">            </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_supportive))</span></code></pre></div>
 <pre><code>##                                                is.na(data_included_documented$pref_level_supportive)
 ## is.na(data_included_documented$pref_level_kind) FALSE  TRUE
 ##                                           FALSE 12729   190
 ##                                           TRUE     38   300</code></pre>
-<p>###Summary</p>
+</div>
+<div id="summary" class="section level3 tabset">
+<h3>Summary</h3>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">summary</span>(data_included_documented)</span></code></pre></div>
 <pre><code>##  political_orientation      age        interest_single interest_sexrel
 ##  Min.   :0.000         Min.   :18.00   Min.   :0.000   Min.   :0.000  
@@ -638,7 +642,7 @@ $(document).ready(function () {
 ##  Max.   : 82.000  
 ##  NA&#39;s   :1200</code></pre>
 </div>
-<div id="political-orientation" class="section level3">
+<div id="political-orientation" class="section level3 tabset active">
 <h3>Political Orientation</h3>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">mean</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 2.528023</code></pre>
@@ -654,7 +658,7 @@ $(document).ready(function () {
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04_descriptives_files/figure-html/Political%20Orientation-1.png" width="672" /></p>
 <div id="save-image" class="section level4">
-<h4>Save image</h4>
+<h4>Save Image</h4>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">jpeg</span>(<span class="st">&quot;Hist_PO.jpeg&quot;</span>, <span class="dt">width =</span> <span class="dv">1050</span>, <span class="dt">height =</span> <span class="dv">700</span>)</span>
 <span id="cb20-2"><a href="#cb20-2"></a>qplot</span></code></pre></div>
 <pre><code>## function (x, y, ..., data, facets = NULL, margins = FALSE, geom = &quot;auto&quot;, 
@@ -747,14 +751,14 @@ $(document).ready(function () {
 ##         p &lt;- p + ylim(ylim)
 ##     p
 ## }
-## &lt;bytecode: 0x000000001bcb5ba8&gt;
+## &lt;bytecode: 0x000000001bca5398&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 <pre><code>## png 
 ##   2</code></pre>
 </div>
 </div>
-<div id="age" class="section level3">
+<div id="age" class="section level3 tabset">
 <h3>Age</h3>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">mean</span>(data_included_documented<span class="op">$</span>age)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
@@ -767,8 +771,8 @@ $(document).ready(function () {
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_bin).</code></pre>
 <p><img src="04_descriptives_files/figure-html/Age-1.png" width="672" /></p>
 </div>
-<div id="correlations-for-ideal-partner-preferences" class="section level3">
-<h3>Correlations for ideal partner preferences</h3>
+<div id="correlations-for-ideal-partner-preferences" class="section level3 tabset">
+<h3>Correlations for Ideal Partner Preferences</h3>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_kind,</span>
 <span id="cb33-2"><a href="#cb33-2"></a>         data_included_documented<span class="op">$</span>pref_level_supportive,</span>
 <span id="cb33-3"><a href="#cb33-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
@@ -840,7 +844,7 @@ $(document).ready(function () {
 ##       cor 
 ## 0.4607491</code></pre>
 </div>
-<div id="language" class="section level3">
+<div id="language" class="section level3 tabset">
 <h3>Language</h3>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>n =<span class="st"> </span><span class="kw">nrow</span>(data_included_documented)</span>
 <span id="cb43-2"><a href="#cb43-2"></a></span>
@@ -857,7 +861,7 @@ $(document).ready(function () {
 ## portuguese    russian    spanish 
 ##       6.22       1.56      22.91</code></pre>
 </div>
-<div id="country" class="section level3">
+<div id="country" class="section level3 tabset">
 <h3>Country</h3>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>country_absolute =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(data_included_documented<span class="op">$</span>country))</span>
 <span id="cb47-2"><a href="#cb47-2"></a></span>
@@ -881,7 +885,7 @@ $(document).ready(function () {
 ## # ... with 134 more rows</code></pre>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">write.table</span>(country, <span class="dt">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
 </div>
-<div id="descriptives-and-correlation-table" class="section level3">
+<div id="descriptives-and-correlation-table" class="section level3 tabset">
 <h3>Descriptives and Correlation Table</h3>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>cor =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a><span class="st">  </span><span class="kw">select</span>(political_orientation,</span>
@@ -1191,8 +1195,9 @@ $(document).ready(function () {
 ## ideal_height                                               1.00</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>apa_table_cor =<span class="st"> </span><span class="kw">apa.cor.table</span>(cor, <span class="dt">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQoNCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBwYXR0ZXJuDQpgYGB7cn0NCmNyb3NzdGFicyh+IGlzLm5hKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQpICsNCiAgICAgICAgICAgIGlzLm5hKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1cHBvcnRpdmUpKQ0KYGBgDQoNCiMjI1N1bW1hcnkNCmBgYHtyIFN1bW1hcnl9DQpzdW1tYXJ5KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkNCmBgYA0KDQojIyMgUG9saXRpY2FsIE9yaWVudGF0aW9uDQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCg0KcXBsb3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikrDQogIGxhYnMoeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIiwgeCA9ICJSaWdodC1XaW5nIFBvbGl0aWNhbCBPcmllbnRhdGlvbiIpKw0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MjApLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpDQpgYGANCg0KIyMjIyBTYXZlIGltYWdlDQpgYGB7cn0NCmpwZWcoIkhpc3RfUE8uanBlZyIsIHdpZHRoID0gMTA1MCwgaGVpZ2h0ID0gNzAwKQ0KcXBsb3QNCmRldi5vZmYoKQ0KYGBgDQoNCiMjIyBBZ2UNCmBgYHtyIEFnZX0NCm1lYW4oZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGFnZSkNCnNkKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UpDQpyYW5nZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkYWdlKQ0KcXBsb3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGFnZSkNCmBgYA0KDQojIyMgQ29ycmVsYXRpb25zIGZvciBpZGVhbCBwYXJ0bmVyIHByZWZlcmVuY2VzDQpgYGB7ciBDb3JyZWxhdGlvbnMgZm9yIGlkZWFsIHBhcnRuZXIgcHJlZmVyZW5jZXN9DQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk5NykNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9ib2R5LA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk5NykNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfY29uZmlkZW50LA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfYXNzZXJ0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMgTGFuZ3VhZ2UNCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5DQpgYGB7cn0NCmNvdW50cnlfYWJzb2x1dGUgPSBhcy5kYXRhLmZyYW1lKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KSkNCg0KY291bnRyeV9mcmVxID0gYXMuZGF0YS5mcmFtZShyb3VuZCgodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGNvdW50cnkpL24pKjEwMCwyKSkNCg0KY291bnRyeSA9IGxlZnRfam9pbihjb3VudHJ5X2Fic29sdXRlLCBjb3VudHJ5X2ZyZXEsIGJ5ID0gIlZhcjEiKQ0KY291bnRyeQ0KDQp3cml0ZS50YWJsZShjb3VudHJ5LCBmaWxlID0gImNvdW50cnkudHh0Iiwgc2VwID0gIiwiKQ0KYGBgDQoNCiMjIyBEZXNjcmlwdGl2ZXMgYW5kIENvcnJlbGF0aW9uIFRhYmxlDQpgYGB7cn0NCmNvciA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgc2VsZWN0KHBvbGl0aWNhbF9vcmllbnRhdGlvbiwNCiAgICAgICAgICBhZ2UsDQogICAgICAgICBpbnRlcmVzdF9zaW5nbGUsDQogICAgICAgICBpbnRlcmVzdF9zZXhyZWwsIA0KICAgICAgICAgaW50ZXJlc3Rfbm9ubW9ucmVsLCANCiAgICAgICAgIGludGVyZXN0X21vbnJlbCwgDQogICAgICAgICBwcmVmX3BvbGl0aWNhbHNpbSwgDQogICAgICAgICBwcmVmX2V0aG5pY2Fsc2ltLCANCiAgICAgICAgIHByZWZfcmVsaWdpb3Vzc2ltLA0KICAgICAgICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIA0KICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywgDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUsDQogICAgICAgICBwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgDQogICAgICAgICBpbXBfYWdlLCANCiAgICAgICAgIGlkZWFsX2FnZSwgDQogICAgICAgICBpbXBfaGVpZ2h0LCANCiAgICAgICAgIGlkZWFsX2hlaWdodCkgDQogICAgICAgICAjaWRlYWxfYWdlX3JlbCkNCnJvdW5kKGNvcihjb3IsIHVzZT0icGFpcndpc2UuY29tcGxldGUub2JzIiksMikNCmFwYV90YWJsZV9jb3IgPSBhcGEuY29yLnRhYmxlKGNvciwgZmlsZW5hbWUgPSAiZGVzY3JpcHRpdmVzLmRvYyIpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldH0NCmBgYHtyIFN1bW1hcnl9DQpzdW1tYXJ5KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkNCmBgYA0KDQojIyMgUG9saXRpY2FsIE9yaWVudGF0aW9uIHsudGFic2V0IC5hY3RpdmV9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCg0KcXBsb3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikrDQogIGxhYnMoeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIiwgeCA9ICJSaWdodC1XaW5nIFBvbGl0aWNhbCBPcmllbnRhdGlvbiIpKw0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MjApLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpDQpgYGANCg0KIyMjIyBTYXZlIEltYWdlDQpgYGB7cn0NCmpwZWcoIkhpc3RfUE8uanBlZyIsIHdpZHRoID0gMTA1MCwgaGVpZ2h0ID0gNzAwKQ0KcXBsb3QNCmRldi5vZmYoKQ0KYGBgDQoNCiMjIyBBZ2Ugey50YWJzZXR9DQpgYGB7ciBBZ2V9DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UpDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkYWdlKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGFnZSkNCnFwbG90KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2JvZHksDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9jb25maWRlbnQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hc3NlcnRpdmUsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ludGVsbGlnZW5jZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2VkdWNhdGVkLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5IHsudGFic2V0fQ0KYGBge3J9DQpjb3VudHJ5X2Fic29sdXRlID0gYXMuZGF0YS5mcmFtZSh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkpDQoNCmNvdW50cnlfZnJlcSA9IGFzLmRhdGEuZnJhbWUocm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KS9uKSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgIGFnZSwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIGltcF9hZ2UsIA0KICAgICAgICAgaWRlYWxfYWdlLCANCiAgICAgICAgIGltcF9oZWlnaHQsIA0KICAgICAgICAgaWRlYWxfaGVpZ2h0KSANCiAgICAgICAgICNpZGVhbF9hZ2VfcmVsKQ0Kcm91bmQoY29yKGNvciwgdXNlPSJwYWlyd2lzZS5jb21wbGV0ZS5vYnMiKSwyKQ0KYXBhX3RhYmxlX2NvciA9IGFwYS5jb3IudGFibGUoY29yLCBmaWxlbmFtZSA9ICJkZXNjcmlwdGl2ZXMuZG9jIikNCmBgYA0K</div>
 
 
 
