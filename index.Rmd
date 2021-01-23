@@ -1,5 +1,5 @@
 ---
-title: <font color="#66C2A5">Political Orientation and its Relationships with Preferred Relationship Options and Partner Preferences in Single Women</font>
+title: <font color="#66C2A5">Political Orientation and its Relationships With Preferred Relationship Options and Partner Preferences in Single Women</font>
 csl: apa-custom-no-issue.csl
 editor_options: 
   chunk_output_type: console
