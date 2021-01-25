@@ -139,7 +139,7 @@ qplot(fulldata_selected_wrangled$imp_age)
 
 ```
 
-### Ideal Age
+#### Ideal Age
 This item is in open format style
 ```{r Ideal Age}
 fulldata_selected_wrangled %>%
@@ -165,7 +165,7 @@ fulldata_selected_wrangled %>%
 qplot(fulldata_selected_wrangled$ideal_age)
 ```
 
-### Importance Height
+#### Importance Height
 Item should range from 0 to 6 
 ```{r Importance Height}
 fulldata_selected_wrangled %>%
@@ -175,7 +175,7 @@ fulldata_selected_wrangled %>%
 qplot(fulldata_selected_wrangled$imp_height)
 ```
 
-### Ideal Height
+#### Ideal Height
 Item has the options: much shorter than me, shorter than me, around the same height as me, taller than me, much taller than me
 ```{r Ideal Height}
 table(fulldata_selected_wrangled$ideal_height)
