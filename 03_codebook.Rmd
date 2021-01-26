@@ -130,7 +130,7 @@ val_labels(data_included$imp_height) =
   c("not at all important" = 0, "very important" = 6)
 ```
 
-### Relative Ideal Age {.tabset}
+#### Relative Ideal Age {.tabset}
 Ideal long-term partner's age will be be calculated as relative age discrepancy between ideal partner’s age and women’s own age which will be calculated by subtracting women’s own age from ideal partner’s age
 ```{r Ideal Age Range}
 data_included = data_included %>%
@@ -141,8 +141,21 @@ data_included = data_included %>%
 qplot(data_included$ideal_age_rel)
 ```
 
-### Create Codebook
+### Create Codebook {.tabset}
 ```{r create codebook}
+data_included = data_included %>%
+  arrange(sex, age, country, language, political_orientation,
+          interest_single, interest_sexrel, interest_nonmonrel, interest_monrel,
+          pref_politicalsim, pref_ethnicalsim, pref_religioussim,
+          pref_level_financially_secure_successful_ambitious, pref_level_financially_secure, 
+          pref_level_successful_ambitious,
+          pref_level_kind_supportive, pref_level_kind, pref_level_supportive,
+          pref_level_attractiveness, pref_level_attractive_body, pref_level_attractive_face,
+          pref_level_confident_assertive, pref_level_confident, pref_level_assertive,
+          pref_level_intelligence_educated, pref_level_intelligence, pref_level_educated,
+          imp_age, ideal_age, ideal_age_rel,
+          imp_height, ideal_height)
+
 codebook(data_included)
 ```
 
