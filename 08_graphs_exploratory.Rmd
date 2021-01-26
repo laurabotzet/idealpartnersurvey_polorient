@@ -1,5 +1,5 @@
 ---
-title: <font color="#66C2A5">Graphs Exploratory</font>
+title: <font color="#66C2A5">Graphs Exploratory Analysis</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Graphs Exploratory Analysis {.tabset}
+## {.tabset}
 
 ### Library
 ```{r Library}
