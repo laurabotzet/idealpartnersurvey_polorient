@@ -1,7 +1,6 @@
 ---
-title: "07_graphs"
-author: "Lena Kuschel"
-date: "17 November 2020"
+title: <font color="#66C2A5">Graphs</font>
+csl: apa-custom-no-issue.csl
 output: 
   html_document:
     code_folding: "hide"
