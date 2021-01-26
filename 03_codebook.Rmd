@@ -144,7 +144,7 @@ qplot(data_included$ideal_age_rel)
 ### Create Codebook {.tabset}
 ```{r create codebook}
 data_included = data_included %>%
-  arrange(sex, age, country, language, political_orientation,
+  select(sex, age, country, language, political_orientation,
           interest_single, interest_sexrel, interest_nonmonrel, interest_monrel,
           pref_politicalsim, pref_ethnicalsim, pref_religioussim,
           pref_level_financially_secure_successful_ambitious, pref_level_financially_secure, 
