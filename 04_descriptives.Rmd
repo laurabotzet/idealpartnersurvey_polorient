@@ -19,9 +19,11 @@ library(formr)
 # library(lme4)
 # library(sjstats)
 # library(lmerTest)
-library(dplyr)
 library(ggplot2)
 library(psych)
+library(knitr)
+library(dplyr)
+
 ```
 
 ### Data
@@ -41,7 +43,9 @@ crosstabs(~ is.na(data_included_documented$pref_level_kind) +
 
 ### Summary {.tabset}
 ```{r Summary}
-describe(data_included_documented %>% select_if(is.numeric))
+describe(data_included_documented %>%
+           select_if(is.numeric)) %>%
+  kable()
 ```
 
 ### Political Orientation {.tabset .active}
