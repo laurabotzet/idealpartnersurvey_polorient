@@ -21,6 +21,7 @@ library(formr)
 # library(lmerTest)
 library(dplyr)
 library(ggplot2)
+library(psych)
 ```
 
 ### Data
@@ -40,7 +41,7 @@ crosstabs(~ is.na(data_included_documented$pref_level_kind) +
 
 ### Summary {.tabset}
 ```{r Summary}
-summary(data_included_documented)
+describe(data_included_documented %>% select_if(is.numeric))
 ```
 
 ### Political Orientation {.tabset .active}
@@ -61,14 +62,6 @@ qplot(data_included_documented$political_orientation)+
 jpeg("Hist_PO.jpeg", width = 1050, height = 700)
 qplot
 dev.off()
-```
-
-### Age {.tabset}
-```{r Age}
-mean(data_included_documented$age)
-sd(data_included_documented$age)
-range(data_included_documented$age)
-qplot(data_included_documented$age)
 ```
 
 ### Correlations for Ideal Partner Preferences {.tabset}

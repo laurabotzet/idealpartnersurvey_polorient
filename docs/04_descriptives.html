@@ -515,20 +515,26 @@ $(document).ready(function () {
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(psych)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Load selected data based on 03_codebook</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_included_documented =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>data_included_documented =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(political_orientation))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>data_included_documented =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>data_included_documented =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(political_orientation))</span></code></pre></div>
 </div>
 <div id="missingness-pattern" class="section level3 tabset">
 <h3>Missingness Pattern</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">crosstabs</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_kind) <span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">            </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_supportive))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">crosstabs</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_kind) <span class="op">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">            </span><span class="kw">is.na</span>(data_included_documented<span class="op">$</span>pref_level_supportive))</span></code></pre></div>
 <pre><code>##                                                is.na(data_included_documented$pref_level_supportive)
 ## is.na(data_included_documented$pref_level_kind) FALSE  TRUE
 ##                                           FALSE 12729   190
@@ -536,131 +542,41 @@ $(document).ready(function () {
 </div>
 <div id="summary" class="section level3 tabset">
 <h3>Summary</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">summary</span>(data_included_documented)</span></code></pre></div>
-<pre><code>##  political_orientation      age        interest_single interest_sexrel
-##  Min.   :0.000         Min.   :18.00   Min.   :0.000   Min.   :0.000  
-##  1st Qu.:2.000         1st Qu.:18.00   1st Qu.:1.000   1st Qu.:0.000  
-##  Median :3.000         Median :21.00   Median :2.000   Median :2.000  
-##  Mean   :2.528         Mean   :23.72   Mean   :2.252   Mean   :2.433  
-##  3rd Qu.:3.000         3rd Qu.:27.00   3rd Qu.:3.000   3rd Qu.:4.000  
-##  Max.   :6.000         Max.   :67.00   Max.   :7.000   Max.   :7.000  
-##                        NA&#39;s   :4       NA&#39;s   :49      NA&#39;s   :64     
-##  interest_nonmonrel interest_monrel pref_politicalsim pref_ethnicalsim
-##  Min.   :0.0000     Min.   :0.000   Min.   :0.000     Min.   :0.000   
-##  1st Qu.:0.0000     1st Qu.:4.000   1st Qu.:2.000     1st Qu.:3.000   
-##  Median :0.0000     Median :6.000   Median :3.000     Median :3.000   
-##  Mean   :0.8906     Mean   :4.849   Mean   :3.227     Mean   :3.273   
-##  3rd Qu.:1.0000     3rd Qu.:6.000   3rd Qu.:5.000     3rd Qu.:4.000   
-##  Max.   :7.0000     Max.   :7.000   Max.   :6.000     Max.   :6.000   
-##  NA&#39;s   :112        NA&#39;s   :92      NA&#39;s   :308       NA&#39;s   :4614    
-##  pref_religioussim pref_level_kind pref_level_supportive
-##  Min.   :0.000     Min.   :0.000   Min.   :0.000        
-##  1st Qu.:1.000     1st Qu.:5.000   1st Qu.:4.000        
-##  Median :3.000     Median :5.000   Median :5.000        
-##  Mean   :2.951     Mean   :5.259   Mean   :5.021        
-##  3rd Qu.:5.000     3rd Qu.:6.000   3rd Qu.:6.000        
-##  Max.   :6.000     Max.   :6.000   Max.   :6.000        
-##  NA&#39;s   :320       NA&#39;s   :338     NA&#39;s   :490          
-##  pref_level_attractive_body pref_level_attractive_face
-##  Min.   :0.00               Min.   :0.000             
-##  1st Qu.:3.00               1st Qu.:4.000             
-##  Median :4.00               Median :4.000             
-##  Mean   :3.84               Mean   :4.228             
-##  3rd Qu.:4.00               3rd Qu.:5.000             
-##  Max.   :6.00               Max.   :6.000             
-##  NA&#39;s   :654                NA&#39;s   :529               
-##  pref_level_financially_secure pref_level_successful_ambitious
-##  Min.   :0.000                 Min.   :0.000                  
-##  1st Qu.:4.000                 1st Qu.:4.000                  
-##  Median :4.000                 Median :4.000                  
-##  Mean   :4.252                 Mean   :4.436                  
-##  3rd Qu.:5.000                 3rd Qu.:5.000                  
-##  Max.   :6.000                 Max.   :6.000                  
-##  NA&#39;s   :557                   NA&#39;s   :478                    
-##  pref_level_confident pref_level_assertive pref_level_intelligence
-##  Min.   :0.000        Min.   :0.000        Min.   :0.000          
-##  1st Qu.:4.000        1st Qu.:3.000        1st Qu.:4.000          
-##  Median :5.000        Median :4.000        Median :5.000          
-##  Mean   :4.687        Mean   :4.082        Mean   :4.786          
-##  3rd Qu.:6.000        3rd Qu.:5.000        3rd Qu.:5.000          
-##  Max.   :6.000        Max.   :6.000        Max.   :6.000          
-##  NA&#39;s   :367          NA&#39;s   :496          NA&#39;s   :370            
-##  pref_level_educated    imp_age        ideal_age        imp_height   
-##  Min.   :0.000       Min.   :0.000   Min.   : 10.00   Min.   :0.000  
-##  1st Qu.:4.000       1st Qu.:3.000   1st Qu.: 21.00   1st Qu.:3.000  
-##  Median :5.000       Median :4.000   Median : 25.00   Median :4.000  
-##  Mean   :4.667       Mean   :3.631   Mean   : 26.23   Mean   :3.949  
-##  3rd Qu.:5.000       3rd Qu.:5.000   3rd Qu.: 30.00   3rd Qu.:5.000  
-##  Max.   :6.000       Max.   :6.000   Max.   :100.00   Max.   :6.000  
-##  NA&#39;s   :473         NA&#39;s   :144     NA&#39;s   :1196     NA&#39;s   :231    
-##   ideal_height      country            language             sex           
-##  Min.   :-2.000   Length:13257       Length:13257       Length:13257      
-##  1st Qu.: 1.000   Class :character   Class :character   Class :character  
-##  Median : 1.000   Mode  :character   Mode  :character   Mode  :character  
-##  Mean   : 1.028                                                           
-##  3rd Qu.: 1.000                                                           
-##  Max.   : 2.000                                                           
-##  NA&#39;s   :733                                                              
-##  sexual_orientation relationship       answer_accuracy   
-##  Length:13257       Length:13257       Length:13257      
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##                                                          
-##  pref_level_kind_supportive pref_level_attractiveness
-##  Min.   :2.00               Min.   :0.000            
-##  1st Qu.:4.50               1st Qu.:3.500            
-##  Median :5.00               Median :4.000            
-##  Mean   :5.14               Mean   :4.044            
-##  3rd Qu.:5.50               3rd Qu.:4.500            
-##  Max.   :6.00               Max.   :6.000            
-##  NA&#39;s   :528                NA&#39;s   :731              
-##  pref_level_financially_secure_successful_ambitious
-##  Min.   :0.000                                     
-##  1st Qu.:4.000                                     
-##  Median :4.500                                     
-##  Mean   :4.351                                     
-##  3rd Qu.:5.000                                     
-##  Max.   :6.000                                     
-##  NA&#39;s   :706                                       
-##  pref_level_confident_assertive pref_level_intelligence_educated
-##  Min.   :1.000                  Min.   :0.500                   
-##  1st Qu.:4.000                  1st Qu.:4.000                   
-##  Median :4.500                  Median :5.000                   
-##  Mean   :4.385                  Mean   :4.729                   
-##  3rd Qu.:5.000                  3rd Qu.:5.500                   
-##  Max.   :6.000                  Max.   :6.000                   
-##  NA&#39;s   :560                    NA&#39;s   :534                     
-##  ideal_age_rel    
-##  Min.   :-34.000  
-##  1st Qu.:  1.000  
-##  Median :  2.000  
-##  Mean   :  2.523  
-##  3rd Qu.:  4.000  
-##  Max.   : 82.000  
-##  NA&#39;s   :1200</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">describe</span>(data_included_documented <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(is.numeric))</span></code></pre></div>
+<pre><code>## # A tibble: 29 x 13
+##     vars     n   mean    sd median trimmed   mad   min   max range    skew
+##    &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1     1 13257  2.53  1.37       3   2.53   1.48     0     6     6  0.0657
+##  2     2 13253 23.7   6.90      21  22.4    4.45    18    67    49  1.55  
+##  3     3 13208  2.25  1.77       2   2.13   1.48     0     7     7  0.303 
+##  4     4 13193  2.43  2.03       2   2.27   2.97     0     7     7  0.366 
+##  5     5 13145  0.891 1.51       0   0.553  0        0     7     7  1.79  
+##  6     6 13165  4.85  1.77       6   5.23   0        0     7     7 -1.59  
+##  7     7 12949  3.23  1.92       3   3.28   1.48     0     6     6 -0.350 
+##  8     8  8643  3.27  1.44       3   3.31   1.48     0     6     6 -0.143 
+##  9     9 12937  2.95  2.20       3   2.94   2.97     0     6     6 -0.0394
+## 10    10 12919  5.26  0.854      5   5.37   1.48     0     6     6 -0.990 
+## # ... with 19 more rows, and 2 more variables: kurtosis &lt;dbl&gt;, se &lt;dbl&gt;</code></pre>
 </div>
 <div id="political-orientation" class="section level3 tabset active">
 <h3>Political Orientation</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">mean</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">mean</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 2.528023</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">sd</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">sd</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 1.36602</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">range</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">range</span>(data_included_documented<span class="op">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 0 6</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">qplot</span>(data_included_documented<span class="op">$</span>political_orientation)<span class="op">+</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Number of Participants&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Right-Wing Political Orientation&quot;</span>)<span class="op">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">20</span>), <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">15</span>),</span>
-<span id="cb18-4"><a href="#cb18-4"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">15</span>))<span class="op">+</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">qplot</span>(data_included_documented<span class="op">$</span>political_orientation)<span class="op">+</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Number of Participants&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Right-Wing Political Orientation&quot;</span>)<span class="op">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">20</span>), <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">15</span>),</span>
+<span id="cb20-4"><a href="#cb20-4"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">15</span>))<span class="op">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04_descriptives_files/figure-html/Political%20Orientation-1.png" width="672" /></p>
 <div id="save-image" class="section level4">
 <h4>Save Image</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">jpeg</span>(<span class="st">&quot;Hist_PO.jpeg&quot;</span>, <span class="dt">width =</span> <span class="dv">1050</span>, <span class="dt">height =</span> <span class="dv">700</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>qplot</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">jpeg</span>(<span class="st">&quot;Hist_PO.jpeg&quot;</span>, <span class="dt">width =</span> <span class="dv">1050</span>, <span class="dt">height =</span> <span class="dv">700</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a>qplot</span></code></pre></div>
 <pre><code>## function (x, y, ..., data, facets = NULL, margins = FALSE, geom = &quot;auto&quot;, 
 ##     xlim = c(NA, NA), ylim = c(NA, NA), log = &quot;&quot;, main = NULL, 
 ##     xlab = NULL, ylab = NULL, asp = NA, stat = NULL, position = NULL) 
@@ -751,31 +667,18 @@ $(document).ready(function () {
 ##         p &lt;- p + ylim(ylim)
 ##     p
 ## }
-## &lt;bytecode: 0x000000001bca5398&gt;
+## &lt;bytecode: 0x0000000018e43100&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 <pre><code>## png 
 ##   2</code></pre>
 </div>
 </div>
-<div id="age" class="section level3 tabset">
-<h3>Age</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">mean</span>(data_included_documented<span class="op">$</span>age)</span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">sd</span>(data_included_documented<span class="op">$</span>age)</span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">range</span>(data_included_documented<span class="op">$</span>age)</span></code></pre></div>
-<pre><code>## [1] NA NA</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">qplot</span>(data_included_documented<span class="op">$</span>age)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="04_descriptives_files/figure-html/Age-1.png" width="672" /></p>
-</div>
 <div id="correlations-for-ideal-partner-preferences" class="section level3 tabset">
 <h3>Correlations for Ideal Partner Preferences</h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_kind,</span>
-<span id="cb33-2"><a href="#cb33-2"></a>         data_included_documented<span class="op">$</span>pref_level_supportive,</span>
-<span id="cb33-3"><a href="#cb33-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_kind,</span>
+<span id="cb26-2"><a href="#cb26-2"></a>         data_included_documented<span class="op">$</span>pref_level_supportive,</span>
+<span id="cb26-3"><a href="#cb26-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -787,9 +690,9 @@ $(document).ready(function () {
 ## sample estimates:
 ##       cor 
 ## 0.2825571</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_attractive_body,</span>
-<span id="cb35-2"><a href="#cb35-2"></a>         data_included_documented<span class="op">$</span>pref_level_attractive_face,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_attractive_body,</span>
+<span id="cb28-2"><a href="#cb28-2"></a>         data_included_documented<span class="op">$</span>pref_level_attractive_face,</span>
+<span id="cb28-3"><a href="#cb28-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -801,9 +704,9 @@ $(document).ready(function () {
 ## sample estimates:
 ##       cor 
 ## 0.5809727</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_financially_secure,</span>
-<span id="cb37-2"><a href="#cb37-2"></a>         data_included_documented<span class="op">$</span>pref_level_successful_ambitious,</span>
-<span id="cb37-3"><a href="#cb37-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_financially_secure,</span>
+<span id="cb30-2"><a href="#cb30-2"></a>         data_included_documented<span class="op">$</span>pref_level_successful_ambitious,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -815,9 +718,9 @@ $(document).ready(function () {
 ## sample estimates:
 ##       cor 
 ## 0.3554542</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_confident,</span>
-<span id="cb39-2"><a href="#cb39-2"></a>         data_included_documented<span class="op">$</span>pref_level_assertive,</span>
-<span id="cb39-3"><a href="#cb39-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_confident,</span>
+<span id="cb32-2"><a href="#cb32-2"></a>         data_included_documented<span class="op">$</span>pref_level_assertive,</span>
+<span id="cb32-3"><a href="#cb32-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -829,9 +732,9 @@ $(document).ready(function () {
 ## sample estimates:
 ##       cor 
 ## 0.3293371</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_intelligence,</span>
-<span id="cb41-2"><a href="#cb41-2"></a>         data_included_documented<span class="op">$</span>pref_level_educated,</span>
-<span id="cb41-3"><a href="#cb41-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">cor.test</span>(data_included_documented<span class="op">$</span>pref_level_intelligence,</span>
+<span id="cb34-2"><a href="#cb34-2"></a>         data_included_documented<span class="op">$</span>pref_level_educated,</span>
+<span id="cb34-3"><a href="#cb34-3"></a>         <span class="dt">conf.level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -846,15 +749,15 @@ $(document).ready(function () {
 </div>
 <div id="language" class="section level3 tabset">
 <h3>Language</h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>n =<span class="st"> </span><span class="kw">nrow</span>(data_included_documented)</span>
-<span id="cb43-2"><a href="#cb43-2"></a></span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="kw">table</span>(data_included_documented<span class="op">$</span>language)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>n =<span class="st"> </span><span class="kw">nrow</span>(data_included_documented)</span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="kw">table</span>(data_included_documented<span class="op">$</span>language)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##         96        385       2849       2385       2187        999        287 
 ## portuguese    russian    spanish 
 ##        825        207       3037</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">round</span>((<span class="kw">table</span>(data_included_documented<span class="op">$</span>language)<span class="op">/</span>n)<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">round</span>((<span class="kw">table</span>(data_included_documented<span class="op">$</span>language)<span class="op">/</span>n)<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##       0.72       2.90      21.49      17.99      16.50       7.54       2.16 
@@ -863,12 +766,12 @@ $(document).ready(function () {
 </div>
 <div id="country" class="section level3 tabset">
 <h3>Country</h3>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>country_absolute =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(data_included_documented<span class="op">$</span>country))</span>
-<span id="cb47-2"><a href="#cb47-2"></a></span>
-<span id="cb47-3"><a href="#cb47-3"></a>country_freq =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">round</span>((<span class="kw">table</span>(data_included_documented<span class="op">$</span>country)<span class="op">/</span>n)<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
-<span id="cb47-4"><a href="#cb47-4"></a></span>
-<span id="cb47-5"><a href="#cb47-5"></a>country =<span class="st"> </span><span class="kw">left_join</span>(country_absolute, country_freq, <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
-<span id="cb47-6"><a href="#cb47-6"></a>country</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>country_absolute =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(data_included_documented<span class="op">$</span>country))</span>
+<span id="cb40-2"><a href="#cb40-2"></a></span>
+<span id="cb40-3"><a href="#cb40-3"></a>country_freq =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">round</span>((<span class="kw">table</span>(data_included_documented<span class="op">$</span>country)<span class="op">/</span>n)<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
+<span id="cb40-4"><a href="#cb40-4"></a></span>
+<span id="cb40-5"><a href="#cb40-5"></a>country =<span class="st"> </span><span class="kw">left_join</span>(country_absolute, country_freq, <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
+<span id="cb40-6"><a href="#cb40-6"></a>country</span></code></pre></div>
 <pre><code>## # A tibble: 144 x 3
 ##    Var1                Freq.x Freq.y
 ##    &lt;fct&gt;                &lt;int&gt;  &lt;dbl&gt;
@@ -883,31 +786,31 @@ $(document).ready(function () {
 ##  9 Australia              133   1   
 ## 10 Austria                197   1.49
 ## # ... with 134 more rows</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">write.table</span>(country, <span class="dt">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">write.table</span>(country, <span class="dt">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
 </div>
 <div id="descriptives-and-correlation-table" class="section level3 tabset">
 <h3>Descriptives and Correlation Table</h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>cor =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="st">  </span><span class="kw">select</span>(political_orientation,</span>
-<span id="cb50-3"><a href="#cb50-3"></a>          age,</span>
-<span id="cb50-4"><a href="#cb50-4"></a>         interest_single,</span>
-<span id="cb50-5"><a href="#cb50-5"></a>         interest_sexrel, </span>
-<span id="cb50-6"><a href="#cb50-6"></a>         interest_nonmonrel, </span>
-<span id="cb50-7"><a href="#cb50-7"></a>         interest_monrel, </span>
-<span id="cb50-8"><a href="#cb50-8"></a>         pref_politicalsim, </span>
-<span id="cb50-9"><a href="#cb50-9"></a>         pref_ethnicalsim, </span>
-<span id="cb50-10"><a href="#cb50-10"></a>         pref_religioussim,</span>
-<span id="cb50-11"><a href="#cb50-11"></a>          pref_level_financially_secure_successful_ambitious,</span>
-<span id="cb50-12"><a href="#cb50-12"></a>         pref_level_kind_supportive, </span>
-<span id="cb50-13"><a href="#cb50-13"></a>         pref_level_attractiveness, </span>
-<span id="cb50-14"><a href="#cb50-14"></a>         pref_level_confident_assertive,</span>
-<span id="cb50-15"><a href="#cb50-15"></a>         pref_level_intelligence_educated, </span>
-<span id="cb50-16"><a href="#cb50-16"></a>         imp_age, </span>
-<span id="cb50-17"><a href="#cb50-17"></a>         ideal_age, </span>
-<span id="cb50-18"><a href="#cb50-18"></a>         imp_height, </span>
-<span id="cb50-19"><a href="#cb50-19"></a>         ideal_height) </span>
-<span id="cb50-20"><a href="#cb50-20"></a>         <span class="co">#ideal_age_rel)</span></span>
-<span id="cb50-21"><a href="#cb50-21"></a><span class="kw">round</span>(<span class="kw">cor</span>(cor, <span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>cor =<span class="st"> </span>data_included_documented <span class="op">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="st">  </span><span class="kw">select</span>(political_orientation,</span>
+<span id="cb43-3"><a href="#cb43-3"></a>          age,</span>
+<span id="cb43-4"><a href="#cb43-4"></a>         interest_single,</span>
+<span id="cb43-5"><a href="#cb43-5"></a>         interest_sexrel, </span>
+<span id="cb43-6"><a href="#cb43-6"></a>         interest_nonmonrel, </span>
+<span id="cb43-7"><a href="#cb43-7"></a>         interest_monrel, </span>
+<span id="cb43-8"><a href="#cb43-8"></a>         pref_politicalsim, </span>
+<span id="cb43-9"><a href="#cb43-9"></a>         pref_ethnicalsim, </span>
+<span id="cb43-10"><a href="#cb43-10"></a>         pref_religioussim,</span>
+<span id="cb43-11"><a href="#cb43-11"></a>          pref_level_financially_secure_successful_ambitious,</span>
+<span id="cb43-12"><a href="#cb43-12"></a>         pref_level_kind_supportive, </span>
+<span id="cb43-13"><a href="#cb43-13"></a>         pref_level_attractiveness, </span>
+<span id="cb43-14"><a href="#cb43-14"></a>         pref_level_confident_assertive,</span>
+<span id="cb43-15"><a href="#cb43-15"></a>         pref_level_intelligence_educated, </span>
+<span id="cb43-16"><a href="#cb43-16"></a>         imp_age, </span>
+<span id="cb43-17"><a href="#cb43-17"></a>         ideal_age, </span>
+<span id="cb43-18"><a href="#cb43-18"></a>         imp_height, </span>
+<span id="cb43-19"><a href="#cb43-19"></a>         ideal_height) </span>
+<span id="cb43-20"><a href="#cb43-20"></a>         <span class="co">#ideal_age_rel)</span></span>
+<span id="cb43-21"><a href="#cb43-21"></a><span class="kw">round</span>(<span class="kw">cor</span>(cor, <span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                                                    political_orientation   age
 ## political_orientation                                               1.00 -0.05
 ## age                                                                -0.05  1.00
@@ -1193,11 +1096,11 @@ $(document).ready(function () {
 ## ideal_age                                                 -0.03
 ## imp_height                                                 0.29
 ## ideal_height                                               1.00</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>apa_table_cor =<span class="st"> </span><span class="kw">apa.cor.table</span>(cor, <span class="dt">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>apa_table_cor =<span class="st"> </span><span class="kw">apa.cor.table</span>(cor, <span class="dt">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldH0NCmBgYHtyIFN1bW1hcnl9DQpzdW1tYXJ5KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkNCmBgYA0KDQojIyMgUG9saXRpY2FsIE9yaWVudGF0aW9uIHsudGFic2V0IC5hY3RpdmV9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCg0KcXBsb3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikrDQogIGxhYnMoeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIiwgeCA9ICJSaWdodC1XaW5nIFBvbGl0aWNhbCBPcmllbnRhdGlvbiIpKw0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MjApLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTUpKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpDQpgYGANCg0KIyMjIyBTYXZlIEltYWdlDQpgYGB7cn0NCmpwZWcoIkhpc3RfUE8uanBlZyIsIHdpZHRoID0gMTA1MCwgaGVpZ2h0ID0gNzAwKQ0KcXBsb3QNCmRldi5vZmYoKQ0KYGBgDQoNCiMjIyBBZ2Ugey50YWJzZXR9DQpgYGB7ciBBZ2V9DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UpDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkYWdlKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGFnZSkNCnFwbG90KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2JvZHksDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9jb25maWRlbnQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hc3NlcnRpdmUsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ludGVsbGlnZW5jZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2VkdWNhdGVkLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTk3KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5IHsudGFic2V0fQ0KYGBge3J9DQpjb3VudHJ5X2Fic29sdXRlID0gYXMuZGF0YS5mcmFtZSh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkpDQoNCmNvdW50cnlfZnJlcSA9IGFzLmRhdGEuZnJhbWUocm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KS9uKSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgIGFnZSwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIGltcF9hZ2UsIA0KICAgICAgICAgaWRlYWxfYWdlLCANCiAgICAgICAgIGltcF9oZWlnaHQsIA0KICAgICAgICAgaWRlYWxfaGVpZ2h0KSANCiAgICAgICAgICNpZGVhbF9hZ2VfcmVsKQ0Kcm91bmQoY29yKGNvciwgdXNlPSJwYWlyd2lzZS5jb21wbGV0ZS5vYnMiKSwyKQ0KYXBhX3RhYmxlX2NvciA9IGFwYS5jb3IudGFibGUoY29yLCBmaWxlbmFtZSA9ICJkZXNjcmlwdGl2ZXMuZG9jIikNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KHBzeWNoKQ0KYGBgDQoNCiMjIyBEYXRhDQpMb2FkIHNlbGVjdGVkIGRhdGEgYmFzZWQgb24gMDNfY29kZWJvb2sNCmBgYHtyfQ0KZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkID0gcmVhZC5jc3YoZmlsZSA9ICJkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQuY3N2IilbLC0xXQ0KDQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIGZpbHRlcighaXMubmEocG9saXRpY2FsX29yaWVudGF0aW9uKSkNCmBgYA0KDQojIyMgTWlzc2luZ25lc3MgUGF0dGVybiB7LnRhYnNldH0NCmBgYHtyfQ0KY3Jvc3N0YWJzKH4gaXMubmEoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfa2luZCkgKw0KICAgICAgICAgICAgaXMubmEoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSkpDQpgYGANCg0KIyMjIFN1bW1hcnkgey50YWJzZXR9DQpgYGB7ciBTdW1tYXJ5fQ0KZGVzY3JpYmUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JSBzZWxlY3RfaWYoaXMubnVtZXJpYykpDQpgYGANCg0KIyMjIFBvbGl0aWNhbCBPcmllbnRhdGlvbiB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgUG9saXRpY2FsIE9yaWVudGF0aW9ufQ0KbWVhbihkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0Kc2QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCnJhbmdlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQoNCnFwbG90KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pKw0KICBsYWJzKHkgPSAiTnVtYmVyIG9mIFBhcnRpY2lwYW50cyIsIHggPSAiUmlnaHQtV2luZyBQb2xpdGljYWwgT3JpZW50YXRpb24iKSsNCiAgdGhlbWUodGV4dCA9IGVsZW1lbnRfdGV4dChzaXplPTIwKSwgYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoc2l6ZSA9IDE1KSwNCiAgICAgICAgYXhpcy50ZXh0LnkgPSBlbGVtZW50X3RleHQoc2l6ZSA9IDE1KSkrDQogc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcz1jKDAsIDEsIDIsIDMsIDQsIDUsIDYpKQ0KYGBgDQoNCiMjIyMgU2F2ZSBJbWFnZQ0KYGBge3J9DQpqcGVnKCJIaXN0X1BPLmpwZWciLCB3aWR0aCA9IDEwNTAsIGhlaWdodCA9IDcwMCkNCnFwbG90DQpkZXYub2ZmKCkNCmBgYA0KDQojIyMgQ29ycmVsYXRpb25zIGZvciBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KYGBge3IgQ29ycmVsYXRpb25zIGZvciBpZGVhbCBwYXJ0bmVyIHByZWZlcmVuY2VzfQ0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfa2luZCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1cHBvcnRpdmUsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk5NykNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2NvbmZpZGVudCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk5NykNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfZWR1Y2F0ZWQsDQogICAgICAgICBjb25mLmxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIExhbmd1YWdlIHsudGFic2V0fQ0KYGBge3J9DQpuID0gbnJvdyhkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpDQoNCnRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRsYW5ndWFnZSkNCg0Kcm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRsYW5ndWFnZSkvbikqMTAwLDIpDQpgYGANCg0KIyMjIENvdW50cnkgey50YWJzZXR9DQpgYGB7cn0NCmNvdW50cnlfYWJzb2x1dGUgPSBhcy5kYXRhLmZyYW1lKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KSkNCg0KY291bnRyeV9mcmVxID0gYXMuZGF0YS5mcmFtZShyb3VuZCgodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGNvdW50cnkpL24pKjEwMCwyKSkNCg0KY291bnRyeSA9IGxlZnRfam9pbihjb3VudHJ5X2Fic29sdXRlLCBjb3VudHJ5X2ZyZXEsIGJ5ID0gIlZhcjEiKQ0KY291bnRyeQ0KDQp3cml0ZS50YWJsZShjb3VudHJ5LCBmaWxlID0gImNvdW50cnkudHh0Iiwgc2VwID0gIiwiKQ0KYGBgDQoNCiMjIyBEZXNjcmlwdGl2ZXMgYW5kIENvcnJlbGF0aW9uIFRhYmxlIHsudGFic2V0fQ0KYGBge3J9DQpjb3IgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIHNlbGVjdChwb2xpdGljYWxfb3JpZW50YXRpb24sDQogICAgICAgICAgYWdlLA0KICAgICAgICAgaW50ZXJlc3Rfc2luZ2xlLA0KICAgICAgICAgaW50ZXJlc3Rfc2V4cmVsLCANCiAgICAgICAgIGludGVyZXN0X25vbm1vbnJlbCwgDQogICAgICAgICBpbnRlcmVzdF9tb25yZWwsIA0KICAgICAgICAgcHJlZl9wb2xpdGljYWxzaW0sIA0KICAgICAgICAgcHJlZl9ldGhuaWNhbHNpbSwgDQogICAgICAgICBwcmVmX3JlbGlnaW91c3NpbSwNCiAgICAgICAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCANCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIA0KICAgICAgICAgcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLA0KICAgICAgICAgcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIA0KICAgICAgICAgaW1wX2FnZSwgDQogICAgICAgICBpZGVhbF9hZ2UsIA0KICAgICAgICAgaW1wX2hlaWdodCwgDQogICAgICAgICBpZGVhbF9oZWlnaHQpIA0KICAgICAgICAgI2lkZWFsX2FnZV9yZWwpDQpyb3VuZChjb3IoY29yLCB1c2U9InBhaXJ3aXNlLmNvbXBsZXRlLm9icyIpLDIpDQphcGFfdGFibGVfY29yID0gYXBhLmNvci50YWJsZShjb3IsIGZpbGVuYW1lID0gImRlc2NyaXB0aXZlcy5kb2MiKQ0KYGBgDQo=</div>
 
 
 
