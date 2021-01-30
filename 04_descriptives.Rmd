@@ -41,14 +41,14 @@ crosstabs(~ is.na(data_included_documented$pref_level_kind) +
             is.na(data_included_documented$pref_level_supportive))
 ```
 
-### Summary {.tabset}
+### Summary {.tabset .active}
 ```{r Summary}
 describe(data_included_documented %>%
            select_if(is.numeric)) %>%
   kable()
 ```
 
-### Political Orientation {.tabset .active}
+### Political Orientation {.tabset}
 ```{r Political Orientation}
 mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
