@@ -54,8 +54,9 @@ mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
 range(data_included_documented$political_orientation)
 
-qplot(data_included_documented$political_orientation)+
-  labs(y = "Number of Participants", x = "Right-Wing Political Orientation")+
+hist = ggplot(data=data_included_documented, aes(data_included_documented$political_orientation)) + 
+  geom_histogram(col = "grey", binwidth = 0.5, center = 0) +
+  labs(x = "Right-Wing Political Orientation", y = "Number of Participants")+
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15))+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))
@@ -64,7 +65,7 @@ qplot(data_included_documented$political_orientation)+
 #### Save Image
 ```{r}
 jpeg("Hist_PO.jpeg", width = 1050, height = 700)
-qplot
+hist
 dev.off()
 ```
 
