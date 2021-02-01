@@ -54,7 +54,7 @@ mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
 range(data_included_documented$political_orientation)
 
-hist = ggplot(data=data_included_documented, aes(data_included_documented$political_orientation)) + 
+ggplot(data_included_documented, aes(x = political_orientation)) + 
   geom_histogram(col = "grey", binwidth = 0.5, center = 0) +
   labs(x = "Right-Wing Political Orientation", y = "Number of Participants")+
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
