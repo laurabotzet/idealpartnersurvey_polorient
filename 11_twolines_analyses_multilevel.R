@@ -1,19 +1,11 @@
-#Two-line test app 0.52
-# Last update 2018 11 23
-#	Written by Uri Simonsohn (urisohn@gmail.com)
-#	This is the exact code behind the two-line online app (http://webstimate.org/twolines/)
-#	If you see any errors or have questions people contact me directly.
-#
-####################################################################################
-#
+# Data
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 
-#WARNING: THIS WILL INSTALL PACKAGES IF YOU DON'T HAVE THEM
 list.of.packages <- c("mgcv", "stringr","sandwich","lmtest")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
 
-rm(list=ls())  # clean it all
 library(mgcv)         #This library has the additive model with smoothing function
 library(stringr)      #To process strings in the function
 library(sandwich)     #For robust standard errors
@@ -310,6 +302,7 @@ reg2=function(f,xc,graph=1,family="gaussian")
   res
 }  #End of reg2() function
 
+f = "pref_politicalsim ~ political_orientation, data = data_included_documented"
 
 #Function 4-
 twolines=function(f,graph=1,link="gaussian",data=NULL,pngfile="")  {
@@ -493,7 +486,6 @@ twolines=function(f,graph=1,link="gaussian",data=NULL,pngfile="")  {
 
 
 
-data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 
 #3) Run analyses
 #3.1 Testing if x1 has u-shaped effect on y
