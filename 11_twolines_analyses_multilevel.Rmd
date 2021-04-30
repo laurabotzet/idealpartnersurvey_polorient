@@ -1,17 +1,26 @@
-# Data
-data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+---
+title: "11_twolines_analyses_multilevel"
+output: html_document
+---
 
-list.of.packages <- c("mgcv", "stringr","sandwich","lmtest")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
-
-
+## Library
+```{r}
+library(lmerTest)
+library(effects)
+library(tidyverse)
 library(mgcv)         #This library has the additive model with smoothing function
 library(stringr)      #To process strings in the function
 library(sandwich)     #For robust standard errors
 library(lmtest)       #To run linear tests
+```
 
+## Data
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
 
+## Functions
+```{r}
 #OUTLINE
 #Function 1 - rp(p)       Reformat p-value for printing on chart
 #Function 2 - eval2()     Reads a variable name and assigns the values to another variable (useful for processing formulas and creating temporary variables)
@@ -302,7 +311,6 @@ reg2=function(f,xc,graph=1,family="gaussian")
   res
 }  #End of reg2() function
 
-f = "pref_politicalsim ~ political_orientation, data = data_included_documented"
 
 #Function 4-
 twolines=function(f,graph=1,link="gaussian",data=NULL,pngfile="")  {
@@ -484,33 +492,57 @@ twolines=function(f,graph=1,link="gaussian",data=NULL,pngfile="")  {
   res
 } #End function
 
+```
 
-
-
-#3) Run analyses
-#3.1 Testing if x1 has u-shaped effect on y
+## Algorithm: Find breaking point
+```{r}
 twolines_polsim = twolines(pref_politicalsim ~ political_orientation,
-                           data=data_included_documented)
+                           data=data_included_documented,
+                           graph = F)
+breaking_point = twolines_polsim$midflat
+```
 
-model_polsim_lin = lm(pref_politicalsim ~ political_orientation,
-                  data = data_included_documented)
-summary(model_polsim_lin)
+## Run Multilevel Regression
+### Regression 1 (x <= breaking_point)
+```{r}
+model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
+                                 (1+political_orientation|country),
+                               data = data_included_documented %>%
+                                 dplyr::filter(political_orientation <= breaking_point))
+summary(model_pref_politicalsim_1)
+standardize_parameters(model_pref_politicalsim_1, method = "basic", ci = 0.997)
+plot(allEffects(model_pref_politicalsim_1))
+```
 
-model_polsim_lin_quad = lm(pref_politicalsim ~ I(political_orientation^2),
-                      data = data_included_documented)
-summary(model_polsim_lin_quad)
+### Regression 2 (x >= breaking_point)
+```{r}
+model_pref_politicalsim_2 = lmer(pref_politicalsim ~ political_orientation +
+                                 (1+political_orientation|country),
+                               data = data_included_documented %>%
+                                 dplyr::filter(political_orientation > breaking_point))
+summary(model_pref_politicalsim_2)
+standardize_parameters(model_pref_politicalsim_2, method = "basic", ci = 0.997)
+plot(allEffects(model_pref_politicalsim_2))
+```
 
-# 4) z-standardize outcome
-library(tidyverse)
-data_included_documented = data_included_documented %>%
-  group_by(country) %>%
-  mutate(pref_politicalsim_z = scale(pref_politicalsim, center = T, scale = T)) %>%
-  ungroup()
+### Regression 1 (x <= breaking_point)
+```{r}
+model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
+                                 (1+political_orientation|country),
+                               data = data_included_documented %>%
+                                 dplyr::filter(political_orientation <= breaking_point))
+summary(model_pref_politicalsim_1)
+standardize_parameters(model_pref_politicalsim_1, method = "basic", ci = 0.997)
+plot(allEffects(model_pref_politicalsim_1))
+```
 
-data_included_documented = data_included_documented %>%
-  mutate(political_orientation_z = scale(political_orientation, center = T, scale = T))
-
-data_included_documented$political_orientation_z = c(data_included_documented$political_orientation_z)
-
-twolines_polsim = twolines(pref_politicalsim_z ~ political_orientation_z,
-                           data=data_included_documented)
+### Regression 2 (x >= breaking_point)
+```{r}
+model_pref_politicalsim_2 = lmer(pref_politicalsim ~ political_orientation +
+                                 (1+political_orientation|country),
+                               data = data_included_documented %>%
+                                 dplyr::filter(political_orientation >= breaking_point))
+summary(model_pref_politicalsim_2)
+standardize_parameters(model_pref_politicalsim_2, method = "basic", ci = 0.997)
+plot(allEffects(model_pref_politicalsim_2))
+```
