@@ -180,120 +180,63 @@ Effect size estimates of quadratic effect of political orientation on preferred 
 
 #### Main and Robustness Analyses {.active}
 ```{r}
-data_included_nomiss_politicalsim = data_included_documented %>%
-  filter(!is.na(pref_politicalsim))
+data_included_nomiss_politicalsim_smaller = data_included_documented %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  filter(political_orientation <= 3)
 
-data_included_nomiss_politicalsim_age = data_included_nomiss_politicalsim %>%
-  filter(!is.na(age))
 
-#Model for empirical values of preferred political similarity
-model_pref_politicalsim = lmer(pref_politicalsim ~
-                                 political_orientation + 
-                                 I(political_orientation^2) +
+model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
                                  (1+political_orientation|country),
-                               data = data_included_nomiss_politicalsim)
+                               data = data_included_nomiss_politicalsim_smaller)
+pred_pref_politicalsim_1 = predict(model_pref_politicalsim_1)
 
-model_pref_politicalsim_rob = lmer(pref_politicalsim ~
-                                 political_orientation + 
-                                 I(political_orientation^2) +
-                                   age +
+data_included_nomiss_politicalsim_smaller$pred_pref_politicalsim_1 =
+  pred_pref_politicalsim_1
+
+
+data_included_nomiss_politicalsim_larger = data_included_documented %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  filter(political_orientation >= 3)
+
+
+model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
                                  (1+political_orientation|country),
-                               data = data_included_nomiss_politicalsim_age)
+                               data = data_included_nomiss_politicalsim_larger)
+pred_pref_politicalsim_1 = predict(model_pref_politicalsim_1)
 
-#Model for predicted values of preferred political similarity
-model_pref_politicalsim_pred = predict(model_pref_politicalsim)
-model_pref_politicalsim_rob_pred = predict(model_pref_politicalsim_rob)
+data_included_nomiss_politicalsim_larger$pred_pref_politicalsim_1 =
+  pred_pref_politicalsim_1
 
-
-data_included_nomiss_politicalsim$pref_politicalsim_pred =
-  model_pref_politicalsim_pred
-
-data_included_nomiss_politicalsim_age$pref_politicalsim_rob_pred =
-  model_pref_politicalsim_rob_pred
+data_included_nomiss_politicalsim = rbind(data_included_nomiss_politicalsim_smaller,
+                                          data_included_nomiss_politicalsim_larger)
 
 #Plotting empirical values
 graph_emp =
   ggplot(data = data_included_nomiss_politicalsim,
-       aes(x = political_orientation, y = pref_politicalsim)) +
-  geom_jitter(alpha = .10) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 3),
-               fill="#86BDDB")+
-  stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
-  stat_summary(geom="point", fun=mean, color="#084594") +
+       aes(x = political_orientation, y = pred_pref_politicalsim_1)) +
+  geom_jitter(aes(y = pref_politicalsim), alpha = 0.5, color = "grey44") +
+  geom_smooth(method='lm', formula= y~x, fill="#B22222", color="#B22222", level = 0.997,
+              data = data_included_nomiss_politicalsim %>%
+                filter(political_orientation <= 3)) +
+  geom_smooth(method='lm', formula= y~x, fill="#084594", color="#084594", level = 0.997,
+              data = data_included_nomiss_politicalsim %>%
+                filter(political_orientation >= 3)) +
+  geom_vline(xintercept = 3, linetype = "dashed", size = 1) +
   apatheme +
   labs(y = "Preferred Political Similarity\n(Empirical Values)", x = "Right-Wing Political Orientation")+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) +
  scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6)) +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15))
+
 graph_emp
-
-# Dataset predicted values main analyses and robustness analyses
- data_included_nomiss_politicalsim_graph =
-  rbind(data_included_nomiss_politicalsim %>%
-            select(political_orientation, pref_politicalsim_pred) %>%
-             mutate(analysis = "Main Analysis"),
-          data_included_nomiss_politicalsim_age %>%
-            select(political_orientation, pref_politicalsim_rob_pred) %>%
-            rename(pref_politicalsim_pred = pref_politicalsim_rob_pred) %>%
-             mutate(analysis = "Robustness Analysis"))
-
-#Plotting predicted values
-graph_pred_main = 
-  ggplot(data = data_included_nomiss_politicalsim_graph %>%
-         filter(analysis == "Main Analysis"),
-       aes(x = political_orientation, y = pref_politicalsim_pred)) +
-  geom_jitter(alpha = .10) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 3), #adjust mult to 99.7% CI
-               fill="#86BDDB")+
-  stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
-  stat_summary(geom="point", fun=mean, color="#084594") +
-  apatheme +
-  labs(y = "Preferred Political Similarity\n(Predicted Values Based on Main Analysis)", x = "Right-Wing Political Orientation")+
- scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
- scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6),
-                    limits = c(1.8,5.5)) +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15))
-graph_pred_main
-
-graph_pred_rob = 
-  ggplot(data = data_included_nomiss_politicalsim_graph %>%
-         filter(analysis == "Robustness Analysis"),
-       aes(x = political_orientation, y = pref_politicalsim_pred)) +
-  geom_jitter(alpha = .10) +
-  stat_summary(geom="ribbon", fun.data=mean_cl_normal,
-               fun.args = list(mult = 3), #adjust mult to 99.7% CI
-               fill="#86BDDB")+
-  stat_summary(geom="line", fun=mean, linetype="dashed", color="#084594")+
-  stat_summary(geom="point", fun=mean, color="#084594") +
-  apatheme +
-  labs(y = "Preferred Political Similarity\n(Predicted Values Based on Robustness Analysis)", x = "Right-Wing Political Orientation")+
- scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
- scale_y_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6),
-                    limits = c(1.8,5.5))+
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15))
-graph_pred_rob
 ```
 
-#### Combine 
-```{r}
-graph_mult =
-  ggarrange(graph_emp,
-          ggarrange(graph_pred_main, graph_pred_rob,
-                    nrow = 1,
-                    labels = c("B", "C")),
-          nrow = 2,
-          labels = c("A"))
-```
 
 #### Save image
 ```{r}
-jpeg("Figure5.jpeg", width = 1000, height = 1200)
-graph_mult
+jpeg("Figure5.jpeg", width = 500, height = 500)
+graph_emp
 dev.off()
 ```
 

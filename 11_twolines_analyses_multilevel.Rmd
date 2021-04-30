@@ -7,6 +7,7 @@ output: html_document
 ```{r}
 library(lmerTest)
 library(effects)
+library(effectsize)
 library(tidyverse)
 library(mgcv)         #This library has the additive model with smoothing function
 library(stringr)      #To process strings in the function
@@ -503,28 +504,6 @@ breaking_point = twolines_polsim$midflat
 ```
 
 ## Run Multilevel Regression
-### Regression 1 (x <= breaking_point)
-```{r}
-model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
-                                 (1+political_orientation|country),
-                               data = data_included_documented %>%
-                                 dplyr::filter(political_orientation <= breaking_point))
-summary(model_pref_politicalsim_1)
-standardize_parameters(model_pref_politicalsim_1, method = "basic", ci = 0.997)
-plot(allEffects(model_pref_politicalsim_1))
-```
-
-### Regression 2 (x >= breaking_point)
-```{r}
-model_pref_politicalsim_2 = lmer(pref_politicalsim ~ political_orientation +
-                                 (1+political_orientation|country),
-                               data = data_included_documented %>%
-                                 dplyr::filter(political_orientation > breaking_point))
-summary(model_pref_politicalsim_2)
-standardize_parameters(model_pref_politicalsim_2, method = "basic", ci = 0.997)
-plot(allEffects(model_pref_politicalsim_2))
-```
-
 ### Regression 1 (x <= breaking_point)
 ```{r}
 model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
