@@ -235,16 +235,43 @@ graph_emp
 
 #### Save image
 ```{r}
-jpeg("Figure5.jpeg", width = 500, height = 500)
+jpeg("Figure5.jpeg", width = 3000, height = 3000, res = 300)
 graph_emp
 dev.off()
 ```
 
 ### Figure 6 {.tabset}
-Effect size estimates of linear effects of political orientation on preferred ethnical and religious similarity for main analyses and one robustness analysis.
+Effect size estimates of linear effects of political orientation on preferred political, ethnical and religious similarity for main analyses and one robustness analysis. Graph further includes both linear effect size estimates according to the Two Lines Approach. 
 
 #### Main Analyses
 ```{r}
+# H1a(1) Linear Effect on Political Similarity
+model_pref_politicalsim_lin <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(
+        pref_politicalsim ~
+political_orientation +
+(1+political_orientation|country), data = data_included_documented),
+     method = "basic", ci = 0.997))
+
+#H1a(2) Quadratic Effect on Political Similarity
+model_pref_politicalsim_1 <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(
+        pref_politicalsim ~ political_orientation +                       (1+political_orientation|country), data = data_included_documented 
+%>%                     dplyr::filter(political_orientation <= 3)),
+method = "basic", ci = 0.997))
+
+model_pref_politicalsim_2 <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(
+        pref_politicalsim ~ political_orientation +                       (1+political_orientation|country), data = data_included_documented 
+%>%                     dplyr::filter(political_orientation >= 3)),
+method = "basic", ci = 0.997))
+
 model_pref_ethnicalsim <-
   as.data.frame(
     standardize_parameters(
@@ -263,6 +290,33 @@ model_pref_religioussim <-
 #### Robustness Analyses
 Additionally including age as a predictor
 ```{r}
+# H1a(1) Linear Effect on Political Similarity
+model_pref_politicalsim_lin_robustcheck <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(pref_politicalsim ~ political_orientation  + age +
+(1|country), data = 
+data_included_documented),
+      method = "basic", ci = 0.997))
+
+#H1a(2) Quadratic Effect on Political Similarity
+
+model_pref_politicalsim_1_robustcheck <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(pref_politicalsim ~ political_orientation + age +
+(1|country), data = data_included_documented %>%
+dplyr::filter(political_orientation <= 3)),
+      method = "basic", ci = 0.997))
+
+model_pref_politicalsim_2_robustcheck <-
+  as.data.frame(
+    standardize_parameters(
+      lmer(pref_politicalsim ~ political_orientation + age +
+(1|country), data = data_included_documented %>%
+dplyr::filter(political_orientation >= 3)),
+      method = "basic", ci = 0.997))
+
 model_pref_ethnicalsim_robustcheck <-
   as.data.frame(
     standardize_parameters(
@@ -281,19 +335,25 @@ model_pref_religioussim_robustcheck <-
 #### Combine {.active}
 ```{r}
 all_models_similarity <- rbind(
+  model_pref_politicalsim_lin,
+  model_pref_politicalsim_1, 
+  model_pref_politicalsim_2,
   model_pref_ethnicalsim,
   model_pref_religioussim,
+  model_pref_politicalsim_lin_robustcheck,
+  model_pref_politicalsim_1_robustcheck,
+  model_pref_politicalsim_2_robustcheck,
   model_pref_ethnicalsim_robustcheck,
   model_pref_religioussim_robustcheck) %>%
   filter(Parameter == "political_orientation")
 
 all_models_similarity$hypothesis = factor(
-  rep(c("H1b) Preferred \nEthnic Similarity", "H1c) Preferred \nReligious Similarity"),
+  rep(c("H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "H1b) Preferred \nEthnic Similarity", "H1c) Preferred \nReligious Similarity"),
       2),
-  levels = c("H1c) Preferred \nReligious Similarity", "H1b) Preferred \nEthnic Similarity"))
+  levels = c("H1c) Preferred \nReligious Similarity", "H1b) Preferred \nEthnic Similarity", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)"))
 
 all_models_similarity$type = factor(
-  c(rep("Main Analyses", 2), rep("Robustness Analyses", 2)),
+  c(rep("Main Analyses", 5), rep("Robustness Analyses", 5)),
   levels = c("Robustness Analyses", "Main Analyses"))
 
 
