@@ -347,22 +347,44 @@ all_models_similarity <- rbind(
   model_pref_religioussim_robustcheck) %>%
   filter(Parameter == "political_orientation")
 
+
+
+all_models_similarity = rbind(all_models_similarity[1,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[2:3,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[4,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[5:6,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[7:8,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[9,],
+                              c("political_orientation", NA, 0.997, NA, NA),
+                              all_models_similarity[10,])
+
+
 all_models_similarity$hypothesis = factor(
-  rep(c("H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "H1b) Preferred \nEthnic Similarity", "H1c) Preferred \nReligious Similarity"),
-      2),
-  levels = c("H1c) Preferred \nReligious Similarity", "H1b) Preferred \nEthnic Similarity", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)"))
+  c("H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)", "", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "", "H1b) Preferred \nEthnic Similarity", "   ", "H1c) Preferred \nReligious Similarity", 
+        "H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)", " ",  "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", " ", "H1b) Preferred \nEthnic Similarity", "   ", "H1c) Preferred \nReligious Similarity"),
+  levels = c("H1c) Preferred \nReligious Similarity", "   ", "H1b) Preferred \nEthnic Similarity", " ", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO >= 3", "H1a(2) Preferred \nPolitical Similarity \n(Quadratic Effect) \nRWPO <= 3", "", "H1a(1) Preferred \nPolitical Similarity \n(Linear Effect)"))
 
 all_models_similarity$type = factor(
-  c(rep("Main Analyses", 5), rep("Robustness Analyses", 5)),
+  c(rep("Main Analyses", 8), rep("Robustness Analyses", 8)),
   levels = c("Robustness Analyses", "Main Analyses"))
 
+all_models_similarity$Std_Coefficient = as.numeric(all_models_similarity$Std_Coefficient)
+
+all_models_similarity$CI_low = as.numeric(all_models_similarity$CI_low)
+
+all_models_similarity$CI_high = as.numeric(all_models_similarity$CI_high)
 
 multiplot = ggplot(all_models_similarity, aes(hypothesis, Std_Coefficient)) +
   geom_pointrange(data = all_models_similarity,
                   mapping = aes(x = hypothesis, y = Std_Coefficient,
                                 ymin = CI_low, ymax = CI_high, group = type,
                                 color = type),
-                  position = position_dodge(width=0.3)) + 
+                  position = position_dodge(width=c(0.3))) + 
   geom_hline(yintercept = 0, size = 1.5)  +
   geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
   geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
@@ -375,7 +397,9 @@ multiplot = ggplot(all_models_similarity, aes(hypothesis, Std_Coefficient)) +
         legend.text = element_text(size = 10),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
-                                         size=0.5, linetype="solid"))+ guides(col = guide_legend(reverse= TRUE))
+                                         size=0.5, linetype="solid"))+
+  guides(col = guide_legend(reverse= TRUE)) +
+  theme(axis.ticks.y = element_blank()) 
 multiplot
 ```
 
