@@ -74,7 +74,7 @@ ggplot(data_included_documented, aes(x = political_orientation)) +
 
 #### Save Image
 ```{r}
-jpeg("Hist_PO.jpeg", width = 2100, height = 900, res = 300)
+jpeg("Hist_PO.jpeg", width = 580, height = 436, res = 300)
 hist
 dev.off()
 ```

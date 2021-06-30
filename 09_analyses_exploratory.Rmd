@@ -83,7 +83,7 @@ countries_rescon
 
 ### Models {.tabset .active}
 #### Preferred Relationship Options {.tabset .active}
-##### H1a Interest in Single Life {.tabset .active}
+##### S1 Interest in Single Life {.tabset .active}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -138,7 +138,7 @@ model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
 summary(model)
 ```
 
-##### H1b Interest in Sexual, Non-Romantic Relationships {.tabset}
+##### S2 Interest in Sexual, Non-Romantic Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -193,7 +193,7 @@ model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
 summary(model)
 ```
 
-##### H1c Interest in Non-Monogamous Relationships {.tabset}
+##### S3 Interest in Non-Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -248,7 +248,7 @@ model = mvmeta(mean ~ 1, data = models_interest_nonmonrel_analyses, S = se^2,
 summary(model)
 ```
 
-##### H1d Interest in Monogamous Relationships {.tabset}
+##### S4 Interest in Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -304,8 +304,8 @@ summary(model)
 ```
 
 #### Political, Ethnic, and Religious Similarity {.tabset}
-##### H2a Preference for Similarity in Political Beliefs {.tabset}
-###### Linear Effect
+##### H1a Preference for Similarity in Political Beliefs {.tabset}
+###### H1a(1) Linear Effect
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -314,8 +314,7 @@ data_included_documented_rescon_wide = data_included_documented_rescon %>%
 
 models_pref_politicalsim = data_included_documented_rescon_wide %>%
   select(-pref_politicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
-            I(scale(.x)^2),
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x),
       data = data_included_documented_rescon_wide)) %>%
   map(lm.beta)
 
@@ -330,9 +329,9 @@ models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
 
 models_pref_politicalsim_lin_se = models_pref_politicalsim %>%
   map(summary) %>%
-  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
-  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
-  select(-models_interest_sexrel_se) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "coefficients") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
   unnest_wider(., coefficients, names_repair = "universal") %>%
   select(...8, Names) %>%
   rename("name" = "Names",
@@ -361,7 +360,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
 summary(model)
 ```
 
-###### Quadratic Effect
+###### H1a(2) Quadratic Effect
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -387,9 +386,9 @@ models_pref_politicalsim_quad_coef = models_pref_politicalsim %>%
 
 models_pref_politicalsim_quad_se = models_pref_politicalsim %>%
   map(summary) %>%
-  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
-  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
-  select(-models_interest_sexrel_se) %>%
+  tibble(models_pref_politicalsim_quad_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_quad_se, coefficients = "coefficients") %>%
+  select(-models_pref_politicalsim_quad_se) %>%
   unnest_wider(., coefficients, names_repair = "universal") %>%
   select(...9, Names) %>%
   rename("name" = "Names",
@@ -401,7 +400,7 @@ models_pref_politicalsim_quad_se = models_pref_politicalsim %>%
 models_pref_politicalsim_quad_analyses = left_join(models_pref_politicalsim_quad_coef,
                                             models_pref_politicalsim_quad_se,
                                             by = "name") %>%
-  mutate(outcome = "H2a) Prefered Political Similarity - Quadratic Effect")
+  mutate(outcome = "H2a) Preferred Political Similarity - Quadratic Effect")
 
 models_pref_politicalsim_quad_analyses$n = countries_rescon$Freq
 
@@ -410,7 +409,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses, S = se^2
 summary(model)
 ```
 
-##### H2b Preference for Similarity in Ethnicity/Race {.tabset}
+##### H1b Preference for Similarity in Ethnicity/Race {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -465,7 +464,7 @@ model = mvmeta(mean ~ 1, data = models_pref_ethnicalsim_analyses, S = se^2,
 summary(model)
 ```
 
-##### H2c Preference for Similarity in Religion {.tabset}
+##### H1c Preference for Similarity in Religion {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -521,7 +520,7 @@ summary(model)
 ```
 
 #### Ideal Partner Preferences {.tabset}
-##### H3a Preference for the Level of Financial Security- Successfulness {.tabset}
+##### H2a Preference for the Level of Financial Security- Successfulness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -576,7 +575,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_financially_secure_successful_
 summary(model)
 ```
 
-##### H3b Preference for the Level of Kindness-Supportiveness {.tabset}
+##### H2b Preference for the Level of Kindness-Supportiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -631,7 +630,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_kind_supportive_analyses, S = 
 summary(model)
 ```
 
-##### H3c Preference for the Level of Attractiveness {.tabset}
+##### H2c Preference for the Level of Attractiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -686,7 +685,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_attractiveness_analyses, S = s
 summary(model)
 ```
 
-##### H3d Preference for the Level of Confidence-Assertiveness {.tabset}
+##### H2d Preference for the Level of Confidence-Assertiveness {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -741,7 +740,7 @@ model = mvmeta(mean ~ 1, data = models_pref_level_confident_assertive_analyses, 
 summary(model)
 ```
 
-##### H3e Preference for the Level of Education-Intelligence {.tabset}
+##### H2e Preference for the Level of Education-Intelligence {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -797,7 +796,7 @@ summary(model)
 ```
 
 #### Ideal Age and Height {.tabset}
-##### H4a(1) Ideal Age (Importance) {.tabset}
+##### H3a(1) Ideal Age (Importance) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -852,7 +851,7 @@ model = mvmeta(mean ~ 1, data = models_imp_age_analyses, S = se^2,
 summary(model)
 ```
 
-##### H4a(2) Ideal Age (Level) {.tabset}
+##### H3a(2) Ideal Age (Level) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -907,7 +906,7 @@ model = mvmeta(mean ~ 1, data = models_ideal_age_rel_analyses, S = se^2,
 summary(model)
 ```
 
-##### H4b(1) Ideal Height (Importance) {.tabset}
+##### H3b(1) Ideal Height (Importance) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -962,7 +961,7 @@ model = mvmeta(mean ~ 1, data = models_imp_height_analyses, S = se^2,
 summary(model)
 ```
 
-##### H4b(2) Ideal Height (Level) {.tabset}
+##### H3b(2) Ideal Height (Level) {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
