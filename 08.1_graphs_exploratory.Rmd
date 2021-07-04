@@ -85,8 +85,7 @@ data_included_documented_rescon_wide = data_included_documented_rescon %>%
 
 models_pref_politicalsim = data_included_documented_rescon_wide %>%
   select(-pref_politicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x) +
-            I(scale(.x)^2),
+  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x),
       data = data_included_documented_rescon_wide)) %>%
   map(lm.beta)
 
