@@ -10,6 +10,78 @@ editor_options:
 
 ## {.tabset}
 
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(ggplot2)
+library(tidyr)
+library(ggpubr)
+library(RColorBrewer)
+library(coefplot)
+library(tibble)
+library(purrr) # for running multiple regression
+library(broom)
+library(mvmeta)
+library(lm.beta)
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+apatheme = theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+```
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+### Inclusion of Data
+```{r}
+countries = as.data.frame(table(data_included_documented$country)) %>%
+  arrange(-Freq)
+
+countries
+```
+We will include all countries with more than 500 participants. This allows us to show effect sizes for a diverse range of countries.
+Diversity of countries is indicated by:
+
+* location: European (France, Germany, Italy, Spain); North American (United States of America); South American (Mexico, Brazil)
+* language: French (France); German (Germany); English (United States of America); Spanish (Mexico, Spain); Italian (Italy); Portuguese (Brazil)
+* culture: Western (France, Germany, Italy, Spain, United States of America); Non-Western (Mexico, Brazil)
+
+Sample sizes of other countries are too small (n < 500) to reach any conclusions.
+
+```{r}
+seven_countries = countries %>% filter(Freq > 500)
+data_included_documented_rescon = data_included_documented %>%
+  filter(country %in% seven_countries$Var1)
+```
+
+```{r}
+countries_rescon =
+  data_included_documented_rescon %>%
+  select(country) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+
+countries_rescon
+```
+
+
 #### Political, Ethnic, and Religious Similarity {.tabset}
 ##### H1a Preference for Similarity in Political Beliefs {.tabset}
 ###### H1a(1) Linear Effect
