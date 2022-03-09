@@ -883,7 +883,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("Exploratory_01.jpeg", width = 1200, height = 1600)
+jpeg("Exploratory_01.jpeg", width = 5000, height = 3000, res=300)
 multiplot
 dev.off()
 ```
@@ -948,7 +948,83 @@ multiplot2
 
 #### Save image
 ```{r}
-jpeg("Exploratory_02.jpeg", width = 1200, height = 1600)
+jpeg("Exploratory_02.jpeg", width = 5000, height = 3000, res=300)
 multiplot2
+dev.off()
+```
+
+### Combine into one graph
+```{r}
+data_graph = rbind(models_pref_politicalsim_lin_graph,
+                   models_pref_politicalsim_quad_graph_reg1,
+                   models_pref_politicalsim_quad_graph_reg2,
+                   models_pref_ethnicalsim_graph,
+                   models_pref_religioussim_graph,
+                   models_pref_level_financially_secure_successful_ambitious_graph, models_pref_level_kind_supportive_graph, models_pref_level_attractiveness_graph, models_pref_level_confident_assertive_graph, models_pref_level_intelligence_educated_graph, models_imp_age_graph, models_ideal_age_rel_graph, models_imp_height_graph, models_ideal_height_graph
+                   ) %>%
+  mutate(outcome = factor(outcome,
+                          levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Education-\nIntelligence","H2d) Confidence-\nAssertiveness","H2c) Attractiveness", "H2b) Kindness-\nSupportiveness", "H2a) Financial Security-\nSuccessfulness","H1c) Preferred \nReligious Similarity", 
+                                     "H1b) Preferred \nEthnic Similarity",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 2",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 1",
+                                     "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
+                                     )))
+
+
+data_graph$name = factor(rep(c(
+  paste0("France (n = ",
+         sum(data_included_documented_rescon$country == "France"), ")"),
+  paste0("Germany (n = ",
+         sum(data_included_documented_rescon$country == "Germany"), ")"),
+  paste0("United States of America (n = ",
+         sum(data_included_documented_rescon$country == "United States of America"),
+         ")"),
+  paste0("Mexico (n = ",
+         sum(data_included_documented_rescon$country == "Mexico"), ")"),
+  paste0("Italy (n = ",
+         sum(data_included_documented_rescon$country == "Italy"), ")"),
+  paste0("Brazil (n = ",
+         sum(data_included_documented_rescon$country == "Brazil"), ")"),
+  paste0("Spain (n = ",
+         sum(data_included_documented_rescon$country == "Spain"), ")")),
+  14))
+
+l_countries = levels(data_graph$name)
+data_graph$name = factor(data_graph$name,
+                         levels = rev(c(l_countries[2], l_countries[3],
+                                    l_countries[7], l_countries[5],
+                                    l_countries[4], l_countries[1],
+                                    l_countries[6])))
+```
+
+### Graph Combined Multiplot {.active}
+```{r}
+multiplot = ggplot(data_graph, aes(outcome, mean)) +
+  geom_hline(yintercept = 0, size = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  geom_pointrange(data = data_graph,
+                  mapping = aes(x = outcome, y = mean,
+                                ymin = conf_low , ymax = conf_high , group = name,
+                                color = name),
+                  position = position_dodge(width=0.4)) + 
+  coord_flip() +
+  apatheme +
+  scale_colour_brewer(palette = "Dark2")  +
+  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
+  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        legend.text = element_text(size = 15),
+        plot.title = element_text(hjust = 0),
+        legend.background = element_rect(fill="grey", 
+                                         size=0.5, linetype="solid")) +
+  guides(col = guide_legend(reverse= TRUE))
+multiplot
+```
+
+#### Save image
+```{r}
+jpeg("Exploratory_combined.jpeg", width = 5000, height = 5000, res=300)
+multiplot
 dev.off()
 ```
