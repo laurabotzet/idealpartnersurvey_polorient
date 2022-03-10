@@ -112,9 +112,9 @@ models_pref_politicalsim_lin_se = models_pref_politicalsim %>%
   hoist(models_pref_politicalsim_lin_se, coefficients = "coefficients") %>%
   select(-models_pref_politicalsim_lin_se) %>%
   unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...8, Names) %>%
+  select(...5, Names) %>%
   rename("name" = "Names",
-         "se" = "...8") %>%
+         "se" = "...5") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
 
@@ -171,9 +171,9 @@ models_pref_politicalsim_quad_se_reg1 = models_pref_politicalsim_reg1 %>%
   hoist(models_pref_politicalsim_quad_se_reg1, coefficients = "coefficients") %>%
   select(-models_pref_politicalsim_quad_se_reg1) %>%
   unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...9, Names) %>%
+  select(...5, Names) %>%
   rename("name" = "Names",
-         "se" = "...9") %>%
+         "se" = "...5") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
 
@@ -221,9 +221,9 @@ models_pref_politicalsim_quad_se_reg2 = models_pref_politicalsim_reg1 %>%
   hoist(models_pref_politicalsim_quad_se_reg2, coefficients = "coefficients") %>%
   select(-models_pref_politicalsim_quad_se_reg2) %>%
   unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...9, Names) %>%
+  select(...5, Names) %>%
   rename("name" = "Names",
-         "se" = "...9") %>%
+         "se" = "...5") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
 
