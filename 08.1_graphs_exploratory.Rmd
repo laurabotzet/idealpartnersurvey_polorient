@@ -182,7 +182,7 @@ models_pref_politicalsim_quad_graph_reg1 = left_join(left_join(models_pref_polit
                                          by = "name"),
                                          models_pref_politicalsim_quad_confint_high_reg1,
                                          by = "name") %>%
-  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 1")
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3")
 ```
 
 
@@ -237,7 +237,7 @@ models_pref_politicalsim_quad_graph_reg2 = left_join(left_join(models_pref_polit
                                                                by = "name"),
                                                      models_pref_politicalsim_quad_confint_high_reg2,
                                                      by = "name") %>%
-  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 2")
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3")
 ```
 
 #### H1b Preference for similarity in ethnicity/race
@@ -824,8 +824,8 @@ data_graph = rbind(models_pref_politicalsim_lin_graph,
   mutate(outcome = factor(outcome,
                           levels = c("H1c) Preferred \nReligious Similarity", 
                                      "H1b) Preferred \nEthnic Similarity",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 2",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 1",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
                                      "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
                                      )))
 
@@ -965,8 +965,8 @@ data_graph = rbind(models_pref_politicalsim_lin_graph,
   mutate(outcome = factor(outcome,
                           levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Education-\nIntelligence","H2d) Confidence-\nAssertiveness","H2c) Attractiveness", "H2b) Kindness-\nSupportiveness", "H2a) Financial Security-\nSuccessfulness","H1c) Preferred \nReligious Similarity", 
                                      "H1b) Preferred \nEthnic Similarity",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 2",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect Regression 1",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
+                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
                                      "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
                                      )))
 
