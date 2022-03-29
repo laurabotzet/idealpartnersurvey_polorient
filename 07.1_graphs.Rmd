@@ -27,6 +27,7 @@ library(dplyr)
 library(tidyverse)
 library (gridExtra)
 library(cowplot)
+library(minqa)
 
 
 apatheme = theme_bw() +
@@ -55,8 +56,9 @@ model_interest_single <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        interest_single ~ political_orientation + (1|country),
-        data = data_included_documented),
+        interest_single ~ political_orientation + (1+political_orientation|country),
+        data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_sexrel <-
@@ -64,20 +66,23 @@ model_interest_sexrel <-
     standardize_parameters(
       lmer(
         interest_sexrel ~ political_orientation + (1+political_orientation|country),
-        data = data_included_documented),
+        data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_nonmonrel <-
   as.data.frame(
     standardize_parameters(
-      lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+      lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_monrel <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        interest_monrel ~ political_orientation + (1+political_orientation|country),                              data = data_included_documented),
+        interest_monrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -89,13 +94,15 @@ model_interest_single_robustcheck <-
     standardize_parameters(
       lmer(
         interest_single ~political_orientation + age + (1+political_orientation|country),
-        data = data_included_documented),
+        data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_sexrel_robustcheck <-
   as.data.frame(
     standardize_parameters(
-      lmer(interest_sexrel ~ political_orientation + age + (1|country), data = data_included_documented),
+      lmer(interest_sexrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_nonmonrel_robustcheck <-
@@ -103,15 +110,17 @@ model_interest_nonmonrel_robustcheck <-
     standardize_parameters(
       lmer(
         interest_nonmonrel ~ political_orientation + age + (1+political_orientation|country),
-        data = data_included_documented),
+        data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_interest_monrel_robustcheck  <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        interest_monrel ~ political_orientation + age + (1|country),
-        data = data_included_documented),
+        interest_monrel ~ political_orientation + age + (1+political_orientation|country),
+        data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -187,7 +196,8 @@ data_included_nomiss_politicalsim_smaller = data_included_documented %>%
 
 model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
                                  (1+political_orientation|country),
-                               data = data_included_nomiss_politicalsim_smaller)
+                               data = data_included_nomiss_politicalsim_smaller, 
+        control =lmerControl(optimizer = "bobyqa"))
 pred_pref_politicalsim_1 = predict(model_pref_politicalsim_1)
 
 data_included_nomiss_politicalsim_smaller$pred_pref_politicalsim_1 =
@@ -201,7 +211,8 @@ data_included_nomiss_politicalsim_larger = data_included_documented %>%
 
 model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
                                  (1+political_orientation|country),
-                               data = data_included_nomiss_politicalsim_larger)
+                               data = data_included_nomiss_politicalsim_larger, 
+        control =lmerControl(optimizer = "bobyqa"))
 pred_pref_politicalsim_1 = predict(model_pref_politicalsim_1)
 
 data_included_nomiss_politicalsim_larger$pred_pref_politicalsim_1 =
@@ -252,7 +263,8 @@ model_pref_politicalsim_lin <-
       lmer(
         pref_politicalsim ~
 political_orientation +
-(1+political_orientation|country), data = data_included_documented),
+(1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
      method = "basic", ci = 0.997))
 
 #H1a(2) Quadratic Effect on Political Similarity
@@ -261,7 +273,8 @@ model_pref_politicalsim_1 <-
     standardize_parameters(
       lmer(
         pref_politicalsim ~ political_orientation +                       (1+political_orientation|country), data = data_included_documented 
-%>%                     dplyr::filter(political_orientation <= 3)),
+%>%                     dplyr::filter(political_orientation <= 3), 
+        control =lmerControl(optimizer = "bobyqa")),
 method = "basic", ci = 0.997))
 
 model_pref_politicalsim_2 <-
@@ -269,21 +282,24 @@ model_pref_politicalsim_2 <-
     standardize_parameters(
       lmer(
         pref_politicalsim ~ political_orientation +                       (1+political_orientation|country), data = data_included_documented 
-%>%                     dplyr::filter(political_orientation >= 3)),
+%>%                     dplyr::filter(political_orientation >= 3), 
+        control =lmerControl(optimizer = "bobyqa")),
 method = "basic", ci = 0.997))
 
 model_pref_ethnicalsim <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_ethnicalsim ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+        pref_ethnicalsim ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_religioussim <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_religioussim ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+        pref_religioussim ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -295,8 +311,9 @@ model_pref_politicalsim_lin_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(pref_politicalsim ~ political_orientation  + age +
-(1|country), data = 
-data_included_documented),
+(1+political_orientation|country), data = 
+data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 #H1a(2) Quadratic Effect on Political Similarity
@@ -305,29 +322,33 @@ model_pref_politicalsim_1_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(pref_politicalsim ~ political_orientation + age +
-(1|country), data = data_included_documented %>%
-dplyr::filter(political_orientation <= 3)),
+(1+political_orientation|country), data = data_included_documented %>%
+dplyr::filter(political_orientation <= 3), 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_politicalsim_2_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(pref_politicalsim ~ political_orientation + age +
-(1|country), data = data_included_documented %>%
-dplyr::filter(political_orientation >= 3)),
+(1+political_orientation|country), data = data_included_documented %>%
+dplyr::filter(political_orientation >= 3), 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_ethnicalsim_robustcheck <-
   as.data.frame(
     standardize_parameters(
-      lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+      lmer(pref_ethnicalsim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_religioussim_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_religioussim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+        pref_religioussim ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -420,33 +441,38 @@ model_pref_level_financially_secure_successful_ambitious <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_financially_secure_successful_ambitious ~ political_orientation + (1|country), data = data_included_documented),
+        pref_level_financially_secure_successful_ambitious ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_kind_supportive <-
   as.data.frame(
     standardize_parameters(
-      lmer(pref_level_kind_supportive ~ political_orientation + (1|country), data = data_included_documented),
+      lmer(pref_level_kind_supportive ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_attractiveness <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_attractiveness ~ political_orientation + (1|country), data = data_included_documented),
+        pref_level_attractiveness ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_confident_assertive <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+        pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_intelligence_educated <-
   as.data.frame(
     standardize_parameters(
-      lmer(pref_level_intelligence_educated ~ political_orientation + (1|country), data = data_included_documented),
+      lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -457,33 +483,38 @@ model_pref_level_financially_secure_successful_ambitious_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1|country), data = data_included_documented),
+        pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_kind_supportive_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_kind_supportive ~ political_orientation + age + (1|country), data = data_included_documented),
+        pref_level_kind_supportive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_attractiveness_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        pref_level_attractiveness ~ political_orientation + age + (1|country), data = data_included_documented),
+        pref_level_attractiveness ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_confident_assertive_robustcheck  <-
   as.data.frame(
     standardize_parameters(
-      lmer(pref_level_confident_assertive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+      lmer(pref_level_confident_assertive ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_pref_level_intelligence_educated_robustcheck  <-
   as.data.frame(
     standardize_parameters(
-      lmer(pref_level_intelligence_educated ~ political_orientation + age + (1|country), data = data_included_documented),
+      lmer(pref_level_intelligence_educated ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -552,27 +583,31 @@ model_imp_age <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        imp_age ~ political_orientation + (1+political_orientation|country), data = data_included_documented),
+        imp_age ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_ideal_age_rel <-
   as.data.frame(
     standardize_parameters(
-      lmer(ideal_age_rel ~ political_orientation + (1|country), data = data_included_documented),
+      lmer(ideal_age_rel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_imp_height <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        imp_height ~ political_orientation + (1|country), data = data_included_documented),
+        imp_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_ideal_height <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        ideal_height ~ political_orientation + (1|country), data = data_included_documented),
+        ideal_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 
@@ -583,28 +618,32 @@ model_imp_age_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        imp_age ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+        imp_age ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_ideal_age_rel_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        ideal_age_rel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented),
+        ideal_age_rel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_imp_height_robustcheck <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        imp_height ~ political_orientation + age + (1|country), data = data_included_documented),
+        imp_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 
 model_ideal_height_robustcheck  <-
   as.data.frame(
     standardize_parameters(
       lmer(
-        ideal_height ~ political_orientation + age + (1|country), data = data_included_documented),
+        ideal_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, 
+        control =lmerControl(optimizer = "bobyqa")),
       method = "basic", ci = 0.997))
 ```
 

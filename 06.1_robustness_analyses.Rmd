@@ -297,8 +297,6 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 ###### Models
 ```{r}
 model_pref_level_financially_secure_successful_ambitious_robustcheck <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-##Modell konvergiert nicht
-## @Lena: doch, die random effects, insbesondere der random slope sind nur sehr klein - das macht aber nichts :)
 ```
 
 ###### Summary
@@ -509,8 +507,6 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 ###### Models
 ```{r}
 model_imp_height_robustcheck <- lmer(imp_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-##Modell konvergiert nach Anpassung des Optimizers nicht
-#@Lena: same as H2a
 ```
 
 ###### Summary
@@ -540,8 +536,6 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 ###### Models
 ```{r}
 model_ideal_height_robustcheck <- lmer(ideal_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control = lmerControl(optimizer = "bobyqa"))
-##Modell konvergiert nach Anpassung des Optimizers nicht
-#@Lena: same as H2a
 ```
 
 ###### Summary

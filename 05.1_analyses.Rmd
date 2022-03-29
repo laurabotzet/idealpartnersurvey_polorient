@@ -302,8 +302,6 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ###### Models
 ```{r}
 model_pref_level_financially_secure_successful_ambitious <- lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-##Modell scheint nicht zu konvergieren
-## @Lena: doch, die random effects, insbesondere der random slope sind nur sehr klein - das macht aber nichts :)
 ```
 
 ###### Summary
@@ -519,8 +517,6 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ###### Models
 ```{r}
 model_imp_height <- lmer(imp_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-##Modell konvergiert nach Anpassung des Optimizers nicht
-#@Lena: same as H2a
 ```
 
 ###### Summary
@@ -551,8 +547,6 @@ Predictor: Political Orientation. Random intercept and random slope for country.
 ###### Models
 ```{r}
 model_ideal_height <- lmer(ideal_height ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-##Modell konvergiert nach Anpassung des Optimizers nicht
-#@Lena: same as H2a
 ```
 
 ###### Summary
