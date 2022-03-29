@@ -539,7 +539,7 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 
 ###### Models
 ```{r}
-model_ideal_height_robustcheck <- lmer(ideal_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, , control =lmerControl(optimizer = "bobyqa"))
+model_ideal_height_robustcheck <- lmer(ideal_height ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control = lmerControl(optimizer = "bobyqa"))
 ##Modell konvergiert nach Anpassung des Optimizers nicht
 #@Lena: same as H2a
 ```
