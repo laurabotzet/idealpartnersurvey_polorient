@@ -353,3 +353,5 @@ qplot(fulldata_selected_wrangled$pref_level_intelligence_educated)
 ```{r Save data}
 write.csv(fulldata_selected_wrangled, file = "fulldata_selected_wrangled.csv")
 ```
+
+

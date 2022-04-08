@@ -1,5 +1,5 @@
 ---
-title: <font color="#66C2A5">Graphs Exploratory Analysis</font>
+title: <font color="#66C2A5">Preferred Relationship Options Analyses</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
@@ -9,7 +9,8 @@ editor_options:
 ---
 
 ## {.tabset}
-## Preferred Relationship Options Graph Exploratory Analysis
+Here, we report on our results on Preferred Relationship Options including Interest in Single Life; Interest in Sexual, Non-Romantic Relationships; Interest in Non-Monogamous Relationships; and Interest in Monogamous Relationships 
+
 ### Library
 ```{r Library}
 library(formr)
@@ -18,18 +19,23 @@ library(effectsize)
 library(lme4)
 library(sjstats)
 library(lmerTest)
+library(dplyr)
 library(ggplot2)
+library(RColorBrewer)
+library(tidyverse)
+library(mgcv)         
+library(stringr)     
+library(sandwich)     
+library(lmtest) 
+library(minqa)
 library(tidyr)
 library(ggpubr)
-library(RColorBrewer)
 library(coefplot)
 library(tibble)
 library(purrr) # for running multiple regression
 library(broom)
+library(mvmeta)
 library(lm.beta)
-library(dplyr)
-library(stringr)
-library(tidyr)
 
 apatheme = theme_bw() +
   theme(panel.grid.major = element_blank(),
@@ -40,13 +46,263 @@ apatheme = theme_bw() +
         plot.title = element_text(hjust = 0.5))
 ```
 
-### Data
+### Main Analysis {.tabset .active}
+#### Data
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
-### Inclusion of data
+#### S1 Interest in Single Life {.tabset}
+H1a There is a negative linear link between right-wing political orientation and women’s interest in being single.  
+Outcome: Ratings for interest in single life. Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_single <- lmer(interest_single ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_single)
+confint(model_interest_single, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_single, method = "basic", ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_single ~ political_orientation + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S2 Interest in Sexual, Non-Romantic Relationships {.tabset}
+H1b There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
+Outcome: Ratings for interest in having sexual, non-romantic relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_sexrel <- lmer(interest_sexrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_sexrel)
+confint(model_interest_sexrel, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_sexrel, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_sexrel, method = "basic"), ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_sexrel ~ political_orientation + (1 + political_orientation| country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S3 Interest in Non-Monogamous Relationships {.tabset}
+H1c There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
+Outcome: Ratings for interest in having non-monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_nonmonrel <- lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_nonmonrel)
+confint(model_interest_nonmonrel, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_nonmonrel, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_nonmonrel, method = "basic"), ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S4 Interest in Monogamous Relationships {.tabset}
+H1d There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
+Outcome: Ratings for interest in having monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_monrel <- lmer(interest_monrel ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_monrel)
+confint(model_interest_monrel, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_monrel, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_interest_monrel, method = "basic"), ci = 0.997) #calculate by hand to get exact numbers
+```
+
+#####  Plot {.active}
+```{r}
+lmer(interest_monrel ~ political_orientation + (1+political_orientation|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+### Robustness Analysis
+#### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+#### S1 Interest in Single Life {.tabset .active}
+S1 There is a negative linear link between right-wing political orientation and women’s interest in being single.  
+Outcome: Ratings for interest in single life. 
+Predictors: Political Orientation & Age. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_single_robustcheck <- lmer(interest_single ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_single_robustcheck)
+confint(model_interest_single_robustcheck, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_single_robustcheck, method = "basic", ci = 0.997)
+#ci(standardize_parameters(model_interest_single_robustcheck, method = "basic"), ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_single ~ political_orientation + age + (1+political_orientation|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S2 Interest in Sexual, Non-Romantic Relationships {.tabset}
+S2 There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
+Outcome: Ratings for interest in having sexual, non-romantic relationships. Predictors: Political Orientation & Age. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_sexrel_robustcheck <- lmer(interest_sexrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_sexrel_robustcheck)
+confint(model_interest_sexrel_robustcheck, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_sexrel_robustcheck, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_interest_sexrel_robustcheck, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_sexrel ~ political_orientation + age + (1|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S3 Interest in Non-Monogamous Relationships {.tabset}
+S3 There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
+Outcome: Ratings for interest in having non-monogamous relationships. Predictors: Political Orientation & Age. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_nonmonrel_robustcheck <- lmer(interest_nonmonrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_nonmonrel_robustcheck)
+confint(model_interest_nonmonrel_robustcheck, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_nonmonrel_robustcheck, method = "basic", ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_nonmonrel ~ political_orientation + age + (1 | country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+#### S4 Interest in Monogamous Relationships {.tabset}
+S4 There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
+Outcome: Ratings for interest in having monogamous relationships. 
+Predictors: Political Orientation & Age. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_interest_monrel_robustcheck <- lmer(interest_monrel ~ political_orientation + age + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_interest_monrel_robustcheck)
+confint(model_interest_monrel_robustcheck, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_interest_monrel_robustcheck, method = "basic", ci = 0.997)
+```
+
+##### Plot {.active}
+```{r}
+lmer(interest_monrel ~ political_orientation + age + (1| country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+### Exploratory Analysis
+#### Data
+
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+#### Inclusion of data
 ```{r}
 countries = as.data.frame(table(data_included_documented$country)) %>%
   arrange(-Freq)
@@ -74,7 +330,7 @@ countries_rescon = as.data.frame(table(data_included_documented_rescon$country))
 countries_rescon
 ```
 
-### Models
+#### Models
 #### S1 Interest in Single Life
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
@@ -283,7 +539,7 @@ models_interest_monrel_graph = left_join(left_join(models_interest_monrel_coef,
   mutate(outcome = "S4) Interest in \nMonogamous Relationships")
 ```
 
-### Combine Graph One
+#### Combine Graph One
 ```{r}
 data_graph = rbind(models_interest_single_graph, models_interest_sexrel_graph,
                    models_interest_nonmonrel_graph, models_interest_monrel_graph
@@ -322,7 +578,7 @@ data_graph$name = factor(data_graph$name,
                                     l_countries[6])))
 ```
 
-### Graph One Multiplot {.active}
+#### Graph One Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_hline(yintercept = 0, size = 1.5)  +
@@ -347,52 +603,21 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
 multiplot
 ```
 
-#### Save image
+##### Save image
 ```{r}
 jpeg("Exploratory_relationship_options.jpeg", width = 5000, height = 3000, res=300)
 multiplot
 dev.off()
 ```
 
-## Preferred Relationship Options Exploratory Analysis
-### Library
-```{r Library}
-library(formr)
-library(effects)
-library(effectsize)
-library(lme4)
-library(sjstats)
-library(lmerTest)
-library(ggplot2)
-library(tidyr)
-library(ggpubr)
-library(RColorBrewer)
-library(coefplot)
-library(tibble)
-library(purrr) # for running multiple regression
-library(broom)
-library(mvmeta)
-library(lm.beta)
-library(dplyr)
-library(stringr)
-library(tidyr)
-
-apatheme = theme_bw() +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(),
-        legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5))
-```
-
-### Data
+### Preferred Relationship Options Exploratory Analysis
+#### Data
 Load selected data based on 03_codebook
 ```{r}
 data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
-### Inclusion of Data
+#### Inclusion of Data
 ```{r}
 countries = as.data.frame(table(data_included_documented$country)) %>%
   arrange(-Freq)
