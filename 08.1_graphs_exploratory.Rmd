@@ -32,18 +32,20 @@ library(stringr)
 library(tidyr)
 
 apatheme = theme_bw() +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(),
-        legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5))
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    axis.line = element_line(),
+    legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ### Data
 Load selected data based on 03_codebook
 ```{r}
-data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+data_included_documented = read.csv(file = "data_included_documented.csv")[, -1]
 ```
 
 ### Inclusion of data
@@ -80,13 +82,23 @@ countries_rescon
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_politicalsim,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_politicalsim = data_included_documented_rescon_wide %>%
   select(-pref_politicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x),
-      data = data_included_documented_rescon_wide)) %>%
+  map( ~ lm(
+    scale(data_included_documented_rescon_wide$pref_politicalsim) ~ scale(.x),
+    data = data_included_documented_rescon_wide
+  )) %>%
   map(lm.beta)
 
 models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
@@ -107,7 +119,7 @@ models_pref_politicalsim_lin_confint_low = models_pref_politicalsim %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_politicalsim_lin_confint_high = models_pref_politicalsim %>%
   map(confint, level = 0.997)  %>%
@@ -118,13 +130,17 @@ models_pref_politicalsim_lin_confint_high = models_pref_politicalsim %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_politicalsim_lin_graph = left_join(left_join(models_pref_politicalsim_lin_coef,
-                                         models_pref_politicalsim_lin_confint_low,
-                                         by = "name"),
-                                         models_pref_politicalsim_lin_confint_high,
-                                         by = "name") %>%
+models_pref_politicalsim_lin_graph = left_join(
+  left_join(
+    models_pref_politicalsim_lin_coef,
+    models_pref_politicalsim_lin_confint_low,
+    by = "name"
+  ),
+  models_pref_politicalsim_lin_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H1a(1)) Preferred Political \nSimilarity - Linear Effect")
 ```
 
@@ -134,16 +150,28 @@ models_pref_politicalsim_lin_graph = left_join(left_join(models_pref_politicalsi
 data_included_documented_rescon_wide_reg1 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation <= 3) %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_politicalsim,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 
 
 models_pref_politicalsim_reg1 = data_included_documented_rescon_wide_reg1 %>%
   select(-pref_politicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide_reg1$pref_politicalsim) ~
-            scale(.x),
-          data = data_included_documented_rescon_wide_reg1)) %>%
+  map( ~ lm(
+    scale(
+      data_included_documented_rescon_wide_reg1$pref_politicalsim
+    ) ~
+      scale(.x),
+    data = data_included_documented_rescon_wide_reg1
+  )) %>%
   map(lm.beta)
 
 models_pref_politicalsim_quad_coef_reg1 = models_pref_politicalsim_reg1 %>%
@@ -164,7 +192,7 @@ models_pref_politicalsim_quad_confint_low_reg1 = models_pref_politicalsim_reg1 %
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_politicalsim_quad_confint_high_reg1 = models_pref_politicalsim_reg1 %>%
   map(confint, level = 0.997)  %>%
@@ -175,13 +203,17 @@ models_pref_politicalsim_quad_confint_high_reg1 = models_pref_politicalsim_reg1 
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_politicalsim_quad_graph_reg1 = left_join(left_join(models_pref_politicalsim_quad_coef_reg1,
-                                         models_pref_politicalsim_quad_confint_low_reg1,
-                                         by = "name"),
-                                         models_pref_politicalsim_quad_confint_high_reg1,
-                                         by = "name") %>%
+models_pref_politicalsim_quad_graph_reg1 = left_join(
+  left_join(
+    models_pref_politicalsim_quad_coef_reg1,
+    models_pref_politicalsim_quad_confint_low_reg1,
+    by = "name"
+  ),
+  models_pref_politicalsim_quad_confint_high_reg1,
+  by = "name"
+) %>%
   mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3")
 ```
 
@@ -191,14 +223,26 @@ models_pref_politicalsim_quad_graph_reg1 = left_join(left_join(models_pref_polit
 data_included_documented_rescon_wide_reg2 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation >= 3) %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_politicalsim, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_politicalsim,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_politicalsim_reg2 = data_included_documented_rescon_wide_reg2 %>%
   select(-pref_politicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide_reg2$pref_politicalsim) ~
-            scale(.x),
-          data = data_included_documented_rescon_wide_reg2)) %>%
+  map( ~ lm(
+    scale(
+      data_included_documented_rescon_wide_reg2$pref_politicalsim
+    ) ~
+      scale(.x),
+    data = data_included_documented_rescon_wide_reg2
+  )) %>%
   map(lm.beta)
 
 models_pref_politicalsim_quad_coef_reg2 = models_pref_politicalsim_reg2 %>%
@@ -219,7 +263,7 @@ models_pref_politicalsim_quad_confint_low_reg2 = models_pref_politicalsim_reg2 %
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_politicalsim_quad_confint_high_reg2 = models_pref_politicalsim_reg2 %>%
   map(confint, level = 0.997)  %>%
@@ -230,13 +274,17 @@ models_pref_politicalsim_quad_confint_high_reg2 = models_pref_politicalsim_reg2 
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_politicalsim_quad_graph_reg2 = left_join(left_join(models_pref_politicalsim_quad_coef_reg2,
-                                                               models_pref_politicalsim_quad_confint_low_reg2,
-                                                               by = "name"),
-                                                     models_pref_politicalsim_quad_confint_high_reg2,
-                                                     by = "name") %>%
+models_pref_politicalsim_quad_graph_reg2 = left_join(
+  left_join(
+    models_pref_politicalsim_quad_coef_reg2,
+    models_pref_politicalsim_quad_confint_low_reg2,
+    by = "name"
+  ),
+  models_pref_politicalsim_quad_confint_high_reg2,
+  by = "name"
+) %>%
   mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3")
 ```
 
@@ -244,14 +292,24 @@ models_pref_politicalsim_quad_graph_reg2 = left_join(left_join(models_pref_polit
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_ethnicalsim, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_ethnicalsim,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_ethnicalsim = data_included_documented_rescon_wide %>%
   select(-pref_ethnicalsim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide$pref_ethnicalsim) ~ scale(.x) +
-            I(scale(.x)^2),
-      data = data_included_documented_rescon_wide)) %>%
+  map( ~ lm(
+    scale(data_included_documented_rescon_wide$pref_ethnicalsim) ~ scale(.x) +
+      I(scale(.x) ^ 2),
+    data = data_included_documented_rescon_wide
+  )) %>%
   map(lm.beta)
 
 models_pref_ethnicalsim_coef = models_pref_ethnicalsim %>%
@@ -272,7 +330,7 @@ models_pref_ethnicalsim_confint_low = models_pref_ethnicalsim %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_ethnicalsim_confint_high = models_pref_ethnicalsim %>%
   map(confint, level = 0.997)  %>%
@@ -283,13 +341,17 @@ models_pref_ethnicalsim_confint_high = models_pref_ethnicalsim %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_ethnicalsim_graph = left_join(left_join(models_pref_ethnicalsim_coef,
-                                         models_pref_ethnicalsim_confint_low,
-                                         by = "name"),
-                                         models_pref_ethnicalsim_confint_high,
-                                         by = "name") %>%
+models_pref_ethnicalsim_graph = left_join(
+  left_join(
+    models_pref_ethnicalsim_coef,
+    models_pref_ethnicalsim_confint_low,
+    by = "name"
+  ),
+  models_pref_ethnicalsim_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H1b) Preferred \nEthnic Similarity")
 ```
 
@@ -297,14 +359,24 @@ models_pref_ethnicalsim_graph = left_join(left_join(models_pref_ethnicalsim_coef
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_religioussim, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_religioussim,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_religioussim = data_included_documented_rescon_wide %>%
   select(-pref_religioussim) %>%
-  map(~lm(scale(data_included_documented_rescon_wide$pref_religioussim) ~ scale(.x) +
-            I(scale(.x)^2),
-      data = data_included_documented_rescon_wide)) %>%
+  map( ~ lm(
+    scale(data_included_documented_rescon_wide$pref_religioussim) ~ scale(.x) +
+      I(scale(.x) ^ 2),
+    data = data_included_documented_rescon_wide
+  )) %>%
   map(lm.beta)
 
 models_pref_religioussim_coef = models_pref_religioussim %>%
@@ -325,7 +397,7 @@ models_pref_religioussim_confint_low = models_pref_religioussim %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_religioussim_confint_high = models_pref_religioussim %>%
   map(confint, level = 0.997)  %>%
@@ -336,13 +408,17 @@ models_pref_religioussim_confint_high = models_pref_religioussim %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_religioussim_graph = left_join(left_join(models_pref_religioussim_coef,
-                                         models_pref_religioussim_confint_low,
-                                         by = "name"),
-                                         models_pref_religioussim_confint_high,
-                                         by = "name") %>%
+models_pref_religioussim_graph = left_join(
+  left_join(
+    models_pref_religioussim_coef,
+    models_pref_religioussim_confint_low,
+    by = "name"
+  ),
+  models_pref_religioussim_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H1c) Preferred \nReligious Similarity")
 ```
 
@@ -350,13 +426,25 @@ models_pref_religioussim_graph = left_join(left_join(models_pref_religioussim_co
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_financially_secure_successful_ambitious, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_level_financially_secure_successful_ambitious,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_level_financially_secure_successful_ambitious = data_included_documented_rescon_wide %>%
   select(-pref_level_financially_secure_successful_ambitious) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_financially_secure_successful_ambitious ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$pref_level_financially_secure_successful_ambitious ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_pref_level_financially_secure_successful_ambitious_coef = models_pref_level_financially_secure_successful_ambitious %>%
@@ -377,7 +465,7 @@ models_pref_level_financially_secure_successful_ambitious_confint_low = models_p
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_level_financially_secure_successful_ambitious_confint_high = models_pref_level_financially_secure_successful_ambitious %>%
   map(confint, level = 0.997)  %>%
@@ -388,13 +476,17 @@ models_pref_level_financially_secure_successful_ambitious_confint_high = models_
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_level_financially_secure_successful_ambitious_graph = left_join(left_join(models_pref_level_financially_secure_successful_ambitious_coef,
-                                         models_pref_level_financially_secure_successful_ambitious_confint_low,
-                                         by = "name"),
-                                         models_pref_level_financially_secure_successful_ambitious_confint_high,
-                                         by = "name") %>%
+models_pref_level_financially_secure_successful_ambitious_graph = left_join(
+  left_join(
+    models_pref_level_financially_secure_successful_ambitious_coef,
+    models_pref_level_financially_secure_successful_ambitious_confint_low,
+    by = "name"
+  ),
+  models_pref_level_financially_secure_successful_ambitious_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H2a) Financial Security-\nSuccessfulness")
 ```
 
@@ -402,13 +494,25 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(left
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_confident_assertive, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_level_confident_assertive,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_level_confident_assertive = data_included_documented_rescon_wide %>%
   select(-pref_level_confident_assertive) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_confident_assertive ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$pref_level_confident_assertive ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_pref_level_confident_assertive_coef = models_pref_level_confident_assertive %>%
@@ -429,7 +533,7 @@ models_pref_level_confident_assertive_confint_low = models_pref_level_confident_
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_level_confident_assertive_confint_high = models_pref_level_confident_assertive %>%
   map(confint, level = 0.997)  %>%
@@ -440,13 +544,17 @@ models_pref_level_confident_assertive_confint_high = models_pref_level_confident
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_level_confident_assertive_graph = left_join(left_join(models_pref_level_confident_assertive_coef,
-                                         models_pref_level_confident_assertive_confint_low,
-                                         by = "name"),
-                                         models_pref_level_confident_assertive_confint_high,
-                                         by = "name") %>%
+models_pref_level_confident_assertive_graph = left_join(
+  left_join(
+    models_pref_level_confident_assertive_coef,
+    models_pref_level_confident_assertive_confint_low,
+    by = "name"
+  ),
+  models_pref_level_confident_assertive_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H2b) Confidence-\nAssertiveness")
 ```
 
@@ -454,13 +562,25 @@ models_pref_level_confident_assertive_graph = left_join(left_join(models_pref_le
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_intelligence_educated, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_level_intelligence_educated,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_level_intelligence_educated = data_included_documented_rescon_wide %>%
   select(-pref_level_intelligence_educated) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_intelligence_educated ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$pref_level_intelligence_educated ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_pref_level_intelligence_educated_coef = models_pref_level_intelligence_educated %>%
@@ -481,7 +601,7 @@ models_pref_level_intelligence_educated_confint_low = models_pref_level_intellig
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_level_intelligence_educated_confint_high = models_pref_level_intelligence_educated %>%
   map(confint, level = 0.997)  %>%
@@ -492,13 +612,17 @@ models_pref_level_intelligence_educated_confint_high = models_pref_level_intelli
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_level_intelligence_educated_graph = left_join(left_join(models_pref_level_intelligence_educated_coef,
-                                         models_pref_level_intelligence_educated_confint_low,
-                                         by = "name"),
-                                         models_pref_level_intelligence_educated_confint_high,
-                                         by = "name") %>%
+models_pref_level_intelligence_educated_graph = left_join(
+  left_join(
+    models_pref_level_intelligence_educated_coef,
+    models_pref_level_intelligence_educated_confint_low,
+    by = "name"
+  ),
+  models_pref_level_intelligence_educated_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H2c) Education-\nIntelligence")
 ```
 
@@ -506,13 +630,25 @@ models_pref_level_intelligence_educated_graph = left_join(left_join(models_pref_
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_kind_supportive, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_level_kind_supportive,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_level_kind_supportive = data_included_documented_rescon_wide %>%
   select(-pref_level_kind_supportive) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_kind_supportive ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$pref_level_kind_supportive ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_pref_level_kind_supportive_coef = models_pref_level_kind_supportive %>%
@@ -533,7 +669,7 @@ models_pref_level_kind_supportive_confint_low = models_pref_level_kind_supportiv
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_level_kind_supportive_confint_high = models_pref_level_kind_supportive %>%
   map(confint, level = 0.997)  %>%
@@ -544,13 +680,17 @@ models_pref_level_kind_supportive_confint_high = models_pref_level_kind_supporti
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_level_kind_supportive_graph = left_join(left_join(models_pref_level_kind_supportive_coef,
-                                         models_pref_level_kind_supportive_confint_low,
-                                         by = "name"),
-                                         models_pref_level_kind_supportive_confint_high,
-                                         by = "name") %>%
+models_pref_level_kind_supportive_graph = left_join(
+  left_join(
+    models_pref_level_kind_supportive_coef,
+    models_pref_level_kind_supportive_confint_low,
+    by = "name"
+  ),
+  models_pref_level_kind_supportive_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H2d) Kindness-\nSupportiveness")
 ```
 
@@ -558,13 +698,25 @@ models_pref_level_kind_supportive_graph = left_join(left_join(models_pref_level_
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_attractiveness, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(
+    pref_level_attractiveness,
+    France,
+    Germany,
+    `United States of America`,
+    Mexico,
+    Italy,
+    Brazil,
+    Spain
+  )
 
 models_pref_level_attractiveness = data_included_documented_rescon_wide %>%
   select(-pref_level_attractiveness) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_attractiveness ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$pref_level_attractiveness ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_pref_level_attractiveness_coef = models_pref_level_attractiveness %>%
@@ -585,7 +737,7 @@ models_pref_level_attractiveness_confint_low = models_pref_level_attractiveness 
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_pref_level_attractiveness_confint_high = models_pref_level_attractiveness %>%
   map(confint, level = 0.997)  %>%
@@ -596,13 +748,17 @@ models_pref_level_attractiveness_confint_high = models_pref_level_attractiveness
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_pref_level_attractiveness_graph = left_join(left_join(models_pref_level_attractiveness_coef,
-                                         models_pref_level_attractiveness_confint_low,
-                                         by = "name"),
-                                         models_pref_level_attractiveness_confint_high,
-                                         by = "name") %>%
+models_pref_level_attractiveness_graph = left_join(
+  left_join(
+    models_pref_level_attractiveness_coef,
+    models_pref_level_attractiveness_confint_low,
+    by = "name"
+  ),
+  models_pref_level_attractiveness_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H2e) Attractiveness")
 ```
 
@@ -611,13 +767,21 @@ models_pref_level_attractiveness_graph = left_join(left_join(models_pref_level_a
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(imp_age, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(imp_age,
+         France,
+         Germany,
+         `United States of America`,
+         Mexico,
+         Italy,
+         Brazil,
+         Spain)
 
 models_imp_age = data_included_documented_rescon_wide %>%
   select(-imp_age) %>%
-  map(~lm(data_included_documented_rescon_wide$imp_age ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(data_included_documented_rescon_wide$imp_age ~ .x,
+         data = data_included_documented_rescon_wide)
+  ) %>%
   map(lm.beta)
 
 models_imp_age_coef = models_imp_age %>%
@@ -638,7 +802,7 @@ models_imp_age_confint_low = models_imp_age %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_imp_age_confint_high = models_imp_age %>%
   map(confint, level = 0.997)  %>%
@@ -649,13 +813,15 @@ models_imp_age_confint_high = models_imp_age %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_imp_age_graph = left_join(left_join(models_imp_age_coef,
-                                         models_imp_age_confint_low,
-                                         by = "name"),
-                                         models_imp_age_confint_high,
-                                         by = "name") %>%
+models_imp_age_graph = left_join(
+  left_join(models_imp_age_coef,
+            models_imp_age_confint_low,
+            by = "name"),
+  models_imp_age_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H3a(1)) Ideal Age \n(Importance)")
 ```
 
@@ -663,13 +829,23 @@ models_imp_age_graph = left_join(left_join(models_imp_age_coef,
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(ideal_age_rel, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(ideal_age_rel,
+         France,
+         Germany,
+         `United States of America`,
+         Mexico,
+         Italy,
+         Brazil,
+         Spain)
 
 models_ideal_age_rel = data_included_documented_rescon_wide %>%
   select(-ideal_age_rel) %>%
-  map(~lm(data_included_documented_rescon_wide$ideal_age_rel ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(
+      data_included_documented_rescon_wide$ideal_age_rel ~ .x,
+      data = data_included_documented_rescon_wide
+    )
+  ) %>%
   map(lm.beta)
 
 models_ideal_age_rel_coef = models_ideal_age_rel %>%
@@ -690,7 +866,7 @@ models_ideal_age_rel_confint_low = models_ideal_age_rel %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_ideal_age_rel_confint_high = models_ideal_age_rel %>%
   map(confint, level = 0.997)  %>%
@@ -701,13 +877,17 @@ models_ideal_age_rel_confint_high = models_ideal_age_rel %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_ideal_age_rel_graph = left_join(left_join(models_ideal_age_rel_coef,
-                                         models_ideal_age_rel_confint_low,
-                                         by = "name"),
-                                         models_ideal_age_rel_confint_high,
-                                         by = "name") %>%
+models_ideal_age_rel_graph = left_join(
+  left_join(
+    models_ideal_age_rel_coef,
+    models_ideal_age_rel_confint_low,
+    by = "name"
+  ),
+  models_ideal_age_rel_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H3a(2)) Ideal Age \n(Level)")
 ```
 
@@ -715,13 +895,21 @@ models_ideal_age_rel_graph = left_join(left_join(models_ideal_age_rel_coef,
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(imp_height, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(imp_height,
+         France,
+         Germany,
+         `United States of America`,
+         Mexico,
+         Italy,
+         Brazil,
+         Spain)
 
 models_imp_height = data_included_documented_rescon_wide %>%
   select(-imp_height) %>%
-  map(~lm(data_included_documented_rescon_wide$imp_height ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(data_included_documented_rescon_wide$imp_height ~ .x,
+         data = data_included_documented_rescon_wide)
+  ) %>%
   map(lm.beta)
 
 models_imp_height_coef = models_imp_height %>%
@@ -742,7 +930,7 @@ models_imp_height_confint_low = models_imp_height %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_imp_height_confint_high = models_imp_height %>%
   map(confint, level = 0.997)  %>%
@@ -753,13 +941,15 @@ models_imp_height_confint_high = models_imp_height %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_imp_height_graph = left_join(left_join(models_imp_height_coef,
-                                         models_imp_height_confint_low,
-                                         by = "name"),
-                                         models_imp_height_confint_high,
-                                         by = "name") %>%
+models_imp_height_graph = left_join(
+  left_join(models_imp_height_coef,
+            models_imp_height_confint_low,
+            by = "name"),
+  models_imp_height_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H3b(1)) Ideal Height \n(Importance)")
 ```
 
@@ -767,13 +957,21 @@ models_imp_height_graph = left_join(left_join(models_imp_height_coef,
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(ideal_height, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
+  select(ideal_height,
+         France,
+         Germany,
+         `United States of America`,
+         Mexico,
+         Italy,
+         Brazil,
+         Spain)
 
 models_ideal_height = data_included_documented_rescon_wide %>%
   select(-ideal_height) %>%
-  map(~lm(data_included_documented_rescon_wide$ideal_height ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
+  map(
+    ~ lm(data_included_documented_rescon_wide$ideal_height ~ .x,
+         data = data_included_documented_rescon_wide)
+  ) %>%
   map(lm.beta)
 
 models_ideal_height_coef = models_ideal_height %>%
@@ -794,7 +992,7 @@ models_ideal_height_confint_low = models_ideal_height %>%
   select(-rowname) %>%
   filter(str_detect(name, "0.15")) %>%
   rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
+  mutate(name = substr(name, 1, nchar(name) - 7))
 
 models_ideal_height_confint_high = models_ideal_height %>%
   map(confint, level = 0.997)  %>%
@@ -805,227 +1003,441 @@ models_ideal_height_confint_high = models_ideal_height %>%
   select(-rowname) %>%
   filter(str_detect(name, "99.85")) %>%
   rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
+  mutate(name = substr(name, 1, nchar(name) - 8))
 
-models_ideal_height_graph = left_join(left_join(models_ideal_height_coef,
-                                         models_ideal_height_confint_low,
-                                         by = "name"),
-                                         models_ideal_height_confint_high,
-                                         by = "name") %>%
+models_ideal_height_graph = left_join(
+  left_join(
+    models_ideal_height_coef,
+    models_ideal_height_confint_low,
+    by = "name"
+  ),
+  models_ideal_height_confint_high,
+  by = "name"
+) %>%
   mutate(outcome = "H3b(2)) Ideal Height \n(Level)")
 ```
 
 ### Combine Graph One
 ```{r}
-data_graph = rbind(models_pref_politicalsim_lin_graph,
-                   models_pref_politicalsim_quad_graph_reg1,
-                   models_pref_politicalsim_quad_graph_reg2,
-                   models_pref_ethnicalsim_graph,
-                   models_pref_religioussim_graph) %>%
-  mutate(outcome = factor(outcome,
-                          levels = c("H1c) Preferred \nReligious Similarity", 
-                                     "H1b) Preferred \nEthnic Similarity",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
-                                     "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
-                                     )))
+data_graph = rbind(
+  models_pref_politicalsim_lin_graph,
+  models_pref_politicalsim_quad_graph_reg1,
+  models_pref_politicalsim_quad_graph_reg2,
+  models_pref_ethnicalsim_graph,
+  models_pref_religioussim_graph
+) %>%
+  mutate(outcome = factor(
+    outcome,
+    levels = c(
+      "H1c) Preferred \nReligious Similarity",
+      "H1b) Preferred \nEthnic Similarity",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
+      "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
+    )
+  ))
 
 
-data_graph$name = factor(rep(c(
-  paste0("France (n = ",
-         sum(data_included_documented_rescon$country == "France"), ")"),
-  paste0("Germany (n = ",
-         sum(data_included_documented_rescon$country == "Germany"), ")"),
-  paste0("United States of America (n = ",
-         sum(data_included_documented_rescon$country == "United States of America"),
-         ")"),
-  paste0("Mexico (n = ",
-         sum(data_included_documented_rescon$country == "Mexico"), ")"),
-  paste0("Italy (n = ",
-         sum(data_included_documented_rescon$country == "Italy"), ")"),
-  paste0("Brazil (n = ",
-         sum(data_included_documented_rescon$country == "Brazil"), ")"),
-  paste0("Spain (n = ",
-         sum(data_included_documented_rescon$country == "Spain"), ")")),
-  5))
+data_graph$name = factor(rep(
+  c(
+    paste0(
+      "France (n = ",
+      sum(data_included_documented_rescon$country == "France"),
+      ")"
+    ),
+    paste0(
+      "Germany (n = ",
+      sum(data_included_documented_rescon$country == "Germany"),
+      ")"
+    ),
+    paste0(
+      "United States of America (n = ",
+      sum(
+        data_included_documented_rescon$country == "United States of America"
+      ),
+      ")"
+    ),
+    paste0(
+      "Mexico (n = ",
+      sum(data_included_documented_rescon$country == "Mexico"),
+      ")"
+    ),
+    paste0(
+      "Italy (n = ",
+      sum(data_included_documented_rescon$country == "Italy"),
+      ")"
+    ),
+    paste0(
+      "Brazil (n = ",
+      sum(data_included_documented_rescon$country == "Brazil"),
+      ")"
+    ),
+    paste0(
+      "Spain (n = ",
+      sum(data_included_documented_rescon$country == "Spain"),
+      ")"
+    )
+  ),
+  5
+))
 
 l_countries = levels(data_graph$name)
 data_graph$name = factor(data_graph$name,
-                         levels = rev(c(l_countries[2], l_countries[3],
-                                    l_countries[7], l_countries[5],
-                                    l_countries[4], l_countries[1],
-                                    l_countries[6])))
+                         levels = rev(
+                           c(
+                             l_countries[2],
+                             l_countries[3],
+                             l_countries[7],
+                             l_countries[5],
+                             l_countries[4],
+                             l_countries[1],
+                             l_countries[6]
+                           )
+                         ))
 ```
 
 ### Graph One Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_hline(yintercept = 0, linewidth = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
-  geom_pointrange(data = data_graph,
-                  mapping = aes(x = outcome, y = mean,
-                                ymin = conf_low , ymax = conf_high , group = name,
-                                color = name),
-                  position = position_dodge(width=0.4)) + 
+  geom_hline(yintercept = -.05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_hline(yintercept = .05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_pointrange(
+    data = data_graph,
+    mapping = aes(
+      x = outcome,
+      y = mean,
+      ymin = conf_low ,
+      ymax = conf_high ,
+      group = name,
+      color = name
+    ),
+    position = position_dodge(width = 0.4)
+  ) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
-        plot.title = element_text(hjust = 0),
-        legend.background = element_rect(fill="grey", 
-                                         linewidth=0.5, linetype="solid")) +
-  guides(col = guide_legend(reverse= TRUE))
+  theme(
+    text = element_text(size = 20),
+    axis.text.x = element_text(size = 15),
+    axis.text.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    plot.title = element_text(hjust = 0),
+    legend.background = element_rect(
+      fill = "grey",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  ) +
+  guides(col = guide_legend(reverse = TRUE))
 multiplot
 ```
 
 #### Save image
 ```{r}
-jpeg("Exploratory_01.jpeg", width = 5000, height = 3000, res=300)
+jpeg(
+  "Exploratory_01.jpeg",
+  width = 5000,
+  height = 3000,
+  res = 300
+)
 multiplot
 dev.off()
 ```
 
 ### Combine Graph Two
 ```{r}
-data_graph2 = rbind(models_pref_level_financially_secure_successful_ambitious_graph, models_pref_level_kind_supportive_graph, models_pref_level_attractiveness_graph, models_pref_level_confident_assertive_graph, models_pref_level_intelligence_educated_graph, models_imp_age_graph, models_ideal_age_rel_graph, models_imp_height_graph, models_ideal_height_graph) %>%
-  mutate(outcome = factor(outcome,
-                          levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Education-\nIntelligence","H2d) Confidence-\nAssertiveness","H2c) Attractiveness", "H2b) Kindness-\nSupportiveness", "H2a) Financial Security-\nSuccessfulness")))
+data_graph2 = rbind(
+  models_pref_level_financially_secure_successful_ambitious_graph,
+  models_pref_level_kind_supportive_graph,
+  models_pref_level_attractiveness_graph,
+  models_pref_level_confident_assertive_graph,
+  models_pref_level_intelligence_educated_graph,
+  models_imp_age_graph,
+  models_ideal_age_rel_graph,
+  models_imp_height_graph,
+  models_ideal_height_graph
+) %>%
+  mutate(outcome = factor(
+    outcome,
+    levels = c(
+      "H3b(2)) Ideal Height \n(Level)",
+      "H3b(1)) Ideal Height \n(Importance)",
+      "H3a(2)) Ideal Age \n(Level)",
+      "H3a(1)) Ideal Age \n(Importance)",
+      "H2e) Education-\nIntelligence",
+      "H2d) Confidence-\nAssertiveness",
+      "H2c) Attractiveness",
+      "H2b) Kindness-\nSupportiveness",
+      "H2a) Financial Security-\nSuccessfulness"
+    )
+  ))
 
 
-data_graph2$name = factor(rep(c(
-  paste0("France (n = ",
-         sum(data_included_documented_rescon$country == "France"), ")"),
-  paste0("Germany (n = ",
-         sum(data_included_documented_rescon$country == "Germany"), ")"),
-  paste0("United States of America (n = ",
-         sum(data_included_documented_rescon$country == "United States of America"),
-         ")"),
-  paste0("Mexico (n = ",
-         sum(data_included_documented_rescon$country == "Mexico"), ")"),
-  paste0("Italy (n = ",
-         sum(data_included_documented_rescon$country == "Italy"), ")"),
-  paste0("Brazil (n = ",
-         sum(data_included_documented_rescon$country == "Brazil"), ")"),
-  paste0("Spain (n = ",
-         sum(data_included_documented_rescon$country == "Spain"), ")")),
-  9))
+data_graph2$name = factor(rep(
+  c(
+    paste0(
+      "France (n = ",
+      sum(data_included_documented_rescon$country == "France"),
+      ")"
+    ),
+    paste0(
+      "Germany (n = ",
+      sum(data_included_documented_rescon$country == "Germany"),
+      ")"
+    ),
+    paste0(
+      "United States of America (n = ",
+      sum(
+        data_included_documented_rescon$country == "United States of America"
+      ),
+      ")"
+    ),
+    paste0(
+      "Mexico (n = ",
+      sum(data_included_documented_rescon$country == "Mexico"),
+      ")"
+    ),
+    paste0(
+      "Italy (n = ",
+      sum(data_included_documented_rescon$country == "Italy"),
+      ")"
+    ),
+    paste0(
+      "Brazil (n = ",
+      sum(data_included_documented_rescon$country == "Brazil"),
+      ")"
+    ),
+    paste0(
+      "Spain (n = ",
+      sum(data_included_documented_rescon$country == "Spain"),
+      ")"
+    )
+  ),
+  9
+))
 
 l_countries2 = levels(data_graph2$name)
 data_graph2$name = factor(data_graph2$name,
-                         levels = rev(c(l_countries[2], l_countries[3],
-                                    l_countries[7], l_countries[5],
-                                    l_countries[4], l_countries[1],
-                                    l_countries[6])))
+                          levels = rev(
+                            c(
+                              l_countries[2],
+                              l_countries[3],
+                              l_countries[7],
+                              l_countries[5],
+                              l_countries[4],
+                              l_countries[1],
+                              l_countries[6]
+                            )
+                          ))
 ```
 
 ### Graph Two Multiplot
 ```{r}
 multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
   geom_hline(yintercept = 0, linewidth = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
-  geom_pointrange(data = data_graph2,
-                  mapping = aes(x = outcome, y = mean,
-                                ymin = conf_low , ymax = conf_high , group = name,
-                                color = name),
-                  position = position_dodge(width=0.4)) + 
+  geom_hline(yintercept = -.05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_hline(yintercept = .05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_pointrange(
+    data = data_graph2,
+    mapping = aes(
+      x = outcome,
+      y = mean,
+      ymin = conf_low ,
+      ymax = conf_high ,
+      group = name,
+      color = name
+    ),
+    position = position_dodge(width = 0.4)
+  ) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
-        plot.title = element_text(hjust = 0),
-        legend.background = element_rect(fill="grey", 
-                                         linewidth=0.5, linetype="solid")) +
-  guides(col = guide_legend(reverse= TRUE))
+  theme(
+    text = element_text(size = 20),
+    axis.text.x = element_text(size = 15),
+    axis.text.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    plot.title = element_text(hjust = 0),
+    legend.background = element_rect(
+      fill = "grey",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  ) +
+  guides(col = guide_legend(reverse = TRUE))
 multiplot2
 ```
 
 #### Save image
 ```{r}
-jpeg("Exploratory_02.jpeg", width = 5000, height = 3000, res=300)
+jpeg(
+  "Exploratory_02.jpeg",
+  width = 5000,
+  height = 3000,
+  res = 300
+)
 multiplot2
 dev.off()
 ```
 
 ### Combine into one graph
 ```{r}
-data_graph = rbind(models_pref_politicalsim_lin_graph,
-                   models_pref_politicalsim_quad_graph_reg1,
-                   models_pref_politicalsim_quad_graph_reg2,
-                   models_pref_ethnicalsim_graph,
-                   models_pref_religioussim_graph,
-                   models_pref_level_financially_secure_successful_ambitious_graph, models_pref_level_kind_supportive_graph, models_pref_level_attractiveness_graph, models_pref_level_confident_assertive_graph, models_pref_level_intelligence_educated_graph, models_imp_age_graph, models_ideal_age_rel_graph, models_imp_height_graph, models_ideal_height_graph
-                   ) %>%
-  mutate(outcome = factor(outcome,
-                          levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Attractiveness", "H2d) Kindness-\nSupportiveness", "H2c) Education-\nIntelligence","H2b) Confidence-\nAssertiveness", "H2a) Financial Security-\nSuccessfulness", "H1c) Preferred \nReligious Similarity", 
-                                     "H1b) Preferred \nEthnic Similarity",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
-                                     "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
-                                     "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
-                                     )))
+data_graph = rbind(
+  models_pref_politicalsim_lin_graph,
+  models_pref_politicalsim_quad_graph_reg1,
+  models_pref_politicalsim_quad_graph_reg2,
+  models_pref_ethnicalsim_graph,
+  models_pref_religioussim_graph,
+  models_pref_level_financially_secure_successful_ambitious_graph,
+  models_pref_level_kind_supportive_graph,
+  models_pref_level_attractiveness_graph,
+  models_pref_level_confident_assertive_graph,
+  models_pref_level_intelligence_educated_graph,
+  models_imp_age_graph,
+  models_ideal_age_rel_graph,
+  models_imp_height_graph,
+  models_ideal_height_graph
+) %>%
+  mutate(outcome = factor(
+    outcome,
+    levels = c(
+      "H3b(2)) Ideal Height \n(Level)",
+      "H3b(1)) Ideal Height \n(Importance)",
+      "H3a(2)) Ideal Age \n(Level)",
+      "H3a(1)) Ideal Age \n(Importance)",
+      "H2e) Attractiveness",
+      "H2d) Kindness-\nSupportiveness",
+      "H2c) Education-\nIntelligence",
+      "H2b) Confidence-\nAssertiveness",
+      "H2a) Financial Security-\nSuccessfulness",
+      "H1c) Preferred \nReligious Similarity",
+      "H1b) Preferred \nEthnic Similarity",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
+      "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
+    )
+  ))
 
 
-data_graph$name = factor(rep(c(
-  paste0("France (n = ",
-         sum(data_included_documented_rescon$country == "France"), ")"),
-  paste0("Germany (n = ",
-         sum(data_included_documented_rescon$country == "Germany"), ")"),
-  paste0("United States of America (n = ",
-         sum(data_included_documented_rescon$country == "United States of America"),
-         ")"),
-  paste0("Mexico (n = ",
-         sum(data_included_documented_rescon$country == "Mexico"), ")"),
-  paste0("Italy (n = ",
-         sum(data_included_documented_rescon$country == "Italy"), ")"),
-  paste0("Brazil (n = ",
-         sum(data_included_documented_rescon$country == "Brazil"), ")"),
-  paste0("Spain (n = ",
-         sum(data_included_documented_rescon$country == "Spain"), ")")),
-  14))
+data_graph$name = factor(rep(
+  c(
+    paste0(
+      "France (n = ",
+      sum(data_included_documented_rescon$country == "France"),
+      ")"
+    ),
+    paste0(
+      "Germany (n = ",
+      sum(data_included_documented_rescon$country == "Germany"),
+      ")"
+    ),
+    paste0(
+      "United States of America (n = ",
+      sum(
+        data_included_documented_rescon$country == "United States of America"
+      ),
+      ")"
+    ),
+    paste0(
+      "Mexico (n = ",
+      sum(data_included_documented_rescon$country == "Mexico"),
+      ")"
+    ),
+    paste0(
+      "Italy (n = ",
+      sum(data_included_documented_rescon$country == "Italy"),
+      ")"
+    ),
+    paste0(
+      "Brazil (n = ",
+      sum(data_included_documented_rescon$country == "Brazil"),
+      ")"
+    ),
+    paste0(
+      "Spain (n = ",
+      sum(data_included_documented_rescon$country == "Spain"),
+      ")"
+    )
+  ),
+  14
+))
 
 l_countries = levels(data_graph$name)
 data_graph$name = factor(data_graph$name,
-                         levels = rev(c(l_countries[2], l_countries[3],
-                                    l_countries[7], l_countries[5],
-                                    l_countries[4], l_countries[1],
-                                    l_countries[6])))
+                         levels = rev(
+                           c(
+                             l_countries[2],
+                             l_countries[3],
+                             l_countries[7],
+                             l_countries[5],
+                             l_countries[4],
+                             l_countries[1],
+                             l_countries[6]
+                           )
+                         ))
 ```
 
 ### Graph Combined Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
   geom_hline(yintercept = 0, linewidth = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
-  geom_pointrange(data = data_graph,
-                  mapping = aes(x = outcome, y = mean,
-                                ymin = conf_low , ymax = conf_high , group = name,
-                                color = name),
-                  position = position_dodge(width=0.4)) + 
+  geom_hline(yintercept = -.05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_hline(yintercept = .05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_pointrange(
+    data = data_graph,
+    mapping = aes(
+      x = outcome,
+      y = mean,
+      ymin = conf_low ,
+      ymax = conf_high ,
+      group = name,
+      color = name
+    ),
+    position = position_dodge(width = 0.4)
+  ) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
   labs(y = "Effect of Political Orientation", x = "Outcome") +
-  theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
-        axis.text.y = element_text(size = 15),
-        legend.text = element_text(size = 15),
-        plot.title = element_text(hjust = 0),
-        legend.background = element_rect(fill="grey", 
-                                         linewidth=0.5, linetype="solid")) +
-  guides(col = guide_legend(reverse= TRUE))
+  theme(
+    text = element_text(size = 20),
+    axis.text.x = element_text(size = 15),
+    axis.text.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    plot.title = element_text(hjust = 0),
+    legend.background = element_rect(
+      fill = "grey",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  ) +
+  guides(col = guide_legend(reverse = TRUE))
 multiplot
 ```
 
 #### Save image
 ```{r}
-jpeg("Exploratory_combined.jpeg", width = 5000, height = 5000, res=300)
+jpeg(
+  "Exploratory_combined.jpeg",
+  width = 5000,
+  height = 5000,
+  res = 300
+)
 multiplot
 dev.off()
 ```
