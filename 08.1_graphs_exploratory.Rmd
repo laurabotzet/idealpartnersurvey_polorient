@@ -398,111 +398,7 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(left
   mutate(outcome = "H2a) Financial Security-\nSuccessfulness")
 ```
 
-#### H2b Preference for the level of kindness-supportiveness
-```{r}
-data_included_documented_rescon_wide = data_included_documented_rescon %>%
-  pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_kind_supportive, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
-
-models_pref_level_kind_supportive = data_included_documented_rescon_wide %>%
-  select(-pref_level_kind_supportive) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_kind_supportive ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
-  map(lm.beta)
-
-models_pref_level_kind_supportive_coef = models_pref_level_kind_supportive %>%
-  map(coef) %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  rename(mean = value)
-
-models_pref_level_kind_supportive_confint_low = models_pref_level_kind_supportive %>%
-  map(confint, level = 0.997)  %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  filter(str_detect(name, "0.15")) %>%
-  rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
-
-models_pref_level_kind_supportive_confint_high = models_pref_level_kind_supportive %>%
-  map(confint, level = 0.997)  %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  filter(str_detect(name, "99.85")) %>%
-  rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
-
-models_pref_level_kind_supportive_graph = left_join(left_join(models_pref_level_kind_supportive_coef,
-                                         models_pref_level_kind_supportive_confint_low,
-                                         by = "name"),
-                                         models_pref_level_kind_supportive_confint_high,
-                                         by = "name") %>%
-  mutate(outcome = "H2b) Kindness-\nSupportiveness")
-```
-
-#### H2c Preference for the level of attractiveness
-```{r}
-data_included_documented_rescon_wide = data_included_documented_rescon %>%
-  pivot_wider(names_from = country, values_from = political_orientation) %>%
-  select(pref_level_attractiveness, France, Germany, `United States of America`, Mexico,
-         Italy, Brazil, Spain)
-
-models_pref_level_attractiveness = data_included_documented_rescon_wide %>%
-  select(-pref_level_attractiveness) %>%
-  map(~lm(data_included_documented_rescon_wide$pref_level_attractiveness ~ .x,
-      data = data_included_documented_rescon_wide)) %>%
-  map(lm.beta)
-
-models_pref_level_attractiveness_coef = models_pref_level_attractiveness %>%
-  map(coef) %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  rename(mean = value)
-
-models_pref_level_attractiveness_confint_low = models_pref_level_attractiveness %>%
-  map(confint, level = 0.997)  %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  filter(str_detect(name, "0.15")) %>%
-  rename(conf_low = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-7))
-
-models_pref_level_attractiveness_confint_high = models_pref_level_attractiveness %>%
-  map(confint, level = 0.997)  %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "rowname") %>%
-  filter(rowname != "(Intercept)") %>%
-  pivot_longer(cols = -rowname) %>%
-  select(-rowname) %>%
-  filter(str_detect(name, "99.85")) %>%
-  rename(conf_high = value) %>%
-  mutate(name = substr(name, 1, nchar(name)-8))
-
-models_pref_level_attractiveness_graph = left_join(left_join(models_pref_level_attractiveness_coef,
-                                         models_pref_level_attractiveness_confint_low,
-                                         by = "name"),
-                                         models_pref_level_attractiveness_confint_high,
-                                         by = "name") %>%
-  mutate(outcome = "H2c) Attractiveness")
-```
-
-#### H2d Preference for the level of confidence-assertiveness
+#### H2b Preference for the level of confidence-assertiveness
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -551,10 +447,10 @@ models_pref_level_confident_assertive_graph = left_join(left_join(models_pref_le
                                          by = "name"),
                                          models_pref_level_confident_assertive_confint_high,
                                          by = "name") %>%
-  mutate(outcome = "H2d) Confidence-\nAssertiveness")
+  mutate(outcome = "H2b) Confidence-\nAssertiveness")
 ```
 
-#### H2e Preference for the level of education-intelligence
+#### H2c Preference for the level of education-intelligence
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -603,8 +499,113 @@ models_pref_level_intelligence_educated_graph = left_join(left_join(models_pref_
                                          by = "name"),
                                          models_pref_level_intelligence_educated_confint_high,
                                          by = "name") %>%
-  mutate(outcome = "H2e) Education-\nIntelligence")
+  mutate(outcome = "H2c) Education-\nIntelligence")
 ```
+
+#### H2d Preference for the level of kindness-supportiveness
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_level_kind_supportive, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_level_kind_supportive = data_included_documented_rescon_wide %>%
+  select(-pref_level_kind_supportive) %>%
+  map(~lm(data_included_documented_rescon_wide$pref_level_kind_supportive ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_kind_supportive_coef = models_pref_level_kind_supportive %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_kind_supportive_confint_low = models_pref_level_kind_supportive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_level_kind_supportive_confint_high = models_pref_level_kind_supportive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_level_kind_supportive_graph = left_join(left_join(models_pref_level_kind_supportive_coef,
+                                         models_pref_level_kind_supportive_confint_low,
+                                         by = "name"),
+                                         models_pref_level_kind_supportive_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2d) Kindness-\nSupportiveness")
+```
+
+#### H2e Preference for the level of attractiveness
+```{r}
+data_included_documented_rescon_wide = data_included_documented_rescon %>%
+  pivot_wider(names_from = country, values_from = political_orientation) %>%
+  select(pref_level_attractiveness, France, Germany, `United States of America`, Mexico,
+         Italy, Brazil, Spain)
+
+models_pref_level_attractiveness = data_included_documented_rescon_wide %>%
+  select(-pref_level_attractiveness) %>%
+  map(~lm(data_included_documented_rescon_wide$pref_level_attractiveness ~ .x,
+      data = data_included_documented_rescon_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_attractiveness_coef = models_pref_level_attractiveness %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_attractiveness_confint_low = models_pref_level_attractiveness %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-7))
+
+models_pref_level_attractiveness_confint_high = models_pref_level_attractiveness %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name)-8))
+
+models_pref_level_attractiveness_graph = left_join(left_join(models_pref_level_attractiveness_coef,
+                                         models_pref_level_attractiveness_confint_low,
+                                         by = "name"),
+                                         models_pref_level_attractiveness_confint_high,
+                                         by = "name") %>%
+  mutate(outcome = "H2e) Attractiveness")
+```
+
 
 #### H3a(1) Ideal age (importance)
 ```{r}
@@ -859,9 +860,9 @@ data_graph$name = factor(data_graph$name,
 ### Graph One Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
-  geom_hline(yintercept = 0, size = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  geom_hline(yintercept = 0, linewidth = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
   geom_pointrange(data = data_graph,
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
@@ -870,13 +871,13 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
-  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
         legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
-                                         size=0.5, linetype="solid")) +
+                                         linewidth=0.5, linetype="solid")) +
   guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
@@ -924,9 +925,9 @@ data_graph2$name = factor(data_graph2$name,
 ### Graph Two Multiplot
 ```{r}
 multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
-  geom_hline(yintercept = 0, size = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  geom_hline(yintercept = 0, linewidth = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
   geom_pointrange(data = data_graph2,
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
@@ -935,13 +936,13 @@ multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
-  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
         legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
-                                         size=0.5, linetype="solid")) +
+                                         linewidth=0.5, linetype="solid")) +
   guides(col = guide_legend(reverse= TRUE))
 multiplot2
 ```
@@ -963,7 +964,7 @@ data_graph = rbind(models_pref_politicalsim_lin_graph,
                    models_pref_level_financially_secure_successful_ambitious_graph, models_pref_level_kind_supportive_graph, models_pref_level_attractiveness_graph, models_pref_level_confident_assertive_graph, models_pref_level_intelligence_educated_graph, models_imp_age_graph, models_ideal_age_rel_graph, models_imp_height_graph, models_ideal_height_graph
                    ) %>%
   mutate(outcome = factor(outcome,
-                          levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Education-\nIntelligence","H2d) Confidence-\nAssertiveness","H2c) Attractiveness", "H2b) Kindness-\nSupportiveness", "H2a) Financial Security-\nSuccessfulness","H1c) Preferred \nReligious Similarity", 
+                          levels = c("H3b(2)) Ideal Height \n(Level)","H3b(1)) Ideal Height \n(Importance)","H3a(2)) Ideal Age \n(Level)","H3a(1)) Ideal Age \n(Importance)","H2e) Attractiveness", "H2d) Kindness-\nSupportiveness", "H2c) Education-\nIntelligence","H2b) Confidence-\nAssertiveness", "H2a) Financial Security-\nSuccessfulness", "H1c) Preferred \nReligious Similarity", 
                                      "H1b) Preferred \nEthnic Similarity",
                                      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
                                      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
@@ -1000,9 +1001,9 @@ data_graph$name = factor(data_graph$name,
 ### Graph Combined Multiplot {.active}
 ```{r}
 multiplot = ggplot(data_graph, aes(outcome, mean)) +
-  geom_hline(yintercept = 0, size = 1.5)  +
-  geom_hline(yintercept = -.05, linetype = "dotted", size = 1.5) + 
-  geom_hline(yintercept = .05, linetype = "dotted", size = 1.5) +
+  geom_hline(yintercept = 0, linewidth = 1.5)  +
+  geom_hline(yintercept = -.05, linetype = "dotted", linewidth = 1.5) + 
+  geom_hline(yintercept = .05, linetype = "dotted", linewidth = 1.5) +
   geom_pointrange(data = data_graph,
                   mapping = aes(x = outcome, y = mean,
                                 ymin = conf_low , ymax = conf_high , group = name,
@@ -1011,13 +1012,13 @@ multiplot = ggplot(data_graph, aes(outcome, mean)) +
   coord_flip() +
   apatheme +
   scale_colour_brewer(palette = "Dark2")  +
-  labs(y = "Effect of Right-Wing Political Orientation", x = "Outcome") +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
   theme(text = element_text(size=20), axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
         legend.text = element_text(size = 15),
         plot.title = element_text(hjust = 0),
         legend.background = element_rect(fill="grey", 
-                                         size=0.5, linetype="solid")) +
+                                         linewidth=0.5, linetype="solid")) +
   guides(col = guide_legend(reverse= TRUE))
 multiplot
 ```
