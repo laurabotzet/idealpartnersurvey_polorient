@@ -74,7 +74,7 @@ hist <- ggplot(data_included_documented, aes(x = political_orientation)) +
 
 #### Save Image
 ```{r}
-jpeg("Figure2", width = 580, height = 436, res = 300)
+jpeg("PO_Histogram", width = 580, height = 436, res = 300)
 hist
 dev.off()
 ```
