@@ -65,7 +65,7 @@ range(data_included_documented$political_orientation)
 
 hist <- ggplot(data_included_documented, aes(x = political_orientation)) + 
   geom_histogram(col = "grey", binwidth = 0.5, center = 0) +
-  labs(x = "Right-Wing Political Orientation", y = "Number of Participants")+ 
+  labs(x = "Political Orientation", y = "Number of Participants")+ 
   theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10))+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+

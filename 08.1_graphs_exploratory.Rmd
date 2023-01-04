@@ -214,7 +214,7 @@ models_pref_politicalsim_quad_graph_reg1 = left_join(
   models_pref_politicalsim_quad_confint_high_reg1,
   by = "name"
 ) %>%
-  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3")
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO <= 3")
 ```
 
 
@@ -285,7 +285,7 @@ models_pref_politicalsim_quad_graph_reg2 = left_join(
   models_pref_politicalsim_quad_confint_high_reg2,
   by = "name"
 ) %>%
-  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3")
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO >= 3")
 ```
 
 #### H1b Preference for similarity in ethnicity/race
