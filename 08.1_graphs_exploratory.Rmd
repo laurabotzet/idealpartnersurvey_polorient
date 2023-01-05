@@ -1170,10 +1170,10 @@ data_graph2 = rbind(
       "H3b(1)) Ideal Height \n(Importance)",
       "H3a(2)) Ideal Age \n(Level)",
       "H3a(1)) Ideal Age \n(Importance)",
-      "H2e) Education-\nIntelligence",
-      "H2d) Confidence-\nAssertiveness",
-      "H2c) Attractiveness",
-      "H2b) Kindness-\nSupportiveness",
+      "H2e) Attractiveness",
+      "H2d) Kindness-\nSupportiveness",
+      "H2c) Education-\nIntelligence",
+      "H2b) Confidence-\nAssertiveness",
       "H2a) Financial Security-\nSuccessfulness"
     )
   ))
