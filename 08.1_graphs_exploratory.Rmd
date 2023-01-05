@@ -1031,8 +1031,8 @@ data_graph = rbind(
     levels = c(
       "H1c) Preferred \nReligious Similarity",
       "H1b) Preferred \nEthnic Similarity",
-      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
-      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO >= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO <= 3",
       "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
     )
   ))
@@ -1323,8 +1323,8 @@ data_graph = rbind(
       "H2a) Financial Security-\nSuccessfulness",
       "H1c) Preferred \nReligious Similarity",
       "H1b) Preferred \nEthnic Similarity",
-      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO >= 3",
-      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nRWPO <= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO >= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO <= 3",
       "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
     )
   ))
