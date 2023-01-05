@@ -90,99 +90,19 @@ mean(data_included_documented$political_orientation)
 sd(data_included_documented$political_orientation)
 range(data_included_documented$political_orientation)
 
-# Daten in das richtige Format bringen
-raincloud_data1 <- data_1x1(
-  array_1 = data_included_documented$political_orientation,  array_2 = data_included_documented$political_orientation)
-table(raincloud_data1$x_axis)
-
-raincloud_data1$y_axis = raincloud_data1$y_axis + rnorm(n = 13257, mean = 0, sd = 0.02)
-
-# Abbildung erstellen
-raincloud <- raincloud_1x1(
-  data = raincloud_data1, 
-  colors = (c('forestgreen')), 
-  fills = (c('forestgreen')), 
-  size = 1, 
-  alpha = .6, 
-  ort = 'h') +
-
-scale_x_continuous(breaks=c(0:6))  +
-  #scale_y_continuous(breaks = c(0:6)) +
-  ylab("Right-Wing Political Orientation") +
-  #xlab("Right-Wing Political Orientation") +
-  theme_bw() +
-  theme(panel.grid.major=element_blank(),
-        panel.grid.minor=element_blank(),
-        panel.border=element_blank(),
-        #axis.line.y = element_line(colour = "black"), 
-        axis.line.x = element_line(colour = "black"), 
-        axis.title.x =  element_text(size = 15),
-        axis.text.x = element_text(size = 14, colour = "black"),
-        axis.text.y = element_text(size = 14, colour = "black"),
-        axis.ticks.y = element_blank())
-raincloud
-
+hist <- ggplot(data_included_documented, aes(x = political_orientation)) + 
+  geom_histogram(col = "grey", binwidth = 0.5, center = 0) +
+  labs(x = "Political Orientation", y = "Number of Participants")+ 
+  theme(text = element_text(size=15), axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10))+
+ scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
+  apatheme
 ```
 
 #### Save Image
 ```{r}
-jpeg("Raincloud_PO.jpeg", width = 580, height = 436, res = 300)
-raincloud
-dev.off()
-```
-
-### Raincloud Plot Countries 
-```{r}
-# Create new dataset including only lines where country== France, Germany, USA, Mexico, Italy, Brazil, Spain
-data_included_documented_raincloud_countries <- data_included_documented %>%
-  filter(grepl('France|Germany|United States of America|Mexico|Italy|Brazil|Spain', country))
-
-# #Separate datasets for each country
-# data_France <- data_included_documented %>% 
-#   filter(grepl('France', country))
-# data_Germany <- data_included_documented %>% 
-#   filter(grepl('Germany', country)) 
-# data_USA <- data_included_documented %>% 
-#   filter(grepl('United States of America', country))
-# data_Mexico <- data_included_documented %>% 
-#   filter(grepl('Mexico', country))
-# data_Italy <- data_included_documented %>% 
-#   filter(grepl('Italy', country))
-# data_Brazil <- data_included_documented %>% 
-#   filter(grepl('Brazil', country))
-# data_Spain <- data_included_documented %>% 
-#   filter(grepl('Spain', country))
-
-raincloud2 <-
-  ggplot(data_included_documented_raincloud_countries,
-       aes(x=country,y=political_orientation, fill = country, colour = country)) +
-  geom_flat_violin(position = position_nudge(x = .25, y = 0), adjust =2, trim = TRUE) +
-  geom_point(position = position_jitter(width = .15), size = .25) +
-  stat_boxplot(aes(x = country, y = political_orientation, colour = country),
-               outlier.shape = NA, alpha = 0.3, width = .1) +
-  guides(fill="none", colour = "none")+
-  scale_y_continuous(breaks=c(0:6)) +
-  ylab("Right-Wing Political Orientation") +
-  xlab("") +
-  theme_bw() +
-  theme(panel.grid.major=element_blank(),
-        panel.grid.minor=element_blank(),
-        panel.border=element_blank(),
-        axis.line.y = element_line(colour = "black"), 
-        axis.line.x = element_line(colour = "black"), 
-        axis.title.x =  element_text(size = 15),
-        axis.text.x = element_text(size = 14, colour = "black"),
-        axis.text.y = element_text(size = 14, colour = "black"),
-        axis.ticks.y = element_blank()) +
-  coord_flip() 
-
-raincloud2
-```
-
-#### Save Image
-```{r}
-jpeg("Raincloud_PO_country.jpeg", width = 3200, height = 2000, res = 300)
-raincloud2
+jpeg("PO_Histogram.jpeg", width = 1580, height = 836, res = 300)
+hist
 dev.off()
 ```
 

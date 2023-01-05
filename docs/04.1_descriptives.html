@@ -409,25 +409,50 @@ $(document).ready(function () {
 
 <div id="section" class="section level2 tabset">
 <h2 class="tabset"></h2>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;%||%&quot;</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(a)) a <span class="cf">else</span> b</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>geom_flat_violin <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">mapping =</span> <span class="cn">NULL</span>, <span class="at">data =</span> <span class="cn">NULL</span>, <span class="at">stat =</span> <span class="st">&quot;ydensity&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">trim =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">show.legend =</span> <span class="cn">NA</span>, <span class="at">inherit.aes =</span> <span class="cn">TRUE</span>, ...) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> mapping,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> stat,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> GeomFlatViolin,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> position,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> show.legend,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> inherit.aes,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">trim =</span> trim,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">scale =</span> scale,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      ...</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
 <div id="library" class="section level3">
 <h3>Library</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(formr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(effects)</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># library(effectsize)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lme4)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(sjstats)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lmerTest)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(formr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(effects)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># library(effectsize)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lme4)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(sjstats)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lmerTest)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <pre><code>## Warning: Paket &#39;ggplot2&#39; wurde unter R Version 4.2.2 erstellt</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
 <pre><code>## 
 ## Attache Paket: &#39;psych&#39;</code></pre>
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:ggplot2&#39;:
 ## 
 ##     %+%, alpha</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attache Paket: &#39;dplyr&#39;</code></pre>
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:formr&#39;:
@@ -439,28 +464,30 @@ $(document).ready(function () {
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span></code></pre></div>
 <pre><code>## Warning: Paket &#39;jtools&#39; wurde unter R Version 4.2.2 erstellt</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>apatheme <span class="ot">=</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raincloudplots)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>apatheme <span class="ot">=</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Load selected data based on 03_codebook</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data_included_documented <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(political_orientation))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data_included_documented <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(political_orientation))</span></code></pre></div>
 </div>
 <div id="missingness-pattern" class="section level3 tabset">
 <h3 class="tabset">Missingness Pattern</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crosstabs</span>(<span class="sc">~</span> <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_kind) <span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_supportive))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crosstabs</span>(<span class="sc">~</span> <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_kind) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_supportive))</span></code></pre></div>
 <pre><code>##                                                is.na(data_included_documented$pref_level_supportive)
 ## is.na(data_included_documented$pref_level_kind) FALSE  TRUE
 ##                                           FALSE 12729   190
@@ -468,9 +495,9 @@ $(document).ready(function () {
 </div>
 <div id="summary" class="section level3 tabset active">
 <h3 class="tabset active">Summary</h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">select_if</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">select_if</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="32%" />
@@ -976,24 +1003,24 @@ $(document).ready(function () {
 </div>
 <div id="political-orientation" class="section level3 tabset">
 <h3 class="tabset">Political Orientation</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 2.528023</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 1.36602</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 0 6</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_included_documented, <span class="fu">aes</span>(<span class="at">x =</span> political_orientation)) <span class="sc">+</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Political Orientation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)<span class="sc">+</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>), <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))<span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  apatheme</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_included_documented, <span class="fu">aes</span>(<span class="at">x =</span> political_orientation)) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Political Orientation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>), <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))<span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  apatheme</span></code></pre></div>
 <div id="save-image" class="section level4">
 <h4>Save Image</h4>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;PO_Histogram.jpeg&quot;</span>, <span class="at">width =</span> <span class="dv">1580</span>, <span class="at">height =</span> <span class="dv">836</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>hist</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;PO_Histogram.jpeg&quot;</span>, <span class="at">width =</span> <span class="dv">1580</span>, <span class="at">height =</span> <span class="dv">836</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>hist</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## png 
 ##   2</code></pre>
 </div>
@@ -1001,9 +1028,9 @@ $(document).ready(function () {
 <div id="correlations-for-ideal-partner-preferences"
 class="section level3 tabset">
 <h3 class="tabset">Correlations for Ideal Partner Preferences</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_financially_secure,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_successful_ambitious,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_financially_secure,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_successful_ambitious,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1015,9 +1042,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.3554542</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_kind,</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_supportive,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_kind,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_supportive,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1029,9 +1056,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.2825571</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_attractive_body,</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_attractive_face,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_attractive_body,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_attractive_face,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1043,9 +1070,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.5809727</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_confident,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_assertive,</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_confident,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_assertive,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1057,9 +1084,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.3293371</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_intelligence,</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_educated,</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_intelligence,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_educated,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1074,15 +1101,15 @@ class="section level3 tabset">
 </div>
 <div id="language" class="section level3 tabset">
 <h3 class="tabset">Language</h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(data_included_documented)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(data_included_documented)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##         96        385       2849       2385       2187        999        287 
 ## portuguese    russian    spanish 
 ##        825        207       3037</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##       0.72       2.90      21.49      17.99      16.50       7.54       2.16 
@@ -1091,12 +1118,12 @@ class="section level3 tabset">
 </div>
 <div id="country" class="section level3 tabset">
 <h3 class="tabset">Country</h3>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>country_absolute <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>country_freq <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>country <span class="ot">=</span> <span class="fu">left_join</span>(country_absolute, country_freq, <span class="at">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>country</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>country_absolute <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>country_freq <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>country <span class="ot">=</span> <span class="fu">left_join</span>(country_absolute, country_freq, <span class="at">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>country</span></code></pre></div>
 <pre><code>## # A tibble: 144 × 3
 ##    Var1                Freq.x Freq.y
 ##    &lt;fct&gt;                &lt;int&gt;  &lt;dbl&gt;
@@ -1111,31 +1138,32 @@ class="section level3 tabset">
 ##  9 Australia              133   1   
 ## 10 Austria                197   1.49
 ## # … with 134 more rows</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
 </div>
 <div id="descriptives-and-correlation-table"
 class="section level3 tabset">
 <h3 class="tabset">Descriptives and Correlation Table</h3>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>          age,</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>         interest_single,</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>         interest_sexrel, </span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>         interest_nonmonrel, </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>         interest_monrel, </span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>         pref_politicalsim, </span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>         pref_ethnicalsim, </span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>         pref_religioussim,</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>          pref_level_financially_secure_successful_ambitious,</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>         pref_level_kind_supportive, </span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>         pref_level_attractiveness, </span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>         pref_level_confident_assertive,</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>         imp_age, </span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>         ideal_age, </span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>         imp_height, </span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>         ideal_height) </span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>          age,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>         interest_single,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>         interest_sexrel, </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>         interest_nonmonrel, </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>         interest_monrel, </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>         pref_politicalsim, </span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>         pref_ethnicalsim, </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>         pref_religioussim,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>          pref_level_financially_secure_successful_ambitious,</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>         pref_level_kind_supportive, </span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>         pref_level_attractiveness, </span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>         pref_level_confident_assertive,</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>         imp_age, </span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>         ideal_age, </span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>         imp_height, </span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>         ideal_height) </span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>         <span class="co">#ideal_age_rel)</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                                                    political_orientation   age
 ## political_orientation                                               1.00 -0.05
 ## age                                                                -0.05  1.00
@@ -1421,11 +1449,11 @@ class="section level3 tabset">
 ## ideal_age                                                 -0.03
 ## imp_height                                                 0.29
 ## ideal_height                                               1.00</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkocHN5Y2gpDQpsaWJyYXJ5KGtuaXRyKQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoanRvb2xzKQ0KDQphcGF0aGVtZSA9IHRoZW1lX2J3KCkgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMubGluZSA9IGVsZW1lbnRfbGluZSgpLA0KICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpKQ0KDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgU3VtbWFyeX0NCmRlc2NyaWJlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgc2VsZWN0X2lmKGlzLm51bWVyaWMpKSAlPiUNCiAga2FibGUoKQ0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KcmFuZ2UoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCg0KaGlzdCA8LSBnZ3Bsb3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBhZXMoeCA9IHBvbGl0aWNhbF9vcmllbnRhdGlvbikpICsgDQogIGdlb21faGlzdG9ncmFtKGNvbCA9ICJncmV5IiwgYmlud2lkdGggPSAwLjUsIGNlbnRlciA9IDApICsNCiAgbGFicyh4ID0gIlBvbGl0aWNhbCBPcmllbnRhdGlvbiIsIHkgPSAiTnVtYmVyIG9mIFBhcnRpY2lwYW50cyIpKyANCiAgdGhlbWUodGV4dCA9IGVsZW1lbnRfdGV4dChzaXplPTE1KSwgYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoc2l6ZSA9IDEwKSwNCiAgICAgICAgYXhpcy50ZXh0LnkgPSBlbGVtZW50X3RleHQoc2l6ZSA9IDEwKSkrDQogc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcz1jKDAsIDEsIDIsIDMsIDQsIDUsIDYpKSsNCiAgYXBhdGhlbWUNCmBgYA0KDQojIyMjIFNhdmUgSW1hZ2UNCmBgYHtyfQ0KanBlZygiUE9fSGlzdG9ncmFtLmpwZWciLCB3aWR0aCA9IDE1ODAsIGhlaWdodCA9IDgzNiwgcmVzID0gMzAwKQ0KaGlzdA0KZGV2Lm9mZigpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2NvbmZpZGVudCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5IHsudGFic2V0fQ0KYGBge3J9DQpjb3VudHJ5X2Fic29sdXRlID0gYXMuZGF0YS5mcmFtZSh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkpDQoNCmNvdW50cnlfZnJlcSA9IGFzLmRhdGEuZnJhbWUocm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KS9uKSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgIGFnZSwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIGltcF9hZ2UsIA0KICAgICAgICAgaWRlYWxfYWdlLCANCiAgICAgICAgIGltcF9oZWlnaHQsIA0KICAgICAgICAgaWRlYWxfaGVpZ2h0KSANCnJvdW5kKGNvcihjb3IsIHVzZT0icGFpcndpc2UuY29tcGxldGUub2JzIiksMikNCmFwYV90YWJsZV9jb3IgPSBhcGEuY29yLnRhYmxlKGNvciwgZmlsZW5hbWUgPSAiZGVzY3JpcHRpdmVzLmRvYyIpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KIyMjIEZ1bmN0aW9ucw0KYGBge3J9DQoiJXx8JSIgPC0gZnVuY3Rpb24oYSwgYikgew0KICBpZiAoIWlzLm51bGwoYSkpIGEgZWxzZSBiDQp9DQoNCmdlb21fZmxhdF92aW9saW4gPC0gZnVuY3Rpb24obWFwcGluZyA9IE5VTEwsIGRhdGEgPSBOVUxMLCBzdGF0ID0gInlkZW5zaXR5IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcG9zaXRpb24gPSAiZG9kZ2UiLCB0cmltID0gVFJVRSwgc2NhbGUgPSAiYXJlYSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNob3cubGVnZW5kID0gTkEsIGluaGVyaXQuYWVzID0gVFJVRSwgLi4uKSB7DQogIGxheWVyKA0KICAgIGRhdGEgPSBkYXRhLA0KICAgIG1hcHBpbmcgPSBtYXBwaW5nLA0KICAgIHN0YXQgPSBzdGF0LA0KICAgIGdlb20gPSBHZW9tRmxhdFZpb2xpbiwNCiAgICBwb3NpdGlvbiA9IHBvc2l0aW9uLA0KICAgIHNob3cubGVnZW5kID0gc2hvdy5sZWdlbmQsDQogICAgaW5oZXJpdC5hZXMgPSBpbmhlcml0LmFlcywNCiAgICBwYXJhbXMgPSBsaXN0KA0KICAgICAgdHJpbSA9IHRyaW0sDQogICAgICBzY2FsZSA9IHNjYWxlLA0KICAgICAgLi4uDQogICAgKQ0KICApDQp9DQpgYGANCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGFwYVRhYmxlcykNCmxpYnJhcnkoZm9ybXIpDQojIGxpYnJhcnkoZWZmZWN0cykNCiMgbGlicmFyeShlZmZlY3RzaXplKQ0KIyBsaWJyYXJ5KGxtZTQpDQojIGxpYnJhcnkoc2pzdGF0cykNCiMgbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkocHN5Y2gpDQpsaWJyYXJ5KGtuaXRyKQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoanRvb2xzKQ0KbGlicmFyeShyYWluY2xvdWRwbG90cykNCg0KYXBhdGhlbWUgPSB0aGVtZV9idygpICsNCiAgdGhlbWUocGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBheGlzLmxpbmUgPSBlbGVtZW50X2xpbmUoKSwNCiAgICAgICAgbGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGhqdXN0ID0gMC41KSkNCg0KYGBgDQoNCiMjIyBEYXRhDQpMb2FkIHNlbGVjdGVkIGRhdGEgYmFzZWQgb24gMDNfY29kZWJvb2sNCmBgYHtyfQ0KZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkID0gcmVhZC5jc3YoZmlsZSA9ICJkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQuY3N2IilbLC0xXQ0KDQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIGZpbHRlcighaXMubmEocG9saXRpY2FsX29yaWVudGF0aW9uKSkNCmBgYA0KDQojIyMgTWlzc2luZ25lc3MgUGF0dGVybiB7LnRhYnNldH0NCmBgYHtyfQ0KY3Jvc3N0YWJzKH4gaXMubmEoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfa2luZCkgKw0KICAgICAgICAgICAgaXMubmEoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSkpDQpgYGANCg0KIyMjIFN1bW1hcnkgey50YWJzZXQgLmFjdGl2ZX0NCmBgYHtyIFN1bW1hcnl9DQpkZXNjcmliZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogICAgICAgICAgIHNlbGVjdF9pZihpcy5udW1lcmljKSkgJT4lDQogIGthYmxlKCkNCmBgYA0KDQojIyMgUG9saXRpY2FsIE9yaWVudGF0aW9uIHsudGFic2V0fQ0KYGBge3IgUG9saXRpY2FsIE9yaWVudGF0aW9ufQ0KbWVhbihkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0Kc2QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCnJhbmdlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQoNCmhpc3QgPC0gZ2dwbG90KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgYWVzKHggPSBwb2xpdGljYWxfb3JpZW50YXRpb24pKSArIA0KICBnZW9tX2hpc3RvZ3JhbShjb2wgPSAiZ3JleSIsIGJpbndpZHRoID0gMC41LCBjZW50ZXIgPSAwKSArDQogIGxhYnMoeCA9ICJQb2xpdGljYWwgT3JpZW50YXRpb24iLCB5ID0gIk51bWJlciBvZiBQYXJ0aWNpcGFudHMiKSsgDQogIHRoZW1lKHRleHQgPSBlbGVtZW50X3RleHQoc2l6ZT0xNSksIGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxMCksDQogICAgICAgIGF4aXMudGV4dC55ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxMCkpKw0KIHNjYWxlX3hfY29udGludW91cyhicmVha3M9YygwLCAxLCAyLCAzLCA0LCA1LCA2KSkrDQogIGFwYXRoZW1lDQpgYGANCg0KIyMjIyBTYXZlIEltYWdlDQpgYGB7cn0NCmpwZWcoIlBPX0hpc3RvZ3JhbS5qcGVnIiwgd2lkdGggPSAxNTgwLCBoZWlnaHQgPSA4MzYsIHJlcyA9IDMwMCkNCmhpc3QNCmRldi5vZmYoKQ0KYGBgDQoNCiMjIyBDb3JyZWxhdGlvbnMgZm9yIElkZWFsIFBhcnRuZXIgUHJlZmVyZW5jZXMgey50YWJzZXR9DQpgYGB7ciBDb3JyZWxhdGlvbnMgZm9yIGlkZWFsIHBhcnRuZXIgcHJlZmVyZW5jZXN9DQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2JvZHksDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCg0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9jb25maWRlbnQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hc3NlcnRpdmUsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfZWR1Y2F0ZWQsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCmBgYA0KDQojIyMgTGFuZ3VhZ2Ugey50YWJzZXR9DQpgYGB7cn0NCm4gPSBucm93KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkNCg0KdGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGxhbmd1YWdlKQ0KDQpyb3VuZCgodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGxhbmd1YWdlKS9uKSoxMDAsMikNCmBgYA0KDQojIyMgQ291bnRyeSB7LnRhYnNldH0NCmBgYHtyfQ0KY291bnRyeV9hYnNvbHV0ZSA9IGFzLmRhdGEuZnJhbWUodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGNvdW50cnkpKQ0KDQpjb3VudHJ5X2ZyZXEgPSBhcy5kYXRhLmZyYW1lKHJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkvbikqMTAwLDIpKQ0KDQpjb3VudHJ5ID0gbGVmdF9qb2luKGNvdW50cnlfYWJzb2x1dGUsIGNvdW50cnlfZnJlcSwgYnkgPSAiVmFyMSIpDQpjb3VudHJ5DQoNCndyaXRlLnRhYmxlKGNvdW50cnksIGZpbGUgPSAiY291bnRyeS50eHQiLCBzZXAgPSAiLCIpDQpgYGANCg0KIyMjIERlc2NyaXB0aXZlcyBhbmQgQ29ycmVsYXRpb24gVGFibGUgey50YWJzZXR9DQpgYGB7cn0NCmNvciA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgc2VsZWN0KHBvbGl0aWNhbF9vcmllbnRhdGlvbiwNCiAgICAgICAgICBhZ2UsDQogICAgICAgICBpbnRlcmVzdF9zaW5nbGUsDQogICAgICAgICBpbnRlcmVzdF9zZXhyZWwsIA0KICAgICAgICAgaW50ZXJlc3Rfbm9ubW9ucmVsLCANCiAgICAgICAgIGludGVyZXN0X21vbnJlbCwgDQogICAgICAgICBwcmVmX3BvbGl0aWNhbHNpbSwgDQogICAgICAgICBwcmVmX2V0aG5pY2Fsc2ltLCANCiAgICAgICAgIHByZWZfcmVsaWdpb3Vzc2ltLA0KICAgICAgICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIA0KICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywgDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUsDQogICAgICAgICBwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgDQogICAgICAgICBpbXBfYWdlLCANCiAgICAgICAgIGlkZWFsX2FnZSwgDQogICAgICAgICBpbXBfaGVpZ2h0LCANCiAgICAgICAgIGlkZWFsX2hlaWdodCkgDQogICAgICAgICAjaWRlYWxfYWdlX3JlbCkNCnJvdW5kKGNvcihjb3IsIHVzZT0icGFpcndpc2UuY29tcGxldGUub2JzIiksMikNCmFwYV90YWJsZV9jb3IgPSBhcGEuY29yLnRhYmxlKGNvciwgZmlsZW5hbWUgPSAiZGVzY3JpcHRpdmVzLmRvYyIpDQpgYGANCg==</div>
 
 
 
@@ -1461,7 +1489,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("04_descriptives.Rmd");
+  window.initializeSourceEmbed("04.1_descriptives.rmd");
   window.initializeCodeFolding("hide" === "show");
 });
 </script>
