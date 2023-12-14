@@ -3,12 +3,13 @@ title: <font color="#66C2A5">Descriptives</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
-    code_folding: "hide"
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
 ---
 
 ## {.tabset}
+
 
 ### Library
 ```{r Library}
@@ -24,6 +25,7 @@ library(psych)
 library(knitr)
 library(dplyr)
 library(jtools)
+library(raincloudplots)
 
 apatheme = theme_bw() +
   theme(panel.grid.major = element_blank(),
@@ -59,8 +61,8 @@ describe(data_included_documented %>%
 
 ### Political Orientation {.tabset}
 ```{r Political Orientation}
-mean(data_included_documented$political_orientation)
-sd(data_included_documented$political_orientation)
+mean(data_included_documented$political_orientation) %>% round(., 2)
+sd(data_included_documented$political_orientation) %>% round(., 2)
 range(data_included_documented$political_orientation)
 
 hist <- ggplot(data_included_documented, aes(x = political_orientation)) + 
@@ -70,7 +72,10 @@ hist <- ggplot(data_included_documented, aes(x = political_orientation)) +
         axis.text.y = element_text(size = 10))+
  scale_x_continuous(breaks=c(0, 1, 2, 3, 4, 5, 6))+
   apatheme
+
+hist
 ```
+
 
 #### Save Image
 ```{r}
@@ -145,6 +150,7 @@ cor = data_included_documented %>%
          ideal_age, 
          imp_height, 
          ideal_height) 
+         #ideal_age_rel)
 round(cor(cor, use="pairwise.complete.obs"),2)
 apa_table_cor = apa.cor.table(cor, filename = "descriptives.doc")
 ```

@@ -34,17 +34,6 @@ colnames(fulldata_selected)
 fulldata_selected_wrangled = fulldata_selected
 ```
 
-Correct typo in variable pref_level_successful_ambitious
-```{r Correct typo in variable pref_level_successful_ambitious}
-fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, pref_level_successful_ambitious= pref_level_successful_ambitous)
-```
-
-Correct typo in variable interest_monrel
-```{r Correct typo in variable interest_monrel}
-fulldata_selected_wrangled <- rename(fulldata_selected_wrangled, interest_monrel = inteterst_monrel)
-```
-
-
 ### Age {.tabset}
 Participants younger than 18 were able to insert age but the survey was ended for them afterwards.
 ```{r Age}

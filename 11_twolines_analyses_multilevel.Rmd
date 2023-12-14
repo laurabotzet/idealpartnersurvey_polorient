@@ -1,8 +1,11 @@
 ---
 title: "11_twolines_analyses_multilevel"
-output: html_document
+output: 
+  html_document:
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
+  
 ---
 
 ## Library

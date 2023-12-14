@@ -1,0 +1,95 @@
+---
+title: "13_synthetic_data"
+author: "Laura Botzet"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: "show"
+---
+
+
+## Graphs {.tabset}
+
+### Library
+```{r Library}
+library(synthpop)
+library(cowplot)
+library(car)
+library(simstudy)
+library(mice)
+library(tidyverse)
+```
+
+### Function to simulate correlated data  
+https://debruine.github.io/faux/index.html
+```{r}
+rnorm_pre <- function (x, mu = 0, sd = 1, r = 0, empirical = FALSE) 
+{
+  if (!is.vector(x)) 
+    stop("x must be a vector")
+  if (!is.numeric(x)) 
+    stop("x must be numeric")
+  if (length(x) < 3) 
+    stop("x must have length > 2")
+  n <- length(x)
+  if (!empirical) {
+    sample_params <- sample_from_pop(n, mu, sd, r)
+    mu <- sample_params$mu
+    sd <- sample_params$sd
+    r <- sample_params$r
+  }
+  y <- stats::rnorm(n)
+  z <- r * scale(x)[, 1] + sqrt(1 - r^2) * scale(stats::resid(stats::lm(y ~ 
+                                                                          x)))[, 1]
+  yresult <- mu + sd * z
+  return(yresult)
+}
+```
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+### Select data used for analyses
+```{r}
+data_included_documented = data_included_documented %>%
+  select(language, country,
+         political_orientation, age,
+         pref_politicalsim, pref_ethnicalsim, pref_religioussim,
+         starts_with("pref_level"),
+         imp_age, , ideal_age,
+         imp_height, ideal_height,
+         starts_with("interest_")) %>%
+  arrange(language, country)
+```
+
+###Simulate data
+```{r}
+data_sim = syn(data_included_documented,
+               seed = 2019, maxfaclevels = 150)
+
+data_sim <- sdc(data_sim, data_included_documented, 
+                label = "FAKE_DATA") # Adds a "FAKE_DATA" label
+
+```
+
+### Extract data
+```{r}
+dataframe_sim = as.data.frame(data_sim$syn)
+```
+
+### Calculate ideal_age_rel
+```{r}
+dataframe_sim <- dataframe_sim %>%
+  mutate(ideal_age_rel = ideal_age - age)
+```
+
+
+### Save Data
+```{r}
+save(data_sim, file = "simulation.rdata")
+save(dataframe_sim, file = "SIMULATED_idealpartnersurvey_polorient.rdata")
+write.csv(dataframe_sim, file = "SIMULATED_idealpartnersurvey_polorient.csv")
+```

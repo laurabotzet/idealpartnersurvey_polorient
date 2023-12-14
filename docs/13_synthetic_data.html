@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Laura Botzet" />
+
+<meta name="date" content="2023-12-13" />
+
+<title>13_synthetic_data</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Political Orientation</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="01_datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="02_exclusion.html">Exclusion</a>
+</li>
+<li>
+  <a href="03_codebook.html">Codebook</a>
+</li>
+<li>
+  <a href="04_descriptives.html">Descriptives</a>
+</li>
+<li>
+  <a href="05_analyses.html">Main Analyses</a>
+</li>
+<li>
+  <a href="06_robustness_analyses.html">Robustness Analyses</a>
+</li>
+<li>
+  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
+</li>
+<li>
+  <a href="12_supplement.html">Supplementary Analyses</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/laurabotzet/idealpartnersurvey_polorient">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">13_synthetic_data</h1>
+<h4 class="author">Laura Botzet</h4>
+<h4 class="date">2023-12-13</h4>
+
+</div>
+
+
+<div id="graphs" class="section level2 tabset">
+<h2 class="tabset">Graphs</h2>
+<div id="library" class="section level3">
+<h3>Library</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(synthpop)</span></code></pre></div>
+<pre><code>## Find out more at https://www.synthpop.org.uk/</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<pre><code>## Lade nötiges Paket: carData</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(simstudy)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code></pre></div>
+<pre><code>## 
+## Attache Paket: &#39;mice&#39;</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
+## 
+##     cbind, rbind</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.2     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter()    masks mice::filter(), stats::filter()
+## ✖ dplyr::lag()       masks stats::lag()
+## ✖ dplyr::recode()    masks car::recode()
+## ✖ purrr::some()      masks car::some()
+## ✖ lubridate::stamp() masks cowplot::stamp()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div id="function-to-simulate-correlated-data" class="section level3">
+<h3>Function to simulate correlated data</h3>
+<p><a href="https://debruine.github.io/faux/index.html"
+class="uri">https://debruine.github.io/faux/index.html</a></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>rnorm_pre <span class="ot">&lt;-</span> <span class="cf">function</span> (x, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">empirical =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>{</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.vector</span>(x)) </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be a vector&quot;</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) </span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be numeric&quot;</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>) </span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must have length &gt; 2&quot;</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>empirical) {</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    sample_params <span class="ot">&lt;-</span> <span class="fu">sample_from_pop</span>(n, mu, sd, r)</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>mu</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>    sd <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>sd</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>    r <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>r</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  }</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>  z <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">scale</span>(x)[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> r<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">scale</span>(stats<span class="sc">::</span><span class="fu">resid</span>(stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> </span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>                                                                          x)))[, <span class="dv">1</span>]</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  yresult <span class="ot">&lt;-</span> mu <span class="sc">+</span> sd <span class="sc">*</span> z</span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="fu">return</span>(yresult)</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p>Load selected data based on 03_codebook</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+</div>
+<div id="select-data-used-for-analyses" class="section level3">
+<h3>Select data used for analyses</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="fu">select</span>(language, country,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>         political_orientation, age,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>         pref_politicalsim, pref_ethnicalsim, pref_religioussim,</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;pref_level&quot;</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>         imp_age, , ideal_age,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>         imp_height, ideal_height,</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;interest_&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">arrange</span>(language, country)</span></code></pre></div>
+<p>###Simulate data</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>data_sim <span class="ot">=</span> <span class="fu">syn</span>(data_included_documented,</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>               <span class="at">seed =</span> <span class="dv">2019</span>, <span class="at">maxfaclevels =</span> <span class="dv">150</span>)</span></code></pre></div>
+<pre><code>## 
+## Variable(s): language, country have been changed for synthesis from character to factor.
+## Warning: In your synthesis there are numeric variables with 5 or fewer levels: ideal_height.
+## Consider changing them to factors. You can do it using parameter &#39;minnumlevels&#39;.
+## 
+## Synthesis
+## -----------
+##  language country political_orientation age pref_politicalsim pref_ethnicalsim pref_religioussim pref_level_financially_secure_successful_ambitious pref_level_financially_secure pref_level_successful_ambitious
+##  pref_level_kind_supportive pref_level_kind pref_level_supportive pref_level_attractiveness pref_level_attractive_body pref_level_attractive_face pref_level_confident_assertive pref_level_confident pref_level_assertive pref_level_intelligence_educated
+##  pref_level_intelligence pref_level_educated imp_age ideal_age imp_height ideal_height interest_single interest_sexrel interest_nonmonrel interest_monrel</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>data_sim <span class="ot">&lt;-</span> <span class="fu">sdc</span>(data_sim, data_included_documented, </span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;FAKE_DATA&quot;</span>) <span class="co"># Adds a &quot;FAKE_DATA&quot; label</span></span></code></pre></div>
+</div>
+<div id="extract-data" class="section level3">
+<h3>Extract data</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>dataframe_sim <span class="ot">=</span> <span class="fu">as.data.frame</span>(data_sim<span class="sc">$</span>syn)</span></code></pre></div>
+</div>
+<div id="calculate-ideal_age_rel" class="section level3">
+<h3>Calculate ideal_age_rel</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>dataframe_sim <span class="ot">&lt;-</span> dataframe_sim <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ideal_age_rel =</span> ideal_age <span class="sc">-</span> age)</span></code></pre></div>
+</div>
+<div id="save-data" class="section level3">
+<h3>Save Data</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">save</span>(data_sim, <span class="at">file =</span> <span class="st">&quot;simulation.rdata&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">save</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.rdata&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">write.csv</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.csv&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIjEzX3N5bnRoZXRpY19kYXRhIg0KYXV0aG9yOiAiTGF1cmEgQm90emV0Ig0KZGF0ZTogImByIFN5cy5EYXRlKClgIg0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2ZvbGRpbmc6ICJzaG93Ig0KLS0tDQoNCg0KIyMgR3JhcGhzIHsudGFic2V0fQ0KDQojIyMgTGlicmFyeQ0KYGBge3IgTGlicmFyeX0NCmxpYnJhcnkoc3ludGhwb3ApDQpsaWJyYXJ5KGNvd3Bsb3QpDQpsaWJyYXJ5KGNhcikNCmxpYnJhcnkoc2ltc3R1ZHkpDQpsaWJyYXJ5KG1pY2UpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQojIyMgRnVuY3Rpb24gdG8gc2ltdWxhdGUgY29ycmVsYXRlZCBkYXRhICANCmh0dHBzOi8vZGVicnVpbmUuZ2l0aHViLmlvL2ZhdXgvaW5kZXguaHRtbA0KYGBge3J9DQpybm9ybV9wcmUgPC0gZnVuY3Rpb24gKHgsIG11ID0gMCwgc2QgPSAxLCByID0gMCwgZW1waXJpY2FsID0gRkFMU0UpIA0Kew0KICBpZiAoIWlzLnZlY3Rvcih4KSkgDQogICAgc3RvcCgieCBtdXN0IGJlIGEgdmVjdG9yIikNCiAgaWYgKCFpcy5udW1lcmljKHgpKSANCiAgICBzdG9wKCJ4IG11c3QgYmUgbnVtZXJpYyIpDQogIGlmIChsZW5ndGgoeCkgPCAzKSANCiAgICBzdG9wKCJ4IG11c3QgaGF2ZSBsZW5ndGggPiAyIikNCiAgbiA8LSBsZW5ndGgoeCkNCiAgaWYgKCFlbXBpcmljYWwpIHsNCiAgICBzYW1wbGVfcGFyYW1zIDwtIHNhbXBsZV9mcm9tX3BvcChuLCBtdSwgc2QsIHIpDQogICAgbXUgPC0gc2FtcGxlX3BhcmFtcyRtdQ0KICAgIHNkIDwtIHNhbXBsZV9wYXJhbXMkc2QNCiAgICByIDwtIHNhbXBsZV9wYXJhbXMkcg0KICB9DQogIHkgPC0gc3RhdHM6OnJub3JtKG4pDQogIHogPC0gciAqIHNjYWxlKHgpWywgMV0gKyBzcXJ0KDEgLSByXjIpICogc2NhbGUoc3RhdHM6OnJlc2lkKHN0YXRzOjpsbSh5IH4gDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHgpKSlbLCAxXQ0KICB5cmVzdWx0IDwtIG11ICsgc2QgKiB6DQogIHJldHVybih5cmVzdWx0KQ0KfQ0KYGBgDQoNCiMjIyBEYXRhDQpMb2FkIHNlbGVjdGVkIGRhdGEgYmFzZWQgb24gMDNfY29kZWJvb2sNCmBgYHtyfQ0KZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkID0gcmVhZC5jc3YoZmlsZSA9ICJkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQuY3N2IilbLC0xXQ0KYGBgDQoNCiMjIyBTZWxlY3QgZGF0YSB1c2VkIGZvciBhbmFseXNlcw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIHNlbGVjdChsYW5ndWFnZSwgY291bnRyeSwNCiAgICAgICAgIHBvbGl0aWNhbF9vcmllbnRhdGlvbiwgYWdlLA0KICAgICAgICAgcHJlZl9wb2xpdGljYWxzaW0sIHByZWZfZXRobmljYWxzaW0sIHByZWZfcmVsaWdpb3Vzc2ltLA0KICAgICAgICAgc3RhcnRzX3dpdGgoInByZWZfbGV2ZWwiKSwNCiAgICAgICAgIGltcF9hZ2UsICwgaWRlYWxfYWdlLA0KICAgICAgICAgaW1wX2hlaWdodCwgaWRlYWxfaGVpZ2h0LA0KICAgICAgICAgc3RhcnRzX3dpdGgoImludGVyZXN0XyIpKSAlPiUNCiAgYXJyYW5nZShsYW5ndWFnZSwgY291bnRyeSkNCmBgYA0KDQojIyNTaW11bGF0ZSBkYXRhDQpgYGB7cn0NCmRhdGFfc2ltID0gc3luKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwNCiAgICAgICAgICAgICAgIHNlZWQgPSAyMDE5LCBtYXhmYWNsZXZlbHMgPSAxNTApDQoNCmRhdGFfc2ltIDwtIHNkYyhkYXRhX3NpbSwgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCANCiAgICAgICAgICAgICAgICBsYWJlbCA9ICJGQUtFX0RBVEEiKSAjIEFkZHMgYSAiRkFLRV9EQVRBIiBsYWJlbA0KDQpgYGANCg0KIyMjIEV4dHJhY3QgZGF0YQ0KYGBge3J9DQpkYXRhZnJhbWVfc2ltID0gYXMuZGF0YS5mcmFtZShkYXRhX3NpbSRzeW4pDQpgYGANCg0KIyMjIENhbGN1bGF0ZSBpZGVhbF9hZ2VfcmVsDQpgYGB7cn0NCmRhdGFmcmFtZV9zaW0gPC0gZGF0YWZyYW1lX3NpbSAlPiUNCiAgbXV0YXRlKGlkZWFsX2FnZV9yZWwgPSBpZGVhbF9hZ2UgLSBhZ2UpDQpgYGANCg0KDQojIyMgU2F2ZSBEYXRhDQpgYGB7cn0NCnNhdmUoZGF0YV9zaW0sIGZpbGUgPSAic2ltdWxhdGlvbi5yZGF0YSIpDQpzYXZlKGRhdGFmcmFtZV9zaW0sIGZpbGUgPSAiU0lNVUxBVEVEX2lkZWFscGFydG5lcnN1cnZleV9wb2xvcmllbnQucmRhdGEiKQ0Kd3JpdGUuY3N2KGRhdGFmcmFtZV9zaW0sIGZpbGUgPSAiU0lNVUxBVEVEX2lkZWFscGFydG5lcnN1cnZleV9wb2xvcmllbnQuY3N2IikNCmBgYA0K</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("13_synthetic_data.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

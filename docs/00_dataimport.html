@@ -13,6 +13,7 @@
 
 <title>Data Import</title>
 
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -31,9 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -45,6 +45,7 @@
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -54,19 +55,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +86,7 @@ pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   { color: #cccccc; background-color: #303030; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ffcfaf; } /* Alert */
 code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
@@ -134,13 +135,20 @@ code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -181,6 +189,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -238,11 +249,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -271,8 +286,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -280,16 +295,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -336,7 +344,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -366,6 +374,9 @@ $(document).ready(function () {
 <li>
   <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
 </li>
+<li>
+  <a href="09_analyses_exploratory.html">Suplementary Analyses</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -383,7 +394,7 @@ $(document).ready(function () {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -394,108 +405,103 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><font color="#66C2A5">Data Import</font></h1>
+<h1 class="title toc-ignore"><font color="#66C2A5">Data
+Import</font></h1>
 
 </div>
 
 
 <div id="library" class="section level2">
 <h2>Library</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(Hmisc)</span></code></pre></div>
-<pre><code>## Lade nötiges Paket: lattice</code></pre>
-<pre><code>## Lade nötiges Paket: survival</code></pre>
-<pre><code>## Lade nötiges Paket: Formula</code></pre>
-<pre><code>## Lade nötiges Paket: ggplot2</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span></code></pre></div>
 <pre><code>## 
-## Attache Paket: &#39;Hmisc&#39;</code></pre>
-<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
+## Attaching package: &#39;Hmisc&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     format.pval, units</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
-## Attache Paket: &#39;dplyr&#39;</code></pre>
-<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:Hmisc&#39;:
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:Hmisc&#39;:
 ## 
 ##     src, summarize</code></pre>
-<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:stats&#39;:
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     filter, lag</code></pre>
-<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>Load raw data from Clue.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>fulldata =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;ideal_partners_data.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>fulldata =<span class="st"> </span>fulldata[<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>] <span class="co">#first row includes labels, first column just numbers the rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>fulldata <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;ideal_partners_data.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>fulldata <span class="ot">=</span> fulldata[<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>] <span class="co">#first row includes labels, first column just numbers the rows</span></span></code></pre></div>
 </div>
 <div id="select-variables" class="section level2">
 <h2>Select Variables</h2>
-<p>We only need certain variables from the dataset. Columns will be renamed according to the preregistration “Political Orientation and its Relationships with Preferred Relationship Options and Partner Preferences in Single Women”</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fulldata_selected =<span class="st"> </span>fulldata <span class="op">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="co"># Political Orientation</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>         <span class="dt">political_orientation =</span> self_political_spectrum,</span>
-<span id="cb14-4"><a href="#cb14-4"></a>         </span>
-<span id="cb14-5"><a href="#cb14-5"></a>         <span class="co"># Age</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>         <span class="dt">age =</span> age,</span>
-<span id="cb14-7"><a href="#cb14-7"></a>         </span>
-<span id="cb14-8"><a href="#cb14-8"></a>         <span class="co"># Preferred Relationship Options</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>         <span class="dt">interest_single =</span> interest_being_single,</span>
-<span id="cb14-10"><a href="#cb14-10"></a>         <span class="dt">interest_sexrel =</span> interest_non_sexual_relations,</span>
-<span id="cb14-11"><a href="#cb14-11"></a>         <span class="dt">interest_nonmonrel =</span> interest_nonmonogamous_relations,</span>
-<span id="cb14-12"><a href="#cb14-12"></a>         <span class="dt">interest_monrel =</span> interest_monogamous_relations,</span>
-<span id="cb14-13"><a href="#cb14-13"></a>         </span>
-<span id="cb14-14"><a href="#cb14-14"></a>         <span class="co"># Political, Ethnical, Religious Similarity</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>         <span class="dt">pref_politicalsim =</span> lt_politcal_similarity,</span>
-<span id="cb14-16"><a href="#cb14-16"></a>         <span class="dt">pref_ethnicalsim =</span> lt_ethnicity_similarity,</span>
-<span id="cb14-17"><a href="#cb14-17"></a>         <span class="dt">pref_religioussim =</span> lt_religious_similarity,</span>
-<span id="cb14-18"><a href="#cb14-18"></a>         </span>
-<span id="cb14-19"><a href="#cb14-19"></a>         <span class="co"># Ideal Partner Prefs:</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a>         <span class="dt">pref_level_kind =</span> lt_kindness_level,</span>
-<span id="cb14-21"><a href="#cb14-21"></a>         <span class="dt">pref_level_supportive =</span> lt_supportive_level,</span>
-<span id="cb14-22"><a href="#cb14-22"></a>         <span class="dt">pref_level_attractive_body =</span> lt_attractive_body_level,</span>
-<span id="cb14-23"><a href="#cb14-23"></a>         <span class="dt">pref_level_attractive_face =</span> lt_attractive_face_level,</span>
-<span id="cb14-24"><a href="#cb14-24"></a>         <span class="dt">pref_level_financially_secure =</span> lt_financial_security_level,</span>
-<span id="cb14-25"><a href="#cb14-25"></a>         <span class="dt">pref_level_successful_ambitious =</span> lt_ambition_level,</span>
-<span id="cb14-26"><a href="#cb14-26"></a>         <span class="dt">pref_level_confident =</span> lt_confidence_level,</span>
-<span id="cb14-27"><a href="#cb14-27"></a>         <span class="dt">pref_level_assertive =</span> lt_assertive_level,</span>
-<span id="cb14-28"><a href="#cb14-28"></a>         <span class="dt">pref_level_intelligence =</span> lt_intelligence_level,</span>
-<span id="cb14-29"><a href="#cb14-29"></a>         <span class="dt">pref_level_educated =</span> lt_education_level,</span>
-<span id="cb14-30"><a href="#cb14-30"></a>         </span>
-<span id="cb14-31"><a href="#cb14-31"></a>         <span class="co"># Ideal Age and Ideal Height:</span></span>
-<span id="cb14-32"><a href="#cb14-32"></a>         <span class="dt">imp_age =</span> lt_age_importance,</span>
-<span id="cb14-33"><a href="#cb14-33"></a>         <span class="dt">ideal_age =</span> lt_perfect_age,</span>
-<span id="cb14-34"><a href="#cb14-34"></a>         <span class="dt">imp_height =</span> lt_height_importance,</span>
-<span id="cb14-35"><a href="#cb14-35"></a>         <span class="dt">ideal_height =</span> lt_ideal_height,</span>
-<span id="cb14-36"><a href="#cb14-36"></a>         </span>
-<span id="cb14-37"><a href="#cb14-37"></a>         <span class="co"># Random Effects (Country and Language)</span></span>
-<span id="cb14-38"><a href="#cb14-38"></a>         <span class="dt">country =</span> country,</span>
-<span id="cb14-39"><a href="#cb14-39"></a>         <span class="dt">language =</span> language,</span>
-<span id="cb14-40"><a href="#cb14-40"></a>         </span>
-<span id="cb14-41"><a href="#cb14-41"></a>         <span class="co"># Reasons for exclusion</span></span>
-<span id="cb14-42"><a href="#cb14-42"></a>         <span class="dt">sex =</span> gender,</span>
-<span id="cb14-43"><a href="#cb14-43"></a>         <span class="dt">sexual_orientation =</span> sexual.orientation,</span>
-<span id="cb14-44"><a href="#cb14-44"></a>         <span class="dt">relationship =</span> recent_relationships, <span class="co"># the recent relationship variable needs to be wrangled later</span></span>
-<span id="cb14-45"><a href="#cb14-45"></a>         <span class="dt">relationship1 =</span> recent_relationships<span class="fl">.1</span>,</span>
-<span id="cb14-46"><a href="#cb14-46"></a>         <span class="dt">relationship2 =</span> recent_relationships<span class="fl">.2</span>,</span>
-<span id="cb14-47"><a href="#cb14-47"></a>         <span class="dt">relationship3 =</span> recent_relationships<span class="fl">.3</span>,</span>
-<span id="cb14-48"><a href="#cb14-48"></a>         <span class="dt">relationship4 =</span> recent_relationships<span class="fl">.4</span>,</span>
-<span id="cb14-49"><a href="#cb14-49"></a>         <span class="dt">relationship5 =</span> recent_relationships<span class="fl">.5</span>,</span>
-<span id="cb14-50"><a href="#cb14-50"></a>         <span class="dt">answer_accuracy =</span> answer_accuracy</span>
-<span id="cb14-51"><a href="#cb14-51"></a>         )</span></code></pre></div>
-</div>
-<div id="limit-dataset" class="section level2">
-<h2>Limit Dataset</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>fulldata_selected_lim =<span class="st"> </span>fulldata_selected[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,]</span></code></pre></div>
+<p>We only need certain variables from the dataset. Columns will be
+renamed according to the preregistration “Political Orientation and its
+Relationships with Preferred Relationship Options and Partner
+Preferences in Single Women”</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>fulldata_selected <span class="ot">=</span> fulldata <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="co"># Political Orientation</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>         <span class="at">political_orientation =</span> self_political_spectrum,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>         </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>         <span class="co"># Age</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>         <span class="at">age =</span> age,</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>         </span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>         <span class="co"># Preferred Relationship Options</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>         <span class="at">interest_single =</span> interest_being_single,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>         <span class="at">interest_sexrel =</span> interest_non_sexual_relations,</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>         <span class="at">interest_nonmonrel =</span> interest_nonmonogamous_relations,</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>         <span class="at">interest_monrel =</span> interest_monogamous_relations,</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>         </span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>         <span class="co"># Political, Ethnical, Religious Similarity</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>         <span class="at">pref_politicalsim =</span> lt_politcal_similarity,</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>         <span class="at">pref_ethnicalsim =</span> lt_ethnicity_similarity,</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>         <span class="at">pref_religioussim =</span> lt_religious_similarity,</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>         </span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>         <span class="co"># Ideal Partner Prefs:</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>         <span class="at">pref_level_kind =</span> lt_kindness_level,</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>         <span class="at">pref_level_supportive =</span> lt_supportive_level,</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>         <span class="at">pref_level_attractive_body =</span> lt_attractive_body_level,</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>         <span class="at">pref_level_attractive_face =</span> lt_attractive_face_level,</span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>         <span class="at">pref_level_financially_secure =</span> lt_financial_security_level,</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>         <span class="at">pref_level_successful_ambitious =</span> lt_ambition_level,</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>         <span class="at">pref_level_confident =</span> lt_confidence_level,</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>         <span class="at">pref_level_assertive =</span> lt_assertive_level,</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>         <span class="at">pref_level_intelligence =</span> lt_intelligence_level,</span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>         <span class="at">pref_level_educated =</span> lt_education_level,</span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>         </span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>         <span class="co"># Ideal Age and Ideal Height:</span></span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>         <span class="at">imp_age =</span> lt_age_importance,</span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a>         <span class="at">ideal_age =</span> lt_perfect_age,</span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a>         <span class="at">imp_height =</span> lt_height_importance,</span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a>         <span class="at">ideal_height =</span> lt_ideal_height,</span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>         </span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a>         <span class="co"># Random Effects (Country and Language)</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a>         <span class="at">country =</span> country,</span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a>         <span class="at">language =</span> language,</span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a>         </span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a>         <span class="co"># Reasons for exclusion</span></span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a>         <span class="at">sex =</span> gender,</span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a>         <span class="at">sexual_orientation =</span> sexual.orientation,</span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a>         <span class="at">relationship =</span> recent_relationships, <span class="co"># the recent relationship variable needs to be wrangled later</span></span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a>         <span class="at">relationship1 =</span> recent_relationships<span class="fl">.1</span>,</span>
+<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a>         <span class="at">relationship2 =</span> recent_relationships<span class="fl">.2</span>,</span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a>         <span class="at">relationship3 =</span> recent_relationships<span class="fl">.3</span>,</span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a>         <span class="at">relationship4 =</span> recent_relationships<span class="fl">.4</span>,</span>
+<span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a>         <span class="at">relationship5 =</span> recent_relationships<span class="fl">.5</span>,</span>
+<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a>         <span class="at">answer_accuracy =</span> answer_accuracy</span>
+<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a>         )</span></code></pre></div>
 </div>
 <div id="save-dataset" class="section level2">
 <h2>Save Dataset</h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">write.csv</span>(fulldata_selected, <span class="dt">file =</span> <span class="st">&quot;fulldata_selected.csv&quot;</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">write.csv</span>(fulldata_selected_lim, <span class="dt">file =</span> <span class="st">&quot;fulldata_selected_lim.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">write.csv</span>(fulldata_selected, <span class="at">file =</span> <span class="st">&quot;fulldata_selected.csv&quot;</span>)</span></code></pre></div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRhdGEgSW1wb3J0PC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2ZvbGRpbmc6ICJoaWRlIg0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQoNCiMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KEhtaXNjKQ0KbGlicmFyeShkcGx5cikNCmBgYA0KDQoNCiMjIERhdGENCkxvYWQgcmF3IGRhdGEgZnJvbSBDbHVlLg0KYGBge3IgRGF0YX0NCmZ1bGxkYXRhID0gcmVhZC5jc3YoZmlsZSA9ICJpZGVhbF9wYXJ0bmVyc19kYXRhLmNzdiIsIHNlcCA9ICIsIikNCmZ1bGxkYXRhID0gZnVsbGRhdGFbLTEsLTFdICNmaXJzdCByb3cgaW5jbHVkZXMgbGFiZWxzLCBmaXJzdCBjb2x1bW4ganVzdCBudW1iZXJzIHRoZSByb3dzDQpgYGANCg0KIyMgU2VsZWN0IFZhcmlhYmxlcw0KV2Ugb25seSBuZWVkIGNlcnRhaW4gdmFyaWFibGVzIGZyb20gdGhlIGRhdGFzZXQuIENvbHVtbnMgd2lsbCBiZSByZW5hbWVkIGFjY29yZGluZyB0byB0aGUgcHJlcmVnaXN0cmF0aW9uICJQb2xpdGljYWwgT3JpZW50YXRpb24gYW5kIGl0cyBSZWxhdGlvbnNoaXBzIHdpdGggUHJlZmVycmVkIFJlbGF0aW9uc2hpcCBPcHRpb25zIGFuZCBQYXJ0bmVyIFByZWZlcmVuY2VzIGluIFNpbmdsZSBXb21lbiINCmBgYHtyIFNlbGVjdCBWYXJpYWJsZXN9DQpmdWxsZGF0YV9zZWxlY3RlZCA9IGZ1bGxkYXRhICU+JQ0KICBzZWxlY3QoIyBQb2xpdGljYWwgT3JpZW50YXRpb24NCiAgICAgICAgIHBvbGl0aWNhbF9vcmllbnRhdGlvbiA9IHNlbGZfcG9saXRpY2FsX3NwZWN0cnVtLA0KICAgICAgICAgDQogICAgICAgICAjIEFnZQ0KICAgICAgICAgYWdlID0gYWdlLA0KICAgICAgICAgDQogICAgICAgICAjIFByZWZlcnJlZCBSZWxhdGlvbnNoaXAgT3B0aW9ucw0KICAgICAgICAgaW50ZXJlc3Rfc2luZ2xlID0gaW50ZXJlc3RfYmVpbmdfc2luZ2xlLA0KICAgICAgICAgaW50ZXJlc3Rfc2V4cmVsID0gaW50ZXJlc3Rfbm9uX3NleHVhbF9yZWxhdGlvbnMsDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwgPSBpbnRlcmVzdF9ub25tb25vZ2Ftb3VzX3JlbGF0aW9ucywNCiAgICAgICAgIGludGVyZXN0X21vbnJlbCA9IGludGVyZXN0X21vbm9nYW1vdXNfcmVsYXRpb25zLA0KICAgICAgICAgDQogICAgICAgICAjIFBvbGl0aWNhbCwgRXRobmljYWwsIFJlbGlnaW91cyBTaW1pbGFyaXR5DQogICAgICAgICBwcmVmX3BvbGl0aWNhbHNpbSA9IGx0X3BvbGl0Y2FsX3NpbWlsYXJpdHksDQogICAgICAgICBwcmVmX2V0aG5pY2Fsc2ltID0gbHRfZXRobmljaXR5X3NpbWlsYXJpdHksDQogICAgICAgICBwcmVmX3JlbGlnaW91c3NpbSA9IGx0X3JlbGlnaW91c19zaW1pbGFyaXR5LA0KICAgICAgICAgDQogICAgICAgICAjIElkZWFsIFBhcnRuZXIgUHJlZnM6DQogICAgICAgICBwcmVmX2xldmVsX2tpbmQgPSBsdF9raW5kbmVzc19sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSA9IGx0X3N1cHBvcnRpdmVfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSA9IGx0X2F0dHJhY3RpdmVfYm9keV9sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlID0gbHRfYXR0cmFjdGl2ZV9mYWNlX2xldmVsLA0KICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUgPSBsdF9maW5hbmNpYWxfc2VjdXJpdHlfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzID0gbHRfYW1iaXRpb25fbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudCA9IGx0X2NvbmZpZGVuY2VfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2Fzc2VydGl2ZSA9IGx0X2Fzc2VydGl2ZV9sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlID0gbHRfaW50ZWxsaWdlbmNlX2xldmVsLA0KICAgICAgICAgcHJlZl9sZXZlbF9lZHVjYXRlZCA9IGx0X2VkdWNhdGlvbl9sZXZlbCwNCiAgICAgICAgIA0KICAgICAgICAgIyBJZGVhbCBBZ2UgYW5kIElkZWFsIEhlaWdodDoNCiAgICAgICAgIGltcF9hZ2UgPSBsdF9hZ2VfaW1wb3J0YW5jZSwNCiAgICAgICAgIGlkZWFsX2FnZSA9IGx0X3BlcmZlY3RfYWdlLA0KICAgICAgICAgaW1wX2hlaWdodCA9IGx0X2hlaWdodF9pbXBvcnRhbmNlLA0KICAgICAgICAgaWRlYWxfaGVpZ2h0ID0gbHRfaWRlYWxfaGVpZ2h0LA0KICAgICAgICAgDQogICAgICAgICAjIFJhbmRvbSBFZmZlY3RzIChDb3VudHJ5IGFuZCBMYW5ndWFnZSkNCiAgICAgICAgIGNvdW50cnkgPSBjb3VudHJ5LA0KICAgICAgICAgbGFuZ3VhZ2UgPSBsYW5ndWFnZSwNCiAgICAgICAgIA0KICAgICAgICAgIyBSZWFzb25zIGZvciBleGNsdXNpb24NCiAgICAgICAgIHNleCA9IGdlbmRlciwNCiAgICAgICAgIHNleHVhbF9vcmllbnRhdGlvbiA9IHNleHVhbC5vcmllbnRhdGlvbiwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IHJlY2VudF9yZWxhdGlvbnNoaXBzLCAjIHRoZSByZWNlbnQgcmVsYXRpb25zaGlwIHZhcmlhYmxlIG5lZWRzIHRvIGJlIHdyYW5nbGVkIGxhdGVyDQogICAgICAgICByZWxhdGlvbnNoaXAxID0gcmVjZW50X3JlbGF0aW9uc2hpcHMuMSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcDIgPSByZWNlbnRfcmVsYXRpb25zaGlwcy4yLA0KICAgICAgICAgcmVsYXRpb25zaGlwMyA9IHJlY2VudF9yZWxhdGlvbnNoaXBzLjMsDQogICAgICAgICByZWxhdGlvbnNoaXA0ID0gcmVjZW50X3JlbGF0aW9uc2hpcHMuNCwNCiAgICAgICAgIHJlbGF0aW9uc2hpcDUgPSByZWNlbnRfcmVsYXRpb25zaGlwcy41LA0KICAgICAgICAgYW5zd2VyX2FjY3VyYWN5ID0gYW5zd2VyX2FjY3VyYWN5DQogICAgICAgICApDQpgYGANCg0KIyMgTGltaXQgRGF0YXNldA0KYGBge3IgTGltaXQgZGF0YXNldH0NCmZ1bGxkYXRhX3NlbGVjdGVkX2xpbSA9IGZ1bGxkYXRhX3NlbGVjdGVkWzE6MTAwLF0NCmBgYA0KDQoNCiMjIFNhdmUgRGF0YXNldA0KYGBge3IgU2F2ZSBEYXRhc2V0fQ0Kd3JpdGUuY3N2KGZ1bGxkYXRhX3NlbGVjdGVkLCBmaWxlID0gImZ1bGxkYXRhX3NlbGVjdGVkLmNzdiIpDQp3cml0ZS5jc3YoZnVsbGRhdGFfc2VsZWN0ZWRfbGltLCBmaWxlID0gImZ1bGxkYXRhX3NlbGVjdGVkX2xpbS5jc3YiKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRhdGEgSW1wb3J0PC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2ZvbGRpbmc6ICJzaG93Ig0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQoNCiMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KEhtaXNjKQ0KbGlicmFyeShkcGx5cikNCmBgYA0KDQoNCiMjIERhdGENCkxvYWQgcmF3IGRhdGEgZnJvbSBDbHVlLg0KYGBge3IgRGF0YX0NCmZ1bGxkYXRhID0gcmVhZC5jc3YoZmlsZSA9ICJpZGVhbF9wYXJ0bmVyc19kYXRhLmNzdiIsIHNlcCA9ICIsIikNCmZ1bGxkYXRhID0gZnVsbGRhdGFbLTEsLTFdICNmaXJzdCByb3cgaW5jbHVkZXMgbGFiZWxzLCBmaXJzdCBjb2x1bW4ganVzdCBudW1iZXJzIHRoZSByb3dzDQpgYGANCg0KIyMgU2VsZWN0IFZhcmlhYmxlcw0KV2Ugb25seSBuZWVkIGNlcnRhaW4gdmFyaWFibGVzIGZyb20gdGhlIGRhdGFzZXQuIENvbHVtbnMgd2lsbCBiZSByZW5hbWVkIGFjY29yZGluZyB0byB0aGUgcHJlcmVnaXN0cmF0aW9uICJQb2xpdGljYWwgT3JpZW50YXRpb24gYW5kIGl0cyBSZWxhdGlvbnNoaXBzIHdpdGggUHJlZmVycmVkIFJlbGF0aW9uc2hpcCBPcHRpb25zIGFuZCBQYXJ0bmVyIFByZWZlcmVuY2VzIGluIFNpbmdsZSBXb21lbiINCmBgYHtyIFNlbGVjdCBWYXJpYWJsZXN9DQpmdWxsZGF0YV9zZWxlY3RlZCA9IGZ1bGxkYXRhICU+JQ0KICBzZWxlY3QoIyBQb2xpdGljYWwgT3JpZW50YXRpb24NCiAgICAgICAgIHBvbGl0aWNhbF9vcmllbnRhdGlvbiA9IHNlbGZfcG9saXRpY2FsX3NwZWN0cnVtLA0KICAgICAgICAgDQogICAgICAgICAjIEFnZQ0KICAgICAgICAgYWdlID0gYWdlLA0KICAgICAgICAgDQogICAgICAgICAjIFByZWZlcnJlZCBSZWxhdGlvbnNoaXAgT3B0aW9ucw0KICAgICAgICAgaW50ZXJlc3Rfc2luZ2xlID0gaW50ZXJlc3RfYmVpbmdfc2luZ2xlLA0KICAgICAgICAgaW50ZXJlc3Rfc2V4cmVsID0gaW50ZXJlc3Rfbm9uX3NleHVhbF9yZWxhdGlvbnMsDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwgPSBpbnRlcmVzdF9ub25tb25vZ2Ftb3VzX3JlbGF0aW9ucywNCiAgICAgICAgIGludGVyZXN0X21vbnJlbCA9IGludGVyZXN0X21vbm9nYW1vdXNfcmVsYXRpb25zLA0KICAgICAgICAgDQogICAgICAgICAjIFBvbGl0aWNhbCwgRXRobmljYWwsIFJlbGlnaW91cyBTaW1pbGFyaXR5DQogICAgICAgICBwcmVmX3BvbGl0aWNhbHNpbSA9IGx0X3BvbGl0Y2FsX3NpbWlsYXJpdHksDQogICAgICAgICBwcmVmX2V0aG5pY2Fsc2ltID0gbHRfZXRobmljaXR5X3NpbWlsYXJpdHksDQogICAgICAgICBwcmVmX3JlbGlnaW91c3NpbSA9IGx0X3JlbGlnaW91c19zaW1pbGFyaXR5LA0KICAgICAgICAgDQogICAgICAgICAjIElkZWFsIFBhcnRuZXIgUHJlZnM6DQogICAgICAgICBwcmVmX2xldmVsX2tpbmQgPSBsdF9raW5kbmVzc19sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSA9IGx0X3N1cHBvcnRpdmVfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSA9IGx0X2F0dHJhY3RpdmVfYm9keV9sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlID0gbHRfYXR0cmFjdGl2ZV9mYWNlX2xldmVsLA0KICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUgPSBsdF9maW5hbmNpYWxfc2VjdXJpdHlfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzID0gbHRfYW1iaXRpb25fbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudCA9IGx0X2NvbmZpZGVuY2VfbGV2ZWwsDQogICAgICAgICBwcmVmX2xldmVsX2Fzc2VydGl2ZSA9IGx0X2Fzc2VydGl2ZV9sZXZlbCwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlID0gbHRfaW50ZWxsaWdlbmNlX2xldmVsLA0KICAgICAgICAgcHJlZl9sZXZlbF9lZHVjYXRlZCA9IGx0X2VkdWNhdGlvbl9sZXZlbCwNCiAgICAgICAgIA0KICAgICAgICAgIyBJZGVhbCBBZ2UgYW5kIElkZWFsIEhlaWdodDoNCiAgICAgICAgIGltcF9hZ2UgPSBsdF9hZ2VfaW1wb3J0YW5jZSwNCiAgICAgICAgIGlkZWFsX2FnZSA9IGx0X3BlcmZlY3RfYWdlLA0KICAgICAgICAgaW1wX2hlaWdodCA9IGx0X2hlaWdodF9pbXBvcnRhbmNlLA0KICAgICAgICAgaWRlYWxfaGVpZ2h0ID0gbHRfaWRlYWxfaGVpZ2h0LA0KICAgICAgICAgDQogICAgICAgICAjIFJhbmRvbSBFZmZlY3RzIChDb3VudHJ5IGFuZCBMYW5ndWFnZSkNCiAgICAgICAgIGNvdW50cnkgPSBjb3VudHJ5LA0KICAgICAgICAgbGFuZ3VhZ2UgPSBsYW5ndWFnZSwNCiAgICAgICAgIA0KICAgICAgICAgIyBSZWFzb25zIGZvciBleGNsdXNpb24NCiAgICAgICAgIHNleCA9IGdlbmRlciwNCiAgICAgICAgIHNleHVhbF9vcmllbnRhdGlvbiA9IHNleHVhbC5vcmllbnRhdGlvbiwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IHJlY2VudF9yZWxhdGlvbnNoaXBzLCAjIHRoZSByZWNlbnQgcmVsYXRpb25zaGlwIHZhcmlhYmxlIG5lZWRzIHRvIGJlIHdyYW5nbGVkIGxhdGVyDQogICAgICAgICByZWxhdGlvbnNoaXAxID0gcmVjZW50X3JlbGF0aW9uc2hpcHMuMSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcDIgPSByZWNlbnRfcmVsYXRpb25zaGlwcy4yLA0KICAgICAgICAgcmVsYXRpb25zaGlwMyA9IHJlY2VudF9yZWxhdGlvbnNoaXBzLjMsDQogICAgICAgICByZWxhdGlvbnNoaXA0ID0gcmVjZW50X3JlbGF0aW9uc2hpcHMuNCwNCiAgICAgICAgIHJlbGF0aW9uc2hpcDUgPSByZWNlbnRfcmVsYXRpb25zaGlwcy41LA0KICAgICAgICAgYW5zd2VyX2FjY3VyYWN5ID0gYW5zd2VyX2FjY3VyYWN5DQogICAgICAgICApDQpgYGANCg0KDQojIyBTYXZlIERhdGFzZXQNCmBgYHtyIFNhdmUgRGF0YXNldH0NCndyaXRlLmNzdihmdWxsZGF0YV9zZWxlY3RlZCwgZmlsZSA9ICJmdWxsZGF0YV9zZWxlY3RlZC5jc3YiKQ0KYGBgDQoNCg==</div>
 
 
 
@@ -532,7 +538,7 @@ $(document).ready(function () {
 <script>
 $(document).ready(function () {
   window.initializeSourceEmbed("00_dataimport.Rmd");
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 

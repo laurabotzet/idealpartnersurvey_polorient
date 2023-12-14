@@ -1,9 +1,9 @@
 ---
-title: <font color="#66C2A5">Preferred Relationship Options Analyses</font>
+title: <font color="#66C2A5">Supplemenatry Analyses</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
-    code_folding: "hide"
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
 ---
@@ -676,16 +676,17 @@ models_interest_single_coef = models_interest_single %>%
   rename(mean = value)
 
 models_interest_single_se = models_interest_single %>%
-  map(summary) %>%
-  tibble(models_interest_single_se = ., Names = names(.)) %>%
-  hoist(models_interest_single_se, coefficients = "coefficients") %>%
-  select(-models_interest_single_se) %>%
-  unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...5, Names) %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
   rename("name" = "Names",
-         "se" = "...5") %>%
+         "se" = "coefficients_2") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
+
 
 
 models_interest_single_analyses = left_join(models_interest_single_coef,
@@ -731,16 +732,17 @@ models_interest_sexrel_coef = models_interest_sexrel %>%
   rename(mean = value)
 
 models_interest_sexrel_se = models_interest_sexrel %>%
-  map(summary) %>%
-  tibble(models_interest_sexrel_se = ., Names = names(.)) %>%
-  hoist(models_interest_sexrel_se, coefficients = "coefficients") %>%
-  select(-models_interest_sexrel_se) %>%
-  unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...5, Names) %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
   rename("name" = "Names",
-         "se" = "...5") %>%
+         "se" = "coefficients_2") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
+
 
 
 models_interest_sexrel_analyses = left_join(models_interest_sexrel_coef,
@@ -786,16 +788,17 @@ models_interest_nonmonrel_coef = models_interest_nonmonrel %>%
   rename(mean = value)
 
 models_interest_nonmonrel_se = models_interest_nonmonrel %>%
-  map(summary) %>%
-  tibble(models_interest_nonmonrel_se = ., Names = names(.)) %>%
-  hoist(models_interest_nonmonrel_se, coefficients = "coefficients") %>%
-  select(-models_interest_nonmonrel_se) %>%
-  unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...5, Names) %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
   rename("name" = "Names",
-         "se" = "...5") %>%
+         "se" = "coefficients_2") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
+
 
 
 models_interest_nonmonrel_analyses = left_join(models_interest_nonmonrel_coef,
@@ -841,16 +844,17 @@ models_interest_monrel_coef = models_interest_monrel %>%
   rename(mean = value)
 
 models_interest_monrel_se = models_interest_monrel %>%
-  map(summary) %>%
-  tibble(models_interest_monrel_se = ., Names = names(.)) %>%
-  hoist(models_interest_monrel_se, coefficients = "coefficients") %>%
-  select(-models_interest_monrel_se) %>%
-  unnest_wider(., coefficients, names_repair = "universal") %>%
-  select(...5, Names) %>%
+ map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
   rename("name" = "Names",
-         "se" = "...5") %>%
+         "se" = "coefficients_2") %>%
   mutate(name = ifelse(name == "United States of America",
                        "United.States.of.America", name))
+
 
 
 models_interest_monrel_analyses = left_join(models_interest_monrel_coef,

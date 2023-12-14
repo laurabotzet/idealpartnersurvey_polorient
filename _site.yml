@@ -17,6 +17,8 @@ navbar:
     href: 06_robustness_analyses.html
   - text: Exploratory Analyses
     href: 09_analyses_exploratory.html
+  - text: Supplementary Analyses
+    href: 12_supplement.html
   right:
   - text: ''
     icon: fa-github

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>11_twolines_analyses_multilevel</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Political Orientation</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="01_datawrangling.html">Data Wrangling</a>
+</li>
+<li>
+  <a href="02_exclusion.html">Exclusion</a>
+</li>
+<li>
+  <a href="03_codebook.html">Codebook</a>
+</li>
+<li>
+  <a href="04_descriptives.html">Descriptives</a>
+</li>
+<li>
+  <a href="05_analyses.html">Main Analyses</a>
+</li>
+<li>
+  <a href="06_robustness_analyses.html">Robustness Analyses</a>
+</li>
+<li>
+  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
+</li>
+<li>
+  <a href="12_supplement.html">Supplementary Analyses</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/laurabotzet/idealpartnersurvey_polorient">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">11_twolines_analyses_multilevel</h1>
+
+</div>
+
+
+<div id="library" class="section level2">
+<h2>Library</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span></code></pre></div>
+<pre><code>## Lade nötiges Paket: lme4</code></pre>
+<pre><code>## Lade nötiges Paket: Matrix</code></pre>
+<pre><code>## 
+## Attache Paket: &#39;lmerTest&#39;</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:lme4&#39;:
+## 
+##     lmer</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:stats&#39;:
+## 
+##     step</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(effects)</span></code></pre></div>
+<pre><code>## Lade nötiges Paket: carData</code></pre>
+<pre><code>## lattice theme set by effectsTheme()
+## See ?effectsTheme for details.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.2     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ tidyr::expand() masks Matrix::expand()
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ✖ tidyr::pack()   masks Matrix::pack()
+## ✖ tidyr::unpack() masks Matrix::unpack()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)         <span class="co">#This library has the additive model with smoothing function</span></span></code></pre></div>
+<pre><code>## Lade nötiges Paket: nlme
+## 
+## Attache Paket: &#39;nlme&#39;
+## 
+## Das folgende Objekt ist maskiert &#39;package:dplyr&#39;:
+## 
+##     collapse
+## 
+## Das folgende Objekt ist maskiert &#39;package:lme4&#39;:
+## 
+##     lmList
+## 
+## This is mgcv 1.8-42. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">library</span>(stringr)      <span class="co">#To process strings in the function</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">library</span>(sandwich)     <span class="co">#For robust standard errors</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">library</span>(lmtest)       <span class="co">#To run linear tests</span></span></code></pre></div>
+<pre><code>## Lade nötiges Paket: zoo
+## 
+## Attache Paket: &#39;zoo&#39;
+## 
+## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">#OUTLINE</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co">#Function 1 - rp(p)       Reformat p-value for printing on chart</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#Function 2 - eval2()     Reads a variable name and assigns the values to another variable (useful for processing formulas and creating temporary variables)</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#Function 3 - reg2()      Interrupted regression with entered formula plus cutoff point</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#Function 4 - twolines()  Run two-lines test, relying on functions 1 and 2 as well</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#Function 1 - rp(p)       Reformat p-value for printing on chart</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>rp<span class="ot">=</span><span class="cf">function</span>(p) <span class="cf">if</span> (p<span class="sc">&lt;</span>.<span class="dv">0001</span>)  <span class="fu">return</span>(<span class="st">&quot;p&lt;.0001&quot;</span>)  <span class="cf">else</span>  <span class="fu">return</span>(<span class="fu">paste0</span>(<span class="st">&quot;p=&quot;</span>, <span class="fu">sub</span>(<span class="st">&quot;^(-?)0.&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1.&quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;%.4f&quot;</span>, p))))</span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#Function 2 - eval2()   evaluate a string as a function</span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>eval2<span class="ot">=</span><span class="cf">function</span>(string) <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text=</span>string))  <span class="co">#Function that evaluates a variable&quot;</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#if x.f=&quot;x1&quot;, then x=eval2(x.f)  will populate x with the values of x1</span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#Function 3 - two-line regression with glm() so that it has heteroskedastic robust standard errors</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>reg2<span class="ot">=</span><span class="cf">function</span>(f,xc,<span class="at">graph=</span><span class="dv">1</span>,<span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a>{</span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>  <span class="co">#Syntax:</span></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>  <span class="co">#f: formula as in y~x1+x2+x3</span></span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>  <span class="co">#The first predictor is the one the u-shape is tested on</span></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>  <span class="co">#xc: where to set the breakpoint, a number</span></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>  <span class="co">#link:</span></span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>  <span class="co">#       Gaussian for OLS</span></span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a>  <span class="co">#       binomial for probit</span></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a>  <span class="co">#(1) Extract variable names from formula</span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a>  <span class="co">#1.1 Get the formulas</span></span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a>  y.f<span class="ot">=</span><span class="fu">all.vars</span>(f)[<span class="dv">1</span>]                  <span class="co">#DV</span></span>
+<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a>  x.f<span class="ot">=</span><span class="fu">all.vars</span>(f)[<span class="dv">2</span>]                  <span class="co">#Variable on which the u-shape shall be tested</span></span>
+<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a>  <span class="co">#Number of variables</span></span>
+<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a>  var.count<span class="ot">=</span><span class="fu">length</span>(<span class="fu">all.vars</span>(f))       <span class="co">#How many total variables, including y and x</span></span>
+<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a>  <span class="co">#Entire model, except the first predictor</span></span>
+<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>) nox.f<span class="ot">=</span><span class="fu">drop.terms</span>(<span class="fu">terms</span>(f),<span class="at">dropx=</span><span class="dv">1</span>,<span class="at">keep.response =</span> T)</span>
+<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a>  <span class="co">#1.2 Grab the two key variables to be used, xu and yu</span></span>
+<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a>  xu<span class="ot">=</span><span class="fu">eval2</span>(x.f)  <span class="co">#xu is the key predictor predicted to be u-shaped</span></span>
+<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a>  yu<span class="ot">=</span><span class="fu">eval2</span>(y.f)  <span class="co">#yu is the dv</span></span>
+<span id="cb18-39"><a href="#cb18-39" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" tabindex="-1"></a>  <span class="co">#1.3 Replace formula for key predictor so that it accommodates possibly discrete values, gam() breaks down if x has few possible values unless one restricts it, done automatically</span></span>
+<span id="cb18-41"><a href="#cb18-41" tabindex="-1"></a>  <span class="co">#1.3.1 Count number of unique x values</span></span>
+<span id="cb18-42"><a href="#cb18-42" tabindex="-1"></a>  unique.x<span class="ot">=</span><span class="fu">length</span>(<span class="fu">unique</span>(xu))   <span class="co">#How many unique values x has</span></span>
+<span id="cb18-43"><a href="#cb18-43" tabindex="-1"></a>  <span class="co">#1.3.2 New function segment for x</span></span>
+<span id="cb18-44"><a href="#cb18-44" tabindex="-1"></a>  sx.f<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;s(&quot;</span>,x.f,<span class="st">&quot;,bs=&#39;cr&#39;, k=min(10,&quot;</span>,unique.x,<span class="st">&quot;))&quot;</span> )</span>
+<span id="cb18-45"><a href="#cb18-45" tabindex="-1"></a></span>
+<span id="cb18-46"><a href="#cb18-46" tabindex="-1"></a>  <span class="co">#1.4 xc is included in the first line</span></span>
+<span id="cb18-47"><a href="#cb18-47" tabindex="-1"></a>  xlow1  <span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&lt;=</span>xc,xu<span class="sc">-</span>xc,<span class="dv">0</span>)   <span class="co">#xlow=x-xc when x&lt;xc, 0 otherwise</span></span>
+<span id="cb18-48"><a href="#cb18-48" tabindex="-1"></a>  xhigh1<span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&gt;</span>xc,xu<span class="sc">-</span>xc,<span class="dv">0</span>)     <span class="co">#xhigh=x when x&lt;xmax, 0 otherwise</span></span>
+<span id="cb18-49"><a href="#cb18-49" tabindex="-1"></a>  high1 <span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&gt;</span>xc,<span class="dv">1</span>,<span class="dv">0</span>)         <span class="co">#high dummy, allows interruption</span></span>
+<span id="cb18-50"><a href="#cb18-50" tabindex="-1"></a></span>
+<span id="cb18-51"><a href="#cb18-51" tabindex="-1"></a>  <span class="co">#1.5 Now include xc in second line</span></span>
+<span id="cb18-52"><a href="#cb18-52" tabindex="-1"></a>  xlow2<span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&lt;</span>xc,xu<span class="sc">-</span>xc,<span class="dv">0</span>)</span>
+<span id="cb18-53"><a href="#cb18-53" tabindex="-1"></a>  xhigh2<span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&gt;=</span>xc,xu<span class="sc">-</span>xc,<span class="dv">0</span>)</span>
+<span id="cb18-54"><a href="#cb18-54" tabindex="-1"></a>  high2<span class="ot">=</span><span class="fu">ifelse</span>(xu<span class="sc">&gt;=</span>xc,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb18-55"><a href="#cb18-55" tabindex="-1"></a></span>
+<span id="cb18-56"><a href="#cb18-56" tabindex="-1"></a>  <span class="co">#(2) Run interrupted regressions</span></span>
+<span id="cb18-57"><a href="#cb18-57" tabindex="-1"></a>  <span class="co">#2.1 Generate formulas  replacing the single predictor x, with the 3 new variables</span></span>
+<span id="cb18-58"><a href="#cb18-58" tabindex="-1"></a>  <span class="co">#If there were covariates, grab them an copy-paste them after the 3 new variables</span></span>
+<span id="cb18-59"><a href="#cb18-59" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)</span>
+<span id="cb18-60"><a href="#cb18-60" tabindex="-1"></a>  {</span>
+<span id="cb18-61"><a href="#cb18-61" tabindex="-1"></a>    glm1.f<span class="ot">=</span><span class="fu">update</span>(nox.f,<span class="sc">~</span> xlow1<span class="sc">+</span>xhigh1<span class="sc">+</span>high1<span class="sc">+</span>.)  <span class="co">#update takes a formula and adds elements to it, by putting the . at the end, it will paste the existing variables after the new 3 variables</span></span>
+<span id="cb18-62"><a href="#cb18-62" tabindex="-1"></a>    glm2.f<span class="ot">=</span><span class="fu">update</span>(nox.f,<span class="sc">~</span> xlow2<span class="sc">+</span>xhigh2<span class="sc">+</span>high2<span class="sc">+</span>.)</span>
+<span id="cb18-63"><a href="#cb18-63" tabindex="-1"></a>  }</span>
+<span id="cb18-64"><a href="#cb18-64" tabindex="-1"></a>  <span class="co">#If there were no covariates, just run the 3 variable model</span></span>
+<span id="cb18-65"><a href="#cb18-65" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>)</span>
+<span id="cb18-66"><a href="#cb18-66" tabindex="-1"></a>  {</span>
+<span id="cb18-67"><a href="#cb18-67" tabindex="-1"></a>    glm1.f<span class="ot">=</span><span class="fu">as.formula</span>(<span class="st">&quot;yu~ xlow1+xhigh1+high1&quot;</span>)</span>
+<span id="cb18-68"><a href="#cb18-68" tabindex="-1"></a>    glm2.f<span class="ot">=</span><span class="fu">as.formula</span>(<span class="st">&quot;yu~ xlow2+xhigh2+high2&quot;</span>)</span>
+<span id="cb18-69"><a href="#cb18-69" tabindex="-1"></a>  }</span>
+<span id="cb18-70"><a href="#cb18-70" tabindex="-1"></a>  <span class="co">#2.2 Run them</span></span>
+<span id="cb18-71"><a href="#cb18-71" tabindex="-1"></a>  glm1<span class="ot">=</span><span class="fu">glm</span>(<span class="fu">as.formula</span>(<span class="fu">format</span>(glm1.f)),<span class="at">family=</span>family)</span>
+<span id="cb18-72"><a href="#cb18-72" tabindex="-1"></a>  glm2<span class="ot">=</span><span class="fu">glm</span>(<span class="fu">as.formula</span>(<span class="fu">format</span>(glm2.f)),<span class="at">family=</span>family)</span>
+<span id="cb18-73"><a href="#cb18-73" tabindex="-1"></a></span>
+<span id="cb18-74"><a href="#cb18-74" tabindex="-1"></a>  <span class="co">#2.3 Compute robust standard errors</span></span>
+<span id="cb18-75"><a href="#cb18-75" tabindex="-1"></a>  rob1<span class="ot">=</span><span class="fu">coeftest</span>(glm1, <span class="at">vcov=</span><span class="fu">vcovHC</span>(glm1,<span class="st">&quot;HC3&quot;</span>))  <span class="co">#Until 2018 03 20 I was using HC3, but they sometimes generate errors, so i switched it to HC1</span></span>
+<span id="cb18-76"><a href="#cb18-76" tabindex="-1"></a>  rob2<span class="ot">=</span><span class="fu">coeftest</span>(glm2, <span class="at">vcov=</span><span class="fu">vcovHC</span>(glm2,<span class="st">&quot;HC3&quot;</span>))</span>
+<span id="cb18-77"><a href="#cb18-77" tabindex="-1"></a></span>
+<span id="cb18-78"><a href="#cb18-78" tabindex="-1"></a>  <span class="co">#Sometimes HC3 gives NA values (for very sparse or extreme data), check and if that&#39;s the case change method</span></span>
+<span id="cb18-79"><a href="#cb18-79" tabindex="-1"></a>  msg<span class="ot">=</span><span class="st">&quot;&quot;</span></span>
+<span id="cb18-80"><a href="#cb18-80" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(rob1[<span class="dv">2</span>,<span class="dv">4</span>]))</span>
+<span id="cb18-81"><a href="#cb18-81" tabindex="-1"></a>  {</span>
+<span id="cb18-82"><a href="#cb18-82" tabindex="-1"></a>    rob1<span class="ot">=</span><span class="fu">coeftest</span>(glm1, <span class="at">vcov=</span><span class="fu">vcovHC</span>(glm1,<span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb18-83"><a href="#cb18-83" tabindex="-1"></a>    msg<span class="ot">=</span><span class="fu">paste0</span>(msg,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">For line 1 the heteroskedastic standard errors HC3 resulted in an error thus we used HC1 instead.&quot;</span>)</span>
+<span id="cb18-84"><a href="#cb18-84" tabindex="-1"></a>  }</span>
+<span id="cb18-85"><a href="#cb18-85" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(rob2[<span class="dv">2</span>,<span class="dv">4</span>]))</span>
+<span id="cb18-86"><a href="#cb18-86" tabindex="-1"></a>  {</span>
+<span id="cb18-87"><a href="#cb18-87" tabindex="-1"></a>    rob2<span class="ot">=</span><span class="fu">coeftest</span>(glm2, <span class="at">vcov=</span><span class="fu">vcovHC</span>(glm2,<span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb18-88"><a href="#cb18-88" tabindex="-1"></a>    msg<span class="ot">=</span><span class="fu">paste0</span>(msg,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">For line 2 the heteroskedastic standard errors HC3 resulted in an error thus we used HC1 instead.&quot;</span>)</span>
+<span id="cb18-89"><a href="#cb18-89" tabindex="-1"></a>  }</span>
+<span id="cb18-90"><a href="#cb18-90" tabindex="-1"></a></span>
+<span id="cb18-91"><a href="#cb18-91" tabindex="-1"></a>  <span class="co">#2.4 Slopes</span></span>
+<span id="cb18-92"><a href="#cb18-92" tabindex="-1"></a>  b1<span class="ot">=</span><span class="fu">as.numeric</span>(rob1[<span class="dv">2</span>,<span class="dv">1</span>])</span>
+<span id="cb18-93"><a href="#cb18-93" tabindex="-1"></a>  b2<span class="ot">=</span><span class="fu">as.numeric</span>(rob2[<span class="dv">3</span>,<span class="dv">1</span>])</span>
+<span id="cb18-94"><a href="#cb18-94" tabindex="-1"></a></span>
+<span id="cb18-95"><a href="#cb18-95" tabindex="-1"></a>  <span class="co">#2.5 Test statistics, z-values</span></span>
+<span id="cb18-96"><a href="#cb18-96" tabindex="-1"></a>  z1<span class="ot">=</span><span class="fu">as.numeric</span>(rob1[<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb18-97"><a href="#cb18-97" tabindex="-1"></a>  z2<span class="ot">=</span><span class="fu">as.numeric</span>(rob2[<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb18-98"><a href="#cb18-98" tabindex="-1"></a></span>
+<span id="cb18-99"><a href="#cb18-99" tabindex="-1"></a>  <span class="co">#2.6 p-values</span></span>
+<span id="cb18-100"><a href="#cb18-100" tabindex="-1"></a>  p1<span class="ot">=</span><span class="fu">as.numeric</span>(rob1[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb18-101"><a href="#cb18-101" tabindex="-1"></a>  p2<span class="ot">=</span><span class="fu">as.numeric</span>(rob2[<span class="dv">3</span>,<span class="dv">4</span>])</span>
+<span id="cb18-102"><a href="#cb18-102" tabindex="-1"></a></span>
+<span id="cb18-103"><a href="#cb18-103" tabindex="-1"></a></span>
+<span id="cb18-104"><a href="#cb18-104" tabindex="-1"></a>  <span class="co">#3) Is the u-shape significant?</span></span>
+<span id="cb18-105"><a href="#cb18-105" tabindex="-1"></a>  u.sig <span class="ot">=</span><span class="fu">ifelse</span>(b1<span class="sc">*</span>b2<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> p1<span class="sc">&lt;</span>.<span class="dv">05</span> <span class="sc">&amp;</span> p2<span class="sc">&lt;</span>.<span class="dv">05</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb18-106"><a href="#cb18-106" tabindex="-1"></a></span>
+<span id="cb18-107"><a href="#cb18-107" tabindex="-1"></a>  <span class="co">#4) Plot results</span></span>
+<span id="cb18-108"><a href="#cb18-108" tabindex="-1"></a>  <span class="cf">if</span> (graph<span class="sc">==</span><span class="dv">1</span>) {</span>
+<span id="cb18-109"><a href="#cb18-109" tabindex="-1"></a></span>
+<span id="cb18-110"><a href="#cb18-110" tabindex="-1"></a>    <span class="co">#4.1 General colors and parameters</span></span>
+<span id="cb18-111"><a href="#cb18-111" tabindex="-1"></a>    pch.dot<span class="ot">=</span><span class="dv">1</span>          <span class="co">#Dot for scatterplot (data)</span></span>
+<span id="cb18-112"><a href="#cb18-112" tabindex="-1"></a>    <span class="co">#col.l1=&#39;blue2&#39;     #Color of straight line 1</span></span>
+<span id="cb18-113"><a href="#cb18-113" tabindex="-1"></a>    col.l1<span class="ot">=</span><span class="st">&#39;dodgerblue3&#39;</span></span>
+<span id="cb18-114"><a href="#cb18-114" tabindex="-1"></a>    col.l2<span class="ot">=</span><span class="st">&#39;firebrick&#39;</span>      <span class="co">#Color of straight line 2</span></span>
+<span id="cb18-115"><a href="#cb18-115" tabindex="-1"></a>    col.fit<span class="ot">=</span><span class="st">&#39;gray50&#39;</span>   <span class="co">#Color of fitted smooth line</span></span>
+<span id="cb18-116"><a href="#cb18-116" tabindex="-1"></a></span>
+<span id="cb18-117"><a href="#cb18-117" tabindex="-1"></a>    col.div<span class="ot">=</span><span class="st">&quot;green3&quot;</span>   <span class="co">#Color of vertical line</span></span>
+<span id="cb18-118"><a href="#cb18-118" tabindex="-1"></a>    lty.l1<span class="ot">=</span><span class="dv">1</span>           <span class="co">#Type of line 1</span></span>
+<span id="cb18-119"><a href="#cb18-119" tabindex="-1"></a>    lty.l2<span class="ot">=</span><span class="dv">1</span>           <span class="co">#Type of line 2</span></span>
+<span id="cb18-120"><a href="#cb18-120" tabindex="-1"></a>    lty.fit<span class="ot">=</span><span class="dv">2</span>          <span class="co">#Type of smoothed line</span></span>
+<span id="cb18-121"><a href="#cb18-121" tabindex="-1"></a></span>
+<span id="cb18-122"><a href="#cb18-122" tabindex="-1"></a>    <span class="co">#4.2) Estimate smoother</span></span>
+<span id="cb18-123"><a href="#cb18-123" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)</span>
+<span id="cb18-124"><a href="#cb18-124" tabindex="-1"></a>    {</span>
+<span id="cb18-125"><a href="#cb18-125" tabindex="-1"></a>      gam.f<span class="ot">=</span><span class="fu">paste0</span>(<span class="fu">format</span>(nox.f),<span class="st">&quot;+&quot;</span>,sx.f)   <span class="co">#add the modified smoother version of x into the formula</span></span>
+<span id="cb18-126"><a href="#cb18-126" tabindex="-1"></a>      gams<span class="ot">=</span><span class="fu">gam</span>(<span class="fu">as.formula</span>(gam.f),<span class="at">link=</span>link)  <span class="co">#now actually run the smoother</span></span>
+<span id="cb18-127"><a href="#cb18-127" tabindex="-1"></a>    }</span>
+<span id="cb18-128"><a href="#cb18-128" tabindex="-1"></a></span>
+<span id="cb18-129"><a href="#cb18-129" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>)</span>
+<span id="cb18-130"><a href="#cb18-130" tabindex="-1"></a>    {</span>
+<span id="cb18-131"><a href="#cb18-131" tabindex="-1"></a>      gams<span class="ot">=</span><span class="fu">gam</span>(<span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">&quot;yu~&quot;</span>,sx.f)),<span class="at">link=</span>link)  <span class="co">#now actually run the smoother</span></span>
+<span id="cb18-132"><a href="#cb18-132" tabindex="-1"></a>    }</span>
+<span id="cb18-133"><a href="#cb18-133" tabindex="-1"></a></span>
+<span id="cb18-134"><a href="#cb18-134" tabindex="-1"></a>    <span class="co">#Get dots of raw data</span></span>
+<span id="cb18-135"><a href="#cb18-135" tabindex="-1"></a>    <span class="co">#4.3) If no covariates, there are two variables, and y.dots  is the y values</span></span>
+<span id="cb18-136"><a href="#cb18-136" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>) yobs<span class="ot">=</span>yu</span>
+<span id="cb18-137"><a href="#cb18-137" tabindex="-1"></a></span>
+<span id="cb18-138"><a href="#cb18-138" tabindex="-1"></a>    <span class="co">#4.4) If covariates present, yobs is the fitted value with u(x) at mean, need new.data() with variables at means</span></span>
+<span id="cb18-139"><a href="#cb18-139" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>) {</span>
+<span id="cb18-140"><a href="#cb18-140" tabindex="-1"></a></span>
+<span id="cb18-141"><a href="#cb18-141" tabindex="-1"></a>      <span class="co">#4.4.1) Put observed data into matrix</span></span>
+<span id="cb18-142"><a href="#cb18-142" tabindex="-1"></a>      data.obs<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow=</span><span class="fu">length</span>(xu),<span class="at">ncol=</span>var.count))</span>
+<span id="cb18-143"><a href="#cb18-143" tabindex="-1"></a>      <span class="fu">colnames</span>(data.obs)<span class="ot">=</span><span class="fu">all.vars</span>(f)</span>
+<span id="cb18-144"><a href="#cb18-144" tabindex="-1"></a>      <span class="co">#4.4.2 Populate the dataset with the observed variables</span></span>
+<span id="cb18-145"><a href="#cb18-145" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(var.count)) data.obs[,i]<span class="ot">=</span><span class="fu">eval</span>(<span class="fu">as.name</span>(<span class="fu">all.vars</span>(f)[i]))</span>
+<span id="cb18-146"><a href="#cb18-146" tabindex="-1"></a></span>
+<span id="cb18-147"><a href="#cb18-147" tabindex="-1"></a>      <span class="co">#4.4.3) Drop observations with missing values on any of the variables</span></span>
+<span id="cb18-148"><a href="#cb18-148" tabindex="-1"></a>      data.obs<span class="ot">=</span><span class="fu">na.omit</span>(data.obs)</span>
+<span id="cb18-149"><a href="#cb18-149" tabindex="-1"></a></span>
+<span id="cb18-150"><a href="#cb18-150" tabindex="-1"></a>      <span class="co">#4.4.4) Create data where u(x) is at sample means to get residuals based on rest of models to act as yobs</span></span>
+<span id="cb18-151"><a href="#cb18-151" tabindex="-1"></a>      <span class="co">#Recall: columns 1 &amp; 2 have y and u(x) in obs.data</span></span>
+<span id="cb18-152"><a href="#cb18-152" tabindex="-1"></a>      data.xufixed    <span class="ot">=</span>data.obs</span>
+<span id="cb18-153"><a href="#cb18-153" tabindex="-1"></a>      data.xufixed[,<span class="dv">2</span>]<span class="ot">=</span><span class="fu">mean</span>(data.obs[,<span class="dv">2</span>])   <span class="co">#Note, the 1st predictor, 2nd columns, is always the one hypothesized to be u-shaped</span></span>
+<span id="cb18-154"><a href="#cb18-154" tabindex="-1"></a>      <span class="co">#replace it with the mean value of the predictor</span></span>
+<span id="cb18-155"><a href="#cb18-155" tabindex="-1"></a>      <span class="co">#5.4.5) Create data where u(x) is obs, and all else at sample means</span></span>
+<span id="cb18-156"><a href="#cb18-156" tabindex="-1"></a>      data.otherfixed <span class="ot">=</span> data.obs     <span class="co">#start with original value</span></span>
+<span id="cb18-157"><a href="#cb18-157" tabindex="-1"></a>      <span class="co">#Replace all RHS with mean, except the u(x)</span></span>
+<span id="cb18-158"><a href="#cb18-158" tabindex="-1"></a>      <span class="co">#for (i in 3:var.count) data.otherfixed[,i]=mean(data.obs[,i])  #changed on 2018 11 23 to allow having factors() as predictors, their &quot;midpoint&quot; value is used, sometimes that value is more meaningfully a median point than others</span></span>
+<span id="cb18-159"><a href="#cb18-159" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span>var.count) {  <span class="co">#loop over covariates</span></span>
+<span id="cb18-160"><a href="#cb18-160" tabindex="-1"></a>        xt<span class="ot">=</span><span class="fu">sort</span>(data.obs[,i]) <span class="co">#create auxiliary variable that has those values sorted</span></span>
+<span id="cb18-161"><a href="#cb18-161" tabindex="-1"></a>        n<span class="ot">=</span><span class="fu">length</span>(xt)          <span class="co">#see how many observations there are</span></span>
+<span id="cb18-162"><a href="#cb18-162" tabindex="-1"></a>        xm<span class="ot">=</span>xt[<span class="fu">round</span>(n<span class="sc">/</span><span class="dv">2</span>,<span class="dv">0</span>)]   <span class="co">#take the midpoint value (this will work with ordinal and factor data, but with factor it can be arbitrary)</span></span>
+<span id="cb18-163"><a href="#cb18-163" tabindex="-1"></a>        data.otherfixed[,i]<span class="ot">=</span>xm <span class="co">#Replace with that value in the dataset used for fitted value</span></span>
+<span id="cb18-164"><a href="#cb18-164" tabindex="-1"></a>      }</span>
+<span id="cb18-165"><a href="#cb18-165" tabindex="-1"></a>      <span class="co">#4.4.6) Get yobs with covariates</span></span>
+<span id="cb18-166"><a href="#cb18-166" tabindex="-1"></a>      <span class="co">#First the fitted value</span></span>
+<span id="cb18-167"><a href="#cb18-167" tabindex="-1"></a>      yhat.xufixed<span class="ot">=</span><span class="fu">predict.gam</span>(gams,<span class="at">newdata =</span> data.xufixed)</span>
+<span id="cb18-168"><a href="#cb18-168" tabindex="-1"></a>      <span class="co">#Substract fitted value from observed y, and shift it with constant so that it has same mean as original y</span></span>
+<span id="cb18-169"><a href="#cb18-169" tabindex="-1"></a>      yobs <span class="ot">=</span>yu<span class="sc">-</span>yhat.xufixed</span>
+<span id="cb18-170"><a href="#cb18-170" tabindex="-1"></a>      yobs<span class="ot">=</span>yobs<span class="sc">+</span><span class="fu">mean</span>(yu)<span class="sc">-</span><span class="fu">mean</span>(yobs)  <span class="co">#Adjust to have the same mean</span></span>
+<span id="cb18-171"><a href="#cb18-171" tabindex="-1"></a>    } <span class="co">#End if for covariates that requires computes y.obs instead of using real y.</span></span>
+<span id="cb18-172"><a href="#cb18-172" tabindex="-1"></a></span>
+<span id="cb18-173"><a href="#cb18-173" tabindex="-1"></a>    <span class="co">#4.5) First line (x,y) coordinates</span></span>
+<span id="cb18-174"><a href="#cb18-174" tabindex="-1"></a>    <span class="co">#     offset1=mean(yobs[xu&lt;=xc])-min(xu)*b1-(xc-min(xu))/2*b1</span></span>
+<span id="cb18-175"><a href="#cb18-175" tabindex="-1"></a>    <span class="co">#     x.l1=c(min(xu),xc)</span></span>
+<span id="cb18-176"><a href="#cb18-176" tabindex="-1"></a>    <span class="co">#     y.l1=c(min(xu)*b1+offset1,xc*b1+offset1)</span></span>
+<span id="cb18-177"><a href="#cb18-177" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb18-178"><a href="#cb18-178" tabindex="-1"></a>    <span class="co">#     #4.6) First line (x,y) coordinates</span></span>
+<span id="cb18-179"><a href="#cb18-179" tabindex="-1"></a>    <span class="co">#       offset2=mean(yobs[xu&gt;=xc])-xc*b2-(max(xu)-xc)/2*b2</span></span>
+<span id="cb18-180"><a href="#cb18-180" tabindex="-1"></a>    <span class="co">#       x.l2=c(xc,max(xu))</span></span>
+<span id="cb18-181"><a href="#cb18-181" tabindex="-1"></a>    <span class="co">#       y.l2=c(xc*b2+offset2,max(xu)*b2+offset2)</span></span>
+<span id="cb18-182"><a href="#cb18-182" tabindex="-1"></a></span>
+<span id="cb18-183"><a href="#cb18-183" tabindex="-1"></a>    <span class="co">#4.7) Get yhat.smooth</span></span>
+<span id="cb18-184"><a href="#cb18-184" tabindex="-1"></a>    <span class="co">#Without covariates, just fit the observed data</span></span>
+<span id="cb18-185"><a href="#cb18-185" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>)  yhat.smooth<span class="ot">=</span><span class="fu">predict.gam</span>(gams)</span>
+<span id="cb18-186"><a href="#cb18-186" tabindex="-1"></a>    <span class="co">#With covariates, fit at observed means</span></span>
+<span id="cb18-187"><a href="#cb18-187" tabindex="-1"></a>    <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)  yhat.smooth<span class="ot">=</span><span class="fu">predict.gam</span>(gams,<span class="at">newdata =</span> data.otherfixed)</span>
+<span id="cb18-188"><a href="#cb18-188" tabindex="-1"></a>    <span class="co">#Substract fitted value from observed y</span></span>
+<span id="cb18-189"><a href="#cb18-189" tabindex="-1"></a>    offset3 <span class="ot">=</span> <span class="fu">mean</span>(yobs<span class="sc">-</span>yhat.smooth)</span>
+<span id="cb18-190"><a href="#cb18-190" tabindex="-1"></a>    yhat.smooth<span class="ot">=</span>yhat.smooth<span class="sc">+</span>offset3</span>
+<span id="cb18-191"><a href="#cb18-191" tabindex="-1"></a></span>
+<span id="cb18-192"><a href="#cb18-192" tabindex="-1"></a>    <span class="co">#4.8) Coordinates for top and bottom end of chart</span></span>
+<span id="cb18-193"><a href="#cb18-193" tabindex="-1"></a>    y1   <span class="ot">=</span><span class="fu">max</span>(yobs,yhat.smooth)  <span class="co">#highest point</span></span>
+<span id="cb18-194"><a href="#cb18-194" tabindex="-1"></a>    y0   <span class="ot">=</span><span class="fu">min</span>(yobs,yhat.smooth)  <span class="co">#lowest point</span></span>
+<span id="cb18-195"><a href="#cb18-195" tabindex="-1"></a>    yr   <span class="ot">=</span>y1<span class="sc">-</span>y0                  <span class="co">#range</span></span>
+<span id="cb18-196"><a href="#cb18-196" tabindex="-1"></a>    y0   <span class="ot">=</span>y0<span class="fl">-.3</span><span class="sc">*</span>yr               <span class="co">#new lowest. 30% lower</span></span>
+<span id="cb18-197"><a href="#cb18-197" tabindex="-1"></a></span>
+<span id="cb18-198"><a href="#cb18-198" tabindex="-1"></a>    <span class="co">#xs</span></span>
+<span id="cb18-199"><a href="#cb18-199" tabindex="-1"></a>    x1   <span class="ot">=</span><span class="fu">max</span>(xu)</span>
+<span id="cb18-200"><a href="#cb18-200" tabindex="-1"></a>    x0   <span class="ot">=</span><span class="fu">min</span>(xu)</span>
+<span id="cb18-201"><a href="#cb18-201" tabindex="-1"></a>    xr   <span class="ot">=</span>x1<span class="sc">-</span>x0</span>
+<span id="cb18-202"><a href="#cb18-202" tabindex="-1"></a></span>
+<span id="cb18-203"><a href="#cb18-203" tabindex="-1"></a>    <span class="co">#4.9) Plot</span></span>
+<span id="cb18-204"><a href="#cb18-204" tabindex="-1"></a>    <span class="co">#4.9.1) Figure out coordinates for arrows so that they fit</span></span>
+<span id="cb18-205"><a href="#cb18-205" tabindex="-1"></a></span>
+<span id="cb18-206"><a href="#cb18-206" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.4</span>,<span class="fl">4.1</span>,.<span class="dv">5</span>,<span class="fl">2.1</span>))</span>
+<span id="cb18-207"><a href="#cb18-207" tabindex="-1"></a>    <span class="fu">plot</span>(xu[xu<span class="sc">&lt;</span>xc],yobs[xu<span class="sc">&lt;</span>xc],<span class="at">cex=</span>.<span class="dv">75</span>,<span class="at">col=</span>col.l1,<span class="at">pch=</span>pch.dot,<span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb18-208"><a href="#cb18-208" tabindex="-1"></a>         <span class="at">ylim=</span><span class="fu">c</span>(y0,y1),</span>
+<span id="cb18-209"><a href="#cb18-209" tabindex="-1"></a>         <span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">min</span>(xu),<span class="fu">max</span>(xu)),</span>
+<span id="cb18-210"><a href="#cb18-210" tabindex="-1"></a>         <span class="at">xlab=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb18-211"><a href="#cb18-211" tabindex="-1"></a>         <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)  <span class="co">#Range of y has extra 30% to add labels</span></span>
+<span id="cb18-212"><a href="#cb18-212" tabindex="-1"></a></span>
+<span id="cb18-213"><a href="#cb18-213" tabindex="-1"></a>    <span class="fu">points</span>(xu[xu<span class="sc">&gt;</span>xc],yobs[xu<span class="sc">&gt;</span>xc],<span class="at">cex=</span>.<span class="dv">75</span>, <span class="at">col=</span>col.l2)</span>
+<span id="cb18-214"><a href="#cb18-214" tabindex="-1"></a></span>
+<span id="cb18-215"><a href="#cb18-215" tabindex="-1"></a>    <span class="co">#Axis labels</span></span>
+<span id="cb18-216"><a href="#cb18-216" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="at">side=</span><span class="dv">1</span>,<span class="at">line=</span><span class="fl">2.75</span>,x.f,<span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb18-217"><a href="#cb18-217" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="at">side=</span><span class="dv">2</span>,<span class="at">line=</span><span class="fl">2.75</span>,y.f,<span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb18-218"><a href="#cb18-218" tabindex="-1"></a></span>
+<span id="cb18-219"><a href="#cb18-219" tabindex="-1"></a>    <span class="co">#4.10) Smoothed line</span></span>
+<span id="cb18-220"><a href="#cb18-220" tabindex="-1"></a>    <span class="co">#lines(xu[order(xu)],yhat.smooth[order(xu)],col=col.fit,lwd=2,lty=lty.fit)</span></span>
+<span id="cb18-221"><a href="#cb18-221" tabindex="-1"></a></span>
+<span id="cb18-222"><a href="#cb18-222" tabindex="-1"></a>    <span class="co">#4.10 - New 2018 05 25</span></span>
+<span id="cb18-223"><a href="#cb18-223" tabindex="-1"></a>    <span class="fu">lines</span>(xu[<span class="fu">order</span>(xu)],yhat.smooth[<span class="fu">order</span>(xu)],<span class="at">col=</span>col.fit,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb18-224"><a href="#cb18-224" tabindex="-1"></a></span>
+<span id="cb18-225"><a href="#cb18-225" tabindex="-1"></a>    <span class="co">#4.10.2 Arrow 1</span></span>
+<span id="cb18-226"><a href="#cb18-226" tabindex="-1"></a>    xm1<span class="ot">=</span>(xc<span class="sc">+</span>x0)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb18-227"><a href="#cb18-227" tabindex="-1"></a>    x0.arrow<span class="fl">.1</span><span class="ot">=</span>xm1<span class="fl">-.1</span><span class="sc">*</span>xr</span>
+<span id="cb18-228"><a href="#cb18-228" tabindex="-1"></a>    x1.arrow<span class="fl">.1</span><span class="ot">=</span>xm1<span class="fl">+.1</span><span class="sc">*</span>xr</span>
+<span id="cb18-229"><a href="#cb18-229" tabindex="-1"></a>    y0.arrow<span class="fl">.1</span><span class="ot">=</span>y0<span class="fl">+.1</span><span class="sc">*</span>yr</span>
+<span id="cb18-230"><a href="#cb18-230" tabindex="-1"></a>    y1.arrow<span class="fl">.1</span><span class="ot">=</span>y0<span class="fl">+.1</span><span class="sc">*</span>yr<span class="sc">+</span> b1<span class="sc">*</span>(x1.arrow<span class="fl">.1</span><span class="sc">-</span>x0.arrow<span class="fl">.1</span>)</span>
+<span id="cb18-231"><a href="#cb18-231" tabindex="-1"></a></span>
+<span id="cb18-232"><a href="#cb18-232" tabindex="-1"></a>    <span class="co">#Move arrow if it is too short</span></span>
+<span id="cb18-233"><a href="#cb18-233" tabindex="-1"></a>    <span class="cf">if</span> (x0.arrow<span class="fl">.1</span><span class="sc">&lt;</span>x0<span class="fl">+.1</span><span class="sc">*</span>xr) x0.arrow<span class="fl">.1</span><span class="ot">=</span>x0</span>
+<span id="cb18-234"><a href="#cb18-234" tabindex="-1"></a></span>
+<span id="cb18-235"><a href="#cb18-235" tabindex="-1"></a>    <span class="co">#Move arrow if it covers text</span></span>
+<span id="cb18-236"><a href="#cb18-236" tabindex="-1"></a>    gap<span class="fl">.1</span><span class="ot">=</span>(<span class="fu">min</span>(y0.arrow<span class="fl">.1</span>,y1.arrow<span class="fl">.1</span>)<span class="sc">-</span>(y0<span class="fl">+.1</span><span class="sc">*</span>yr))</span>
+<span id="cb18-237"><a href="#cb18-237" tabindex="-1"></a>    <span class="cf">if</span> (gap<span class="fl">.1</span><span class="sc">&lt;</span><span class="dv">0</span>) {</span>
+<span id="cb18-238"><a href="#cb18-238" tabindex="-1"></a>      y0.arrow<span class="fl">.1</span><span class="ot">=</span>y0.arrow<span class="fl">.1</span><span class="sc">-</span>gap<span class="fl">.1</span></span>
+<span id="cb18-239"><a href="#cb18-239" tabindex="-1"></a>      y1.arrow<span class="fl">.1</span><span class="ot">=</span>y1.arrow<span class="fl">.1</span><span class="sc">-</span>gap<span class="fl">.1</span></span>
+<span id="cb18-240"><a href="#cb18-240" tabindex="-1"></a>    }</span>
+<span id="cb18-241"><a href="#cb18-241" tabindex="-1"></a></span>
+<span id="cb18-242"><a href="#cb18-242" tabindex="-1"></a>    <span class="fu">arrows</span>(<span class="at">x0=</span>x0.arrow<span class="fl">.1</span>,<span class="at">x1=</span>x1.arrow<span class="fl">.1</span>,<span class="at">y0=</span>y0.arrow<span class="fl">.1</span>,<span class="at">y1=</span>y1.arrow<span class="fl">.1</span>,<span class="at">col=</span>col.l1,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb18-243"><a href="#cb18-243" tabindex="-1"></a></span>
+<span id="cb18-244"><a href="#cb18-244" tabindex="-1"></a>    <span class="co">#4.10.3 Text under arrow 1</span></span>
+<span id="cb18-245"><a href="#cb18-245" tabindex="-1"></a>    xm1<span class="ot">=</span><span class="fu">max</span>(xm1,x0<span class="fl">+.20</span><span class="sc">*</span>xr)</span>
+<span id="cb18-246"><a href="#cb18-246" tabindex="-1"></a>    <span class="fu">text</span>(xm1,y0<span class="fl">+.025</span><span class="sc">*</span>yr,</span>
+<span id="cb18-247"><a href="#cb18-247" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;Average slope 1:</span><span class="sc">\n</span><span class="st">b = &quot;</span>,<span class="fu">round</span>(b1,<span class="dv">2</span>),<span class="st">&quot;, z = &quot;</span>,<span class="fu">round</span>(z1,<span class="dv">2</span>),<span class="st">&quot;, &quot;</span>,<span class="fu">rp</span>(p1)),<span class="at">col=</span>col.l1)</span>
+<span id="cb18-248"><a href="#cb18-248" tabindex="-1"></a></span>
+<span id="cb18-249"><a href="#cb18-249" tabindex="-1"></a>    <span class="co">#4.10.3 Arrow 2</span></span>
+<span id="cb18-250"><a href="#cb18-250" tabindex="-1"></a>    x0.arrow<span class="fl">.2</span><span class="ot">=</span>xc<span class="sc">+</span>(x1<span class="sc">-</span>xc)<span class="sc">/</span><span class="dv">2</span><span class="fl">-.1</span><span class="sc">*</span>xr</span>
+<span id="cb18-251"><a href="#cb18-251" tabindex="-1"></a>    x1.arrow<span class="fl">.2</span><span class="ot">=</span>xc<span class="sc">+</span>(x1<span class="sc">-</span>xc)<span class="sc">/</span><span class="dv">2</span><span class="fl">+.1</span><span class="sc">*</span>xr</span>
+<span id="cb18-252"><a href="#cb18-252" tabindex="-1"></a>    y0.arrow<span class="fl">.2</span><span class="ot">=</span>y1.arrow<span class="fl">.1</span></span>
+<span id="cb18-253"><a href="#cb18-253" tabindex="-1"></a>    y1.arrow<span class="fl">.2</span><span class="ot">=</span>y0.arrow<span class="fl">.2</span> <span class="sc">+</span> b2<span class="sc">*</span>(x1.arrow<span class="fl">.2</span><span class="sc">-</span>x0.arrow<span class="fl">.2</span>)</span>
+<span id="cb18-254"><a href="#cb18-254" tabindex="-1"></a></span>
+<span id="cb18-255"><a href="#cb18-255" tabindex="-1"></a>    gap<span class="fl">.2</span><span class="ot">=</span>(<span class="fu">min</span>(y0.arrow<span class="fl">.2</span>,y1.arrow<span class="fl">.2</span>)<span class="sc">-</span>(y0<span class="fl">+.1</span><span class="sc">*</span>yr))</span>
+<span id="cb18-256"><a href="#cb18-256" tabindex="-1"></a>    <span class="cf">if</span> (gap<span class="fl">.2</span><span class="sc">&lt;</span><span class="dv">0</span>) {</span>
+<span id="cb18-257"><a href="#cb18-257" tabindex="-1"></a>      y0.arrow<span class="fl">.2</span><span class="ot">=</span>y0.arrow<span class="fl">.2</span><span class="sc">-</span>gap<span class="fl">.2</span></span>
+<span id="cb18-258"><a href="#cb18-258" tabindex="-1"></a>      y1.arrow<span class="fl">.2</span><span class="ot">=</span>y1.arrow<span class="fl">.2</span><span class="sc">-</span>gap<span class="fl">.2</span></span>
+<span id="cb18-259"><a href="#cb18-259" tabindex="-1"></a>    }</span>
+<span id="cb18-260"><a href="#cb18-260" tabindex="-1"></a></span>
+<span id="cb18-261"><a href="#cb18-261" tabindex="-1"></a>    <span class="co">#Shorten arrow if it is too close to the end</span></span>
+<span id="cb18-262"><a href="#cb18-262" tabindex="-1"></a>    x1.arrow<span class="fl">.2</span><span class="ot">=</span><span class="fu">min</span>(x1.arrow<span class="fl">.2</span>,x1)</span>
+<span id="cb18-263"><a href="#cb18-263" tabindex="-1"></a>    <span class="cf">if</span> (x0.arrow<span class="fl">.2</span><span class="sc">&lt;</span>xc) x0.arrow<span class="fl">.2</span><span class="ot">=</span>xc</span>
+<span id="cb18-264"><a href="#cb18-264" tabindex="-1"></a></span>
+<span id="cb18-265"><a href="#cb18-265" tabindex="-1"></a>    xm2<span class="ot">=</span>xc<span class="sc">+</span>(x1<span class="sc">-</span>xc)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb18-266"><a href="#cb18-266" tabindex="-1"></a>    xm2<span class="ot">=</span><span class="fu">min</span>(xm2,x1<span class="fl">-.2</span><span class="sc">*</span>xr)</span>
+<span id="cb18-267"><a href="#cb18-267" tabindex="-1"></a></span>
+<span id="cb18-268"><a href="#cb18-268" tabindex="-1"></a>    <span class="fu">arrows</span>(<span class="at">x0=</span>x0.arrow<span class="fl">.2</span>,<span class="at">x1=</span>x1.arrow<span class="fl">.2</span>,<span class="at">y0=</span>y0.arrow<span class="fl">.2</span>,<span class="at">y1=</span>y1.arrow<span class="fl">.2</span>,<span class="at">col=</span>col.l2,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb18-269"><a href="#cb18-269" tabindex="-1"></a>    <span class="fu">text</span>(xm2,y0<span class="fl">+.025</span><span class="sc">*</span>yr,</span>
+<span id="cb18-270"><a href="#cb18-270" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;Average slope 2:</span><span class="sc">\n</span><span class="st">b = &quot;</span>,<span class="fu">round</span>(b2,<span class="dv">2</span>),<span class="st">&quot;, z = &quot;</span>,<span class="fu">round</span>(z2,<span class="dv">2</span>),<span class="st">&quot;, &quot;</span>,<span class="fu">rp</span>(p2)),<span class="at">col=</span>col.l2)</span>
+<span id="cb18-271"><a href="#cb18-271" tabindex="-1"></a></span>
+<span id="cb18-272"><a href="#cb18-272" tabindex="-1"></a>    <span class="co">#4.13 Division line</span></span>
+<span id="cb18-273"><a href="#cb18-273" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(xc,xc),<span class="fu">c</span>(y0<span class="fl">+.35</span><span class="sc">*</span>yr,y1),<span class="at">col=</span>col.div,<span class="at">lty=</span>lty.fit)</span>
+<span id="cb18-274"><a href="#cb18-274" tabindex="-1"></a>    <span class="fu">text</span>(xc,y0<span class="fl">+.3</span><span class="sc">*</span>yr,<span class="fu">round</span>(xc,<span class="dv">2</span>),<span class="at">col=</span>col.div)</span>
+<span id="cb18-275"><a href="#cb18-275" tabindex="-1"></a>  }<span class="co">#End: if  graph==1</span></span>
+<span id="cb18-276"><a href="#cb18-276" tabindex="-1"></a></span>
+<span id="cb18-277"><a href="#cb18-277" tabindex="-1"></a>  <span class="co">#5 list with results</span></span>
+<span id="cb18-278"><a href="#cb18-278" tabindex="-1"></a>  res<span class="ot">=</span><span class="fu">list</span>(<span class="at">b1=</span>b1,<span class="at">p1=</span>p1,<span class="at">b2=</span>b2,<span class="at">p2=</span>p2,<span class="at">u.sig=</span>u.sig,<span class="at">xc=</span>xc,<span class="at">z1=</span>z1,<span class="at">z2=</span>z2,</span>
+<span id="cb18-279"><a href="#cb18-279" tabindex="-1"></a>           <span class="at">glm1=</span>glm1,<span class="at">glm2=</span>glm2,<span class="at">rob1=</span>rob1,<span class="at">rob2=</span>rob2,<span class="at">msg=</span>msg)  <span class="co">#Output list with all those parameters, betas, z-values, p-values and significance for u</span></span>
+<span id="cb18-280"><a href="#cb18-280" tabindex="-1"></a></span>
+<span id="cb18-281"><a href="#cb18-281" tabindex="-1"></a>  <span class="cf">if</span> (graph<span class="sc">==</span><span class="dv">1</span>) res<span class="sc">$</span>yhat.smooth<span class="ot">=</span>yhat.smooth</span>
+<span id="cb18-282"><a href="#cb18-282" tabindex="-1"></a>  <span class="co">#output it</span></span>
+<span id="cb18-283"><a href="#cb18-283" tabindex="-1"></a>  res</span>
+<span id="cb18-284"><a href="#cb18-284" tabindex="-1"></a>}  <span class="co">#End of reg2() function</span></span>
+<span id="cb18-285"><a href="#cb18-285" tabindex="-1"></a></span>
+<span id="cb18-286"><a href="#cb18-286" tabindex="-1"></a></span>
+<span id="cb18-287"><a href="#cb18-287" tabindex="-1"></a><span class="co">#Function 4-</span></span>
+<span id="cb18-288"><a href="#cb18-288" tabindex="-1"></a>twolines<span class="ot">=</span><span class="cf">function</span>(f,<span class="at">graph=</span><span class="dv">1</span>,<span class="at">link=</span><span class="st">&quot;gaussian&quot;</span>,<span class="at">data=</span><span class="cn">NULL</span>,<span class="at">pngfile=</span><span class="st">&quot;&quot;</span>)  {</span>
+<span id="cb18-289"><a href="#cb18-289" tabindex="-1"></a>  <span class="fu">attach</span>(data)</span>
+<span id="cb18-290"><a href="#cb18-290" tabindex="-1"></a></span>
+<span id="cb18-291"><a href="#cb18-291" tabindex="-1"></a>  <span class="co">#(1) Extract variable names</span></span>
+<span id="cb18-292"><a href="#cb18-292" tabindex="-1"></a>  <span class="co">#1.1 Get the formulas</span></span>
+<span id="cb18-293"><a href="#cb18-293" tabindex="-1"></a>  y.f<span class="ot">=</span><span class="fu">all.vars</span>(f)[<span class="dv">1</span>]                  <span class="co">#DV</span></span>
+<span id="cb18-294"><a href="#cb18-294" tabindex="-1"></a>  x.f<span class="ot">=</span><span class="fu">all.vars</span>(f)[<span class="dv">2</span>]                  <span class="co">#Variable on which the u-shape shall be tested</span></span>
+<span id="cb18-295"><a href="#cb18-295" tabindex="-1"></a></span>
+<span id="cb18-296"><a href="#cb18-296" tabindex="-1"></a>  <span class="co">#Number of variables</span></span>
+<span id="cb18-297"><a href="#cb18-297" tabindex="-1"></a>  var.count<span class="ot">=</span><span class="fu">length</span>(<span class="fu">all.vars</span>(f))  <span class="co">#How many predictors in addition to the key predictor?</span></span>
+<span id="cb18-298"><a href="#cb18-298" tabindex="-1"></a>  <span class="co">#Entire model, except the first predictor</span></span>
+<span id="cb18-299"><a href="#cb18-299" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>) nox.f<span class="ot">=</span><span class="fu">drop.terms</span>(<span class="fu">terms</span>(f),<span class="at">dropx=</span><span class="dv">1</span>,<span class="at">keep.response =</span> T)</span>
+<span id="cb18-300"><a href="#cb18-300" tabindex="-1"></a></span>
+<span id="cb18-301"><a href="#cb18-301" tabindex="-1"></a>  <span class="co">#1.1.5 Drop missing value for any the variables being used</span></span>
+<span id="cb18-302"><a href="#cb18-302" tabindex="-1"></a>  <span class="co">#all variables in the regression</span></span>
+<span id="cb18-303"><a href="#cb18-303" tabindex="-1"></a>  vars<span class="ot">=</span><span class="fu">all.vars</span>(f)</span>
+<span id="cb18-304"><a href="#cb18-304" tabindex="-1"></a>  <span class="co">#Vector with columns associated with those variable names inthe uploaded dataset</span></span>
+<span id="cb18-305"><a href="#cb18-305" tabindex="-1"></a>  cols<span class="ot">=</span><span class="fu">c</span>()</span>
+<span id="cb18-306"><a href="#cb18-306" tabindex="-1"></a>  <span class="cf">for</span> (var <span class="cf">in</span> vars) cols<span class="ot">=</span><span class="fu">c</span>(cols, <span class="fu">which</span>(<span class="fu">names</span>(data)<span class="sc">==</span>var))</span>
+<span id="cb18-307"><a href="#cb18-307" tabindex="-1"></a>  <span class="co">#Set of complete observations</span></span>
+<span id="cb18-308"><a href="#cb18-308" tabindex="-1"></a>  full.rows<span class="ot">=</span><span class="fu">complete.cases</span>(data[,cols])</span>
+<span id="cb18-309"><a href="#cb18-309" tabindex="-1"></a></span>
+<span id="cb18-310"><a href="#cb18-310" tabindex="-1"></a>  <span class="co">#Drop missing rows</span></span>
+<span id="cb18-311"><a href="#cb18-311" tabindex="-1"></a>  data<span class="ot">=</span>data[full.rows,]</span>
+<span id="cb18-312"><a href="#cb18-312" tabindex="-1"></a>  <span class="fu">detach</span>(data)          <span class="co">#Detach the full dataset</span></span>
+<span id="cb18-313"><a href="#cb18-313" tabindex="-1"></a>  <span class="fu">attach</span>(data)          <span class="co">#Attach the one without missing values in key variables</span></span>
+<span id="cb18-314"><a href="#cb18-314" tabindex="-1"></a></span>
+<span id="cb18-315"><a href="#cb18-315" tabindex="-1"></a></span>
+<span id="cb18-316"><a href="#cb18-316" tabindex="-1"></a>  <span class="co">#1.2 Grab the two key variables to be used, xu and yu</span></span>
+<span id="cb18-317"><a href="#cb18-317" tabindex="-1"></a>  xu<span class="ot">=</span><span class="fu">eval2</span>(x.f)  <span class="co">#xu is the key predictor predicted to be u-shaped</span></span>
+<span id="cb18-318"><a href="#cb18-318" tabindex="-1"></a>  yu<span class="ot">=</span><span class="fu">eval2</span>(y.f)  <span class="co">#yu is the dv</span></span>
+<span id="cb18-319"><a href="#cb18-319" tabindex="-1"></a></span>
+<span id="cb18-320"><a href="#cb18-320" tabindex="-1"></a>  <span class="co">#1.3 Replace formula for key predictor so that it accommodates  possibly discrete values</span></span>
+<span id="cb18-321"><a href="#cb18-321" tabindex="-1"></a>  <span class="co">#1.3.1 Count number of unique x values</span></span>
+<span id="cb18-322"><a href="#cb18-322" tabindex="-1"></a>  unique.x<span class="ot">=</span><span class="fu">length</span>(<span class="fu">unique</span>(xu))   <span class="co">#How many unique values x has</span></span>
+<span id="cb18-323"><a href="#cb18-323" tabindex="-1"></a>  <span class="co">#1.3.2 New function segment for x</span></span>
+<span id="cb18-324"><a href="#cb18-324" tabindex="-1"></a>  sx.f<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;s(&quot;</span>,x.f,<span class="st">&quot;,bs=&#39;cr&#39;, k=min(10,&quot;</span>,unique.x,<span class="st">&quot;))&quot;</span> )</span>
+<span id="cb18-325"><a href="#cb18-325" tabindex="-1"></a></span>
+<span id="cb18-326"><a href="#cb18-326" tabindex="-1"></a>  <span class="co">#2 Run smoother</span></span>
+<span id="cb18-327"><a href="#cb18-327" tabindex="-1"></a>  <span class="co">#2.1 Define the formula to be run based on whether there are covariates</span></span>
+<span id="cb18-328"><a href="#cb18-328" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)  gam.f<span class="ot">=</span><span class="fu">paste0</span>(<span class="fu">format</span>(nox.f),<span class="st">&quot;+&quot;</span>,sx.f)      <span class="co">#with covariates</span></span>
+<span id="cb18-329"><a href="#cb18-329" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>) gam.f<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;yu~&quot;</span>,sx.f)                  <span class="co">#without</span></span>
+<span id="cb18-330"><a href="#cb18-330" tabindex="-1"></a>  <span class="co">#2.2 Now run it</span></span>
+<span id="cb18-331"><a href="#cb18-331" tabindex="-1"></a>  gams<span class="ot">=</span><span class="fu">gam</span>(<span class="fu">as.formula</span>(gam.f),<span class="at">link=</span>link)  <span class="co">#so this is a general additive model with the main specification entered</span></span>
+<span id="cb18-332"><a href="#cb18-332" tabindex="-1"></a>  <span class="co">#but we make the first predictor, the one that will be tested for having a u-shaped effect</span></span>
+<span id="cb18-333"><a href="#cb18-333" tabindex="-1"></a>  <span class="co">#be estimated with a completely flexible functional form.</span></span>
+<span id="cb18-334"><a href="#cb18-334" tabindex="-1"></a></span>
+<span id="cb18-335"><a href="#cb18-335" tabindex="-1"></a></span>
+<span id="cb18-336"><a href="#cb18-336" tabindex="-1"></a></span>
+<span id="cb18-337"><a href="#cb18-337" tabindex="-1"></a>  <span class="co">#(3) Generate yobs (dots)</span></span>
+<span id="cb18-338"><a href="#cb18-338" tabindex="-1"></a>  <span class="co">#3.1 If no covariates, yobs is the actually observed data</span></span>
+<span id="cb18-339"><a href="#cb18-339" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>) yobs<span class="ot">=</span>yu</span>
+<span id="cb18-340"><a href="#cb18-340" tabindex="-1"></a></span>
+<span id="cb18-341"><a href="#cb18-341" tabindex="-1"></a>  <span class="co">#3.2 If covariates present, yobs is the fitted value with u(x) at mean, need new.data() with variables at means</span></span>
+<span id="cb18-342"><a href="#cb18-342" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>) {</span>
+<span id="cb18-343"><a href="#cb18-343" tabindex="-1"></a></span>
+<span id="cb18-344"><a href="#cb18-344" tabindex="-1"></a>    <span class="co">#3.3 Put observed data into matrix</span></span>
+<span id="cb18-345"><a href="#cb18-345" tabindex="-1"></a>    data.obs<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow=</span><span class="fu">length</span>(xu),<span class="at">ncol=</span>var.count))          <span class="co">#Empty datafile</span></span>
+<span id="cb18-346"><a href="#cb18-346" tabindex="-1"></a>    <span class="fu">colnames</span>(data.obs)<span class="ot">=</span><span class="fu">all.vars</span>(f)                                          <span class="co">#Name variables</span></span>
+<span id="cb18-347"><a href="#cb18-347" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(var.count)) data.obs[,i]<span class="ot">=</span><span class="fu">eval</span>(<span class="fu">as.name</span>(<span class="fu">all.vars</span>(f)[i]))     <span class="co">#fill in data</span></span>
+<span id="cb18-348"><a href="#cb18-348" tabindex="-1"></a></span>
+<span id="cb18-349"><a href="#cb18-349" tabindex="-1"></a>    <span class="co">#3.4 Drop observations with missing values on any of the variables</span></span>
+<span id="cb18-350"><a href="#cb18-350" tabindex="-1"></a>    data.obs<span class="ot">=</span><span class="fu">na.omit</span>(data.obs)</span>
+<span id="cb18-351"><a href="#cb18-351" tabindex="-1"></a></span>
+<span id="cb18-352"><a href="#cb18-352" tabindex="-1"></a>    <span class="co">#3.5 Create data where xu is at sample means to get residuals based on rest of models to act as yobs</span></span>
+<span id="cb18-353"><a href="#cb18-353" tabindex="-1"></a>    <span class="co">#Recall: columns 1 &amp; 2 have y and u(x) in obs.data</span></span>
+<span id="cb18-354"><a href="#cb18-354" tabindex="-1"></a>    data.xufixed    <span class="ot">=</span>data.obs</span>
+<span id="cb18-355"><a href="#cb18-355" tabindex="-1"></a>    data.xufixed[,<span class="dv">2</span>]<span class="ot">=</span><span class="fu">mean</span>(data.obs[,<span class="dv">2</span>])   <span class="co">#Note, the 1st predictor, 2nd columns, is always the one hypothesized to be u-shaped</span></span>
+<span id="cb18-356"><a href="#cb18-356" tabindex="-1"></a>    <span class="co">#replace it with the mean value of the predictor</span></span>
+<span id="cb18-357"><a href="#cb18-357" tabindex="-1"></a></span>
+<span id="cb18-358"><a href="#cb18-358" tabindex="-1"></a>    <span class="co">#3.6 Get yobs with covariates</span></span>
+<span id="cb18-359"><a href="#cb18-359" tabindex="-1"></a>    <span class="co">#First the fitted value</span></span>
+<span id="cb18-360"><a href="#cb18-360" tabindex="-1"></a>    <span class="do">##add the modified smoother version of x into the formula</span></span>
+<span id="cb18-361"><a href="#cb18-361" tabindex="-1"></a>    yhat.xufixed<span class="ot">=</span><span class="fu">predict.gam</span>(gams,<span class="at">newdata =</span> data.xufixed)        <span class="co">#get fitted values at means for covariates</span></span>
+<span id="cb18-362"><a href="#cb18-362" tabindex="-1"></a></span>
+<span id="cb18-363"><a href="#cb18-363" tabindex="-1"></a>    <span class="co">#3.7 Substract fitted value from observed y</span></span>
+<span id="cb18-364"><a href="#cb18-364" tabindex="-1"></a>    yobs <span class="ot">=</span> yu<span class="sc">-</span>yhat.xufixed</span>
+<span id="cb18-365"><a href="#cb18-365" tabindex="-1"></a></span>
+<span id="cb18-366"><a href="#cb18-366" tabindex="-1"></a>    <span class="co">#3.8 Create data where u(x) is obs, and all else at sample means</span></span>
+<span id="cb18-367"><a href="#cb18-367" tabindex="-1"></a>    data.otherfixed              <span class="ot">=</span> data.obs     <span class="co">#start with original value</span></span>
+<span id="cb18-368"><a href="#cb18-368" tabindex="-1"></a>    <span class="co">#3.9 Replace all covariates with their mean for fitting data at sample means</span></span>
+<span id="cb18-369"><a href="#cb18-369" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span>var.count)  data.otherfixed[,i]<span class="ot">=</span><span class="fu">mean</span>(data.obs[,i])</span>
+<span id="cb18-370"><a href="#cb18-370" tabindex="-1"></a>  } <span class="co">#End if covariates are present to compute yobs</span></span>
+<span id="cb18-371"><a href="#cb18-371" tabindex="-1"></a></span>
+<span id="cb18-372"><a href="#cb18-372" tabindex="-1"></a></span>
+<span id="cb18-373"><a href="#cb18-373" tabindex="-1"></a></span>
+<span id="cb18-374"><a href="#cb18-374" tabindex="-1"></a>  <span class="co">#4) Get the fitted values at sample means for covariates</span></span>
+<span id="cb18-375"><a href="#cb18-375" tabindex="-1"></a>  <span class="co">#4.1) Get predicted values into list</span></span>
+<span id="cb18-376"><a href="#cb18-376" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)   g.fit<span class="ot">=</span><span class="fu">predict.gam</span>(gams,<span class="at">newdata =</span> data.otherfixed,<span class="at">se.fit=</span><span class="cn">TRUE</span>)  <span class="co">#predict with covariates at means</span></span>
+<span id="cb18-377"><a href="#cb18-377" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>)  g.fit<span class="ot">=</span><span class="fu">predict.gam</span>(gams,<span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb18-378"><a href="#cb18-378" tabindex="-1"></a></span>
+<span id="cb18-379"><a href="#cb18-379" tabindex="-1"></a>  <span class="co">#4.2) Take out the fitted itself</span></span>
+<span id="cb18-380"><a href="#cb18-380" tabindex="-1"></a>  y.hat<span class="ot">=</span>g.fit<span class="sc">$</span>fit</span>
+<span id="cb18-381"><a href="#cb18-381" tabindex="-1"></a>  <span class="co">#4.3) Now the SE</span></span>
+<span id="cb18-382"><a href="#cb18-382" tabindex="-1"></a>  y.se <span class="ot">=</span>g.fit<span class="sc">$</span>se.fit</span>
+<span id="cb18-383"><a href="#cb18-383" tabindex="-1"></a></span>
+<span id="cb18-384"><a href="#cb18-384" tabindex="-1"></a></span>
+<span id="cb18-385"><a href="#cb18-385" tabindex="-1"></a>  <span class="co">#5) Most extreme fitted value</span></span>
+<span id="cb18-386"><a href="#cb18-386" tabindex="-1"></a>  <span class="co">#5.1) Determine if function is at first decreasing (potential u-shape)  vs. increaseing (potentially inverted U)  (potential u-shape) orinverted u shaped using quadratic regression</span></span>
+<span id="cb18-387"><a href="#cb18-387" tabindex="-1"></a>  <span class="co">#to know if we are looking for max or min</span></span>
+<span id="cb18-388"><a href="#cb18-388" tabindex="-1"></a></span>
+<span id="cb18-389"><a href="#cb18-389" tabindex="-1"></a>  xu2<span class="ot">=</span>xu<span class="sc">^</span><span class="dv">2</span>                                                  <span class="co">#Square x term, xu is the 1st predictor re-cpded</span></span>
+<span id="cb18-390"><a href="#cb18-390" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">&gt;</span><span class="dv">2</span>)  lmq.f<span class="ot">=</span><span class="fu">update</span>(nox.f,<span class="sc">~</span>xu<span class="sc">+</span>xu2<span class="sc">+</span>.)           <span class="co">#Add to function with covariates   (put first, before covariates)</span></span>
+<span id="cb18-391"><a href="#cb18-391" tabindex="-1"></a>  <span class="cf">if</span> (var.count<span class="sc">==</span><span class="dv">2</span>) lmq.f<span class="ot">=</span>yu<span class="sc">~</span>xu<span class="sc">+</span>xu2                         <span class="co">#</span></span>
+<span id="cb18-392"><a href="#cb18-392" tabindex="-1"></a>  lmq<span class="ot">=</span><span class="fu">lm</span>(<span class="fu">as.formula</span>(<span class="fu">format</span>(lmq.f)))               <span class="co">#Estimate the quadratic regression</span></span>
+<span id="cb18-393"><a href="#cb18-393" tabindex="-1"></a>  bqs<span class="ot">=</span>lmq<span class="sc">$</span>coefficients                            <span class="co">#Get the point estimates</span></span>
+<span id="cb18-394"><a href="#cb18-394" tabindex="-1"></a>  bx1<span class="ot">=</span> bqs[<span class="dv">2</span>]                                     <span class="co">#point estimate for effect of x</span></span>
+<span id="cb18-395"><a href="#cb18-395" tabindex="-1"></a>  bx2<span class="ot">=</span>bqs[<span class="dv">3</span>]                                      <span class="co">#point estimate for effect of x^2</span></span>
+<span id="cb18-396"><a href="#cb18-396" tabindex="-1"></a>  x0<span class="ot">=</span><span class="fu">min</span>(xu)                                      <span class="co">#lowest x-value</span></span>
+<span id="cb18-397"><a href="#cb18-397" tabindex="-1"></a>  s0<span class="ot">=</span>bx1<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>bx2<span class="sc">*</span>x0                                 <span class="co">#estimated slope at the lowest x-value</span></span>
+<span id="cb18-398"><a href="#cb18-398" tabindex="-1"></a>  <span class="cf">if</span> (s0<span class="sc">&gt;</span><span class="dv">0</span>)  shape<span class="ot">=</span><span class="st">&#39;inv-ushape&#39;</span>                   <span class="co">#if the quadratic is increasing at the lowest point, the could be inverted u-shape</span></span>
+<span id="cb18-399"><a href="#cb18-399" tabindex="-1"></a>  <span class="cf">if</span> (s0<span class="sc">&lt;=</span><span class="dv">0</span>) shape<span class="ot">=</span><span class="st">&#39;ushape&#39;</span>                       <span class="co">#if it is decreaseing, then it could be a regular u-shape</span></span>
+<span id="cb18-400"><a href="#cb18-400" tabindex="-1"></a></span>
+<span id="cb18-401"><a href="#cb18-401" tabindex="-1"></a></span>
+<span id="cb18-402"><a href="#cb18-402" tabindex="-1"></a>  <span class="co">#5.2 Get the middle 80% of data to avoid an extreme cutoff</span></span>
+<span id="cb18-403"><a href="#cb18-403" tabindex="-1"></a>  x10<span class="ot">=</span><span class="fu">quantile</span>(xu,.<span class="dv">1</span>)</span>
+<span id="cb18-404"><a href="#cb18-404" tabindex="-1"></a>  x90<span class="ot">=</span><span class="fu">quantile</span>(xu,.<span class="dv">9</span>)</span>
+<span id="cb18-405"><a href="#cb18-405" tabindex="-1"></a>  middle<span class="ot">=</span>(xu<span class="sc">&gt;</span>x10 <span class="sc">&amp;</span> xu<span class="sc">&lt;</span>x90)       <span class="co">#Don&#39;t consider extreme values for cutoff</span></span>
+<span id="cb18-406"><a href="#cb18-406" tabindex="-1"></a>  x.middle<span class="ot">=</span>xu[middle]</span>
+<span id="cb18-407"><a href="#cb18-407" tabindex="-1"></a></span>
+<span id="cb18-408"><a href="#cb18-408" tabindex="-1"></a>  <span class="co">#5.3 Restrict y.hat to middle</span></span>
+<span id="cb18-409"><a href="#cb18-409" tabindex="-1"></a>  y.hat<span class="ot">=</span>y.hat[middle]</span>
+<span id="cb18-410"><a href="#cb18-410" tabindex="-1"></a>  y.se<span class="ot">=</span>y.se[middle]</span>
+<span id="cb18-411"><a href="#cb18-411" tabindex="-1"></a></span>
+<span id="cb18-412"><a href="#cb18-412" tabindex="-1"></a>  <span class="co">#5.4 Find upper and lower band</span></span>
+<span id="cb18-413"><a href="#cb18-413" tabindex="-1"></a>  y.ub<span class="ot">=</span>y.hat<span class="sc">+</span>y.se            <span class="co">#+SE is for flat max</span></span>
+<span id="cb18-414"><a href="#cb18-414" tabindex="-1"></a>  y.lb<span class="ot">=</span>y.hat<span class="sc">-</span>y.se            <span class="co">#-SE is for flat min</span></span>
+<span id="cb18-415"><a href="#cb18-415" tabindex="-1"></a></span>
+<span id="cb18-416"><a href="#cb18-416" tabindex="-1"></a>  <span class="co">#5.5 Find most extreme y-hat</span></span>
+<span id="cb18-417"><a href="#cb18-417" tabindex="-1"></a>  <span class="cf">if</span> (shape<span class="sc">==</span><span class="st">&#39;inv-ushape&#39;</span>) y.most<span class="ot">=</span><span class="fu">max</span>(y.hat)   <span class="co">#if potentially inverted u-shape, use the highest y-hat as the most extrme</span></span>
+<span id="cb18-418"><a href="#cb18-418" tabindex="-1"></a>  <span class="cf">if</span> (shape<span class="sc">==</span><span class="st">&#39;ushape&#39;</span>)     y.most<span class="ot">=</span><span class="fu">min</span>(y.hat)   <span class="co">#if potential u-shaped, then the lowest instead</span></span>
+<span id="cb18-419"><a href="#cb18-419" tabindex="-1"></a></span>
+<span id="cb18-420"><a href="#cb18-420" tabindex="-1"></a>  <span class="co">#5.6 x-value associated with the most extreme value</span></span>
+<span id="cb18-421"><a href="#cb18-421" tabindex="-1"></a>  x.most<span class="ot">=</span>x.middle[<span class="fu">match</span>(y.most, y.hat)]</span>
+<span id="cb18-422"><a href="#cb18-422" tabindex="-1"></a></span>
+<span id="cb18-423"><a href="#cb18-423" tabindex="-1"></a>  <span class="co">#5.7 Find flat regions</span></span>
+<span id="cb18-424"><a href="#cb18-424" tabindex="-1"></a>  <span class="cf">if</span> (shape<span class="sc">==</span><span class="st">&#39;inv-ushape&#39;</span>) flat<span class="ot">=</span>(y.ub<span class="sc">&gt;</span>y.most)</span>
+<span id="cb18-425"><a href="#cb18-425" tabindex="-1"></a>  <span class="cf">if</span> (shape<span class="sc">==</span><span class="st">&#39;ushape&#39;</span>)     flat<span class="ot">=</span>(y.lb<span class="sc">&lt;</span>y.most)</span>
+<span id="cb18-426"><a href="#cb18-426" tabindex="-1"></a>  xflat<span class="ot">=</span>x.middle[flat]</span>
+<span id="cb18-427"><a href="#cb18-427" tabindex="-1"></a></span>
+<span id="cb18-428"><a href="#cb18-428" tabindex="-1"></a>  <span class="co">#6 RUN TWO LINE REGRESSIONS</span></span>
+<span id="cb18-429"><a href="#cb18-429" tabindex="-1"></a>  <span class="co">#6.1 First an interrupted regression at the midpoint of the flat region</span></span>
+<span id="cb18-430"><a href="#cb18-430" tabindex="-1"></a>  rmid<span class="ot">=</span><span class="fu">reg2</span>(f,<span class="at">xc=</span><span class="fu">median</span>(xflat),<span class="at">graph=</span><span class="dv">0</span>)  <span class="co">#Two line regression at the median point of flat maximum</span></span>
+<span id="cb18-431"><a href="#cb18-431" tabindex="-1"></a></span>
+<span id="cb18-432"><a href="#cb18-432" tabindex="-1"></a>  <span class="co">#6.2  Get z1 and z2, statistical strength of both lines at the midpoint</span></span>
+<span id="cb18-433"><a href="#cb18-433" tabindex="-1"></a>  z1<span class="ot">=</span><span class="fu">abs</span>(rmid<span class="sc">$</span>z1)</span>
+<span id="cb18-434"><a href="#cb18-434" tabindex="-1"></a>  z2<span class="ot">=</span><span class="fu">abs</span>(rmid<span class="sc">$</span>z2)</span>
+<span id="cb18-435"><a href="#cb18-435" tabindex="-1"></a></span>
+<span id="cb18-436"><a href="#cb18-436" tabindex="-1"></a>  <span class="co">#6.3 Adjust breakpoint based on z1,z2</span></span>
+<span id="cb18-437"><a href="#cb18-437" tabindex="-1"></a>  xc<span class="ot">=</span><span class="fu">quantile</span>(xflat,z2<span class="sc">/</span>(z1<span class="sc">+</span>z2))</span>
+<span id="cb18-438"><a href="#cb18-438" tabindex="-1"></a></span>
+<span id="cb18-439"><a href="#cb18-439" tabindex="-1"></a>  <span class="co">#6.4 Regression split based on adjusted based on z1,z2</span></span>
+<span id="cb18-440"><a href="#cb18-440" tabindex="-1"></a>  <span class="co">#Save to png? (option set at the beggining by giving png a name)</span></span>
+<span id="cb18-441"><a href="#cb18-441" tabindex="-1"></a>  <span class="cf">if</span> (pngfile<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="fu">png</span>(pngfile, <span class="at">width=</span><span class="dv">2000</span>,<span class="at">height=</span><span class="dv">1500</span>,<span class="at">res=</span><span class="dv">300</span>)</span>
+<span id="cb18-442"><a href="#cb18-442" tabindex="-1"></a>  <span class="co">#Run the two lines</span></span>
+<span id="cb18-443"><a href="#cb18-443" tabindex="-1"></a>  res<span class="ot">=</span><span class="fu">reg2</span>(<span class="fu">as.formula</span>(<span class="fu">format</span>(f)),<span class="at">xc=</span>xc,<span class="at">graph=</span>graph)</span>
+<span id="cb18-444"><a href="#cb18-444" tabindex="-1"></a>  <span class="co">#Save to png? (close)</span></span>
+<span id="cb18-445"><a href="#cb18-445" tabindex="-1"></a>  <span class="cf">if</span> (pngfile<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="fu">dev.off</span>()</span>
+<span id="cb18-446"><a href="#cb18-446" tabindex="-1"></a></span>
+<span id="cb18-447"><a href="#cb18-447" tabindex="-1"></a></span>
+<span id="cb18-448"><a href="#cb18-448" tabindex="-1"></a></span>
+<span id="cb18-449"><a href="#cb18-449" tabindex="-1"></a>  <span class="co">#7 Add other results obtained before to the output (some of these are read by the server and included in the app)</span></span>
+<span id="cb18-450"><a href="#cb18-450" tabindex="-1"></a>  res<span class="sc">$</span>yobs       <span class="ot">=</span> yobs</span>
+<span id="cb18-451"><a href="#cb18-451" tabindex="-1"></a>  res<span class="sc">$</span>y.hat      <span class="ot">=</span> y.hat</span>
+<span id="cb18-452"><a href="#cb18-452" tabindex="-1"></a>  res<span class="sc">$</span>y.ub       <span class="ot">=</span> y.ub</span>
+<span id="cb18-453"><a href="#cb18-453" tabindex="-1"></a>  res<span class="sc">$</span>y.lb       <span class="ot">=</span> y.lb</span>
+<span id="cb18-454"><a href="#cb18-454" tabindex="-1"></a>  res<span class="sc">$</span>y.most     <span class="ot">=</span> y.most</span>
+<span id="cb18-455"><a href="#cb18-455" tabindex="-1"></a>  res<span class="sc">$</span>x.most     <span class="ot">=</span> x.most</span>
+<span id="cb18-456"><a href="#cb18-456" tabindex="-1"></a>  res<span class="sc">$</span>f          <span class="ot">=</span> <span class="fu">format</span>(f)</span>
+<span id="cb18-457"><a href="#cb18-457" tabindex="-1"></a>  res<span class="sc">$</span>bx1        <span class="ot">=</span> bx1           <span class="co">#linear effect in quadratic regression</span></span>
+<span id="cb18-458"><a href="#cb18-458" tabindex="-1"></a>  res<span class="sc">$</span>bx2        <span class="ot">=</span> bx2           <span class="co">#quadratic</span></span>
+<span id="cb18-459"><a href="#cb18-459" tabindex="-1"></a>  res<span class="sc">$</span>minx       <span class="ot">=</span> <span class="fu">min</span>(xu)       <span class="co">#lowest x value</span></span>
+<span id="cb18-460"><a href="#cb18-460" tabindex="-1"></a>  res<span class="sc">$</span>midflat    <span class="ot">=</span> <span class="fu">median</span>(xflat)</span>
+<span id="cb18-461"><a href="#cb18-461" tabindex="-1"></a>  res<span class="sc">$</span>midz1      <span class="ot">=</span> <span class="fu">abs</span>(rmid<span class="sc">$</span>z1)</span>
+<span id="cb18-462"><a href="#cb18-462" tabindex="-1"></a>  res<span class="sc">$</span>midz2      <span class="ot">=</span> <span class="fu">abs</span>(rmid<span class="sc">$</span>z2)</span>
+<span id="cb18-463"><a href="#cb18-463" tabindex="-1"></a>  <span class="fu">on.exit</span>(<span class="fu">detach</span>(data))</span>
+<span id="cb18-464"><a href="#cb18-464" tabindex="-1"></a>  res</span>
+<span id="cb18-465"><a href="#cb18-465" tabindex="-1"></a>} <span class="co">#End function</span></span></code></pre></div>
+</div>
+<div id="algorithm-find-breaking-point" class="section level2">
+<h2>Algorithm: Find breaking point</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>twolines_polsim <span class="ot">=</span> <span class="fu">twolines</span>(pref_politicalsim <span class="sc">~</span> political_orientation,</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>                           <span class="at">data=</span>data_included_documented,</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                           <span class="at">graph =</span> F)</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>breaking_point <span class="ot">=</span> twolines_polsim<span class="sc">$</span>midflat</span></code></pre></div>
+</div>
+<div id="run-multilevel-regression" class="section level2">
+<h2>Run Multilevel Regression</h2>
+<div id="regression-1-x-breaking_point" class="section level3">
+<h3>Regression 1 (x &lt;= breaking_point)</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>model_pref_politicalsim_1 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&lt;=</span> breaking_point))</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_1)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## pref_politicalsim ~ political_orientation + (1 + political_orientation |  
+##     country)
+##    Data: data_included_documented %&gt;% dplyr::filter(political_orientation &lt;=  
+##     breaking_point)
+## 
+## REML criterion at convergence: 42671.1
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.5773 -0.7032  0.1458  0.7426  2.2334 
+## 
+## Random effects:
+##  Groups   Name                  Variance Std.Dev. Corr 
+##  country  (Intercept)           0.65523  0.8095        
+##           political_orientation 0.05036  0.2244   -0.75
+##  Residual                       3.18024  1.7833        
+## Number of obs: 10636, groups:  country, 138
+## 
+## Fixed effects:
+##                       Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)            3.82478    0.12460 45.48511   30.70  &lt; 2e-16 ***
+## political_orientation -0.31341    0.04212 30.17241   -7.44 2.63e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## pltcl_rnttn -0.815</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_1, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   Parameter             Std_Coefficient    CI CI_low CI_high
+##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)                     0     0.997  0       0    
+## 2 political_orientation          -0.170 0.997 -0.237  -0.102</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_1))</span></code></pre></div>
+<p><img src="11_twolines_analyses_multilevel_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="regression-2-x-breaking_point" class="section level3">
+<h3>Regression 2 (x &gt;= breaking_point)</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>model_pref_politicalsim_2 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&gt;=</span> breaking_point))</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_2)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## pref_politicalsim ~ political_orientation + (1 + political_orientation |  
+##     country)
+##    Data: data_included_documented %&gt;% dplyr::filter(political_orientation &gt;=  
+##     breaking_point)
+## 
+## REML criterion at convergence: 29821.8
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.8134 -0.7937  0.1168  0.6892  2.1899 
+## 
+## Random effects:
+##  Groups   Name                  Variance Std.Dev. Corr 
+##  country  (Intercept)           0.74838  0.8651        
+##           political_orientation 0.03141  0.1772   -0.81
+##  Residual                       3.31361  1.8203        
+## Number of obs: 7357, groups:  country, 129
+## 
+## Fixed effects:
+##                       Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)            1.62535    0.17799 25.66352   9.132 1.53e-09 ***
+## political_orientation  0.40821    0.04567 22.90001   8.938 6.31e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## pltcl_rnttn -0.911</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_2, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   Parameter             Std_Coefficient    CI CI_low CI_high
+##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)                     0     0.997  0       0    
+## 2 political_orientation           0.175 0.997  0.117   0.233</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_2))</span></code></pre></div>
+<p><img src="11_twolines_analyses_multilevel_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIjExX3R3b2xpbmVzX2FuYWx5c2VzX211bHRpbGV2ZWwiDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZm9sZGluZzogInNob3ciDQplZGl0b3Jfb3B0aW9uczogDQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQogIA0KLS0tDQoNCiMjIExpYnJhcnkNCmBgYHtyfQ0KbGlicmFyeShsbWVyVGVzdCkNCmxpYnJhcnkoZWZmZWN0cykNCmxpYnJhcnkoZWZmZWN0c2l6ZSkNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShtZ2N2KSAgICAgICAgICNUaGlzIGxpYnJhcnkgaGFzIHRoZSBhZGRpdGl2ZSBtb2RlbCB3aXRoIHNtb290aGluZyBmdW5jdGlvbg0KbGlicmFyeShzdHJpbmdyKSAgICAgICNUbyBwcm9jZXNzIHN0cmluZ3MgaW4gdGhlIGZ1bmN0aW9uDQpsaWJyYXJ5KHNhbmR3aWNoKSAgICAgI0ZvciByb2J1c3Qgc3RhbmRhcmQgZXJyb3JzDQpsaWJyYXJ5KGxtdGVzdCkgICAgICAgI1RvIHJ1biBsaW5lYXIgdGVzdHMNCmBgYA0KDQojIyBEYXRhDQpgYGB7cn0NCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IHJlYWQuY3N2KGZpbGUgPSAiZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLmNzdiIpWywtMV0NCmBgYA0KDQojIyBGdW5jdGlvbnMNCmBgYHtyfQ0KI09VVExJTkUNCiNGdW5jdGlvbiAxIC0gcnAocCkgICAgICAgUmVmb3JtYXQgcC12YWx1ZSBmb3IgcHJpbnRpbmcgb24gY2hhcnQNCiNGdW5jdGlvbiAyIC0gZXZhbDIoKSAgICAgUmVhZHMgYSB2YXJpYWJsZSBuYW1lIGFuZCBhc3NpZ25zIHRoZSB2YWx1ZXMgdG8gYW5vdGhlciB2YXJpYWJsZSAodXNlZnVsIGZvciBwcm9jZXNzaW5nIGZvcm11bGFzIGFuZCBjcmVhdGluZyB0ZW1wb3JhcnkgdmFyaWFibGVzKQ0KI0Z1bmN0aW9uIDMgLSByZWcyKCkgICAgICBJbnRlcnJ1cHRlZCByZWdyZXNzaW9uIHdpdGggZW50ZXJlZCBmb3JtdWxhIHBsdXMgY3V0b2ZmIHBvaW50DQojRnVuY3Rpb24gNCAtIHR3b2xpbmVzKCkgIFJ1biB0d28tbGluZXMgdGVzdCwgcmVseWluZyBvbiBmdW5jdGlvbnMgMSBhbmQgMiBhcyB3ZWxsDQoNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQojRnVuY3Rpb24gMSAtIHJwKHApICAgICAgIFJlZm9ybWF0IHAtdmFsdWUgZm9yIHByaW50aW5nIG9uIGNoYXJ0DQpycD1mdW5jdGlvbihwKSBpZiAocDwuMDAwMSkgIHJldHVybigicDwuMDAwMSIpICBlbHNlICByZXR1cm4ocGFzdGUwKCJwPSIsIHN1YigiXigtPykwLiIsICJcXDEuIiwgc3ByaW50ZigiJS40ZiIsIHApKSkpDQoNCiNGdW5jdGlvbiAyIC0gZXZhbDIoKSAgIGV2YWx1YXRlIGEgc3RyaW5nIGFzIGEgZnVuY3Rpb24NCmV2YWwyPWZ1bmN0aW9uKHN0cmluZykgZXZhbChwYXJzZSh0ZXh0PXN0cmluZykpICAjRnVuY3Rpb24gdGhhdCBldmFsdWF0ZXMgYSB2YXJpYWJsZSINCiNpZiB4LmY9IngxIiwgdGhlbiB4PWV2YWwyKHguZikgIHdpbGwgcG9wdWxhdGUgeCB3aXRoIHRoZSB2YWx1ZXMgb2YgeDENCg0KI0Z1bmN0aW9uIDMgLSB0d28tbGluZSByZWdyZXNzaW9uIHdpdGggZ2xtKCkgc28gdGhhdCBpdCBoYXMgaGV0ZXJvc2tlZGFzdGljIHJvYnVzdCBzdGFuZGFyZCBlcnJvcnMNCnJlZzI9ZnVuY3Rpb24oZix4YyxncmFwaD0xLGZhbWlseT0iZ2F1c3NpYW4iKQ0Kew0KICAjU3ludGF4Og0KICAjZjogZm9ybXVsYSBhcyBpbiB5fngxK3gyK3gzDQogICNUaGUgZmlyc3QgcHJlZGljdG9yIGlzIHRoZSBvbmUgdGhlIHUtc2hhcGUgaXMgdGVzdGVkIG9uDQogICN4Yzogd2hlcmUgdG8gc2V0IHRoZSBicmVha3BvaW50LCBhIG51bWJlcg0KICAjbGluazoNCiAgIyAgICAgICBHYXVzc2lhbiBmb3IgT0xTDQogICMgICAgICAgYmlub21pYWwgZm9yIHByb2JpdA0KDQogICMoMSkgRXh0cmFjdCB2YXJpYWJsZSBuYW1lcyBmcm9tIGZvcm11bGENCiAgIzEuMSBHZXQgdGhlIGZvcm11bGFzDQogIHkuZj1hbGwudmFycyhmKVsxXSAgICAgICAgICAgICAgICAgICNEVg0KICB4LmY9YWxsLnZhcnMoZilbMl0gICAgICAgICAgICAgICAgICAjVmFyaWFibGUgb24gd2hpY2ggdGhlIHUtc2hhcGUgc2hhbGwgYmUgdGVzdGVkDQogICNOdW1iZXIgb2YgdmFyaWFibGVzDQogIHZhci5jb3VudD1sZW5ndGgoYWxsLnZhcnMoZikpICAgICAgICNIb3cgbWFueSB0b3RhbCB2YXJpYWJsZXMsIGluY2x1ZGluZyB5IGFuZCB4DQogICNFbnRpcmUgbW9kZWwsIGV4Y2VwdCB0aGUgZmlyc3QgcHJlZGljdG9yDQogIGlmICh2YXIuY291bnQ+Mikgbm94LmY9ZHJvcC50ZXJtcyh0ZXJtcyhmKSxkcm9weD0xLGtlZXAucmVzcG9uc2UgPSBUKQ0KDQoNCiAgIzEuMiBHcmFiIHRoZSB0d28ga2V5IHZhcmlhYmxlcyB0byBiZSB1c2VkLCB4dSBhbmQgeXUNCiAgeHU9ZXZhbDIoeC5mKSAgI3h1IGlzIHRoZSBrZXkgcHJlZGljdG9yIHByZWRpY3RlZCB0byBiZSB1LXNoYXBlZA0KICB5dT1ldmFsMih5LmYpICAjeXUgaXMgdGhlIGR2DQoNCiAgIzEuMyBSZXBsYWNlIGZvcm11bGEgZm9yIGtleSBwcmVkaWN0b3Igc28gdGhhdCBpdCBhY2NvbW1vZGF0ZXMgcG9zc2libHkgZGlzY3JldGUgdmFsdWVzLCBnYW0oKSBicmVha3MgZG93biBpZiB4IGhhcyBmZXcgcG9zc2libGUgdmFsdWVzIHVubGVzcyBvbmUgcmVzdHJpY3RzIGl0LCBkb25lIGF1dG9tYXRpY2FsbHkNCiAgIzEuMy4xIENvdW50IG51bWJlciBvZiB1bmlxdWUgeCB2YWx1ZXMNCiAgdW5pcXVlLng9bGVuZ3RoKHVuaXF1ZSh4dSkpICAgI0hvdyBtYW55IHVuaXF1ZSB2YWx1ZXMgeCBoYXMNCiAgIzEuMy4yIE5ldyBmdW5jdGlvbiBzZWdtZW50IGZvciB4DQogIHN4LmY9cGFzdGUwKCJzKCIseC5mLCIsYnM9J2NyJywgaz1taW4oMTAsIix1bmlxdWUueCwiKSkiICkNCg0KICAjMS40IHhjIGlzIGluY2x1ZGVkIGluIHRoZSBmaXJzdCBsaW5lDQogIHhsb3cxICA9aWZlbHNlKHh1PD14Yyx4dS14YywwKSAgICN4bG93PXgteGMgd2hlbiB4PHhjLCAwIG90aGVyd2lzZQ0KICB4aGlnaDE9aWZlbHNlKHh1PnhjLHh1LXhjLDApICAgICAjeGhpZ2g9eCB3aGVuIHg8eG1heCwgMCBvdGhlcndpc2UNCiAgaGlnaDEgPWlmZWxzZSh4dT54YywxLDApICAgICAgICAgI2hpZ2ggZHVtbXksIGFsbG93cyBpbnRlcnJ1cHRpb24NCg0KICAjMS41IE5vdyBpbmNsdWRlIHhjIGluIHNlY29uZCBsaW5lDQogIHhsb3cyPWlmZWxzZSh4dTx4Yyx4dS14YywwKQ0KICB4aGlnaDI9aWZlbHNlKHh1Pj14Yyx4dS14YywwKQ0KICBoaWdoMj1pZmVsc2UoeHU+PXhjLDEsMCkNCg0KICAjKDIpIFJ1biBpbnRlcnJ1cHRlZCByZWdyZXNzaW9ucw0KICAjMi4xIEdlbmVyYXRlIGZvcm11bGFzICByZXBsYWNpbmcgdGhlIHNpbmdsZSBwcmVkaWN0b3IgeCwgd2l0aCB0aGUgMyBuZXcgdmFyaWFibGVzDQogICNJZiB0aGVyZSB3ZXJlIGNvdmFyaWF0ZXMsIGdyYWIgdGhlbSBhbiBjb3B5LXBhc3RlIHRoZW0gYWZ0ZXIgdGhlIDMgbmV3IHZhcmlhYmxlcw0KICBpZiAodmFyLmNvdW50PjIpDQogIHsNCiAgICBnbG0xLmY9dXBkYXRlKG5veC5mLH4geGxvdzEreGhpZ2gxK2hpZ2gxKy4pICAjdXBkYXRlIHRha2VzIGEgZm9ybXVsYSBhbmQgYWRkcyBlbGVtZW50cyB0byBpdCwgYnkgcHV0dGluZyB0aGUgLiBhdCB0aGUgZW5kLCBpdCB3aWxsIHBhc3RlIHRoZSBleGlzdGluZyB2YXJpYWJsZXMgYWZ0ZXIgdGhlIG5ldyAzIHZhcmlhYmxlcw0KICAgIGdsbTIuZj11cGRhdGUobm94LmYsfiB4bG93Mit4aGlnaDIraGlnaDIrLikNCiAgfQ0KICAjSWYgdGhlcmUgd2VyZSBubyBjb3ZhcmlhdGVzLCBqdXN0IHJ1biB0aGUgMyB2YXJpYWJsZSBtb2RlbA0KICBpZiAodmFyLmNvdW50PT0yKQ0KICB7DQogICAgZ2xtMS5mPWFzLmZvcm11bGEoInl1fiB4bG93MSt4aGlnaDEraGlnaDEiKQ0KICAgIGdsbTIuZj1hcy5mb3JtdWxhKCJ5dX4geGxvdzIreGhpZ2gyK2hpZ2gyIikNCiAgfQ0KICAjMi4yIFJ1biB0aGVtDQogIGdsbTE9Z2xtKGFzLmZvcm11bGEoZm9ybWF0KGdsbTEuZikpLGZhbWlseT1mYW1pbHkpDQogIGdsbTI9Z2xtKGFzLmZvcm11bGEoZm9ybWF0KGdsbTIuZikpLGZhbWlseT1mYW1pbHkpDQoNCiAgIzIuMyBDb21wdXRlIHJvYnVzdCBzdGFuZGFyZCBlcnJvcnMNCiAgcm9iMT1jb2VmdGVzdChnbG0xLCB2Y292PXZjb3ZIQyhnbG0xLCJIQzMiKSkgICNVbnRpbCAyMDE4IDAzIDIwIEkgd2FzIHVzaW5nIEhDMywgYnV0IHRoZXkgc29tZXRpbWVzIGdlbmVyYXRlIGVycm9ycywgc28gaSBzd2l0Y2hlZCBpdCB0byBIQzENCiAgcm9iMj1jb2VmdGVzdChnbG0yLCB2Y292PXZjb3ZIQyhnbG0yLCJIQzMiKSkNCg0KICAjU29tZXRpbWVzIEhDMyBnaXZlcyBOQSB2YWx1ZXMgKGZvciB2ZXJ5IHNwYXJzZSBvciBleHRyZW1lIGRhdGEpLCBjaGVjayBhbmQgaWYgdGhhdCdzIHRoZSBjYXNlIGNoYW5nZSBtZXRob2QNCiAgbXNnPSIiDQogIGlmIChpcy5uYShyb2IxWzIsNF0pKQ0KICB7DQogICAgcm9iMT1jb2VmdGVzdChnbG0xLCB2Y292PXZjb3ZIQyhnbG0xLCJIQzEiKSkNCiAgICBtc2c9cGFzdGUwKG1zZywiXG5Gb3IgbGluZSAxIHRoZSBoZXRlcm9za2VkYXN0aWMgc3RhbmRhcmQgZXJyb3JzIEhDMyByZXN1bHRlZCBpbiBhbiBlcnJvciB0aHVzIHdlIHVzZWQgSEMxIGluc3RlYWQuIikNCiAgfQ0KICBpZiAoaXMubmEocm9iMlsyLDRdKSkNCiAgew0KICAgIHJvYjI9Y29lZnRlc3QoZ2xtMiwgdmNvdj12Y292SEMoZ2xtMiwiSEMxIikpDQogICAgbXNnPXBhc3RlMChtc2csIlxuRm9yIGxpbmUgMiB0aGUgaGV0ZXJvc2tlZGFzdGljIHN0YW5kYXJkIGVycm9ycyBIQzMgcmVzdWx0ZWQgaW4gYW4gZXJyb3IgdGh1cyB3ZSB1c2VkIEhDMSBpbnN0ZWFkLiIpDQogIH0NCg0KICAjMi40IFNsb3Blcw0KICBiMT1hcy5udW1lcmljKHJvYjFbMiwxXSkNCiAgYjI9YXMubnVtZXJpYyhyb2IyWzMsMV0pDQoNCiAgIzIuNSBUZXN0IHN0YXRpc3RpY3MsIHotdmFsdWVzDQogIHoxPWFzLm51bWVyaWMocm9iMVsyLDNdKQ0KICB6Mj1hcy5udW1lcmljKHJvYjJbMywzXSkNCg0KICAjMi42IHAtdmFsdWVzDQogIHAxPWFzLm51bWVyaWMocm9iMVsyLDRdKQ0KICBwMj1hcy5udW1lcmljKHJvYjJbMyw0XSkNCg0KDQogICMzKSBJcyB0aGUgdS1zaGFwZSBzaWduaWZpY2FudD8NCiAgdS5zaWcgPWlmZWxzZShiMSpiMjwwICYgcDE8LjA1ICYgcDI8LjA1LDEsMCkNCg0KICAjNCkgUGxvdCByZXN1bHRzDQogIGlmIChncmFwaD09MSkgew0KDQogICAgIzQuMSBHZW5lcmFsIGNvbG9ycyBhbmQgcGFyYW1ldGVycw0KICAgIHBjaC5kb3Q9MSAgICAgICAgICAjRG90IGZvciBzY2F0dGVycGxvdCAoZGF0YSkNCiAgICAjY29sLmwxPSdibHVlMicgICAgICNDb2xvciBvZiBzdHJhaWdodCBsaW5lIDENCiAgICBjb2wubDE9J2RvZGdlcmJsdWUzJw0KICAgIGNvbC5sMj0nZmlyZWJyaWNrJyAgICAgICNDb2xvciBvZiBzdHJhaWdodCBsaW5lIDINCiAgICBjb2wuZml0PSdncmF5NTAnICAgI0NvbG9yIG9mIGZpdHRlZCBzbW9vdGggbGluZQ0KDQogICAgY29sLmRpdj0iZ3JlZW4zIiAgICNDb2xvciBvZiB2ZXJ0aWNhbCBsaW5lDQogICAgbHR5LmwxPTEgICAgICAgICAgICNUeXBlIG9mIGxpbmUgMQ0KICAgIGx0eS5sMj0xICAgICAgICAgICAjVHlwZSBvZiBsaW5lIDINCiAgICBsdHkuZml0PTIgICAgICAgICAgI1R5cGUgb2Ygc21vb3RoZWQgbGluZQ0KDQogICAgIzQuMikgRXN0aW1hdGUgc21vb3RoZXINCiAgICBpZiAodmFyLmNvdW50PjIpDQogICAgew0KICAgICAgZ2FtLmY9cGFzdGUwKGZvcm1hdChub3guZiksIisiLHN4LmYpICAgI2FkZCB0aGUgbW9kaWZpZWQgc21vb3RoZXIgdmVyc2lvbiBvZiB4IGludG8gdGhlIGZvcm11bGENCiAgICAgIGdhbXM9Z2FtKGFzLmZvcm11bGEoZ2FtLmYpLGxpbms9bGluaykgICNub3cgYWN0dWFsbHkgcnVuIHRoZSBzbW9vdGhlcg0KICAgIH0NCg0KICAgIGlmICh2YXIuY291bnQ9PTIpDQogICAgew0KICAgICAgZ2Ftcz1nYW0oYXMuZm9ybXVsYShwYXN0ZTAoInl1fiIsc3guZikpLGxpbms9bGluaykgICNub3cgYWN0dWFsbHkgcnVuIHRoZSBzbW9vdGhlcg0KICAgIH0NCg0KICAgICNHZXQgZG90cyBvZiByYXcgZGF0YQ0KICAgICM0LjMpIElmIG5vIGNvdmFyaWF0ZXMsIHRoZXJlIGFyZSB0d28gdmFyaWFibGVzLCBhbmQgeS5kb3RzICBpcyB0aGUgeSB2YWx1ZXMNCiAgICBpZiAodmFyLmNvdW50PT0yKSB5b2JzPXl1DQoNCiAgICAjNC40KSBJZiBjb3ZhcmlhdGVzIHByZXNlbnQsIHlvYnMgaXMgdGhlIGZpdHRlZCB2YWx1ZSB3aXRoIHUoeCkgYXQgbWVhbiwgbmVlZCBuZXcuZGF0YSgpIHdpdGggdmFyaWFibGVzIGF0IG1lYW5zDQogICAgaWYgKHZhci5jb3VudD4yKSB7DQoNCiAgICAgICM0LjQuMSkgUHV0IG9ic2VydmVkIGRhdGEgaW50byBtYXRyaXgNCiAgICAgIGRhdGEub2JzPWFzLmRhdGEuZnJhbWUobWF0cml4KG5yb3c9bGVuZ3RoKHh1KSxuY29sPXZhci5jb3VudCkpDQogICAgICBjb2xuYW1lcyhkYXRhLm9icyk9YWxsLnZhcnMoZikNCiAgICAgICM0LjQuMiBQb3B1bGF0ZSB0aGUgZGF0YXNldCB3aXRoIHRoZSBvYnNlcnZlZCB2YXJpYWJsZXMNCiAgICAgIGZvciAoaSBpbiAxOih2YXIuY291bnQpKSBkYXRhLm9ic1ssaV09ZXZhbChhcy5uYW1lKGFsbC52YXJzKGYpW2ldKSkNCg0KDQogICAgICAjNC40LjMpIERyb3Agb2JzZXJ2YXRpb25zIHdpdGggbWlzc2luZyB2YWx1ZXMgb24gYW55IG9mIHRoZSB2YXJpYWJsZXMNCiAgICAgIGRhdGEub2JzPW5hLm9taXQoZGF0YS5vYnMpDQoNCiAgICAgICM0LjQuNCkgQ3JlYXRlIGRhdGEgd2hlcmUgdSh4KSBpcyBhdCBzYW1wbGUgbWVhbnMgdG8gZ2V0IHJlc2lkdWFscyBiYXNlZCBvbiByZXN0IG9mIG1vZGVscyB0byBhY3QgYXMgeW9icw0KICAgICAgI1JlY2FsbDogY29sdW1ucyAxICYgMiBoYXZlIHkgYW5kIHUoeCkgaW4gb2JzLmRhdGENCiAgICAgIGRhdGEueHVmaXhlZCAgICA9ZGF0YS5vYnMNCiAgICAgIGRhdGEueHVmaXhlZFssMl09bWVhbihkYXRhLm9ic1ssMl0pICAgI05vdGUsIHRoZSAxc3QgcHJlZGljdG9yLCAybmQgY29sdW1ucywgaXMgYWx3YXlzIHRoZSBvbmUgaHlwb3RoZXNpemVkIHRvIGJlIHUtc2hhcGVkDQogICAgICAjcmVwbGFjZSBpdCB3aXRoIHRoZSBtZWFuIHZhbHVlIG9mIHRoZSBwcmVkaWN0b3INCiAgICAgICM1LjQuNSkgQ3JlYXRlIGRhdGEgd2hlcmUgdSh4KSBpcyBvYnMsIGFuZCBhbGwgZWxzZSBhdCBzYW1wbGUgbWVhbnMNCiAgICAgIGRhdGEub3RoZXJmaXhlZCA9IGRhdGEub2JzICAgICAjc3RhcnQgd2l0aCBvcmlnaW5hbCB2YWx1ZQ0KICAgICAgI1JlcGxhY2UgYWxsIFJIUyB3aXRoIG1lYW4sIGV4Y2VwdCB0aGUgdSh4KQ0KICAgICAgI2ZvciAoaSBpbiAzOnZhci5jb3VudCkgZGF0YS5vdGhlcmZpeGVkWyxpXT1tZWFuKGRhdGEub2JzWyxpXSkgICNjaGFuZ2VkIG9uIDIwMTggMTEgMjMgdG8gYWxsb3cgaGF2aW5nIGZhY3RvcnMoKSBhcyBwcmVkaWN0b3JzLCB0aGVpciAibWlkcG9pbnQiIHZhbHVlIGlzIHVzZWQsIHNvbWV0aW1lcyB0aGF0IHZhbHVlIGlzIG1vcmUgbWVhbmluZ2Z1bGx5IGEgbWVkaWFuIHBvaW50IHRoYW4gb3RoZXJzDQogICAgICBmb3IgKGkgaW4gMzp2YXIuY291bnQpIHsgICNsb29wIG92ZXIgY292YXJpYXRlcw0KICAgICAgICB4dD1zb3J0KGRhdGEub2JzWyxpXSkgI2NyZWF0ZSBhdXhpbGlhcnkgdmFyaWFibGUgdGhhdCBoYXMgdGhvc2UgdmFsdWVzIHNvcnRlZA0KICAgICAgICBuPWxlbmd0aCh4dCkgICAgICAgICAgI3NlZSBob3cgbWFueSBvYnNlcnZhdGlvbnMgdGhlcmUgYXJlDQogICAgICAgIHhtPXh0W3JvdW5kKG4vMiwwKV0gICAjdGFrZSB0aGUgbWlkcG9pbnQgdmFsdWUgKHRoaXMgd2lsbCB3b3JrIHdpdGggb3JkaW5hbCBhbmQgZmFjdG9yIGRhdGEsIGJ1dCB3aXRoIGZhY3RvciBpdCBjYW4gYmUgYXJiaXRyYXJ5KQ0KICAgICAgICBkYXRhLm90aGVyZml4ZWRbLGldPXhtICNSZXBsYWNlIHdpdGggdGhhdCB2YWx1ZSBpbiB0aGUgZGF0YXNldCB1c2VkIGZvciBmaXR0ZWQgdmFsdWUNCiAgICAgIH0NCiAgICAgICM0LjQuNikgR2V0IHlvYnMgd2l0aCBjb3ZhcmlhdGVzDQogICAgICAjRmlyc3QgdGhlIGZpdHRlZCB2YWx1ZQ0KICAgICAgeWhhdC54dWZpeGVkPXByZWRpY3QuZ2FtKGdhbXMsbmV3ZGF0YSA9IGRhdGEueHVmaXhlZCkNCiAgICAgICNTdWJzdHJhY3QgZml0dGVkIHZhbHVlIGZyb20gb2JzZXJ2ZWQgeSwgYW5kIHNoaWZ0IGl0IHdpdGggY29uc3RhbnQgc28gdGhhdCBpdCBoYXMgc2FtZSBtZWFuIGFzIG9yaWdpbmFsIHkNCiAgICAgIHlvYnMgPXl1LXloYXQueHVmaXhlZA0KICAgICAgeW9icz15b2JzK21lYW4oeXUpLW1lYW4oeW9icykgICNBZGp1c3QgdG8gaGF2ZSB0aGUgc2FtZSBtZWFuDQogICAgfSAjRW5kIGlmIGZvciBjb3ZhcmlhdGVzIHRoYXQgcmVxdWlyZXMgY29tcHV0ZXMgeS5vYnMgaW5zdGVhZCBvZiB1c2luZyByZWFsIHkuDQoNCiAgICAjNC41KSBGaXJzdCBsaW5lICh4LHkpIGNvb3JkaW5hdGVzDQogICAgIyAgICAgb2Zmc2V0MT1tZWFuKHlvYnNbeHU8PXhjXSktbWluKHh1KSpiMS0oeGMtbWluKHh1KSkvMipiMQ0KICAgICMgICAgIHgubDE9YyhtaW4oeHUpLHhjKQ0KICAgICMgICAgIHkubDE9YyhtaW4oeHUpKmIxK29mZnNldDEseGMqYjErb2Zmc2V0MSkNCiAgICAjDQogICAgIyAgICAgIzQuNikgRmlyc3QgbGluZSAoeCx5KSBjb29yZGluYXRlcw0KICAgICMgCQlvZmZzZXQyPW1lYW4oeW9ic1t4dT49eGNdKS14YypiMi0obWF4KHh1KS14YykvMipiMg0KICAgICMgCQl4LmwyPWMoeGMsbWF4KHh1KSkNCiAgICAjIAkJeS5sMj1jKHhjKmIyK29mZnNldDIsbWF4KHh1KSpiMitvZmZzZXQyKQ0KDQogICAgIzQuNykgR2V0IHloYXQuc21vb3RoDQogICAgI1dpdGhvdXQgY292YXJpYXRlcywganVzdCBmaXQgdGhlIG9ic2VydmVkIGRhdGENCiAgICBpZiAodmFyLmNvdW50PT0yKSAgeWhhdC5zbW9vdGg9cHJlZGljdC5nYW0oZ2FtcykNCiAgICAjV2l0aCBjb3ZhcmlhdGVzLCBmaXQgYXQgb2JzZXJ2ZWQgbWVhbnMNCiAgICBpZiAodmFyLmNvdW50PjIpICB5aGF0LnNtb290aD1wcmVkaWN0LmdhbShnYW1zLG5ld2RhdGEgPSBkYXRhLm90aGVyZml4ZWQpDQogICAgI1N1YnN0cmFjdCBmaXR0ZWQgdmFsdWUgZnJvbSBvYnNlcnZlZCB5DQogICAgb2Zmc2V0MyA9IG1lYW4oeW9icy15aGF0LnNtb290aCkNCiAgICB5aGF0LnNtb290aD15aGF0LnNtb290aCtvZmZzZXQzDQoNCiAgICAjNC44KSBDb29yZGluYXRlcyBmb3IgdG9wIGFuZCBib3R0b20gZW5kIG9mIGNoYXJ0DQogICAgeTEgICA9bWF4KHlvYnMseWhhdC5zbW9vdGgpICAjaGlnaGVzdCBwb2ludA0KICAgIHkwICAgPW1pbih5b2JzLHloYXQuc21vb3RoKSAgI2xvd2VzdCBwb2ludA0KICAgIHlyICAgPXkxLXkwICAgICAgICAgICAgICAgICAgI3JhbmdlDQogICAgeTAgICA9eTAtLjMqeXIgICAgICAgICAgICAgICAjbmV3IGxvd2VzdC4gMzAlIGxvd2VyDQoNCiAgICAjeHMNCiAgICB4MSAgID1tYXgoeHUpDQogICAgeDAgICA9bWluKHh1KQ0KICAgIHhyICAgPXgxLXgwDQoNCiAgICAjNC45KSBQbG90DQogICAgIzQuOS4xKSBGaWd1cmUgb3V0IGNvb3JkaW5hdGVzIGZvciBhcnJvd3Mgc28gdGhhdCB0aGV5IGZpdA0KDQogICAgcGFyKG1hcj1jKDUuNCw0LjEsLjUsMi4xKSkNCiAgICBwbG90KHh1W3h1PHhjXSx5b2JzW3h1PHhjXSxjZXg9Ljc1LGNvbD1jb2wubDEscGNoPXBjaC5kb3QsbGFzPTEsDQogICAgICAgICB5bGltPWMoeTAseTEpLA0KICAgICAgICAgeGxpbT1jKG1pbih4dSksbWF4KHh1KSksDQogICAgICAgICB4bGFiPSIiLA0KICAgICAgICAgeWxhYj0iIikgICNSYW5nZSBvZiB5IGhhcyBleHRyYSAzMCUgdG8gYWRkIGxhYmVscw0KDQogICAgcG9pbnRzKHh1W3h1PnhjXSx5b2JzW3h1PnhjXSxjZXg9Ljc1LCBjb2w9Y29sLmwyKQ0KDQogICAgI0F4aXMgbGFiZWxzDQogICAgbXRleHQoc2lkZT0xLGxpbmU9Mi43NSx4LmYsZm9udD0yKQ0KICAgIG10ZXh0KHNpZGU9MixsaW5lPTIuNzUseS5mLGZvbnQ9MikNCg0KICAgICM0LjEwKSBTbW9vdGhlZCBsaW5lDQogICAgI2xpbmVzKHh1W29yZGVyKHh1KV0seWhhdC5zbW9vdGhbb3JkZXIoeHUpXSxjb2w9Y29sLmZpdCxsd2Q9MixsdHk9bHR5LmZpdCkNCg0KICAgICM0LjEwIC0gTmV3IDIwMTggMDUgMjUNCiAgICBsaW5lcyh4dVtvcmRlcih4dSldLHloYXQuc21vb3RoW29yZGVyKHh1KV0sY29sPWNvbC5maXQsbHR5PTIsbHdkPTIpDQoNCiAgICAjNC4xMC4yIEFycm93IDENCiAgICB4bTE9KHhjK3gwKS8yDQogICAgeDAuYXJyb3cuMT14bTEtLjEqeHINCiAgICB4MS5hcnJvdy4xPXhtMSsuMSp4cg0KICAgIHkwLmFycm93LjE9eTArLjEqeXINCiAgICB5MS5hcnJvdy4xPXkwKy4xKnlyKyBiMSooeDEuYXJyb3cuMS14MC5hcnJvdy4xKQ0KDQogICAgI01vdmUgYXJyb3cgaWYgaXQgaXMgdG9vIHNob3J0DQogICAgaWYgKHgwLmFycm93LjE8eDArLjEqeHIpIHgwLmFycm93LjE9eDANCg0KICAgICNNb3ZlIGFycm93IGlmIGl0IGNvdmVycyB0ZXh0DQogICAgZ2FwLjE9KG1pbih5MC5hcnJvdy4xLHkxLmFycm93LjEpLSh5MCsuMSp5cikpDQogICAgaWYgKGdhcC4xPDApIHsNCiAgICAgIHkwLmFycm93LjE9eTAuYXJyb3cuMS1nYXAuMQ0KICAgICAgeTEuYXJyb3cuMT15MS5hcnJvdy4xLWdhcC4xDQogICAgfQ0KDQogICAgYXJyb3dzKHgwPXgwLmFycm93LjEseDE9eDEuYXJyb3cuMSx5MD15MC5hcnJvdy4xLHkxPXkxLmFycm93LjEsY29sPWNvbC5sMSxsd2Q9MikNCg0KICAgICM0LjEwLjMgVGV4dCB1bmRlciBhcnJvdyAxDQogICAgeG0xPW1heCh4bTEseDArLjIwKnhyKQ0KICAgIHRleHQoeG0xLHkwKy4wMjUqeXIsDQogICAgICAgICBwYXN0ZTAoIkF2ZXJhZ2Ugc2xvcGUgMTpcbmIgPSAiLHJvdW5kKGIxLDIpLCIsIHogPSAiLHJvdW5kKHoxLDIpLCIsICIscnAocDEpKSxjb2w9Y29sLmwxKQ0KDQogICAgIzQuMTAuMyBBcnJvdyAyDQogICAgeDAuYXJyb3cuMj14YysoeDEteGMpLzItLjEqeHINCiAgICB4MS5hcnJvdy4yPXhjKyh4MS14YykvMisuMSp4cg0KICAgIHkwLmFycm93LjI9eTEuYXJyb3cuMQ0KICAgIHkxLmFycm93LjI9eTAuYXJyb3cuMiArIGIyKih4MS5hcnJvdy4yLXgwLmFycm93LjIpDQoNCiAgICBnYXAuMj0obWluKHkwLmFycm93LjIseTEuYXJyb3cuMiktKHkwKy4xKnlyKSkNCiAgICBpZiAoZ2FwLjI8MCkgew0KICAgICAgeTAuYXJyb3cuMj15MC5hcnJvdy4yLWdhcC4yDQogICAgICB5MS5hcnJvdy4yPXkxLmFycm93LjItZ2FwLjINCiAgICB9DQoNCg0KICAgICNTaG9ydGVuIGFycm93IGlmIGl0IGlzIHRvbyBjbG9zZSB0byB0aGUgZW5kDQogICAgeDEuYXJyb3cuMj1taW4oeDEuYXJyb3cuMix4MSkNCiAgICBpZiAoeDAuYXJyb3cuMjx4YykgeDAuYXJyb3cuMj14Yw0KDQogICAgeG0yPXhjKyh4MS14YykvMg0KICAgIHhtMj1taW4oeG0yLHgxLS4yKnhyKQ0KDQoNCiAgICBhcnJvd3MoeDA9eDAuYXJyb3cuMix4MT14MS5hcnJvdy4yLHkwPXkwLmFycm93LjIseTE9eTEuYXJyb3cuMixjb2w9Y29sLmwyLGx3ZD0yKQ0KICAgIHRleHQoeG0yLHkwKy4wMjUqeXIsDQogICAgICAgICBwYXN0ZTAoIkF2ZXJhZ2Ugc2xvcGUgMjpcbmIgPSAiLHJvdW5kKGIyLDIpLCIsIHogPSAiLHJvdW5kKHoyLDIpLCIsICIscnAocDIpKSxjb2w9Y29sLmwyKQ0KDQoNCg0KICAgICM0LjEzIERpdmlzaW9uIGxpbmUNCiAgICBsaW5lcyhjKHhjLHhjKSxjKHkwKy4zNSp5cix5MSksY29sPWNvbC5kaXYsbHR5PWx0eS5maXQpDQogICAgdGV4dCh4Yyx5MCsuMyp5cixyb3VuZCh4YywyKSxjb2w9Y29sLmRpdikNCiAgfSNFbmQ6IGlmICBncmFwaD09MQ0KDQogICM1IGxpc3Qgd2l0aCByZXN1bHRzDQogIHJlcz1saXN0KGIxPWIxLHAxPXAxLGIyPWIyLHAyPXAyLHUuc2lnPXUuc2lnLHhjPXhjLHoxPXoxLHoyPXoyLA0KICAgICAgICAgICBnbG0xPWdsbTEsZ2xtMj1nbG0yLHJvYjE9cm9iMSxyb2IyPXJvYjIsbXNnPW1zZykgICNPdXRwdXQgbGlzdCB3aXRoIGFsbCB0aG9zZSBwYXJhbWV0ZXJzLCBiZXRhcywgei12YWx1ZXMsIHAtdmFsdWVzIGFuZCBzaWduaWZpY2FuY2UgZm9yIHUNCg0KICBpZiAoZ3JhcGg9PTEpIHJlcyR5aGF0LnNtb290aD15aGF0LnNtb290aA0KICAjb3V0cHV0IGl0DQogIHJlcw0KfSAgI0VuZCBvZiByZWcyKCkgZnVuY3Rpb24NCg0KDQojRnVuY3Rpb24gNC0NCnR3b2xpbmVzPWZ1bmN0aW9uKGYsZ3JhcGg9MSxsaW5rPSJnYXVzc2lhbiIsZGF0YT1OVUxMLHBuZ2ZpbGU9IiIpICB7DQogIGF0dGFjaChkYXRhKQ0KDQogICMoMSkgRXh0cmFjdCB2YXJpYWJsZSBuYW1lcw0KICAjMS4xIEdldCB0aGUgZm9ybXVsYXMNCiAgeS5mPWFsbC52YXJzKGYpWzFdICAgICAgICAgICAgICAgICAgI0RWDQogIHguZj1hbGwudmFycyhmKVsyXSAgICAgICAgICAgICAgICAgICNWYXJpYWJsZSBvbiB3aGljaCB0aGUgdS1zaGFwZSBzaGFsbCBiZSB0ZXN0ZWQNCg0KICAjTnVtYmVyIG9mIHZhcmlhYmxlcw0KICB2YXIuY291bnQ9bGVuZ3RoKGFsbC52YXJzKGYpKSAgI0hvdyBtYW55IHByZWRpY3RvcnMgaW4gYWRkaXRpb24gdG8gdGhlIGtleSBwcmVkaWN0b3I/DQogICNFbnRpcmUgbW9kZWwsIGV4Y2VwdCB0aGUgZmlyc3QgcHJlZGljdG9yDQogIGlmICh2YXIuY291bnQ+Mikgbm94LmY9ZHJvcC50ZXJtcyh0ZXJtcyhmKSxkcm9weD0xLGtlZXAucmVzcG9uc2UgPSBUKQ0KDQogICMxLjEuNSBEcm9wIG1pc3NpbmcgdmFsdWUgZm9yIGFueSB0aGUgdmFyaWFibGVzIGJlaW5nIHVzZWQNCiAgI2FsbCB2YXJpYWJsZXMgaW4gdGhlIHJlZ3Jlc3Npb24NCiAgdmFycz1hbGwudmFycyhmKQ0KICAjVmVjdG9yIHdpdGggY29sdW1ucyBhc3NvY2lhdGVkIHdpdGggdGhvc2UgdmFyaWFibGUgbmFtZXMgaW50aGUgdXBsb2FkZWQgZGF0YXNldA0KICBjb2xzPWMoKQ0KICBmb3IgKHZhciBpbiB2YXJzKSBjb2xzPWMoY29scywgd2hpY2gobmFtZXMoZGF0YSk9PXZhcikpDQogICNTZXQgb2YgY29tcGxldGUgb2JzZXJ2YXRpb25zDQogIGZ1bGwucm93cz1jb21wbGV0ZS5jYXNlcyhkYXRhWyxjb2xzXSkNCg0KICAjRHJvcCBtaXNzaW5nIHJvd3MNCiAgZGF0YT1kYXRhW2Z1bGwucm93cyxdDQogIGRldGFjaChkYXRhKSAgICAgICAgICAjRGV0YWNoIHRoZSBmdWxsIGRhdGFzZXQNCiAgYXR0YWNoKGRhdGEpICAgICAgICAgICNBdHRhY2ggdGhlIG9uZSB3aXRob3V0IG1pc3NpbmcgdmFsdWVzIGluIGtleSB2YXJpYWJsZXMNCg0KDQogICMxLjIgR3JhYiB0aGUgdHdvIGtleSB2YXJpYWJsZXMgdG8gYmUgdXNlZCwgeHUgYW5kIHl1DQogIHh1PWV2YWwyKHguZikgICN4dSBpcyB0aGUga2V5IHByZWRpY3RvciBwcmVkaWN0ZWQgdG8gYmUgdS1zaGFwZWQNCiAgeXU9ZXZhbDIoeS5mKSAgI3l1IGlzIHRoZSBkdg0KDQogICMxLjMgUmVwbGFjZSBmb3JtdWxhIGZvciBrZXkgcHJlZGljdG9yIHNvIHRoYXQgaXQgYWNjb21tb2RhdGVzICBwb3NzaWJseSBkaXNjcmV0ZSB2YWx1ZXMNCiAgIzEuMy4xIENvdW50IG51bWJlciBvZiB1bmlxdWUgeCB2YWx1ZXMNCiAgdW5pcXVlLng9bGVuZ3RoKHVuaXF1ZSh4dSkpICAgI0hvdyBtYW55IHVuaXF1ZSB2YWx1ZXMgeCBoYXMNCiAgIzEuMy4yIE5ldyBmdW5jdGlvbiBzZWdtZW50IGZvciB4DQogIHN4LmY9cGFzdGUwKCJzKCIseC5mLCIsYnM9J2NyJywgaz1taW4oMTAsIix1bmlxdWUueCwiKSkiICkNCg0KICAjMiBSdW4gc21vb3RoZXINCiAgIzIuMSBEZWZpbmUgdGhlIGZvcm11bGEgdG8gYmUgcnVuIGJhc2VkIG9uIHdoZXRoZXIgdGhlcmUgYXJlIGNvdmFyaWF0ZXMNCiAgaWYgKHZhci5jb3VudD4yKSAgZ2FtLmY9cGFzdGUwKGZvcm1hdChub3guZiksIisiLHN4LmYpICAgICAgI3dpdGggY292YXJpYXRlcw0KICBpZiAodmFyLmNvdW50PT0yKSBnYW0uZj1wYXN0ZTAoInl1fiIsc3guZikgICAgICAgICAgICAgICAgICAjd2l0aG91dA0KICAjMi4yIE5vdyBydW4gaXQNCiAgZ2Ftcz1nYW0oYXMuZm9ybXVsYShnYW0uZiksbGluaz1saW5rKSAgI3NvIHRoaXMgaXMgYSBnZW5lcmFsIGFkZGl0aXZlIG1vZGVsIHdpdGggdGhlIG1haW4gc3BlY2lmaWNhdGlvbiBlbnRlcmVkDQogICNidXQgd2UgbWFrZSB0aGUgZmlyc3QgcHJlZGljdG9yLCB0aGUgb25lIHRoYXQgd2lsbCBiZSB0ZXN0ZWQgZm9yIGhhdmluZyBhIHUtc2hhcGVkIGVmZmVjdA0KICAjYmUgZXN0aW1hdGVkIHdpdGggYSBjb21wbGV0ZWx5IGZsZXhpYmxlIGZ1bmN0aW9uYWwgZm9ybS4NCg0KDQoNCiAgIygzKSBHZW5lcmF0ZSB5b2JzIChkb3RzKQ0KICAjMy4xIElmIG5vIGNvdmFyaWF0ZXMsIHlvYnMgaXMgdGhlIGFjdHVhbGx5IG9ic2VydmVkIGRhdGENCiAgaWYgKHZhci5jb3VudD09MikgeW9icz15dQ0KDQogICMzLjIgSWYgY292YXJpYXRlcyBwcmVzZW50LCB5b2JzIGlzIHRoZSBmaXR0ZWQgdmFsdWUgd2l0aCB1KHgpIGF0IG1lYW4sIG5lZWQgbmV3LmRhdGEoKSB3aXRoIHZhcmlhYmxlcyBhdCBtZWFucw0KICBpZiAodmFyLmNvdW50PjIpIHsNCg0KICAgICMzLjMgUHV0IG9ic2VydmVkIGRhdGEgaW50byBtYXRyaXgNCiAgICBkYXRhLm9icz1hcy5kYXRhLmZyYW1lKG1hdHJpeChucm93PWxlbmd0aCh4dSksbmNvbD12YXIuY291bnQpKSAgICAgICAgICAjRW1wdHkgZGF0YWZpbGUNCiAgICBjb2xuYW1lcyhkYXRhLm9icyk9YWxsLnZhcnMoZikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjTmFtZSB2YXJpYWJsZXMNCiAgICBmb3IgKGkgaW4gMToodmFyLmNvdW50KSkgZGF0YS5vYnNbLGldPWV2YWwoYXMubmFtZShhbGwudmFycyhmKVtpXSkpICAgICAjZmlsbCBpbiBkYXRhDQoNCiAgICAjMy40IERyb3Agb2JzZXJ2YXRpb25zIHdpdGggbWlzc2luZyB2YWx1ZXMgb24gYW55IG9mIHRoZSB2YXJpYWJsZXMNCiAgICBkYXRhLm9icz1uYS5vbWl0KGRhdGEub2JzKQ0KDQogICAgIzMuNSBDcmVhdGUgZGF0YSB3aGVyZSB4dSBpcyBhdCBzYW1wbGUgbWVhbnMgdG8gZ2V0IHJlc2lkdWFscyBiYXNlZCBvbiByZXN0IG9mIG1vZGVscyB0byBhY3QgYXMgeW9icw0KICAgICNSZWNhbGw6IGNvbHVtbnMgMSAmIDIgaGF2ZSB5IGFuZCB1KHgpIGluIG9icy5kYXRhDQogICAgZGF0YS54dWZpeGVkICAgID1kYXRhLm9icw0KICAgIGRhdGEueHVmaXhlZFssMl09bWVhbihkYXRhLm9ic1ssMl0pICAgI05vdGUsIHRoZSAxc3QgcHJlZGljdG9yLCAybmQgY29sdW1ucywgaXMgYWx3YXlzIHRoZSBvbmUgaHlwb3RoZXNpemVkIHRvIGJlIHUtc2hhcGVkDQogICAgI3JlcGxhY2UgaXQgd2l0aCB0aGUgbWVhbiB2YWx1ZSBvZiB0aGUgcHJlZGljdG9yDQoNCiAgICAjMy42IEdldCB5b2JzIHdpdGggY292YXJpYXRlcw0KICAgICNGaXJzdCB0aGUgZml0dGVkIHZhbHVlDQogICAgIyNhZGQgdGhlIG1vZGlmaWVkIHNtb290aGVyIHZlcnNpb24gb2YgeCBpbnRvIHRoZSBmb3JtdWxhDQogICAgeWhhdC54dWZpeGVkPXByZWRpY3QuZ2FtKGdhbXMsbmV3ZGF0YSA9IGRhdGEueHVmaXhlZCkgICAgICAgICNnZXQgZml0dGVkIHZhbHVlcyBhdCBtZWFucyBmb3IgY292YXJpYXRlcw0KDQogICAgIzMuNyBTdWJzdHJhY3QgZml0dGVkIHZhbHVlIGZyb20gb2JzZXJ2ZWQgeQ0KICAgIHlvYnMgPSB5dS15aGF0Lnh1Zml4ZWQNCg0KICAgICMzLjggQ3JlYXRlIGRhdGEgd2hlcmUgdSh4KSBpcyBvYnMsIGFuZCBhbGwgZWxzZSBhdCBzYW1wbGUgbWVhbnMNCiAgICBkYXRhLm90aGVyZml4ZWQgICAgICAgICAgICAgID0gZGF0YS5vYnMgICAgICNzdGFydCB3aXRoIG9yaWdpbmFsIHZhbHVlDQogICAgIzMuOSBSZXBsYWNlIGFsbCBjb3ZhcmlhdGVzIHdpdGggdGhlaXIgbWVhbiBmb3IgZml0dGluZyBkYXRhIGF0IHNhbXBsZSBtZWFucw0KICAgIGZvciAoaSBpbiAzOnZhci5jb3VudCkgIGRhdGEub3RoZXJmaXhlZFssaV09bWVhbihkYXRhLm9ic1ssaV0pDQogIH0gI0VuZCBpZiBjb3ZhcmlhdGVzIGFyZSBwcmVzZW50IHRvIGNvbXB1dGUgeW9icw0KDQoNCg0KICAjNCkgR2V0IHRoZSBmaXR0ZWQgdmFsdWVzIGF0IHNhbXBsZSBtZWFucyBmb3IgY292YXJpYXRlcw0KICAjNC4xKSBHZXQgcHJlZGljdGVkIHZhbHVlcyBpbnRvIGxpc3QNCiAgaWYgKHZhci5jb3VudD4yKSAgIGcuZml0PXByZWRpY3QuZ2FtKGdhbXMsbmV3ZGF0YSA9IGRhdGEub3RoZXJmaXhlZCxzZS5maXQ9VFJVRSkgICNwcmVkaWN0IHdpdGggY292YXJpYXRlcyBhdCBtZWFucw0KICBpZiAodmFyLmNvdW50PT0yKSAgZy5maXQ9cHJlZGljdC5nYW0oZ2FtcyxzZS5maXQ9VFJVRSkNCg0KICAjNC4yKSBUYWtlIG91dCB0aGUgZml0dGVkIGl0c2VsZg0KICB5LmhhdD1nLmZpdCRmaXQNCiAgIzQuMykgTm93IHRoZSBTRQ0KICB5LnNlID1nLmZpdCRzZS5maXQNCg0KDQogICM1KSBNb3N0IGV4dHJlbWUgZml0dGVkIHZhbHVlDQogICM1LjEpIERldGVybWluZSBpZiBmdW5jdGlvbiBpcyBhdCBmaXJzdCBkZWNyZWFzaW5nIChwb3RlbnRpYWwgdS1zaGFwZSkgIHZzLiBpbmNyZWFzZWluZyAocG90ZW50aWFsbHkgaW52ZXJ0ZWQgVSkgIChwb3RlbnRpYWwgdS1zaGFwZSkgb3JpbnZlcnRlZCB1IHNoYXBlZCB1c2luZyBxdWFkcmF0aWMgcmVncmVzc2lvbg0KICAjdG8ga25vdyBpZiB3ZSBhcmUgbG9va2luZyBmb3IgbWF4IG9yIG1pbg0KDQogIHh1Mj14dV4yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjU3F1YXJlIHggdGVybSwgeHUgaXMgdGhlIDFzdCBwcmVkaWN0b3IgcmUtY3BkZWQNCiAgaWYgKHZhci5jb3VudD4yKSAgbG1xLmY9dXBkYXRlKG5veC5mLH54dSt4dTIrLikgICAgICAgICAgICNBZGQgdG8gZnVuY3Rpb24gd2l0aCBjb3ZhcmlhdGVzICAgKHB1dCBmaXJzdCwgYmVmb3JlIGNvdmFyaWF0ZXMpDQogIGlmICh2YXIuY291bnQ9PTIpIGxtcS5mPXl1fnh1K3h1MiAgICAgICAgICAgICAgICAgICAgICAgICAjDQogIGxtcT1sbShhcy5mb3JtdWxhKGZvcm1hdChsbXEuZikpKSAgICAgICAgICAgICAgICNFc3RpbWF0ZSB0aGUgcXVhZHJhdGljIHJlZ3Jlc3Npb24NCiAgYnFzPWxtcSRjb2VmZmljaWVudHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgI0dldCB0aGUgcG9pbnQgZXN0aW1hdGVzDQogIGJ4MT0gYnFzWzJdICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICNwb2ludCBlc3RpbWF0ZSBmb3IgZWZmZWN0IG9mIHgNCiAgYngyPWJxc1szXSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI3BvaW50IGVzdGltYXRlIGZvciBlZmZlY3Qgb2YgeF4yDQogIHgwPW1pbih4dSkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICNsb3dlc3QgeC12YWx1ZQ0KICBzMD1ieDErMipieDIqeDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjZXN0aW1hdGVkIHNsb3BlIGF0IHRoZSBsb3dlc3QgeC12YWx1ZQ0KICBpZiAoczA+MCkgIHNoYXBlPSdpbnYtdXNoYXBlJyAgICAgICAgICAgICAgICAgICAjaWYgdGhlIHF1YWRyYXRpYyBpcyBpbmNyZWFzaW5nIGF0IHRoZSBsb3dlc3QgcG9pbnQsIHRoZSBjb3VsZCBiZSBpbnZlcnRlZCB1LXNoYXBlDQogIGlmIChzMDw9MCkgc2hhcGU9J3VzaGFwZScgICAgICAgICAgICAgICAgICAgICAgICNpZiBpdCBpcyBkZWNyZWFzZWluZywgdGhlbiBpdCBjb3VsZCBiZSBhIHJlZ3VsYXIgdS1zaGFwZQ0KDQoNCiAgIzUuMiBHZXQgdGhlIG1pZGRsZSA4MCUgb2YgZGF0YSB0byBhdm9pZCBhbiBleHRyZW1lIGN1dG9mZg0KICB4MTA9cXVhbnRpbGUoeHUsLjEpDQogIHg5MD1xdWFudGlsZSh4dSwuOSkNCiAgbWlkZGxlPSh4dT54MTAgJiB4dTx4OTApICAgICAgICNEb24ndCBjb25zaWRlciBleHRyZW1lIHZhbHVlcyBmb3IgY3V0b2ZmDQogIHgubWlkZGxlPXh1W21pZGRsZV0NCg0KICAjNS4zIFJlc3RyaWN0IHkuaGF0IHRvIG1pZGRsZQ0KICB5LmhhdD15LmhhdFttaWRkbGVdDQogIHkuc2U9eS5zZVttaWRkbGVdDQoNCiAgIzUuNCBGaW5kIHVwcGVyIGFuZCBsb3dlciBiYW5kDQogIHkudWI9eS5oYXQreS5zZSAgICAgICAgICAgICMrU0UgaXMgZm9yIGZsYXQgbWF4DQogIHkubGI9eS5oYXQteS5zZSAgICAgICAgICAgICMtU0UgaXMgZm9yIGZsYXQgbWluDQoNCiAgIzUuNSBGaW5kIG1vc3QgZXh0cmVtZSB5LWhhdA0KICBpZiAoc2hhcGU9PSdpbnYtdXNoYXBlJykgeS5tb3N0PW1heCh5LmhhdCkgICAjaWYgcG90ZW50aWFsbHkgaW52ZXJ0ZWQgdS1zaGFwZSwgdXNlIHRoZSBoaWdoZXN0IHktaGF0IGFzIHRoZSBtb3N0IGV4dHJtZQ0KICBpZiAoc2hhcGU9PSd1c2hhcGUnKSAgICAgeS5tb3N0PW1pbih5LmhhdCkgICAjaWYgcG90ZW50aWFsIHUtc2hhcGVkLCB0aGVuIHRoZSBsb3dlc3QgaW5zdGVhZA0KDQogICM1LjYgeC12YWx1ZSBhc3NvY2lhdGVkIHdpdGggdGhlIG1vc3QgZXh0cmVtZSB2YWx1ZQ0KICB4Lm1vc3Q9eC5taWRkbGVbbWF0Y2goeS5tb3N0LCB5LmhhdCldDQoNCiAgIzUuNyBGaW5kIGZsYXQgcmVnaW9ucw0KICBpZiAoc2hhcGU9PSdpbnYtdXNoYXBlJykgZmxhdD0oeS51Yj55Lm1vc3QpDQogIGlmIChzaGFwZT09J3VzaGFwZScpICAgICBmbGF0PSh5LmxiPHkubW9zdCkNCiAgeGZsYXQ9eC5taWRkbGVbZmxhdF0NCg0KICAjNiBSVU4gVFdPIExJTkUgUkVHUkVTU0lPTlMNCiAgIzYuMSBGaXJzdCBhbiBpbnRlcnJ1cHRlZCByZWdyZXNzaW9uIGF0IHRoZSBtaWRwb2ludCBvZiB0aGUgZmxhdCByZWdpb24NCiAgcm1pZD1yZWcyKGYseGM9bWVkaWFuKHhmbGF0KSxncmFwaD0wKSAgI1R3byBsaW5lIHJlZ3Jlc3Npb24gYXQgdGhlIG1lZGlhbiBwb2ludCBvZiBmbGF0IG1heGltdW0NCg0KICAjNi4yICBHZXQgejEgYW5kIHoyLCBzdGF0aXN0aWNhbCBzdHJlbmd0aCBvZiBib3RoIGxpbmVzIGF0IHRoZSBtaWRwb2ludA0KICB6MT1hYnMocm1pZCR6MSkNCiAgejI9YWJzKHJtaWQkejIpDQoNCiAgIzYuMyBBZGp1c3QgYnJlYWtwb2ludCBiYXNlZCBvbiB6MSx6Mg0KICB4Yz1xdWFudGlsZSh4ZmxhdCx6Mi8oejErejIpKQ0KDQogICM2LjQgUmVncmVzc2lvbiBzcGxpdCBiYXNlZCBvbiBhZGp1c3RlZCBiYXNlZCBvbiB6MSx6Mg0KICAjU2F2ZSB0byBwbmc/IChvcHRpb24gc2V0IGF0IHRoZSBiZWdnaW5pbmcgYnkgZ2l2aW5nIHBuZyBhIG5hbWUpDQogIGlmIChwbmdmaWxlIT0iIikgcG5nKHBuZ2ZpbGUsIHdpZHRoPTIwMDAsaGVpZ2h0PTE1MDAscmVzPTMwMCkNCiAgI1J1biB0aGUgdHdvIGxpbmVzDQogIHJlcz1yZWcyKGFzLmZvcm11bGEoZm9ybWF0KGYpKSx4Yz14YyxncmFwaD1ncmFwaCkNCiAgI1NhdmUgdG8gcG5nPyAoY2xvc2UpDQogIGlmIChwbmdmaWxlIT0iIikgZGV2Lm9mZigpDQoNCg0KDQogICM3IEFkZCBvdGhlciByZXN1bHRzIG9idGFpbmVkIGJlZm9yZSB0byB0aGUgb3V0cHV0IChzb21lIG9mIHRoZXNlIGFyZSByZWFkIGJ5IHRoZSBzZXJ2ZXIgYW5kIGluY2x1ZGVkIGluIHRoZSBhcHApDQogIHJlcyR5b2JzICAgICAgID0geW9icw0KICByZXMkeS5oYXQgICAgICA9IHkuaGF0DQogIHJlcyR5LnViICAgICAgID0geS51Yg0KICByZXMkeS5sYiAgICAgICA9IHkubGINCiAgcmVzJHkubW9zdCAgICAgPSB5Lm1vc3QNCiAgcmVzJHgubW9zdCAgICAgPSB4Lm1vc3QNCiAgcmVzJGYgICAgICAgICAgPSBmb3JtYXQoZikNCiAgcmVzJGJ4MSAgICAgICAgPSBieDEgICAgICAgICAgICNsaW5lYXIgZWZmZWN0IGluIHF1YWRyYXRpYyByZWdyZXNzaW9uDQogIHJlcyRieDIgICAgICAgID0gYngyICAgICAgICAgICAjcXVhZHJhdGljDQogIHJlcyRtaW54ICAgICAgID0gbWluKHh1KSAgICAgICAjbG93ZXN0IHggdmFsdWUNCiAgcmVzJG1pZGZsYXQgICAgPSBtZWRpYW4oeGZsYXQpDQogIHJlcyRtaWR6MSAgICAgID0gYWJzKHJtaWQkejEpDQogIHJlcyRtaWR6MiAgICAgID0gYWJzKHJtaWQkejIpDQogIG9uLmV4aXQoZGV0YWNoKGRhdGEpKQ0KICByZXMNCn0gI0VuZCBmdW5jdGlvbg0KDQpgYGANCg0KIyMgQWxnb3JpdGhtOiBGaW5kIGJyZWFraW5nIHBvaW50DQpgYGB7cn0NCnR3b2xpbmVzX3BvbHNpbSA9IHR3b2xpbmVzKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YT1kYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsDQogICAgICAgICAgICAgICAgICAgICAgICAgICBncmFwaCA9IEYpDQpicmVha2luZ19wb2ludCA9IHR3b2xpbmVzX3BvbHNpbSRtaWRmbGF0DQpgYGANCg0KIyMgUnVuIE11bHRpbGV2ZWwgUmVncmVzc2lvbg0KIyMjIFJlZ3Jlc3Npb24gMSAoeCA8PSBicmVha2luZ19wb2ludCkNCmBgYHtyfQ0KbW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMSA9IGxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkcGx5cjo6ZmlsdGVyKHBvbGl0aWNhbF9vcmllbnRhdGlvbiA8PSBicmVha2luZ19wb2ludCkpDQpzdW1tYXJ5KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEpDQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMSkpDQpgYGANCg0KIyMjIFJlZ3Jlc3Npb24gMiAoeCA+PSBicmVha2luZ19wb2ludCkNCmBgYHtyfQ0KbW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiA9IGxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkcGx5cjo6ZmlsdGVyKHBvbGl0aWNhbF9vcmllbnRhdGlvbiA+PSBicmVha2luZ19wb2ludCkpDQpzdW1tYXJ5KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzIpDQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzIsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikpDQpgYGANCg==</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("11_twolines_analyses_multilevel.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

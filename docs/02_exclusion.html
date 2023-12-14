@@ -13,18 +13,27 @@
 
 <title>Exclusion</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -33,86 +42,32 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-    }
-  pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-  div.sourceCode
-    { color: #cccccc; background-color: #303030; }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ffcfaf; } /* Alert */
-  code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-  code span.at { } /* Attribute */
-  code span.bn { color: #dca3a3; } /* BaseN */
-  code span.bu { } /* BuiltIn */
-  code span.cf { color: #f0dfaf; } /* ControlFlow */
-  code span.ch { color: #dca3a3; } /* Char */
-  code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-  code span.co { color: #7f9f7f; } /* Comment */
-  code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-  code span.do { color: #7f9f7f; } /* Documentation */
-  code span.dt { color: #dfdfbf; } /* DataType */
-  code span.dv { color: #dcdccc; } /* DecVal */
-  code span.er { color: #c3bf9f; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #c0bed1; } /* Float */
-  code span.fu { color: #efef8f; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
-  code span.kw { color: #f0dfaf; } /* Keyword */
-  code span.op { color: #f0efd0; } /* Operator */
-  code span.ot { color: #efef8f; } /* Other */
-  code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-  code span.sc { color: #dca3a3; } /* SpecialChar */
-  code span.ss { color: #cc9393; } /* SpecialString */
-  code span.st { color: #cc9393; } /* String */
-  code span.va { } /* Variable */
-  code span.vs { color: #cc9393; } /* VerbatimString */
-  code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -131,7 +86,7 @@ pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   { color: #cccccc; background-color: #303030; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ffcfaf; } /* Alert */
 code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
@@ -180,13 +135,20 @@ code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -194,42 +156,14 @@ code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -240,10 +174,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -260,40 +190,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 64px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h2 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h3 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h4 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h5 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h6 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -321,7 +227,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -333,7 +239,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -343,11 +249,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -359,13 +282,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -373,16 +295,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -429,7 +344,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -459,6 +374,9 @@ $(document).ready(function () {
 <li>
   <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
 </li>
+<li>
+  <a href="09_analyses_exploratory.html">Suplementary Analyses</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -473,11 +391,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 <li role="separator" class="divider"></li>
@@ -493,11 +411,11 @@ $(document).ready(function () {
 
 
 <div id="section" class="section level2 tabset">
-<h2></h2>
+<h2 class="tabset"></h2>
 <div id="library" class="section level3">
 <h3>Library</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(formr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(formr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:formr&#39;:
@@ -513,55 +431,68 @@ $(document).ready(function () {
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Load selected data based on 01_datawrangling</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fulldata_selected_wrangled =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;fulldata_selected_wrangled.csv&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;fulldata_selected_wrangled.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
 </div>
 <div id="exclusion-process" class="section level3 tabset active">
-<h3>Exclusion Process</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_included =<span class="st"> </span>fulldata_selected_wrangled</span></code></pre></div>
-<div id="all-participants-younger-than-18" class="section level4 tabset active">
-<h4>All participants younger than 18</h4>
-<p>In total, we will exclude 26638 participants because they are younger than 18.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>data_included =<span class="st"> </span>fulldata_selected_wrangled <span class="op">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">filter</span>(age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">18</span> <span class="op">|</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">         </span><span class="kw">is.na</span>(age))</span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">table</span>(<span class="kw">is.na</span>(data_included<span class="op">$</span>age))</span></code></pre></div>
+<h3 class="tabset active">Exclusion Process</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>data_included <span class="ot">=</span> fulldata_selected_wrangled</span></code></pre></div>
+<div id="all-participants-younger-than-18"
+class="section level4 tabset active">
+<h4 class="tabset active">All participants younger than 18</h4>
+<p>In total, we excluded 26638 participants because they are younger
+than 18.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>data_included <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">|</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>         <span class="fu">is.na</span>(age))</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(data_included<span class="sc">$</span>age))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 68085    15</code></pre>
 </div>
-<div id="all-participants-who-do-not-identify-as-women" class="section level4 tabset">
-<h4>All participants who do not identify as women</h4>
-<p>In total, we will exclude 3221 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
-<p>Consecutively, this means we will exclude 3221 participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">table</span>(data_included<span class="op">$</span>sex)</span></code></pre></div>
+<div id="all-participants-who-do-not-identify-as-women"
+class="section level4 tabset">
+<h4 class="tabset">All participants who do not identify as women</h4>
+<p>In total, we excluded 3221 participants because they did not identify
+as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to
+say; Other)</p>
+<p>Consecutively, this means we excluded 3221 participants because they
+did not identify as women (Men, Genderqueer/Nonbinary; None of the
+above; Prefer not to say; Other)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ## Genderqueer/Nonbinary                   Man     None of the above 
 ##                   840                  2055                    58 
 ##                 Other     Prefer not to say                 Woman 
 ##                    43                   225                 64879</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>data_included =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">filter</span>((sex <span class="op">!=</span><span class="st"> &quot;Man&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">         </span>sex <span class="op">!=</span><span class="st"> &quot;Genderqueer/Nonbinary&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="st">         </span>sex <span class="op">!=</span><span class="st"> &quot;None of the above&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="st">         </span>sex <span class="op">!=</span><span class="st"> &quot;Prefer not to say&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="st">         </span>sex <span class="op">!=</span><span class="st"> &quot;Other&quot;</span>)  <span class="op">|</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="st">         </span><span class="kw">is.na</span>(sex))</span>
-<span id="cb12-8"><a href="#cb12-8"></a></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="kw">table</span>(data_included<span class="op">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>data_included <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">filter</span>((sex <span class="sc">!=</span> <span class="st">&quot;Man&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>         sex <span class="sc">!=</span> <span class="st">&quot;Genderqueer/Nonbinary&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>         sex <span class="sc">!=</span> <span class="st">&quot;None of the above&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>         sex <span class="sc">!=</span> <span class="st">&quot;Prefer not to say&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>         sex <span class="sc">!=</span> <span class="st">&quot;Other&quot;</span>)  <span class="sc">|</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>         <span class="fu">is.na</span>(sex))</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ## Woman 
 ## 64879</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">table</span>(<span class="kw">is.na</span>(data_included<span class="op">$</span>sex))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(data_included<span class="sc">$</span>sex))</span></code></pre></div>
 <pre><code>## 
 ## FALSE 
 ## 64879</code></pre>
 </div>
-<div id="all-participants-who-do-not-identify-as-heterosexual" class="section level4 tabset">
-<h4>All participants who do not identify as heterosexual</h4>
-<p>In total, we will exclude 13454 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
-<p>Consecutively, this means we will exclude 11946 participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">table</span>(data_included<span class="op">$</span>sexual_orientation)</span></code></pre></div>
+<div id="all-participants-who-do-not-identify-as-heterosexual"
+class="section level4 tabset">
+<h4 class="tabset">All participants who do not identify as
+heterosexual</h4>
+<p>In total, we excluded 13454 participants because they did not
+identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual;
+Queer; Asexual; Prefer not to say; Other)</p>
+<p>Consecutively, this means we excluded 11946 participants because they
+did not identify as heterosexual (Lesbian/Gay/Homosexual;
+Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
 <pre><code>## 
 ##                Asexual     Bisexual/Pansexual Lesbian/Gay/Homosexual 
 ##                    457                   8857                   1208 
@@ -569,26 +500,39 @@ $(document).ready(function () {
 ##                    266                    584                    574 
 ##  Straight/Heterosexual 
 ##                  52933</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>data_included =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">filter</span>((sexual_orientation <span class="op">!=</span><span class="st"> &quot;Lesbian/Gay/Homosexual&quot;</span> <span class="op">&amp;</span><span class="st"> </span>sexual_orientation <span class="op">!=</span><span class="st"> &quot;Bisexual/Pansexual&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">         </span>sexual_orientation <span class="op">!=</span><span class="st"> &quot;Queer&quot;</span> <span class="op">&amp;</span><span class="st"> </span>sexual_orientation <span class="op">!=</span><span class="st"> &quot;Asexual&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="st">         </span>sexual_orientation <span class="op">!=</span><span class="st"> &quot;Prefer not to say&quot;</span> <span class="op">&amp;</span><span class="st"> </span>sexual_orientation <span class="op">!=</span><span class="st"> &quot;Other&quot;</span>) <span class="op">|</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st">         </span><span class="kw">is.na</span>(sexual_orientation))</span>
-<span id="cb18-6"><a href="#cb18-6"></a></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="kw">table</span>(data_included<span class="op">$</span>sexual_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>data_included <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">filter</span>((sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Lesbian/Gay/Homosexual&quot;</span> <span class="sc">&amp;</span> sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Bisexual/Pansexual&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>         sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Queer&quot;</span> <span class="sc">&amp;</span> sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Asexual&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>         sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Prefer not to say&quot;</span> <span class="sc">&amp;</span> sexual_orientation <span class="sc">!=</span> <span class="st">&quot;Other&quot;</span>) <span class="sc">|</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>         <span class="fu">is.na</span>(sexual_orientation))</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
 <pre><code>## 
 ## Straight/Heterosexual 
 ##                 52933</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">table</span>(<span class="kw">is.na</span>(data_included<span class="op">$</span>sexual_orientation)) </span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(data_included<span class="sc">$</span>sexual_orientation)) </span></code></pre></div>
 <pre><code>## 
 ## FALSE 
 ## 52933</code></pre>
 </div>
-<div id="all-participants-who-indicated-being-in-a-relationship" class="section level4 tabset">
-<h4>All participants who indicated being in a relationship</h4>
-<p>In total, we will exclude 45276 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 304 participants where it was not sure whether they were currently single (Other).</p>
-<p>Consecutively, we will exclude 35605 participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and 214 participants where it was not sure whether they were currently single (Other).</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">table</span>(data_included<span class="op">$</span>relationship)</span></code></pre></div>
+<div id="all-participants-who-indicated-being-in-a-relationship"
+class="section level4 tabset">
+<h4 class="tabset">All participants who indicated being in a
+relationship</h4>
+<p>In total, we excluded 45276 participants because they indicated being
+in a relationship (New (less than 1 month old) romantic and/or sexual
+relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive
+romantic and/or sexual relationship; Long-term committed/exclusive
+sexual relationship with one or more partners) and 304 participants
+where it was not sure whether they were currently single (Other).</p>
+<p>Consecutively, we excluded 35605 participants because they indicated
+being in a relationship (New (less than 1 month old) romantic and/or
+sexual relationship ; Ongoing (longer than 1 month)
+uncommitted/non-exclusive romantic and/or sexual relationship; Long-term
+committed/exclusive sexual relationship with one or more partners) and
+214 participants where it was not sure whether they were currently
+single (Other).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>relationship)</span></code></pre></div>
 <pre><code>## 
 ##                                                                                                                                                                                                                                               Long-term committed/exclusive sexual relationship with one or more partners,  
 ##                                                                                                                                                                                                                                                                                                                       24191 
@@ -668,14 +612,14 @@ $(document).ready(function () {
 ##                                                                                                                                                                                                                                                                                                                           1 
 ##                                                                                   No romantic or sexual relationships during the past 3 months,  Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship,  
 ##                                                                                                                                                                                                                                                                                                                           9</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>data_included_test1 =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw">filter</span>((<span class="op">!</span>(relationship <span class="op">%contains%</span><span class="st"> &quot;New (less than 1 month old) romantic and/or sexual relationship&quot;</span>) <span class="op">&amp;</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">         </span><span class="op">!</span>(relationship <span class="op">%contains%</span><span class="st"> &quot;Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship&quot;</span>) <span class="op">&amp;</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="st">         </span><span class="op">!</span>(relationship <span class="op">%contains%</span><span class="st"> &quot;Long-term committed/exclusive sexual relationship with one or more partners&quot;</span>) <span class="op">&amp;</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="st">         </span><span class="op">!</span>(relationship <span class="op">%contains%</span><span class="st"> &quot;Other&quot;</span>)) <span class="op">|</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="st">         </span><span class="kw">is.na</span>(relationship))</span>
-<span id="cb24-7"><a href="#cb24-7"></a></span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="kw">table</span>(data_included_test1<span class="op">$</span>relationship)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>data_included_test1 <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">filter</span>((<span class="sc">!</span>(relationship <span class="sc">%contains%</span> <span class="st">&quot;New (less than 1 month old) romantic and/or sexual relationship&quot;</span>) <span class="sc">&amp;</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>         <span class="sc">!</span>(relationship <span class="sc">%contains%</span> <span class="st">&quot;Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship&quot;</span>) <span class="sc">&amp;</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>         <span class="sc">!</span>(relationship <span class="sc">%contains%</span> <span class="st">&quot;Long-term committed/exclusive sexual relationship with one or more partners&quot;</span>) <span class="sc">&amp;</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>         <span class="sc">!</span>(relationship <span class="sc">%contains%</span> <span class="st">&quot;Other&quot;</span>)) <span class="sc">|</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>         <span class="fu">is.na</span>(relationship))</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="fu">table</span>(data_included_test1<span class="sc">$</span>relationship)</span></code></pre></div>
 <pre><code>## 
 ##                                                                Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  
 ##                                                                                                                                        3408 
@@ -683,42 +627,56 @@ $(document).ready(function () {
 ##                                                                                                                                       11976 
 ## No romantic or sexual relationships during the past 3 months,  Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  
 ##                                                                                                                                         158</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">table</span>(<span class="kw">is.na</span>(data_included_test1<span class="op">$</span>relationship))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(data_included_test1<span class="sc">$</span>relationship))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 15542  2602</code></pre>
-<div id="relationship-check-with-old-relationships-variable" class="section level5 tabset">
-<h5>Relationship check: With old relationships variable</h5>
-<p>Just to make sure, that our data wrangling earlier worked, we will check the exclusion process based on old relationships variable</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>data_included_test2 =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span><span class="kw">filter</span>(relationship1 <span class="op">!=</span><span class="st"> &quot;True&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  </span><span class="kw">filter</span>(relationship3 <span class="op">!=</span><span class="st"> &quot;True&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="st">  </span><span class="kw">filter</span>(relationship4 <span class="op">!=</span><span class="st"> &quot;True&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="st">  </span><span class="kw">filter</span>(relationship5 <span class="op">!=</span><span class="st"> &quot;True&quot;</span>)</span>
-<span id="cb28-6"><a href="#cb28-6"></a></span>
-<span id="cb28-7"><a href="#cb28-7"></a>data_included =<span class="st"> </span>data_included_test1 <span class="op">%&gt;%</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="st">  </span><span class="co"># Drop unneccessary relationship variables</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>relationship1, <span class="op">-</span>relationship2, <span class="op">-</span>relationship3, <span class="op">-</span>relationship4, <span class="op">-</span>relationship5) </span></code></pre></div>
+<div id="relationship-check-with-old-relationships-variable"
+class="section level5 tabset">
+<h5 class="tabset">Relationship check: With old relationships
+variable</h5>
+<p>Just to make sure, that our data wrangling earlier worked, we checked
+the exclusion process based on old relationships variable</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>data_included_test2 <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">filter</span>(relationship1 <span class="sc">!=</span> <span class="st">&quot;True&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fu">filter</span>(relationship3 <span class="sc">!=</span> <span class="st">&quot;True&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="fu">filter</span>(relationship4 <span class="sc">!=</span> <span class="st">&quot;True&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  <span class="fu">filter</span>(relationship5 <span class="sc">!=</span> <span class="st">&quot;True&quot;</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>data_included <span class="ot">=</span> data_included_test1 <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  <span class="co"># Drop unneccessary relationship variables</span></span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>relationship1, <span class="sc">-</span>relationship2, <span class="sc">-</span>relationship3, <span class="sc">-</span>relationship4, <span class="sc">-</span>relationship5) </span></code></pre></div>
 </div>
 </div>
-<div id="all-participants-who-did-not-specify-their-political-orientation" class="section level4 tabset">
-<h4>All participants who did not specify their political orientation</h4>
-<p>In total, we will exclude 4329 participants because they did not specify their political orientation.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>data_included =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">political_orientation =</span> <span class="kw">ifelse</span>(political_orientation <span class="op">==</span><span class="st"> &quot;&quot;</span>, <span class="ot">NA</span>, political_orientation))</span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="kw">table</span>(<span class="kw">is.na</span>(data_included<span class="op">$</span>political_orientation))</span></code></pre></div>
+<div
+id="all-participants-who-did-not-specify-their-political-orientation"
+class="section level4 tabset">
+<h4 class="tabset">All participants who did not specify their political
+orientation</h4>
+<p>In total, we excluded 4329 participants because they did not specify
+their political orientation.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>data_included <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">political_orientation =</span> <span class="fu">ifelse</span>(political_orientation <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, political_orientation))</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(data_included<span class="sc">$</span>political_orientation))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 13815  4329</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>data_included =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(political_orientation))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>data_included <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(political_orientation))</span></code></pre></div>
 </div>
-<div id="all-participants-who-did-not-answer-the-survey-seriously-or-chose-not-to-answer-the-seriousness-question" class="section level4 tabset">
-<h4>All participants who did not answer the survey seriously or chose not to answer the seriousness question</h4>
-<p>In total, we will exclude 2070 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
-<p>Consecutively, we will exclude 558 participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">table</span>(data_included<span class="op">$</span>answer_accuracy)</span></code></pre></div>
+<div
+id="all-participants-who-did-not-answer-the-survey-seriously-or-chose-not-to-answer-the-seriousness-question"
+class="section level4 tabset">
+<h4 class="tabset">All participants who did not answer the survey
+seriously or chose not to answer the seriousness question</h4>
+<p>In total, we excluded 2070 participants because they indicated not
+answering the survey seriously (I did not answer seriously, please
+disregard my information; I choose not to answer)</p>
+<p>Consecutively, we excluded 558 participants because they indicated
+not answering the survey seriously (I did not answer seriously, please
+disregard my information; I choose not to answer)</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">table</span>(data_included<span class="sc">$</span>answer_accuracy)</span></code></pre></div>
 <pre><code>## 
 ##                                              I choose not to answer. 
 ##                                                                  335 
@@ -726,21 +684,22 @@ $(document).ready(function () {
 ##                                                                  223 
 ## I took the survey seriously; please use my information in the study. 
 ##                                                                12461</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>data_included =<span class="st"> </span>data_included <span class="op">%&gt;%</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">filter</span>((answer_accuracy <span class="op">!=</span><span class="st"> &quot;I did not answer seriously; please disregard my information.&quot;</span> <span class="op">&amp;</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="st">         </span>answer_accuracy <span class="op">!=</span><span class="st"> &quot;I choose not to answer.&quot;</span>) <span class="op">|</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="st">         </span><span class="kw">is.na</span>(answer_accuracy))</span></code></pre></div>
-<p>We have 796 missings for answer_accuracy here. As mentioned in the preregistration, we will include these participants in our analyses.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>missings =<span class="st"> </span>data_included <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">is.na</span>(answer_accuracy))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>data_included <span class="ot">=</span> data_included <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">filter</span>((answer_accuracy <span class="sc">!=</span> <span class="st">&quot;I did not answer seriously; please disregard my information.&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>         answer_accuracy <span class="sc">!=</span> <span class="st">&quot;I choose not to answer.&quot;</span>) <span class="sc">|</span></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>         <span class="fu">is.na</span>(answer_accuracy))</span></code></pre></div>
+<p>We have 796 missings for answer_accuracy here. As mentioned in the
+preregistration, we included these participants in our analyses.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>missings <span class="ot">=</span> data_included <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(answer_accuracy))</span></code></pre></div>
 </div>
 </div>
 <div id="save-data" class="section level3">
 <h3>Save Data</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">write.csv</span>(data_included, <span class="dt">file =</span> <span class="st">&quot;data_included.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">write.csv</span>(data_included, <span class="at">file =</span> <span class="st">&quot;data_included.csv&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkV4Y2x1c2lvbjwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAiaGlkZSINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwMV9kYXRhd3JhbmdsaW5nDQpgYGB7ciBEYXRhfQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSByZWFkLmNzdihmaWxlID0gImZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkLmNzdiIpWywtMV0NCmBgYA0KDQojIyMgRXhjbHVzaW9uIFByb2Nlc3Mgey50YWJzZXQgLmFjdGl2ZX0NCmBgYHtyIEV4Y2x1c2lvbiBQcm9jZXNzfQ0KZGF0YV9pbmNsdWRlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkDQpgYGANCg0KIyMjIyBBbGwgcGFydGljaXBhbnRzIHlvdW5nZXIgdGhhbiAxOCB7LnRhYnNldCAuYWN0aXZlfQ0KSW4gdG90YWwsIHdlIHdpbGwgZXhjbHVkZSBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkYWdlIDwgMTgsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgYXJlIHlvdW5nZXIgdGhhbiAxOC4NCmBgYHtyIEFnZX0NCmRhdGFfaW5jbHVkZWQgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgZmlsdGVyKGFnZSA+PSAxOCB8DQogICAgICAgICBpcy5uYShhZ2UpKQ0KDQp0YWJsZShpcy5uYShkYXRhX2luY2x1ZGVkJGFnZSkpDQpgYGANCg0KIyMjIyBBbGwgcGFydGljaXBhbnRzIHdobyBkbyBub3QgaWRlbnRpZnkgYXMgd29tZW4gey50YWJzZXR9DQpJbiB0b3RhbCwgd2Ugd2lsbCBleGNsdWRlIGByIHN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXggPT0gIk1hbiIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleCA9PSAiR2VuZGVycXVlZXIvTm9uYmluYXJ5IiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4ID09ICJOb25lIG9mIHRoZSBhYm92ZSIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleCA9PSAiUHJlZmVyIG5vdCB0byBzYXkiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXggPT0gIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IGlkZW50aWZ5IGFzIHdvbWVuIChNZW4sIEdlbmRlcnF1ZWVyL05vbmJpbmFyeTsgTm9uZSBvZiB0aGUgYWJvdmU7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcikNCg0KQ29uc2VjdXRpdmVseSwgdGhpcyBtZWFucyB3ZSB3aWxsIGV4Y2x1ZGUgYHIgc3VtKGRhdGFfaW5jbHVkZWQkc2V4ID09ICJNYW4iLCBkYXRhX2luY2x1ZGVkJHNleCA9PSAiR2VuZGVycXVlZXIvTm9uYmluYXJ5IiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIk5vbmUgb2YgdGhlIGFib3ZlIiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIlByZWZlciBub3QgdG8gc2F5IiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IGlkZW50aWZ5IGFzIHdvbWVuIChNZW4sIEdlbmRlcnF1ZWVyL05vbmJpbmFyeTsgTm9uZSBvZiB0aGUgYWJvdmU7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcikNCg0KYGBge3IgU2V4fQ0KdGFibGUoZGF0YV9pbmNsdWRlZCRzZXgpDQoNCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIoKHNleCAhPSAiTWFuIiAmDQogICAgICAgICBzZXggIT0gIkdlbmRlcnF1ZWVyL05vbmJpbmFyeSIgJg0KICAgICAgICAgc2V4ICE9ICJOb25lIG9mIHRoZSBhYm92ZSIgJg0KICAgICAgICAgc2V4ICE9ICJQcmVmZXIgbm90IHRvIHNheSIgJg0KICAgICAgICAgc2V4ICE9ICJPdGhlciIpICB8DQogICAgICAgICBpcy5uYShzZXgpKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkJHNleCkNCnRhYmxlKGlzLm5hKGRhdGFfaW5jbHVkZWQkc2V4KSkNCmBgYA0KDQojIyMjIEFsbCBwYXJ0aWNpcGFudHMgd2hvIGRvIG5vdCBpZGVudGlmeSBhcyBoZXRlcm9zZXh1YWwgey50YWJzZXR9DQpJbiB0b3RhbCwgd2Ugd2lsbCBleGNsdWRlIGByIHN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIkxlc2JpYW4vR2F5L0hvbW9zZXh1YWwiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIkJpc2V4dWFsL1BhbnNleHVhbCIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiUXVlZXIiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIkFzZXh1YWwiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIlByZWZlciBub3QgdG8gc2F5IiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJPdGhlciIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgZGlkIG5vdCBpZGVudGlmeSBhcyBoZXRlcm9zZXh1YWwgKExlc2JpYW4vR2F5L0hvbW9zZXh1YWw7IEJpc2V4dWFsL1BhbnNleHVhbDsgUXVlZXI7IEFzZXh1YWw7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcikNCg0KQ29uc2VjdXRpdmVseSwgdGhpcyBtZWFucyB3ZSB3aWxsIGV4Y2x1ZGUgYHIgc3VtKGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJMZXNiaWFuL0dheS9Ib21vc2V4dWFsIiwgZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIkJpc2V4dWFsL1BhbnNleHVhbCIsIGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJRdWVlciIsIGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJBc2V4dWFsIiwgZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIlByZWZlciBub3QgdG8gc2F5IiwgZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IGlkZW50aWZ5IGFzIGhldGVyb3NleHVhbCAoTGVzYmlhbi9HYXkvSG9tb3NleHVhbDsgQmlzZXh1YWwvUGFuc2V4dWFsOyBRdWVlcjsgQXNleHVhbDsgUHJlZmVyIG5vdCB0byBzYXk7IE90aGVyKSAgDQpgYGB7ciBTZXh1YWxpdHl9DQp0YWJsZShkYXRhX2luY2x1ZGVkJHNleHVhbF9vcmllbnRhdGlvbikNCg0KZGF0YV9pbmNsdWRlZCA9IGRhdGFfaW5jbHVkZWQgJT4lDQogIGZpbHRlcigoc2V4dWFsX29yaWVudGF0aW9uICE9ICJMZXNiaWFuL0dheS9Ib21vc2V4dWFsIiAmIHNleHVhbF9vcmllbnRhdGlvbiAhPSAiQmlzZXh1YWwvUGFuc2V4dWFsIiAmDQogICAgICAgICBzZXh1YWxfb3JpZW50YXRpb24gIT0gIlF1ZWVyIiAmIHNleHVhbF9vcmllbnRhdGlvbiAhPSAiQXNleHVhbCIgJg0KICAgICAgICAgc2V4dWFsX29yaWVudGF0aW9uICE9ICJQcmVmZXIgbm90IHRvIHNheSIgJiBzZXh1YWxfb3JpZW50YXRpb24gIT0gIk90aGVyIikgfA0KICAgICAgICAgaXMubmEoc2V4dWFsX29yaWVudGF0aW9uKSkNCg0KdGFibGUoZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24pDQp0YWJsZShpcy5uYShkYXRhX2luY2x1ZGVkJHNleHVhbF9vcmllbnRhdGlvbikpIA0KYGBgDQoNCiMjIyMgQWxsIHBhcnRpY2lwYW50cyB3aG8gaW5kaWNhdGVkIGJlaW5nIGluIGEgcmVsYXRpb25zaGlwIHsudGFic2V0fQ0KSW4gdG90YWwsIHdlIHdpbGwgZXhjbHVkZSBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIk5ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIkxvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycyIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgaW5kaWNhdGVkIGJlaW5nIGluIGEgcmVsYXRpb25zaGlwIChOZXcgKGxlc3MgdGhhbiAxIG1vbnRoIG9sZCkgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAgOyBPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwOyBMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMpIGFuZCBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIHdoZXJlIGl0IHdhcyBub3Qgc3VyZSB3aGV0aGVyIHRoZXkgd2VyZSBjdXJyZW50bHkgc2luZ2xlIChPdGhlcikuDQoNCkNvbnNlY3V0aXZlbHksIHdlIHdpbGwgZXhjbHVkZSBgciBzdW0oZGF0YV9pbmNsdWRlZCRyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiTmV3IChsZXNzIHRoYW4gMSBtb250aCBvbGQpIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIiwgZGF0YV9pbmNsdWRlZCRyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiT25nb2luZyAobG9uZ2VyIHRoYW4gMSBtb250aCkgdW5jb21taXR0ZWQvbm9uLWV4Y2x1c2l2ZSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCIsIGRhdGFfaW5jbHVkZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIkxvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycyIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgaW5kaWNhdGVkIGJlaW5nIGluIGEgcmVsYXRpb25zaGlwIChOZXcgKGxlc3MgdGhhbiAxIG1vbnRoIG9sZCkgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAgOyBPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwOyBMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMpIGFuZCBgciBzdW0oZGF0YV9pbmNsdWRlZCRyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiT3RoZXIiLCBuYS5ybSA9IFQpYCBwYXJ0aWNpcGFudHMgd2hlcmUgaXQgd2FzIG5vdCBzdXJlIHdoZXRoZXIgdGhleSB3ZXJlIGN1cnJlbnRseSBzaW5nbGUgKE90aGVyKS4NCg0KYGBge3IgUmVsYXRpb25zaGlwfQ0KdGFibGUoZGF0YV9pbmNsdWRlZCRyZWxhdGlvbnNoaXApDQoNCmRhdGFfaW5jbHVkZWRfdGVzdDEgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIoKCEocmVsYXRpb25zaGlwICVjb250YWlucyUgIk5ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCIpICYNCiAgICAgICAgICEocmVsYXRpb25zaGlwICVjb250YWlucyUgIk9uZ29pbmcgKGxvbmdlciB0aGFuIDEgbW9udGgpIHVuY29tbWl0dGVkL25vbi1leGNsdXNpdmUgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAiKSAmDQogICAgICAgICAhKHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMiKSAmDQogICAgICAgICAhKHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJPdGhlciIpKSB8DQogICAgICAgICBpcy5uYShyZWxhdGlvbnNoaXApKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX3Rlc3QxJHJlbGF0aW9uc2hpcCkNCnRhYmxlKGlzLm5hKGRhdGFfaW5jbHVkZWRfdGVzdDEkcmVsYXRpb25zaGlwKSkNCmBgYA0KDQojIyMjIyBSZWxhdGlvbnNoaXAgY2hlY2s6IFdpdGggb2xkIHJlbGF0aW9uc2hpcHMgdmFyaWFibGUgey50YWJzZXR9DQpKdXN0IHRvIG1ha2Ugc3VyZSwgdGhhdCBvdXIgZGF0YSB3cmFuZ2xpbmcgZWFybGllciB3b3JrZWQsIHdlIHdpbGwgY2hlY2sgdGhlIGV4Y2x1c2lvbiBwcm9jZXNzIGJhc2VkIG9uIG9sZCByZWxhdGlvbnNoaXBzIHZhcmlhYmxlDQpgYGB7ciBSZWxhdGlvbnNoaXAgQ2hlY2t9DQpkYXRhX2luY2x1ZGVkX3Rlc3QyID0gZGF0YV9pbmNsdWRlZCAlPiUNCiAgZmlsdGVyKHJlbGF0aW9uc2hpcDEgIT0gIlRydWUiKSAlPiUNCiAgZmlsdGVyKHJlbGF0aW9uc2hpcDMgIT0gIlRydWUiKSAlPiUNCiAgZmlsdGVyKHJlbGF0aW9uc2hpcDQgIT0gIlRydWUiKSAlPiUNCiAgZmlsdGVyKHJlbGF0aW9uc2hpcDUgIT0gIlRydWUiKQ0KDQpkYXRhX2luY2x1ZGVkID0gZGF0YV9pbmNsdWRlZF90ZXN0MSAlPiUNCiAgIyBEcm9wIHVubmVjY2Vzc2FyeSByZWxhdGlvbnNoaXAgdmFyaWFibGVzDQogIHNlbGVjdCgtcmVsYXRpb25zaGlwMSwgLXJlbGF0aW9uc2hpcDIsIC1yZWxhdGlvbnNoaXAzLCAtcmVsYXRpb25zaGlwNCwgLXJlbGF0aW9uc2hpcDUpIA0KYGBgDQoNCiMjIyMgQWxsIHBhcnRpY2lwYW50cyB3aG8gZGlkIG5vdCBzcGVjaWZ5IHRoZWlyIHBvbGl0aWNhbCBvcmllbnRhdGlvbiB7LnRhYnNldH0NCkluIHRvdGFsLCB3ZSB3aWxsIGV4Y2x1ZGUgNDMyOSBwYXJ0aWNpcGFudHMgYmVjYXVzZSB0aGV5IGRpZCBub3Qgc3BlY2lmeSB0aGVpciBwb2xpdGljYWwgb3JpZW50YXRpb24uIA0KYGBge3IgUG9saXRpY2FsIE9yaWVudGF0aW9ufQ0KZGF0YV9pbmNsdWRlZCA9IGRhdGFfaW5jbHVkZWQgJT4lDQogIG11dGF0ZShwb2xpdGljYWxfb3JpZW50YXRpb24gPSBpZmVsc2UocG9saXRpY2FsX29yaWVudGF0aW9uID09ICIiLCBOQSwgcG9saXRpY2FsX29yaWVudGF0aW9uKSkNCg0KdGFibGUoaXMubmEoZGF0YV9pbmNsdWRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KDQpkYXRhX2luY2x1ZGVkID0gZGF0YV9pbmNsdWRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyMgQWxsIHBhcnRpY2lwYW50cyB3aG8gZGlkIG5vdCBhbnN3ZXIgdGhlIHN1cnZleSBzZXJpb3VzbHkgb3IgY2hvc2Ugbm90IHRvIGFuc3dlciB0aGUgc2VyaW91c25lc3MgcXVlc3Rpb24gey50YWJzZXR9DQpJbiB0b3RhbCwgd2Ugd2lsbCBleGNsdWRlIGByIHN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhbnN3ZXJfYWNjdXJhY3kgPT0gIkkgZGlkIG5vdCBhbnN3ZXIgc2VyaW91c2x5OyBwbGVhc2UgZGlzcmVnYXJkIG15IGluZm9ybWF0aW9uLiIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFuc3dlcl9hY2N1cmFjeSA9PSAiSSBjaG9vc2Ugbm90IHRvIGFuc3dlci4iLCBuYS5ybSA9IFQpYCBwYXJ0aWNpcGFudHMgYmVjYXVzZSB0aGV5IGluZGljYXRlZCBub3QgYW5zd2VyaW5nIHRoZSBzdXJ2ZXkgc2VyaW91c2x5IChJIGRpZCBub3QgYW5zd2VyIHNlcmlvdXNseSwgcGxlYXNlIGRpc3JlZ2FyZCBteSBpbmZvcm1hdGlvbjsgSSBjaG9vc2Ugbm90IHRvIGFuc3dlcikNCg0KQ29uc2VjdXRpdmVseSwgd2Ugd2lsbCBleGNsdWRlIGByIHN1bShkYXRhX2luY2x1ZGVkJGFuc3dlcl9hY2N1cmFjeSA9PSAiSSBkaWQgbm90IGFuc3dlciBzZXJpb3VzbHk7IHBsZWFzZSBkaXNyZWdhcmQgbXkgaW5mb3JtYXRpb24uIiwgZGF0YV9pbmNsdWRlZCRhbnN3ZXJfYWNjdXJhY3kgPT0gIkkgY2hvb3NlIG5vdCB0byBhbnN3ZXIuIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBpbmRpY2F0ZWQgbm90IGFuc3dlcmluZyB0aGUgc3VydmV5IHNlcmlvdXNseSAoSSBkaWQgbm90IGFuc3dlciBzZXJpb3VzbHksIHBsZWFzZSBkaXNyZWdhcmQgbXkgaW5mb3JtYXRpb247IEkgY2hvb3NlIG5vdCB0byBhbnN3ZXIpDQoNCmBgYHtyIEFjY3VyYWN5fQ0KdGFibGUoZGF0YV9pbmNsdWRlZCRhbnN3ZXJfYWNjdXJhY3kpDQpkYXRhX2luY2x1ZGVkID0gZGF0YV9pbmNsdWRlZCAlPiUNCiAgZmlsdGVyKChhbnN3ZXJfYWNjdXJhY3kgIT0gIkkgZGlkIG5vdCBhbnN3ZXIgc2VyaW91c2x5OyBwbGVhc2UgZGlzcmVnYXJkIG15IGluZm9ybWF0aW9uLiIgJg0KICAgICAgICAgYW5zd2VyX2FjY3VyYWN5ICE9ICJJIGNob29zZSBub3QgdG8gYW5zd2VyLiIpIHwNCiAgICAgICAgIGlzLm5hKGFuc3dlcl9hY2N1cmFjeSkpDQpgYGANCg0KV2UgaGF2ZSBgciBzdW0oaXMubmEoZGF0YV9pbmNsdWRlZCRhbnN3ZXJfYWNjdXJhY3kpKWAgbWlzc2luZ3MgZm9yIGFuc3dlcl9hY2N1cmFjeSBoZXJlLiBBcyBtZW50aW9uZWQgaW4gdGhlIHByZXJlZ2lzdHJhdGlvbiwgd2Ugd2lsbCBpbmNsdWRlIHRoZXNlIHBhcnRpY2lwYW50cyBpbiBvdXIgYW5hbHlzZXMuDQpgYGB7ciBBY2N1cmFjeSBNaXNzaW5nc30NCm1pc3NpbmdzID0gZGF0YV9pbmNsdWRlZCAlPiUgZmlsdGVyKGlzLm5hKGFuc3dlcl9hY2N1cmFjeSkpDQpgYGANCg0KIyMjIFNhdmUgRGF0YQ0KYGBge3IgU2F2ZSBEYXRhfQ0Kd3JpdGUuY3N2KGRhdGFfaW5jbHVkZWQsIGZpbGUgPSAiZGF0YV9pbmNsdWRlZC5jc3YiKQ0KYGBgDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkV4Y2x1c2lvbjwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAic2hvdyINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwMV9kYXRhd3JhbmdsaW5nDQpgYGB7ciBEYXRhfQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSByZWFkLmNzdihmaWxlID0gImZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkLmNzdiIpWywtMV0NCmBgYA0KDQojIyMgRXhjbHVzaW9uIFByb2Nlc3Mgey50YWJzZXQgLmFjdGl2ZX0NCmBgYHtyIEV4Y2x1c2lvbiBQcm9jZXNzfQ0KZGF0YV9pbmNsdWRlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkDQpgYGANCg0KIyMjIyBBbGwgcGFydGljaXBhbnRzIHlvdW5nZXIgdGhhbiAxOCB7LnRhYnNldCAuYWN0aXZlfQ0KSW4gdG90YWwsIHdlIGV4Y2x1ZGVkIGByIHN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhZ2UgPCAxOCwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBhcmUgeW91bmdlciB0aGFuIDE4Lg0KYGBge3IgQWdlfQ0KZGF0YV9pbmNsdWRlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBmaWx0ZXIoYWdlID49IDE4IHwNCiAgICAgICAgIGlzLm5hKGFnZSkpDQoNCnRhYmxlKGlzLm5hKGRhdGFfaW5jbHVkZWQkYWdlKSkNCmBgYA0KDQojIyMjIEFsbCBwYXJ0aWNpcGFudHMgd2hvIGRvIG5vdCBpZGVudGlmeSBhcyB3b21lbiB7LnRhYnNldH0NCkluIHRvdGFsLCB3ZSBleGNsdWRlZCBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4ID09ICJNYW4iLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXggPT0gIkdlbmRlcnF1ZWVyL05vbmJpbmFyeSIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleCA9PSAiTm9uZSBvZiB0aGUgYWJvdmUiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXggPT0gIlByZWZlciBub3QgdG8gc2F5IiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4ID09ICJPdGhlciIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgZGlkIG5vdCBpZGVudGlmeSBhcyB3b21lbiAoTWVuLCBHZW5kZXJxdWVlci9Ob25iaW5hcnk7IE5vbmUgb2YgdGhlIGFib3ZlOyBQcmVmZXIgbm90IHRvIHNheTsgT3RoZXIpDQoNCkNvbnNlY3V0aXZlbHksIHRoaXMgbWVhbnMgd2UgZXhjbHVkZWQgYHIgc3VtKGRhdGFfaW5jbHVkZWQkc2V4ID09ICJNYW4iLCBkYXRhX2luY2x1ZGVkJHNleCA9PSAiR2VuZGVycXVlZXIvTm9uYmluYXJ5IiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIk5vbmUgb2YgdGhlIGFib3ZlIiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIlByZWZlciBub3QgdG8gc2F5IiwgZGF0YV9pbmNsdWRlZCRzZXggPT0gIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IGlkZW50aWZ5IGFzIHdvbWVuIChNZW4sIEdlbmRlcnF1ZWVyL05vbmJpbmFyeTsgTm9uZSBvZiB0aGUgYWJvdmU7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcikNCg0KYGBge3IgU2V4fQ0KdGFibGUoZGF0YV9pbmNsdWRlZCRzZXgpDQoNCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIoKHNleCAhPSAiTWFuIiAmDQogICAgICAgICBzZXggIT0gIkdlbmRlcnF1ZWVyL05vbmJpbmFyeSIgJg0KICAgICAgICAgc2V4ICE9ICJOb25lIG9mIHRoZSBhYm92ZSIgJg0KICAgICAgICAgc2V4ICE9ICJQcmVmZXIgbm90IHRvIHNheSIgJg0KICAgICAgICAgc2V4ICE9ICJPdGhlciIpICB8DQogICAgICAgICBpcy5uYShzZXgpKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkJHNleCkNCnRhYmxlKGlzLm5hKGRhdGFfaW5jbHVkZWQkc2V4KSkNCmBgYA0KDQojIyMjIEFsbCBwYXJ0aWNpcGFudHMgd2hvIGRvIG5vdCBpZGVudGlmeSBhcyBoZXRlcm9zZXh1YWwgey50YWJzZXR9DQpJbiB0b3RhbCwgd2UgZXhjbHVkZWQgYHIgc3VtKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiTGVzYmlhbi9HYXkvSG9tb3NleHVhbCIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiQmlzZXh1YWwvUGFuc2V4dWFsIiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJRdWVlciIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiQXNleHVhbCIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiUHJlZmVyIG5vdCB0byBzYXkiLCBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24gPT0gIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IGlkZW50aWZ5IGFzIGhldGVyb3NleHVhbCAoTGVzYmlhbi9HYXkvSG9tb3NleHVhbDsgQmlzZXh1YWwvUGFuc2V4dWFsOyBRdWVlcjsgQXNleHVhbDsgUHJlZmVyIG5vdCB0byBzYXk7IE90aGVyKQ0KDQpDb25zZWN1dGl2ZWx5LCB0aGlzIG1lYW5zIHdlIGV4Y2x1ZGVkIGByIHN1bShkYXRhX2luY2x1ZGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiTGVzYmlhbi9HYXkvSG9tb3NleHVhbCIsIGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJCaXNleHVhbC9QYW5zZXh1YWwiLCBkYXRhX2luY2x1ZGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiUXVlZXIiLCBkYXRhX2luY2x1ZGVkJHNleHVhbF9vcmllbnRhdGlvbiA9PSAiQXNleHVhbCIsIGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJQcmVmZXIgbm90IHRvIHNheSIsIGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uID09ICJPdGhlciIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgZGlkIG5vdCBpZGVudGlmeSBhcyBoZXRlcm9zZXh1YWwgKExlc2JpYW4vR2F5L0hvbW9zZXh1YWw7IEJpc2V4dWFsL1BhbnNleHVhbDsgUXVlZXI7IEFzZXh1YWw7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcikgIA0KYGBge3IgU2V4dWFsaXR5fQ0KdGFibGUoZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24pDQoNCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIoKHNleHVhbF9vcmllbnRhdGlvbiAhPSAiTGVzYmlhbi9HYXkvSG9tb3NleHVhbCIgJiBzZXh1YWxfb3JpZW50YXRpb24gIT0gIkJpc2V4dWFsL1BhbnNleHVhbCIgJg0KICAgICAgICAgc2V4dWFsX29yaWVudGF0aW9uICE9ICJRdWVlciIgJiBzZXh1YWxfb3JpZW50YXRpb24gIT0gIkFzZXh1YWwiICYNCiAgICAgICAgIHNleHVhbF9vcmllbnRhdGlvbiAhPSAiUHJlZmVyIG5vdCB0byBzYXkiICYgc2V4dWFsX29yaWVudGF0aW9uICE9ICJPdGhlciIpIHwNCiAgICAgICAgIGlzLm5hKHNleHVhbF9vcmllbnRhdGlvbikpDQoNCnRhYmxlKGRhdGFfaW5jbHVkZWQkc2V4dWFsX29yaWVudGF0aW9uKQ0KdGFibGUoaXMubmEoZGF0YV9pbmNsdWRlZCRzZXh1YWxfb3JpZW50YXRpb24pKSANCmBgYA0KDQojIyMjIEFsbCBwYXJ0aWNpcGFudHMgd2hvIGluZGljYXRlZCBiZWluZyBpbiBhIHJlbGF0aW9uc2hpcCB7LnRhYnNldH0NCkluIHRvdGFsLCB3ZSBleGNsdWRlZCBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIk5ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIiwgZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIkxvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycyIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyBiZWNhdXNlIHRoZXkgaW5kaWNhdGVkIGJlaW5nIGluIGEgcmVsYXRpb25zaGlwIChOZXcgKGxlc3MgdGhhbiAxIG1vbnRoIG9sZCkgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAgOyBPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwOyBMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMpIGFuZCBgciBzdW0oZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIk90aGVyIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIHdoZXJlIGl0IHdhcyBub3Qgc3VyZSB3aGV0aGVyIHRoZXkgd2VyZSBjdXJyZW50bHkgc2luZ2xlIChPdGhlcikuDQoNCkNvbnNlY3V0aXZlbHksIHdlIGV4Y2x1ZGVkIGByIHN1bShkYXRhX2luY2x1ZGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJOZXcgKGxlc3MgdGhhbiAxIG1vbnRoIG9sZCkgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAiLCBkYXRhX2luY2x1ZGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIiwgZGF0YV9pbmNsdWRlZCRyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiTG9uZy10ZXJtIGNvbW1pdHRlZC9leGNsdXNpdmUgc2V4dWFsIHJlbGF0aW9uc2hpcCB3aXRoIG9uZSBvciBtb3JlIHBhcnRuZXJzIiwgbmEucm0gPSBUKWAgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBpbmRpY2F0ZWQgYmVpbmcgaW4gYSByZWxhdGlvbnNoaXAgKE5ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCA7IE9uZ29pbmcgKGxvbmdlciB0aGFuIDEgbW9udGgpIHVuY29tbWl0dGVkL25vbi1leGNsdXNpdmUgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXA7IExvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycykgYW5kIGByIHN1bShkYXRhX2luY2x1ZGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJPdGhlciIsIG5hLnJtID0gVClgIHBhcnRpY2lwYW50cyB3aGVyZSBpdCB3YXMgbm90IHN1cmUgd2hldGhlciB0aGV5IHdlcmUgY3VycmVudGx5IHNpbmdsZSAoT3RoZXIpLg0KDQpgYGB7ciBSZWxhdGlvbnNoaXB9DQp0YWJsZShkYXRhX2luY2x1ZGVkJHJlbGF0aW9uc2hpcCkNCg0KZGF0YV9pbmNsdWRlZF90ZXN0MSA9IGRhdGFfaW5jbHVkZWQgJT4lDQogIGZpbHRlcigoIShyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiTmV3IChsZXNzIHRoYW4gMSBtb250aCBvbGQpIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIikgJg0KICAgICAgICAgIShyZWxhdGlvbnNoaXAgJWNvbnRhaW5zJSAiT25nb2luZyAobG9uZ2VyIHRoYW4gMSBtb250aCkgdW5jb21taXR0ZWQvbm9uLWV4Y2x1c2l2ZSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCIpICYNCiAgICAgICAgICEocmVsYXRpb25zaGlwICVjb250YWlucyUgIkxvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycyIpICYNCiAgICAgICAgICEocmVsYXRpb25zaGlwICVjb250YWlucyUgIk90aGVyIikpIHwNCiAgICAgICAgIGlzLm5hKHJlbGF0aW9uc2hpcCkpDQoNCnRhYmxlKGRhdGFfaW5jbHVkZWRfdGVzdDEkcmVsYXRpb25zaGlwKQ0KdGFibGUoaXMubmEoZGF0YV9pbmNsdWRlZF90ZXN0MSRyZWxhdGlvbnNoaXApKQ0KYGBgDQoNCiMjIyMjIFJlbGF0aW9uc2hpcCBjaGVjazogV2l0aCBvbGQgcmVsYXRpb25zaGlwcyB2YXJpYWJsZSB7LnRhYnNldH0NCkp1c3QgdG8gbWFrZSBzdXJlLCB0aGF0IG91ciBkYXRhIHdyYW5nbGluZyBlYXJsaWVyIHdvcmtlZCwgd2UgY2hlY2tlZCB0aGUgZXhjbHVzaW9uIHByb2Nlc3MgYmFzZWQgb24gb2xkIHJlbGF0aW9uc2hpcHMgdmFyaWFibGUNCmBgYHtyIFJlbGF0aW9uc2hpcCBDaGVja30NCmRhdGFfaW5jbHVkZWRfdGVzdDIgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIocmVsYXRpb25zaGlwMSAhPSAiVHJ1ZSIpICU+JQ0KICBmaWx0ZXIocmVsYXRpb25zaGlwMyAhPSAiVHJ1ZSIpICU+JQ0KICBmaWx0ZXIocmVsYXRpb25zaGlwNCAhPSAiVHJ1ZSIpICU+JQ0KICBmaWx0ZXIocmVsYXRpb25zaGlwNSAhPSAiVHJ1ZSIpDQoNCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkX3Rlc3QxICU+JQ0KICAjIERyb3AgdW5uZWNjZXNzYXJ5IHJlbGF0aW9uc2hpcCB2YXJpYWJsZXMNCiAgc2VsZWN0KC1yZWxhdGlvbnNoaXAxLCAtcmVsYXRpb25zaGlwMiwgLXJlbGF0aW9uc2hpcDMsIC1yZWxhdGlvbnNoaXA0LCAtcmVsYXRpb25zaGlwNSkgDQpgYGANCg0KIyMjIyBBbGwgcGFydGljaXBhbnRzIHdobyBkaWQgbm90IHNwZWNpZnkgdGhlaXIgcG9saXRpY2FsIG9yaWVudGF0aW9uIHsudGFic2V0fQ0KSW4gdG90YWwsIHdlIGV4Y2x1ZGVkIDQzMjkgcGFydGljaXBhbnRzIGJlY2F1c2UgdGhleSBkaWQgbm90IHNwZWNpZnkgdGhlaXIgcG9saXRpY2FsIG9yaWVudGF0aW9uLiANCmBgYHtyIFBvbGl0aWNhbCBPcmllbnRhdGlvbn0NCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBtdXRhdGUocG9saXRpY2FsX29yaWVudGF0aW9uID0gaWZlbHNlKHBvbGl0aWNhbF9vcmllbnRhdGlvbiA9PSAiIiwgTkEsIHBvbGl0aWNhbF9vcmllbnRhdGlvbikpDQoNCnRhYmxlKGlzLm5hKGRhdGFfaW5jbHVkZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKSkNCg0KZGF0YV9pbmNsdWRlZCA9IGRhdGFfaW5jbHVkZWQgJT4lDQogIGZpbHRlcighaXMubmEocG9saXRpY2FsX29yaWVudGF0aW9uKSkNCmBgYA0KDQojIyMjIEFsbCBwYXJ0aWNpcGFudHMgd2hvIGRpZCBub3QgYW5zd2VyIHRoZSBzdXJ2ZXkgc2VyaW91c2x5IG9yIGNob3NlIG5vdCB0byBhbnN3ZXIgdGhlIHNlcmlvdXNuZXNzIHF1ZXN0aW9uIHsudGFic2V0fQ0KSW4gdG90YWwsIHdlIGV4Y2x1ZGVkIGByIHN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhbnN3ZXJfYWNjdXJhY3kgPT0gIkkgZGlkIG5vdCBhbnN3ZXIgc2VyaW91c2x5OyBwbGVhc2UgZGlzcmVnYXJkIG15IGluZm9ybWF0aW9uLiIsIGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFuc3dlcl9hY2N1cmFjeSA9PSAiSSBjaG9vc2Ugbm90IHRvIGFuc3dlci4iLCBuYS5ybSA9IFQpYCBwYXJ0aWNpcGFudHMgYmVjYXVzZSB0aGV5IGluZGljYXRlZCBub3QgYW5zd2VyaW5nIHRoZSBzdXJ2ZXkgc2VyaW91c2x5IChJIGRpZCBub3QgYW5zd2VyIHNlcmlvdXNseSwgcGxlYXNlIGRpc3JlZ2FyZCBteSBpbmZvcm1hdGlvbjsgSSBjaG9vc2Ugbm90IHRvIGFuc3dlcikNCg0KQ29uc2VjdXRpdmVseSwgd2UgZXhjbHVkZWQgYHIgc3VtKGRhdGFfaW5jbHVkZWQkYW5zd2VyX2FjY3VyYWN5ID09ICJJIGRpZCBub3QgYW5zd2VyIHNlcmlvdXNseTsgcGxlYXNlIGRpc3JlZ2FyZCBteSBpbmZvcm1hdGlvbi4iLCBkYXRhX2luY2x1ZGVkJGFuc3dlcl9hY2N1cmFjeSA9PSAiSSBjaG9vc2Ugbm90IHRvIGFuc3dlci4iLCBuYS5ybSA9IFQpYCBwYXJ0aWNpcGFudHMgYmVjYXVzZSB0aGV5IGluZGljYXRlZCBub3QgYW5zd2VyaW5nIHRoZSBzdXJ2ZXkgc2VyaW91c2x5IChJIGRpZCBub3QgYW5zd2VyIHNlcmlvdXNseSwgcGxlYXNlIGRpc3JlZ2FyZCBteSBpbmZvcm1hdGlvbjsgSSBjaG9vc2Ugbm90IHRvIGFuc3dlcikNCg0KYGBge3IgQWNjdXJhY3l9DQp0YWJsZShkYXRhX2luY2x1ZGVkJGFuc3dlcl9hY2N1cmFjeSkNCmRhdGFfaW5jbHVkZWQgPSBkYXRhX2luY2x1ZGVkICU+JQ0KICBmaWx0ZXIoKGFuc3dlcl9hY2N1cmFjeSAhPSAiSSBkaWQgbm90IGFuc3dlciBzZXJpb3VzbHk7IHBsZWFzZSBkaXNyZWdhcmQgbXkgaW5mb3JtYXRpb24uIiAmDQogICAgICAgICBhbnN3ZXJfYWNjdXJhY3kgIT0gIkkgY2hvb3NlIG5vdCB0byBhbnN3ZXIuIikgfA0KICAgICAgICAgaXMubmEoYW5zd2VyX2FjY3VyYWN5KSkNCmBgYA0KDQpXZSBoYXZlIGByIHN1bShpcy5uYShkYXRhX2luY2x1ZGVkJGFuc3dlcl9hY2N1cmFjeSkpYCBtaXNzaW5ncyBmb3IgYW5zd2VyX2FjY3VyYWN5IGhlcmUuIEFzIG1lbnRpb25lZCBpbiB0aGUgcHJlcmVnaXN0cmF0aW9uLCB3ZSBpbmNsdWRlZCB0aGVzZSBwYXJ0aWNpcGFudHMgaW4gb3VyIGFuYWx5c2VzLg0KYGBge3IgQWNjdXJhY3kgTWlzc2luZ3N9DQptaXNzaW5ncyA9IGRhdGFfaW5jbHVkZWQgJT4lIGZpbHRlcihpcy5uYShhbnN3ZXJfYWNjdXJhY3kpKQ0KYGBgDQoNCiMjIyBTYXZlIERhdGENCmBgYHtyIFNhdmUgRGF0YX0NCndyaXRlLmNzdihkYXRhX2luY2x1ZGVkLCBmaWxlID0gImRhdGFfaW5jbHVkZWQuY3N2IikNCmBgYA0K</div>
 
 
 
@@ -750,7 +709,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -768,7 +727,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -777,7 +736,7 @@ $(document).ready(function () {
 <script>
 $(document).ready(function () {
   window.initializeSourceEmbed("02_exclusion.Rmd");
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 

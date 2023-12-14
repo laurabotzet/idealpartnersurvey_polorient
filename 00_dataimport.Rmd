@@ -3,7 +3,7 @@ title: <font color="#66C2A5">Data Import</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
-    code_folding: "hide"
+    code_folding: "show"
 editor_options: 
   chunk_output_type: console
 ---
@@ -78,15 +78,9 @@ fulldata_selected = fulldata %>%
          )
 ```
 
-## Limit Dataset
-```{r Limit dataset}
-fulldata_selected_lim = fulldata_selected[1:100,]
-```
-
 
 ## Save Dataset
 ```{r Save Dataset}
 write.csv(fulldata_selected, file = "fulldata_selected.csv")
-write.csv(fulldata_selected_lim, file = "fulldata_selected_lim.csv")
 ```
 
