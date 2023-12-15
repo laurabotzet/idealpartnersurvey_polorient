@@ -336,9 +336,8 @@ countries_rescon =
 countries_rescon
 ```
 
-### Models {.tabset .active}
-#### Preferred Relationship Options {.tabset .active}
-##### S1 Interest in Single Life {.tabset .active}
+##### Models {.tabset}
+###### S1 Interest in Single Life
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -394,7 +393,7 @@ model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
 summary(model)
 ```
 
-##### S2 Interest in Sexual, Non-Romantic Relationships {.tabset}
+###### S2 Interest in Sexual, Non-Romantic Relationships 
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -450,7 +449,7 @@ model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
 summary(model)
 ```
 
-##### S3 Interest in Non-Monogamous Relationships {.tabset}
+###### S3 Interest in Non-Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
@@ -506,7 +505,7 @@ model = mvmeta(mean ~ 1, data = models_interest_nonmonrel_analyses, S = se^2,
 summary(model)
 ```
 
-##### S4 Interest in Monogamous Relationships {.tabset}
+###### S4 Interest in Monogamous Relationships {.tabset}
 ```{r}
 data_included_documented_rescon_wide = data_included_documented_rescon %>%
   pivot_wider(names_from = country, values_from = political_orientation) %>%
