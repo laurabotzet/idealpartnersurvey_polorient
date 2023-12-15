@@ -2,6 +2,7 @@ name: idealpartnersurvey_polorient
 output_dir: docs
 navbar:
   title: Political Orientation
+  title_class: title
   left:
   - text: Data Wrangling
     href: 01_datawrangling.html
@@ -17,7 +18,7 @@ navbar:
     href: 06_robustness_analyses.html
   - text: Exploratory Analyses
     href: 09_analyses_exploratory.html
-  - text: Supplement
+  - text: Supplementary Analyses
     href: 12_supplement.html
   right:
   - text: ''

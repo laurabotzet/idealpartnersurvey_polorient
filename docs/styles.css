@@ -1,3 +1,23 @@
+* styles.css */
+
+/* Add a flex container to the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style the title */
+.navbar .title {
+  font-size: 1em; /* Adjust the font size as needed */
+  margin-right: 20px; /* Add some spacing between the title and navbar */
+}
+
+/* Adjust the styles for the navbar links */
+.navbar a {
+  margin-right: 5px; /* Add spacing between the navbar links */
+}
+
 body {
-  padding-top: 84px !important;
+  padding-top: 168px !important;
 }

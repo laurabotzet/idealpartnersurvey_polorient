@@ -1,5 +1,5 @@
 ---
-title: <font color="#66C2A5">Supplemenatry Analyses</font>
+title: <font color="#66C2A5">Supplementary Analyses</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
