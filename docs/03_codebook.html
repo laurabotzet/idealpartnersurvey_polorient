@@ -13,7 +13,7 @@
 
 <title>Codebook</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -32,9 +32,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.3/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="site_libs/datatables-binding-0.30/datatables.js"></script>
 <link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
@@ -50,10 +50,10 @@
 <script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="site_libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -395,7 +395,7 @@ $(document).ready(function () {
   <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
 </li>
 <li>
-  <a href="09_analyses_exploratory.html">Suplementary Analyses</a>
+  <a href="12_supplement.html">Supplementary Analyses</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -450,28 +450,28 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(codebook)</span></code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;codebook&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:labelled&#39;:
+## Attache Paket: &#39;codebook&#39;</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:labelled&#39;:
 ## 
 ##     to_factor</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(formr)</span></code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;formr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:codebook&#39;:
+## Attache Paket: &#39;formr&#39;</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:codebook&#39;:
 ## 
 ##     aggregate_and_document_scale, expired, rescue_attributes,
 ##     reverse_labelled_values</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:formr&#39;:
+## Attache Paket: &#39;dplyr&#39;</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:formr&#39;:
 ## 
 ##     first, last</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:stats&#39;:
 ## 
 ##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(future)</span></code></pre></div>
@@ -616,7 +616,7 @@ missing values on any column.</p>
 Metadata for search engines
 </summary>
 <ul>
-<li><strong>Date published</strong>: 2023-12-04</li>
+<li><strong>Date published</strong>: 2023-12-15</li>
 </ul>
 <table class="kable_wrapper">
 <tbody>
@@ -800,7 +800,7 @@ Distribution of values for sex
 <div id="age_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_age_distribution-15-1.png" alt="Distribution of values for age" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_age_distribution-35-1.png" alt="Distribution of values for age" width="672" />
 <p class="caption">
 Distribution of values for age
 </p>
@@ -862,7 +862,7 @@ Distribution of values for age
 <div id="country_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_country_distribution-22-1.png" alt="Distribution of values for country" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_country_distribution-48-1.png" alt="Distribution of values for country" width="672" />
 <p class="caption">
 Distribution of values for country
 </p>
@@ -921,7 +921,7 @@ Distribution of values for country
 <div id="language_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_language_distribution-29-1.png" alt="Distribution of values for language" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_language_distribution-61-1.png" alt="Distribution of values for language" width="672" />
 <p class="caption">
 Distribution of values for language
 </p>
@@ -980,7 +980,7 @@ Distribution of values for language
 <div id="political_orientation_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_political_orientation_distribution-36-1.png" alt="Distribution of values for political_orientation" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_political_orientation_distribution-74-1.png" alt="Distribution of values for political_orientation" width="672" />
 <p class="caption">
 Distribution of values for political_orientation
 </p>
@@ -1070,7 +1070,7 @@ not committed)</p>
 <div id="interest_single_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_interest_single_distribution-43-1.png" alt="Distribution of values for interest_single" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_interest_single_distribution-87-1.png" alt="Distribution of values for interest_single" width="672" />
 <p class="caption">
 Distribution of values for interest_single
 </p>
@@ -1161,7 +1161,7 @@ relationship(s) (e.g., hookups, one-night stands)</p>
 <div id="interest_sexrel_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_interest_sexrel_distribution-50-1.png" alt="Distribution of values for interest_sexrel" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_interest_sexrel_distribution-100-1.png" alt="Distribution of values for interest_sexrel" width="672" />
 <p class="caption">
 Distribution of values for interest_sexrel
 </p>
@@ -1251,7 +1251,7 @@ at some time in the future? -Having non-monogamous relationship(s)</p>
 <div id="interest_nonmonrel_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_interest_nonmonrel_distribution-57-1.png" alt="Distribution of values for interest_nonmonrel" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_interest_nonmonrel_distribution-113-1.png" alt="Distribution of values for interest_nonmonrel" width="672" />
 <p class="caption">
 Distribution of values for interest_nonmonrel
 </p>
@@ -1341,7 +1341,7 @@ at some time in the future? - Having monogamous relationship(s)</p>
 <div id="interest_monrel_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_interest_monrel_distribution-64-1.png" alt="Distribution of values for interest_monrel" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_interest_monrel_distribution-126-1.png" alt="Distribution of values for interest_monrel" width="672" />
 <p class="caption">
 Distribution of values for interest_monrel
 </p>
@@ -1431,7 +1431,7 @@ you?</p>
 <div id="pref_politicalsim_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_politicalsim_distribution-71-1.png" alt="Distribution of values for pref_politicalsim" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_politicalsim_distribution-139-1.png" alt="Distribution of values for pref_politicalsim" width="672" />
 <p class="caption">
 Distribution of values for pref_politicalsim
 </p>
@@ -1520,7 +1520,7 @@ the same as you?</p>
 <div id="pref_ethnicalsim_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_ethnicalsim_distribution-78-1.png" alt="Distribution of values for pref_ethnicalsim" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_ethnicalsim_distribution-152-1.png" alt="Distribution of values for pref_ethnicalsim" width="672" />
 <p class="caption">
 Distribution of values for pref_ethnicalsim
 </p>
@@ -1608,7 +1608,7 @@ be different or the same as you?</td>
 <div id="pref_religioussim_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_religioussim_distribution-85-1.png" alt="Distribution of values for pref_religioussim" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_religioussim_distribution-165-1.png" alt="Distribution of values for pref_religioussim" width="672" />
 <p class="caption">
 Distribution of values for pref_religioussim
 </p>
@@ -1699,7 +1699,7 @@ id="pref_level_financially_secure_successful_ambitious_distribution"
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_financially_secure_successful_ambitious_distribution-92-1.png" alt="Distribution of values for pref_level_financially_secure_successful_ambitious" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_financially_secure_successful_ambitious_distribution-178-1.png" alt="Distribution of values for pref_level_financially_secure_successful_ambitious" width="672" />
 <p class="caption">
 Distribution of values for
 pref_level_financially_secure_successful_ambitious
@@ -1765,7 +1765,7 @@ be?</p>
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_financially_secure_distribution-99-1.png" alt="Distribution of values for pref_level_financially_secure" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_financially_secure_distribution-191-1.png" alt="Distribution of values for pref_level_financially_secure" width="672" />
 <p class="caption">
 Distribution of values for pref_level_financially_secure
 </p>
@@ -1855,7 +1855,7 @@ be?</p>
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_successful_ambitious_distribution-106-1.png" alt="Distribution of values for pref_level_successful_ambitious" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_successful_ambitious_distribution-204-1.png" alt="Distribution of values for pref_level_successful_ambitious" width="672" />
 <p class="caption">
 Distribution of values for pref_level_successful_ambitious
 </p>
@@ -1944,7 +1944,7 @@ your partner be?</td>
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_kind_supportive_distribution-113-1.png" alt="Distribution of values for pref_level_kind_supportive" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_kind_supportive_distribution-217-1.png" alt="Distribution of values for pref_level_kind_supportive" width="672" />
 <p class="caption">
 Distribution of values for pref_level_kind_supportive
 </p>
@@ -2006,7 +2006,7 @@ Distribution of values for pref_level_kind_supportive
 <div id="pref_level_kind_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_kind_distribution-120-1.png" alt="Distribution of values for pref_level_kind" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_kind_distribution-230-1.png" alt="Distribution of values for pref_level_kind" width="672" />
 <p class="caption">
 Distribution of values for pref_level_kind
 </p>
@@ -2094,7 +2094,7 @@ be?</td>
 <div id="pref_level_supportive_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_supportive_distribution-127-1.png" alt="Distribution of values for pref_level_supportive" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_supportive_distribution-243-1.png" alt="Distribution of values for pref_level_supportive" width="672" />
 <p class="caption">
 Distribution of values for pref_level_supportive
 </p>
@@ -2181,7 +2181,7 @@ be?</td>
 <div id="pref_level_attractiveness_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractiveness_distribution-134-1.png" alt="Distribution of values for pref_level_attractiveness" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractiveness_distribution-256-1.png" alt="Distribution of values for pref_level_attractiveness" width="672" />
 <p class="caption">
 Distribution of values for pref_level_attractiveness
 </p>
@@ -2244,7 +2244,7 @@ Distribution of values for pref_level_attractiveness
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractive_body_distribution-141-1.png" alt="Distribution of values for pref_level_attractive_body" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractive_body_distribution-269-1.png" alt="Distribution of values for pref_level_attractive_body" width="672" />
 <p class="caption">
 Distribution of values for pref_level_attractive_body
 </p>
@@ -2333,7 +2333,7 @@ body be?</td>
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractive_face_distribution-148-1.png" alt="Distribution of values for pref_level_attractive_face" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_attractive_face_distribution-282-1.png" alt="Distribution of values for pref_level_attractive_face" width="672" />
 <p class="caption">
 Distribution of values for pref_level_attractive_face
 </p>
@@ -2421,7 +2421,7 @@ face be?</td>
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_confident_assertive_distribution-155-1.png" alt="Distribution of values for pref_level_confident_assertive" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_confident_assertive_distribution-295-1.png" alt="Distribution of values for pref_level_confident_assertive" width="672" />
 <p class="caption">
 Distribution of values for pref_level_confident_assertive
 </p>
@@ -2483,7 +2483,7 @@ Distribution of values for pref_level_confident_assertive
 <div id="pref_level_confident_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_confident_distribution-162-1.png" alt="Distribution of values for pref_level_confident" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_confident_distribution-308-1.png" alt="Distribution of values for pref_level_confident" width="672" />
 <p class="caption">
 Distribution of values for pref_level_confident
 </p>
@@ -2571,7 +2571,7 @@ be?</td>
 <div id="pref_level_assertive_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_assertive_distribution-169-1.png" alt="Distribution of values for pref_level_assertive" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_assertive_distribution-321-1.png" alt="Distribution of values for pref_level_assertive" width="672" />
 <p class="caption">
 Distribution of values for pref_level_assertive
 </p>
@@ -2660,7 +2660,7 @@ class="section level3 tabset">
 class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_intelligence_educated_distribution-176-1.png" alt="Distribution of values for pref_level_intelligence_educated" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_intelligence_educated_distribution-334-1.png" alt="Distribution of values for pref_level_intelligence_educated" width="672" />
 <p class="caption">
 Distribution of values for pref_level_intelligence_educated
 </p>
@@ -2723,7 +2723,7 @@ class="section level4">
 <div id="pref_level_intelligence_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_intelligence_distribution-183-1.png" alt="Distribution of values for pref_level_intelligence" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_intelligence_distribution-347-1.png" alt="Distribution of values for pref_level_intelligence" width="672" />
 <p class="caption">
 Distribution of values for pref_level_intelligence
 </p>
@@ -2811,7 +2811,7 @@ partner be?</td>
 <div id="pref_level_educated_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_pref_level_educated_distribution-190-1.png" alt="Distribution of values for pref_level_educated" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_pref_level_educated_distribution-360-1.png" alt="Distribution of values for pref_level_educated" width="672" />
 <p class="caption">
 Distribution of values for pref_level_educated
 </p>
@@ -2899,7 +2899,7 @@ be?</td>
 <div id="imp_age_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_imp_age_distribution-197-1.png" alt="Distribution of values for imp_age" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_imp_age_distribution-373-1.png" alt="Distribution of values for imp_age" width="672" />
 <p class="caption">
 Distribution of values for imp_age
 </p>
@@ -2987,7 +2987,7 @@ partner?</td>
 <div id="ideal_age_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_ideal_age_distribution-204-1.png" alt="Distribution of values for ideal_age" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_ideal_age_distribution-386-1.png" alt="Distribution of values for ideal_age" width="672" />
 <p class="caption">
 Distribution of values for ideal_age
 </p>
@@ -3050,7 +3050,7 @@ years old.</td>
 <div id="ideal_age_rel_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_ideal_age_rel_distribution-211-1.png" alt="Distribution of values for ideal_age_rel" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_ideal_age_rel_distribution-399-1.png" alt="Distribution of values for ideal_age_rel" width="672" />
 <p class="caption">
 Distribution of values for ideal_age_rel
 </p>
@@ -3113,7 +3113,7 @@ years old.</td>
 <div id="imp_height_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_imp_height_distribution-218-1.png" alt="Distribution of values for imp_height" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_imp_height_distribution-412-1.png" alt="Distribution of values for imp_height" width="672" />
 <p class="caption">
 Distribution of values for imp_height
 </p>
@@ -3201,7 +3201,7 @@ height?</td>
 <div id="ideal_height_distribution" class="section level4">
 <h4>Distribution</h4>
 <div class="figure">
-<img src="03_codebook_files/figure-html/cb_data_included_ideal_height_distribution-225-1.png" alt="Distribution of values for ideal_height" width="672" />
+<img src="03_codebook_files/figure-html/cb_data_included_ideal_height_distribution-425-1.png" alt="Distribution of values for ideal_height" width="672" />
 <p class="caption">
 Distribution of values for ideal_height
 </p>
@@ -3280,12 +3280,12 @@ Distribution of values for ideal_height
 </div>
 <div id="codebook-table" class="section level2">
 <h2>Codebook table</h2>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2e189ba6a977362639c3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2e189ba6a977362639c3">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"4614\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.651957456438108\" data-max=\"1\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"144\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.890604792696842\" data-max=\"26.2319873973966\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.435763831355171\" data-max=\"7.28506786990768\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"data":[["<a href=\"#sex\">sex<\/a>","<a href=\"#age\">age<\/a>","<a href=\"#country\">country<\/a>","<a href=\"#language\">language<\/a>","<a href=\"#political_orientation\">political_orientation<\/a>","<a href=\"#interest_single\">interest_single<\/a>","<a href=\"#interest_sexrel\">interest_sexrel<\/a>","<a href=\"#interest_nonmonrel\">interest_nonmonrel<\/a>","<a href=\"#interest_monrel\">interest_monrel<\/a>","<a href=\"#pref_politicalsim\">pref_politicalsim<\/a>","<a href=\"#pref_ethnicalsim\">pref_ethnicalsim<\/a>","<a href=\"#pref_religioussim\">pref_religioussim<\/a>","<a href=\"#pref_level_financially_secure_successful_ambitious\">pref_level_financially_secure_successful_ambitious<\/a>","<a href=\"#pref_level_financially_secure\">pref_level_financially_secure<\/a>","<a href=\"#pref_level_successful_ambitious\">pref_level_successful_ambitious<\/a>","<a href=\"#pref_level_kind_supportive\">pref_level_kind_supportive<\/a>","<a href=\"#pref_level_kind\">pref_level_kind<\/a>","<a href=\"#pref_level_supportive\">pref_level_supportive<\/a>","<a href=\"#pref_level_attractiveness\">pref_level_attractiveness<\/a>","<a href=\"#pref_level_attractive_body\">pref_level_attractive_body<\/a>","<a href=\"#pref_level_attractive_face\">pref_level_attractive_face<\/a>","<a href=\"#pref_level_confident_assertive\">pref_level_confident_assertive<\/a>","<a href=\"#pref_level_confident\">pref_level_confident<\/a>","<a href=\"#pref_level_assertive\">pref_level_assertive<\/a>","<a href=\"#pref_level_intelligence_educated\">pref_level_intelligence_educated<\/a>","<a href=\"#pref_level_intelligence\">pref_level_intelligence<\/a>","<a href=\"#pref_level_educated\">pref_level_educated<\/a>","<a href=\"#imp_age\">imp_age<\/a>","<a href=\"#ideal_age\">ideal_age<\/a>","<a href=\"#ideal_age_rel\">ideal_age_rel<\/a>","<a href=\"#imp_height\">imp_height<\/a>","<a href=\"#ideal_height\">ideal_height<\/a>"],["Do you identify as…","How old are you?","In what country do you live?","Language of Survey","Where would you place yourself on the political spectrum?","How interested are you in each of the following relationship options at some time in the future? - Being non-partnered (e.g., solo, single, not committed)","How interested are you in each of the following relationship options at some time in the future? - Having sexual, non-romantic relationship(s) (e.g., hookups, one-night stands)","How interested are you in each of the following relationship options at some time in the future? -Having non-monogamous relationship(s)","How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)","Similar political beliefs and values as me - How important is it to you?","Ethnicity/race - Should your partner's ethnicity/race be different or the same as you?","Similar religious beliefs as me - How important is it to you",null,"Financial security - How financially secure should your partner be?","Successful/ambitious - How successful/ambitious should your partner be?",null,"Level of kindness - How kind should your partner be?","Supportive - How supportive should your partner be?",null,"Attractive body - How attractive should your partner's body be?","Attractive face - How attractive should your partner's face be?",null,"Level of confidence - How confident should your partner be?","Level of assertiveness - How assertive should your partner be?",null,"Level of intelligence - How intelligent should your partner be?","Level of education - How educated should your partner be?","How important is the age of your ideal long-term partner?","The perfect age for my ideal long-term partner is __ years old.","The perfect age for my ideal long-term partner is __ years old.","How important is your ideal long-term partner’s height?","My ideal long-term partner’s height is __."],["character","numeric","character","character","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","haven_labelled","numeric","numeric","haven_labelled","numeric"],[null,null,null,null,"0. LEFT,<br>6. RIGHT","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all important,<br>6. very important","0. different from me,<br>6. same as me","0. not at all important,<br>6. very important",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very","0. not at all important,<br>6. very important",null,null,"0. not at all important,<br>6. very important",null],[0,4,0,0,0,49,64,112,92,308,4614,320,706,557,478,528,338,490,731,654,529,560,367,496,534,370,473,144,1196,1200,231,733],[1,0.9996982726106962,1,1,1,0.9963038394810289,0.9951723617711398,0.9915516330994946,0.9930602700460134,0.9767669910236102,0.6519574564381081,0.9758618088556988,0.9467451157878857,0.9579844610394509,0.9639435769782002,0.9601719846119031,0.9745040356038319,0.9630383948102889,0.9448593196047371,0.9506675718488345,0.9600965527645772,0.9577581654974731,0.9723165120313797,0.9625858037263333,0.9597193935279476,0.9720902164894019,0.9643207362148299,0.9891378139850645,0.9097835105981745,0.9094817832088707,0.9825752432677076,0.9447084559100852],[1,null,144,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[0,null,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["5"," 18.0","4","6","0","0","0","0","0","0","0","0","  0.0","0","0","  2.0","0","0","  0.0","0","0","  1.0","0","0","  0.5","0","0","0"," 10.0","-34.0","0"," -2.0"],[null,"21.0",null,null,"3","2","2","0","6","3","3","3"," 4.5","4","4"," 5.0","5","5"," 4.0","4","4"," 4.5","5","4"," 5.0","5","5","4","25.0"," 2.0","4"," 1.0"],["5"," 67","32","10","6","7","7","7","7","6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","6","100"," 82","6","  2"],[null,23.72028974571795,null,null,2.528022931281587,2.252044215626893,2.433184264382627,0.8906047926968429,4.848765666540069,3.226503977141092,3.273169038528289,2.950761382082399,4.351246912596606,4.251574803149606,4.436184364973785,5.139563202136853,5.258688752999459,5.020678311271246,4.044307839693437,3.840038086169959,4.228394091766185,4.385051586989053,4.686811481768813,4.081498315179061,4.729309125206319,4.785830682082719,4.666536295369212,3.631358194158468,26.23198739739657,2.522683918055901,3.948641179180101,1.028265729798786],[null,6.896534484997524,null,null,1.366020067149648,1.765025058024327,2.028962367950407,1.50553578047743,1.765754548357205,1.91648023636394,1.439919508249596,2.199673104269181,0.8958860372271881,1.112366274814104,1.075004808385804,0.6994720539511446,0.8538258565071191,0.893364266237763,0.9095593084820356,1.016898826547788,1.04593404620559,0.8409224122375829,1.024134928117028,1.04255991281249,0.8202859836964049,0.8929550213040071,1.030681790861681,1.419649474395947,7.285067869907681,3.142702625132426,1.491129007109801,0.4357638313551717],[0,null,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,2,2,2,2,2,2,2,2,null,2,2,null,2,2,null,2,2,null,2,2,null,2,2,2,null,null,2,null],[null,"▇▂▁▁▁",null,null,"▂▃▅▇▁▂▁▁","▇▅▅▇▅▂▂▁","▇▃▅▅▃▂▂▁","▇▂▁▁▁▁▁▁","▁▁▁▁▂▃▇▁","▆▂▃▇▁▇▆▅","▁▁▂▇▁▃▂▂","▇▂▃▅▁▅▃▆","▁▁▅▇▆","▁▁▁▅▁▇▆▃","▁▁▁▃▁▇▇▅","▁▁▁▇▇","▁▁▁▁▁▂▆▇","▁▁▁▁▁▅▇▇","▁▁▆▇▅","▁▁▁▆▁▇▃▁","▁▁▁▅▁▇▆▂","▁▂▇▇▃","▁▁▁▂▁▇▇▆","▁▁▁▅▁▇▅▂","▁▁▂▆▇","▁▁▁▁▁▆▇▅","▁▁▁▂▁▇▇▆","▁▁▂▅▁▇▃▂","▇▃▁▁▁","▁▇▁▁▁","▁▁▂▅▁▇▆▃","▁▁▁▇▁"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>name<\/th>\n      <th>label<\/th>\n      <th>data_type<\/th>\n      <th>value_labels<\/th>\n      <th>n_missing<\/th>\n      <th>complete_rate<\/th>\n      <th>n_unique<\/th>\n      <th>empty<\/th>\n      <th>min<\/th>\n      <th>median<\/th>\n      <th>max<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>whitespace<\/th>\n      <th>n_value_labels<\/th>\n      <th>hist<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["copy","csv","excel","pdf","print"],"pageLength":200,"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,50,100,200]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7740f80570aa4c55a87a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7740f80570aa4c55a87a">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"4614\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.651957456438108\" data-max=\"1\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"144\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.890604792696842\" data-max=\"26.2319873973966\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.435763831355171\" data-max=\"7.28506786990768\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"data":[["<a href=\"#sex\">sex<\/a>","<a href=\"#age\">age<\/a>","<a href=\"#country\">country<\/a>","<a href=\"#language\">language<\/a>","<a href=\"#political_orientation\">political_orientation<\/a>","<a href=\"#interest_single\">interest_single<\/a>","<a href=\"#interest_sexrel\">interest_sexrel<\/a>","<a href=\"#interest_nonmonrel\">interest_nonmonrel<\/a>","<a href=\"#interest_monrel\">interest_monrel<\/a>","<a href=\"#pref_politicalsim\">pref_politicalsim<\/a>","<a href=\"#pref_ethnicalsim\">pref_ethnicalsim<\/a>","<a href=\"#pref_religioussim\">pref_religioussim<\/a>","<a href=\"#pref_level_financially_secure_successful_ambitious\">pref_level_financially_secure_successful_ambitious<\/a>","<a href=\"#pref_level_financially_secure\">pref_level_financially_secure<\/a>","<a href=\"#pref_level_successful_ambitious\">pref_level_successful_ambitious<\/a>","<a href=\"#pref_level_kind_supportive\">pref_level_kind_supportive<\/a>","<a href=\"#pref_level_kind\">pref_level_kind<\/a>","<a href=\"#pref_level_supportive\">pref_level_supportive<\/a>","<a href=\"#pref_level_attractiveness\">pref_level_attractiveness<\/a>","<a href=\"#pref_level_attractive_body\">pref_level_attractive_body<\/a>","<a href=\"#pref_level_attractive_face\">pref_level_attractive_face<\/a>","<a href=\"#pref_level_confident_assertive\">pref_level_confident_assertive<\/a>","<a href=\"#pref_level_confident\">pref_level_confident<\/a>","<a href=\"#pref_level_assertive\">pref_level_assertive<\/a>","<a href=\"#pref_level_intelligence_educated\">pref_level_intelligence_educated<\/a>","<a href=\"#pref_level_intelligence\">pref_level_intelligence<\/a>","<a href=\"#pref_level_educated\">pref_level_educated<\/a>","<a href=\"#imp_age\">imp_age<\/a>","<a href=\"#ideal_age\">ideal_age<\/a>","<a href=\"#ideal_age_rel\">ideal_age_rel<\/a>","<a href=\"#imp_height\">imp_height<\/a>","<a href=\"#ideal_height\">ideal_height<\/a>"],["Do you identify as…","How old are you?","In what country do you live?","Language of Survey","Where would you place yourself on the political spectrum?","How interested are you in each of the following relationship options at some time in the future? - Being non-partnered (e.g., solo, single, not committed)","How interested are you in each of the following relationship options at some time in the future? - Having sexual, non-romantic relationship(s) (e.g., hookups, one-night stands)","How interested are you in each of the following relationship options at some time in the future? -Having non-monogamous relationship(s)","How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)","Similar political beliefs and values as me - How important is it to you?","Ethnicity/race - Should your partner's ethnicity/race be different or the same as you?","Similar religious beliefs as me - How important is it to you",null,"Financial security - How financially secure should your partner be?","Successful/ambitious - How successful/ambitious should your partner be?",null,"Level of kindness - How kind should your partner be?","Supportive - How supportive should your partner be?",null,"Attractive body - How attractive should your partner's body be?","Attractive face - How attractive should your partner's face be?",null,"Level of confidence - How confident should your partner be?","Level of assertiveness - How assertive should your partner be?",null,"Level of intelligence - How intelligent should your partner be?","Level of education - How educated should your partner be?","How important is the age of your ideal long-term partner?","The perfect age for my ideal long-term partner is __ years old.","The perfect age for my ideal long-term partner is __ years old.","How important is your ideal long-term partner’s height?","My ideal long-term partner’s height is __."],["character","numeric","character","character","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","haven_labelled","numeric","numeric","haven_labelled","numeric"],[null,null,null,null,"0. LEFT,<br>6. RIGHT","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all important,<br>6. very important","0. different from me,<br>6. same as me","0. not at all important,<br>6. very important",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very","0. not at all important,<br>6. very important",null,null,"0. not at all important,<br>6. very important",null],[0,4,0,0,0,49,64,112,92,308,4614,320,706,557,478,528,338,490,731,654,529,560,367,496,534,370,473,144,1196,1200,231,733],[1,0.9996982726106962,1,1,1,0.9963038394810289,0.9951723617711398,0.9915516330994946,0.9930602700460134,0.9767669910236102,0.6519574564381081,0.9758618088556988,0.9467451157878857,0.9579844610394509,0.9639435769782002,0.9601719846119031,0.9745040356038319,0.9630383948102889,0.9448593196047371,0.9506675718488345,0.9600965527645772,0.9577581654974731,0.9723165120313797,0.9625858037263333,0.9597193935279476,0.9720902164894019,0.9643207362148299,0.9891378139850645,0.9097835105981745,0.9094817832088707,0.9825752432677076,0.9447084559100852],[1,null,144,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[0,null,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["5"," 18.0","4","6","0","0","0","0","0","0","0","0","  0.0","0","0","  2.0","0","0","  0.0","0","0","  1.0","0","0","  0.5","0","0","0"," 10.0","-34.0","0"," -2.0"],[null,"21.0",null,null,"3","2","2","0","6","3","3","3"," 4.5","4","4"," 5.0","5","5"," 4.0","4","4"," 4.5","5","4"," 5.0","5","5","4","25.0"," 2.0","4"," 1.0"],["5"," 67","32","10","6","7","7","7","7","6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","6","100"," 82","6","  2"],[null,23.72028974571795,null,null,2.528022931281587,2.252044215626893,2.433184264382627,0.8906047926968429,4.848765666540069,3.226503977141092,3.273169038528289,2.950761382082399,4.351246912596606,4.251574803149606,4.436184364973785,5.139563202136853,5.258688752999459,5.020678311271246,4.044307839693437,3.840038086169959,4.228394091766185,4.385051586989053,4.686811481768813,4.081498315179061,4.729309125206319,4.785830682082719,4.666536295369212,3.631358194158468,26.23198739739657,2.522683918055901,3.948641179180101,1.028265729798786],[null,6.896534484997524,null,null,1.366020067149648,1.765025058024327,2.028962367950407,1.50553578047743,1.765754548357205,1.91648023636394,1.439919508249596,2.199673104269181,0.8958860372271881,1.112366274814104,1.075004808385804,0.6994720539511446,0.8538258565071191,0.893364266237763,0.9095593084820356,1.016898826547788,1.04593404620559,0.8409224122375829,1.024134928117028,1.04255991281249,0.8202859836964049,0.8929550213040071,1.030681790861681,1.419649474395947,7.285067869907681,3.142702625132426,1.491129007109801,0.4357638313551717],[0,null,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,2,2,2,2,2,2,2,2,null,2,2,null,2,2,null,2,2,null,2,2,null,2,2,2,null,null,2,null],[null,"▇▂▁▁▁",null,null,"▂▃▅▇▁▂▁▁","▇▅▅▇▅▂▂▁","▇▃▅▅▃▂▂▁","▇▂▁▁▁▁▁▁","▁▁▁▁▂▃▇▁","▆▂▃▇▁▇▆▅","▁▁▂▇▁▃▂▂","▇▂▃▅▁▅▃▆","▁▁▅▇▆","▁▁▁▅▁▇▆▃","▁▁▁▃▁▇▇▅","▁▁▁▇▇","▁▁▁▁▁▂▆▇","▁▁▁▁▁▅▇▇","▁▁▆▇▅","▁▁▁▆▁▇▃▁","▁▁▁▅▁▇▆▂","▁▂▇▇▃","▁▁▁▂▁▇▇▆","▁▁▁▅▁▇▅▂","▁▁▂▆▇","▁▁▁▁▁▆▇▅","▁▁▁▂▁▇▇▆","▁▁▂▅▁▇▃▂","▇▃▁▁▁","▁▇▁▁▁","▁▁▂▅▁▇▆▃","▁▁▁▇▁"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>name<\/th>\n      <th>label<\/th>\n      <th>data_type<\/th>\n      <th>value_labels<\/th>\n      <th>n_missing<\/th>\n      <th>complete_rate<\/th>\n      <th>n_unique<\/th>\n      <th>empty<\/th>\n      <th>min<\/th>\n      <th>median<\/th>\n      <th>max<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>whitespace<\/th>\n      <th>n_value_labels<\/th>\n      <th>hist<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["copy","csv","excel","pdf","print"],"pageLength":200,"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,50,100,200]}},"evals":[],"jsHooks":[]}</script>
 <script type="application/ld+json">
 {
   "name": "data_included",
-  "datePublished": "2023-12-04",
+  "datePublished": "2023-12-15",
   "description": "The dataset has N=13257 rows and 32 columns.\n7195 rows have no missing values on any column.\n\n\n## Table of variables\nThis table contains variable names, labels, and number of missing values.\nSee the complete codebook for more.\n\n[truncated]\n\n### Note\nThis dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.2).",
   "keywords": ["sex", "age", "country", "language", "political_orientation", "interest_single", "interest_sexrel", "interest_nonmonrel", "interest_monrel", "pref_politicalsim", "pref_ethnicalsim", "pref_religioussim", "pref_level_financially_secure_successful_ambitious", "pref_level_financially_secure", "pref_level_successful_ambitious", "pref_level_kind_supportive", "pref_level_kind", "pref_level_supportive", "pref_level_attractiveness", "pref_level_attractive_body", "pref_level_attractive_face", "pref_level_confident_assertive", "pref_level_confident", "pref_level_assertive", "pref_level_intelligence_educated", "pref_level_intelligence", "pref_level_educated", "imp_age", "ideal_age", "ideal_age_rel", "imp_height", "ideal_height"],
   "@context": "http://schema.org/",
@@ -3518,7 +3518,7 @@ this codebook publicly on the web.</p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;data_included&quot;</span><span class="fu">,</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="dt">&quot;datePublished&quot;</span><span class="fu">:</span> <span class="st">&quot;2023-12-04&quot;</span><span class="fu">,</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="dt">&quot;datePublished&quot;</span><span class="fu">:</span> <span class="st">&quot;2023-12-15&quot;</span><span class="fu">,</span></span>
 <span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;The dataset has N=13257 rows and 32 columns.</span><span class="ch">\n</span><span class="st">7195 rows have no missing values on any column.</span><span class="ch">\n\n\n</span><span class="st">## Table of variables</span><span class="ch">\n</span><span class="st">This table contains variable names, labels, and number of missing values.</span><span class="ch">\n</span><span class="st">See the complete codebook for more.</span><span class="ch">\n\n</span><span class="st">[truncated]</span><span class="ch">\n\n</span><span class="st">### Note</span><span class="ch">\n</span><span class="st">This dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.2).&quot;</span><span class="fu">,</span></span>
 <span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  <span class="dt">&quot;keywords&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;sex&quot;</span><span class="ot">,</span> <span class="st">&quot;age&quot;</span><span class="ot">,</span> <span class="st">&quot;country&quot;</span><span class="ot">,</span> <span class="st">&quot;language&quot;</span><span class="ot">,</span> <span class="st">&quot;political_orientation&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_single&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_sexrel&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_nonmonrel&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_monrel&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_politicalsim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_ethnicalsim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_religioussim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_financially_secure_successful_ambitious&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_financially_secure&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_successful_ambitious&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_kind_supportive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_kind&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_supportive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractiveness&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractive_body&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractive_face&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_confident_assertive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_confident&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_assertive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_intelligence_educated&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_intelligence&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_educated&quot;</span><span class="ot">,</span> <span class="st">&quot;imp_age&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_age&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_age_rel&quot;</span><span class="ot">,</span> <span class="st">&quot;imp_height&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_height&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://schema.org/&quot;</span><span class="fu">,</span></span>
