@@ -11,20 +11,29 @@
 
 
 
-<title>Political Orientation and its Relationships With Preferred Relationship Options and Partner Preferences in Single Women</title>
+<title>Left or Right? The Link Between Political Orientation and Partner Preferences in an International Sample of Single Women</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -33,40 +42,18 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
+
 
 
 
 
 <style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
 #rmd-source-code {
   display: none;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -77,10 +64,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -97,40 +80,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 64px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h2 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h3 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h4 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h5 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
-.section h6 {
-  padding-top: 69px;
-  margin-top: -69px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -158,7 +117,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -170,7 +129,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -180,11 +139,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -196,13 +172,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -210,16 +185,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -266,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -296,6 +264,9 @@ $(document).ready(function () {
 <li>
   <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
 </li>
+<li>
+  <a href="12_supplement.html">Supplementary Analyses</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -310,11 +281,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 <li role="separator" class="divider"></li>
@@ -324,16 +295,19 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><font color="#66C2A5">Political Orientation and its Relationships With Preferred Relationship Options and Partner Preferences in Single Women</font></h1>
+<h1 class="title toc-ignore"><font color="#66C2A5">Left or Right? The
+Link Between Political Orientation and Partner Preferences in an
+International Sample of Single Women</font></h1>
 
 </div>
 
 
 <div class="row">
 <div class="col-md-6 col-md-offset-1">
-<div class="figure">
-<img src="map_country_distribution.jpeg" alt="" />
-<p class="caption">Country Distribution of Participants</p>
+<div class="float">
+<img src="map_country_distribution.jpeg"
+alt="Country Distribution of Participants" />
+<div class="figcaption">Country Distribution of Participants</div>
 </div>
 </div>
 <div class="col-md-5">
@@ -342,23 +316,36 @@ $(document).ready(function () {
 <li>We <a href="02_exclusion.html">decided which data to keep</a>.</li>
 </ol>
 <ul>
-<li>see the <a href="03_codebook.html">codebook</a> for further details</li>
+<li>see the <a href="03_codebook.html">codebook</a> for further
+details</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Then we <a href="04_descriptives.html">looked at some descriptives</a>.</li>
-<li>The main analyses: We <a href="05_analyses.html">analyzed</a> effects of right-wing political orientation on preferred relationship options and partner preferences.</li>
-<li>Then we <a href="06_robustness_analyses.html">ran some robustness analyses</a> additionally including age as a covariate in each model.</li>
-<li>Additionally, we <a href="09_analyses_exploratory.html">conducted exploratory analyses</a> as we we were interested in the heterogeneity in relationships between countries.</li>
+<li>Then we <a href="04_descriptives.html">looked at some
+descriptives</a>.</li>
+<li>The main analyses: We <a href="05_analyses.html">analyzed</a>
+effects of right-wing political orientation on preferred relationship
+options and partner preferences.</li>
+<li>Then we <a href="06_robustness_analyses.html">ran some robustness
+analyses</a> additionally including age as a covariate in each
+model.</li>
+<li>Additionally, we <a href="09_analyses_exploratory.html">conducted
+exploratory analyses</a> as we we were interested in the heterogeneity
+in relationships between countries.</li>
+<li>Finally, we provided some <a href="12_supplement.html">supplementary
+analyses</a> with a focus on preferred relationship options.</li>
 </ol>
 </div>
 </div>
 </div>
-<div id="authors" class="section level4">
-<h4>Authors</h4>
-<p>Lena Kuschel (<a href="mailto:lena.kuschel@stud.uni-goetttingen.de" class="email">lena.kuschel@stud.uni-goetttingen.de</a>)</p>
+<div id="authors-of-this-website" class="section level4">
+<h4>Authors of this Website</h4>
+<p>Lena Kuschel (<a href="mailto:lena.kuschel@stud.uni-goetttingen.de"
+class="email">lena.kuschel@stud.uni-goetttingen.de</a>) Laura Botzet (<a
+href="mailto:botzet@uni-goettingen.de"
+class="email">botzet@uni-goettingen.de</a>)</p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPlBvbGl0aWNhbCBPcmllbnRhdGlvbiBhbmQgaXRzIFJlbGF0aW9uc2hpcHMgV2l0aCBQcmVmZXJyZWQgUmVsYXRpb25zaGlwIE9wdGlvbnMgYW5kIFBhcnRuZXIgUHJlZmVyZW5jZXMgaW4gU2luZ2xlIFdvbWVuPC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQoNCjxkaXYgY2xhc3M9InJvdyI+DQoNCg0KPGRpdiBjbGFzcz0iY29sLW1kLTYgY29sLW1kLW9mZnNldC0xIj4NCiFbQ291bnRyeSBEaXN0cmlidXRpb24gb2YgUGFydGljaXBhbnRzXShtYXBfY291bnRyeV9kaXN0cmlidXRpb24uanBlZykNCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJjb2wtbWQtNSI+DQoNCg0KMS4gRmlyc3Qgd2UgW3dyYW5nbGVkIHRoZSBkYXRhXSgwMV9kYXRhd3JhbmdsaW5nLmh0bWwpLg0KMi4gV2UgW2RlY2lkZWQgd2hpY2ggZGF0YSB0byBrZWVwXSgwMl9leGNsdXNpb24uaHRtbCkuDQogIC0gc2VlIHRoZSBbY29kZWJvb2tdKDAzX2NvZGVib29rLmh0bWwpIGZvciBmdXJ0aGVyIGRldGFpbHMNCjMuIFRoZW4gd2UgW2xvb2tlZCBhdCBzb21lIGRlc2NyaXB0aXZlc10oMDRfZGVzY3JpcHRpdmVzLmh0bWwpLg0KNC4gVGhlIG1haW4gYW5hbHlzZXM6IFdlIFthbmFseXplZF0oMDVfYW5hbHlzZXMuaHRtbCkgZWZmZWN0cyBvZiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBvbiBwcmVmZXJyZWQgcmVsYXRpb25zaGlwIG9wdGlvbnMgYW5kIHBhcnRuZXIgcHJlZmVyZW5jZXMuDQo1LiBUaGVuIHdlIFtyYW4gc29tZSByb2J1c3RuZXNzIGFuYWx5c2VzXSgwNl9yb2J1c3RuZXNzX2FuYWx5c2VzLmh0bWwpIGFkZGl0aW9uYWxseSBpbmNsdWRpbmcgYWdlIGFzIGEgY292YXJpYXRlIGluIGVhY2ggbW9kZWwuDQo2LiBBZGRpdGlvbmFsbHksIHdlIFtjb25kdWN0ZWQgZXhwbG9yYXRvcnkgYW5hbHlzZXNdKDA5X2FuYWx5c2VzX2V4cGxvcmF0b3J5Lmh0bWwpIGFzIHdlIHdlIHdlcmUgaW50ZXJlc3RlZCBpbiB0aGUgaGV0ZXJvZ2VuZWl0eSBpbiByZWxhdGlvbnNoaXBzIGJldHdlZW4gY291bnRyaWVzLg0KDQoNCg0KPC9kaXY+DQoNCjwvZGl2Pg0KDQoNCg0KPC9kaXY+DQoNCiMjIyMgQXV0aG9ycw0KTGVuYSBLdXNjaGVsIChsZW5hLmt1c2NoZWxAc3R1ZC51bmktZ29ldHR0aW5nZW4uZGUpDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkxlZnQgb3IgUmlnaHQ/IFRoZSBMaW5rIEJldHdlZW4gUG9saXRpY2FsIE9yaWVudGF0aW9uIGFuZCBQYXJ0bmVyIFByZWZlcmVuY2VzIGluIGFuIEludGVybmF0aW9uYWwgU2FtcGxlIG9mIFNpbmdsZSBXb21lbjwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQo8ZGl2IGNsYXNzPSJyb3ciPg0KDQoNCjxkaXYgY2xhc3M9ImNvbC1tZC02IGNvbC1tZC1vZmZzZXQtMSI+DQohW0NvdW50cnkgRGlzdHJpYnV0aW9uIG9mIFBhcnRpY2lwYW50c10obWFwX2NvdW50cnlfZGlzdHJpYnV0aW9uLmpwZWcpDQo8L2Rpdj4NCg0KPGRpdiBjbGFzcz0iY29sLW1kLTUiPg0KDQoNCjEuIEZpcnN0IHdlIFt3cmFuZ2xlZCB0aGUgZGF0YV0oMDFfZGF0YXdyYW5nbGluZy5odG1sKS4NCjIuIFdlIFtkZWNpZGVkIHdoaWNoIGRhdGEgdG8ga2VlcF0oMDJfZXhjbHVzaW9uLmh0bWwpLg0KICAtIHNlZSB0aGUgW2NvZGVib29rXSgwM19jb2RlYm9vay5odG1sKSBmb3IgZnVydGhlciBkZXRhaWxzDQozLiBUaGVuIHdlIFtsb29rZWQgYXQgc29tZSBkZXNjcmlwdGl2ZXNdKDA0X2Rlc2NyaXB0aXZlcy5odG1sKS4NCjQuIFRoZSBtYWluIGFuYWx5c2VzOiBXZSBbYW5hbHl6ZWRdKDA1X2FuYWx5c2VzLmh0bWwpIGVmZmVjdHMgb2YgcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gb24gcHJlZmVycmVkIHJlbGF0aW9uc2hpcCBvcHRpb25zIGFuZCBwYXJ0bmVyIHByZWZlcmVuY2VzLg0KNS4gVGhlbiB3ZSBbcmFuIHNvbWUgcm9idXN0bmVzcyBhbmFseXNlc10oMDZfcm9idXN0bmVzc19hbmFseXNlcy5odG1sKSBhZGRpdGlvbmFsbHkgaW5jbHVkaW5nIGFnZSBhcyBhIGNvdmFyaWF0ZSBpbiBlYWNoIG1vZGVsLg0KNi4gQWRkaXRpb25hbGx5LCB3ZSBbY29uZHVjdGVkIGV4cGxvcmF0b3J5IGFuYWx5c2VzXSgwOV9hbmFseXNlc19leHBsb3JhdG9yeS5odG1sKSBhcyB3ZSB3ZSB3ZXJlIGludGVyZXN0ZWQgaW4gdGhlIGhldGVyb2dlbmVpdHkgaW4gcmVsYXRpb25zaGlwcyBiZXR3ZWVuIGNvdW50cmllcy4NCjcuIEZpbmFsbHksIHdlIHByb3ZpZGVkIHNvbWUgW3N1cHBsZW1lbnRhcnkgYW5hbHlzZXNdKDEyX3N1cHBsZW1lbnQuaHRtbCkgd2l0aCBhIGZvY3VzIG9uIHByZWZlcnJlZCByZWxhdGlvbnNoaXAgb3B0aW9ucy4NCg0KDQoNCjwvZGl2Pg0KDQo8L2Rpdj4NCg0KDQoNCjwvZGl2Pg0KDQojIyMjIEF1dGhvcnMgb2YgdGhpcyBXZWJzaXRlDQpMZW5hIEt1c2NoZWwgKGxlbmEua3VzY2hlbEBzdHVkLnVuaS1nb2V0dHRpbmdlbi5kZSkNCkxhdXJhIEJvdHpldCAoYm90emV0QHVuaS1nb2V0dGluZ2VuLmRlKQ0KDQo=</div>
 
 
 
@@ -368,7 +355,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -386,7 +373,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

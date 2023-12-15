@@ -52,7 +52,7 @@ data_included_documented = data_included_documented %>%
 ```
 
 
-### Figure 2{.tabset}
+### Figure 1{.tabset}
 ```{r Political Orientation}
 mean(data_included_documented$political_orientation) %>% round(., 2)
 sd(data_included_documented$political_orientation) %>% round(., 2)
@@ -72,13 +72,13 @@ hist
 
 #### Save Image
 ```{r}
-jpeg("kuschel-figure2.jpeg", width = 2*1580, height = 2*836, res = 600)
+jpeg("kuschel-figure1.jpeg", width = 2*1580, height = 2*836, res = 600)
 hist
 dev.off()
 ```
 
 
-### Figure 4 {.tabset}
+### Figure 3 {.tabset}
 Effect size estimates of linear effects of political orientation on preferred political, ethnical and religious similarity for main analyses and one robustness analysis. Graph further includes both linear effect size estimates according to the Two Lines Approach. 
 
 #### Main Analyses
@@ -342,7 +342,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("kuschel-figure4.jpeg",
+jpeg("kuschel-figure3.jpeg",
      width = 6300,
      height = 4200,
      res = 600)
@@ -351,7 +351,7 @@ dev.off()
 ```
 
 
-### Figure 5 {.tabset}
+### Figure 4 {.tabset}
 Effect size estimates of quadratic effect of political orientation on preferred political similarity for main analysis and one robustness analysis.  
 
 #### Analyses {.active}
@@ -440,7 +440,7 @@ graph_emp
 
 #### Save image
 ```{r}
-jpeg("kuschel-figure5.jpeg",
+jpeg("kuschel-figure4.jpeg",
      width = 6000,
      height = 6000,
      res = 600)
@@ -448,7 +448,7 @@ graph_emp
 dev.off()
 ```
 
-### Figure 6 {.tabset .active}
+### Figure 5 {.tabset .active}
 Effect size estimates of linear effects of political orientation on ideal partner preferences for main analyses and one robustness analysis.
 
 #### Main Analyses
@@ -659,7 +659,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("kuschel-figure6.jpeg",
+jpeg("kuschel-figure5.jpeg",
      width = 6300,
      height = 4200,
      res = 600)
@@ -667,7 +667,7 @@ multiplot
 dev.off()
 ```
 
-### Figure 7 {.tabset}
+### Figure 76{.tabset}
 Effect size estimates of linear effects of political orientation on ideal partner's age and height for main analyses and one robustness analysis.
 
 #### Main Analyses
@@ -850,7 +850,7 @@ multiplot
 
 #### Save image
 ```{r}
-jpeg("kuschel-figure7.jpeg",
+jpeg("kuschel-figure6.jpeg",
      width = 6300,
      height = 4200,
      res = 600)
