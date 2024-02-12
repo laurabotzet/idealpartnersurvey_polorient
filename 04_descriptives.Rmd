@@ -124,7 +124,10 @@ country_absolute = as.data.frame(table(data_included_documented$country))
 country_freq = as.data.frame(round((table(data_included_documented$country)/n)*100,2))
 
 country = left_join(country_absolute, country_freq, by = "Var1")
-country
+country = country %>% rename(Country = Var1,
+                   n = Freq.x,
+                   percentage = Freq.y)
+kable(country)
 
 write.table(country, file = "country.txt", sep = ",")
 ```

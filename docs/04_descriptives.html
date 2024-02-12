@@ -1102,47 +1102,767 @@ class="section level3 tabset">
 <span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>country_freq <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
 <span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a></span>
 <span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>country <span class="ot">=</span> <span class="fu">left_join</span>(country_absolute, country_freq, <span class="at">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>country</span></code></pre></div>
-<pre><code>## # A tibble: 144 × 3
-##    Var1                Freq.x Freq.y
-##    &lt;fct&gt;                &lt;int&gt;  &lt;dbl&gt;
-##  1 Afghanistan              1   0.01
-##  2 Albania                  2   0.02
-##  3 Algeria                  7   0.05
-##  4 Andorra                  6   0.05
-##  5 Antigua and Barbuda      2   0.02
-##  6 Argentina              217   1.64
-##  7 Armenia                  2   0.02
-##  8 Aruba                    1   0.01
-##  9 Australia              133   1   
-## 10 Austria                197   1.49
-## # ℹ 134 more rows</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>country <span class="ot">=</span> country <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Country =</span> Var1,</span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>                   <span class="at">n =</span> Freq.x,</span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>                   <span class="at">percentage =</span> Freq.y)</span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a><span class="fu">kable</span>(country)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="right">n</th>
+<th align="right">percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Afghanistan</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Albania</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Algeria</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Andorra</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Antigua and Barbuda</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">217</td>
+<td align="right">1.64</td>
+</tr>
+<tr class="odd">
+<td align="left">Armenia</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Aruba</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Australia</td>
+<td align="right">133</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">Austria</td>
+<td align="right">197</td>
+<td align="right">1.49</td>
+</tr>
+<tr class="odd">
+<td align="left">Bahamas, The</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Bahrain</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Barbados</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Belarus</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Belgium</td>
+<td align="right">102</td>
+<td align="right">0.77</td>
+</tr>
+<tr class="even">
+<td align="left">Belize</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Benin</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Bolivia</td>
+<td align="right">23</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">Bosnia and Herzegovina</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Botswana</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Brazil</td>
+<td align="right">806</td>
+<td align="right">6.08</td>
+</tr>
+<tr class="even">
+<td align="left">Bulgaria</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Burma</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Cameroon</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">338</td>
+<td align="right">2.55</td>
+</tr>
+<tr class="even">
+<td align="left">Central African Republic</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Chile</td>
+<td align="right">154</td>
+<td align="right">1.16</td>
+</tr>
+<tr class="even">
+<td align="left">China</td>
+<td align="right">90</td>
+<td align="right">0.68</td>
+</tr>
+<tr class="odd">
+<td align="left">Colombia</td>
+<td align="right">387</td>
+<td align="right">2.92</td>
+</tr>
+<tr class="even">
+<td align="left">Costa Rica</td>
+<td align="right">47</td>
+<td align="right">0.35</td>
+</tr>
+<tr class="odd">
+<td align="left">Cote d’Ivoire</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Croatia</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Cuba</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Czechia</td>
+<td align="right">11</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Denmark</td>
+<td align="right">395</td>
+<td align="right">2.98</td>
+</tr>
+<tr class="even">
+<td align="left">Dominica</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Dominican Republic</td>
+<td align="right">41</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="even">
+<td align="left">East Timor (see Timor-Leste)</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Ecuador</td>
+<td align="right">102</td>
+<td align="right">0.77</td>
+</tr>
+<tr class="even">
+<td align="left">Egypt</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">El Salvador</td>
+<td align="right">26</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="even">
+<td align="left">Estonia</td>
+<td align="right">12</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethiopia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Fiji</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Finland</td>
+<td align="right">31</td>
+<td align="right">0.23</td>
+</tr>
+<tr class="even">
+<td align="left">France</td>
+<td align="right">2013</td>
+<td align="right">15.18</td>
+</tr>
+<tr class="odd">
+<td align="left">Georgia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="right">1846</td>
+<td align="right">13.92</td>
+</tr>
+<tr class="odd">
+<td align="left">Ghana</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Greece</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">Grenada</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Guatemala</td>
+<td align="right">61</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="odd">
+<td align="left">Guinea-Bissau</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Guyana</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Haiti</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Honduras</td>
+<td align="right">18</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="odd">
+<td align="left">Hong Kong</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">Hungary</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Iceland</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">India</td>
+<td align="right">45</td>
+<td align="right">0.34</td>
+</tr>
+<tr class="odd">
+<td align="left">Indonesia</td>
+<td align="right">18</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="even">
+<td align="left">Iran</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Iraq</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Ireland</td>
+<td align="right">59</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="odd">
+<td align="left">Israel</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="even">
+<td align="left">Italy</td>
+<td align="right">968</td>
+<td align="right">7.30</td>
+</tr>
+<tr class="odd">
+<td align="left">Jamaica</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Japan</td>
+<td align="right">290</td>
+<td align="right">2.19</td>
+</tr>
+<tr class="odd">
+<td align="left">Jordan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Kazakhstan</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Kenya</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Kuwait</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Kyrgyzstan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Latvia</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Lebanon</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Liechtenstein</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Lithuania</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Luxembourg</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Macedonia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Madagascar</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Malaysia</td>
+<td align="right">17</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td align="left">Maldives</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Mali</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Malta</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Marshall Islands</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Mauritania</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Mauritius</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Mexico</td>
+<td align="right">1157</td>
+<td align="right">8.73</td>
+</tr>
+<tr class="odd">
+<td align="left">Micronesia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Monaco</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Montenegro</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Morocco</td>
+<td align="right">16</td>
+<td align="right">0.12</td>
+</tr>
+<tr class="odd">
+<td align="left">Namibia</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Nepal</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Netherlands</td>
+<td align="right">44</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td align="left">New Zealand</td>
+<td align="right">34</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="odd">
+<td align="left">Nicaragua</td>
+<td align="right">15</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="even">
+<td align="left">Nigeria</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Norway</td>
+<td align="right">12</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">Pakistan</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Palestinian Territories</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Panama</td>
+<td align="right">15</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Paraguay</td>
+<td align="right">11</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="even">
+<td align="left">Peru</td>
+<td align="right">119</td>
+<td align="right">0.90</td>
+</tr>
+<tr class="odd">
+<td align="left">Philippines</td>
+<td align="right">36</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="even">
+<td align="left">Poland</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Portugal</td>
+<td align="right">51</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="even">
+<td align="left">Qatar</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Romania</td>
+<td align="right">24</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="even">
+<td align="left">Russia</td>
+<td align="right">155</td>
+<td align="right">1.17</td>
+</tr>
+<tr class="odd">
+<td align="left">Saint Lucia</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Saint Vincent and the Grenadines</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Saudi Arabia</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Senegal</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">Serbia</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">Singapore</td>
+<td align="right">26</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="odd">
+<td align="left">Sint Maarten</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Slovakia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Slovenia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">South Africa</td>
+<td align="right">29</td>
+<td align="right">0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">South Korea</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">South Sudan</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="right">562</td>
+<td align="right">4.24</td>
+</tr>
+<tr class="even">
+<td align="left">Sri Lanka</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Swaziland</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Sweden</td>
+<td align="right">27</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="odd">
+<td align="left">Switzerland</td>
+<td align="right">280</td>
+<td align="right">2.11</td>
+</tr>
+<tr class="even">
+<td align="left">Syria</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Taiwan</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Tanzania</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Thailand</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Trinidad and Tobago</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Tunisia</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Turkey</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Turkmenistan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Uganda</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Ukraine</td>
+<td align="right">21</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">United Arab Emirates</td>
+<td align="right">14</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">United Kingdom</td>
+<td align="right">499</td>
+<td align="right">3.76</td>
+</tr>
+<tr class="even">
+<td align="left">United States of America</td>
+<td align="right">1254</td>
+<td align="right">9.46</td>
+</tr>
+<tr class="odd">
+<td align="left">Uruguay</td>
+<td align="right">24</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="even">
+<td align="left">Venezuela</td>
+<td align="right">67</td>
+<td align="right">0.51</td>
+</tr>
+<tr class="odd">
+<td align="left">Vietnam</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Zimbabwe</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
 </div>
 <div id="descriptives-and-correlation-table"
 class="section level3 tabset">
 <h3 class="tabset">Descriptives and Correlation Table</h3>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>          age,</span>
-<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>         interest_single,</span>
-<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>         interest_sexrel, </span>
-<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>         interest_nonmonrel, </span>
-<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a>         interest_monrel, </span>
-<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a>         pref_politicalsim, </span>
-<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a>         pref_ethnicalsim, </span>
-<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a>         pref_religioussim,</span>
-<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a>          pref_level_financially_secure_successful_ambitious,</span>
-<span id="cb40-12"><a href="#cb40-12" tabindex="-1"></a>         pref_level_kind_supportive, </span>
-<span id="cb40-13"><a href="#cb40-13" tabindex="-1"></a>         pref_level_attractiveness, </span>
-<span id="cb40-14"><a href="#cb40-14" tabindex="-1"></a>         pref_level_confident_assertive,</span>
-<span id="cb40-15"><a href="#cb40-15" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
-<span id="cb40-16"><a href="#cb40-16" tabindex="-1"></a>         imp_age, </span>
-<span id="cb40-17"><a href="#cb40-17" tabindex="-1"></a>         ideal_age, </span>
-<span id="cb40-18"><a href="#cb40-18" tabindex="-1"></a>         imp_height, </span>
-<span id="cb40-19"><a href="#cb40-19" tabindex="-1"></a>         ideal_height) </span>
-<span id="cb40-20"><a href="#cb40-20" tabindex="-1"></a>         <span class="co">#ideal_age_rel)</span></span>
-<span id="cb40-21"><a href="#cb40-21" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>          age,</span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>         interest_single,</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>         interest_sexrel, </span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>         interest_nonmonrel, </span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>         interest_monrel, </span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a>         pref_politicalsim, </span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a>         pref_ethnicalsim, </span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a>         pref_religioussim,</span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a>          pref_level_financially_secure_successful_ambitious,</span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a>         pref_level_kind_supportive, </span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a>         pref_level_attractiveness, </span>
+<span id="cb39-14"><a href="#cb39-14" tabindex="-1"></a>         pref_level_confident_assertive,</span>
+<span id="cb39-15"><a href="#cb39-15" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
+<span id="cb39-16"><a href="#cb39-16" tabindex="-1"></a>         imp_age, </span>
+<span id="cb39-17"><a href="#cb39-17" tabindex="-1"></a>         ideal_age, </span>
+<span id="cb39-18"><a href="#cb39-18" tabindex="-1"></a>         imp_height, </span>
+<span id="cb39-19"><a href="#cb39-19" tabindex="-1"></a>         ideal_height) </span>
+<span id="cb39-20"><a href="#cb39-20" tabindex="-1"></a>         <span class="co">#ideal_age_rel)</span></span>
+<span id="cb39-21"><a href="#cb39-21" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                                                    political_orientation   age
 ## political_orientation                                               1.00 -0.05
 ## age                                                                -0.05  1.00
@@ -1428,11 +2148,11 @@ class="section level3 tabset">
 ## ideal_age                                                 -0.03
 ## imp_height                                                 0.29
 ## ideal_height                                               1.00</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAic2hvdyINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KDQojIyMgTGlicmFyeQ0KYGBge3IgTGlicmFyeX0NCmxpYnJhcnkoYXBhVGFibGVzKQ0KbGlicmFyeShmb3JtcikNCiMgbGlicmFyeShlZmZlY3RzKQ0KIyBsaWJyYXJ5KGVmZmVjdHNpemUpDQojIGxpYnJhcnkobG1lNCkNCiMgbGlicmFyeShzanN0YXRzKQ0KIyBsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeShwc3ljaCkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShqdG9vbHMpDQpsaWJyYXJ5KHJhaW5jbG91ZHBsb3RzKQ0KDQphcGF0aGVtZSA9IHRoZW1lX2J3KCkgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMubGluZSA9IGVsZW1lbnRfbGluZSgpLA0KICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpKQ0KDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgU3VtbWFyeX0NCmRlc2NyaWJlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgc2VsZWN0X2lmKGlzLm51bWVyaWMpKSAlPiUNCiAga2FibGUoKQ0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pICU+JSByb3VuZCguLCAyKQ0Kc2QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikgJT4lIHJvdW5kKC4sIDIpDQpyYW5nZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KDQpoaXN0IDwtIGdncGxvdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGFlcyh4ID0gcG9saXRpY2FsX29yaWVudGF0aW9uKSkgKyANCiAgZ2VvbV9oaXN0b2dyYW0oY29sID0gImdyZXkiLCBiaW53aWR0aCA9IDAuNSwgY2VudGVyID0gMCkgKw0KICBsYWJzKHggPSAiUG9saXRpY2FsIE9yaWVudGF0aW9uIiwgeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIikrIA0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MTUpLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpKw0KICBhcGF0aGVtZQ0KDQpoaXN0DQpgYGANCg0KDQojIyMjIFNhdmUgSW1hZ2UNCmBgYHtyfQ0KanBlZygiUE9fSGlzdG9ncmFtLmpwZWciLCB3aWR0aCA9IDE1ODAsIGhlaWdodCA9IDgzNiwgcmVzID0gMzAwKQ0KaGlzdA0KZGV2Lm9mZigpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2NvbmZpZGVudCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5IHsudGFic2V0fQ0KYGBge3J9DQpjb3VudHJ5X2Fic29sdXRlID0gYXMuZGF0YS5mcmFtZSh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkpDQoNCmNvdW50cnlfZnJlcSA9IGFzLmRhdGEuZnJhbWUocm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KS9uKSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgIGFnZSwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIGltcF9hZ2UsIA0KICAgICAgICAgaWRlYWxfYWdlLCANCiAgICAgICAgIGltcF9oZWlnaHQsIA0KICAgICAgICAgaWRlYWxfaGVpZ2h0KSANCiAgICAgICAgICNpZGVhbF9hZ2VfcmVsKQ0Kcm91bmQoY29yKGNvciwgdXNlPSJwYWlyd2lzZS5jb21wbGV0ZS5vYnMiKSwyKQ0KYXBhX3RhYmxlX2NvciA9IGFwYS5jb3IudGFibGUoY29yLCBmaWxlbmFtZSA9ICJkZXNjcmlwdGl2ZXMuZG9jIikNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAic2hvdyINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KDQojIyMgTGlicmFyeQ0KYGBge3IgTGlicmFyeX0NCmxpYnJhcnkoYXBhVGFibGVzKQ0KbGlicmFyeShmb3JtcikNCiMgbGlicmFyeShlZmZlY3RzKQ0KIyBsaWJyYXJ5KGVmZmVjdHNpemUpDQojIGxpYnJhcnkobG1lNCkNCiMgbGlicmFyeShzanN0YXRzKQ0KIyBsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeShwc3ljaCkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShqdG9vbHMpDQpsaWJyYXJ5KHJhaW5jbG91ZHBsb3RzKQ0KDQphcGF0aGVtZSA9IHRoZW1lX2J3KCkgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMubGluZSA9IGVsZW1lbnRfbGluZSgpLA0KICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpKQ0KDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgU3VtbWFyeX0NCmRlc2NyaWJlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgc2VsZWN0X2lmKGlzLm51bWVyaWMpKSAlPiUNCiAga2FibGUoKQ0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pICU+JSByb3VuZCguLCAyKQ0Kc2QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikgJT4lIHJvdW5kKC4sIDIpDQpyYW5nZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KDQpoaXN0IDwtIGdncGxvdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGFlcyh4ID0gcG9saXRpY2FsX29yaWVudGF0aW9uKSkgKyANCiAgZ2VvbV9oaXN0b2dyYW0oY29sID0gImdyZXkiLCBiaW53aWR0aCA9IDAuNSwgY2VudGVyID0gMCkgKw0KICBsYWJzKHggPSAiUG9saXRpY2FsIE9yaWVudGF0aW9uIiwgeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIikrIA0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MTUpLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpKw0KICBhcGF0aGVtZQ0KDQpoaXN0DQpgYGANCg0KDQojIyMjIFNhdmUgSW1hZ2UNCmBgYHtyfQ0KanBlZygiUE9fSGlzdG9ncmFtLmpwZWciLCB3aWR0aCA9IDE1ODAsIGhlaWdodCA9IDgzNiwgcmVzID0gMzAwKQ0KaGlzdA0KZGV2Lm9mZigpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2NvbmZpZGVudCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0KbiA9IG5yb3coZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKQ0KDQp0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpDQoNCnJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkbGFuZ3VhZ2UpL24pKjEwMCwyKQ0KYGBgDQoNCiMjIyBDb3VudHJ5IHsudGFic2V0fQ0KYGBge3J9DQpjb3VudHJ5X2Fic29sdXRlID0gYXMuZGF0YS5mcmFtZSh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkpDQoNCmNvdW50cnlfZnJlcSA9IGFzLmRhdGEuZnJhbWUocm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRjb3VudHJ5KS9uKSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkgPSBjb3VudHJ5ICU+JSByZW5hbWUoQ291bnRyeSA9IFZhcjEsDQogICAgICAgICAgICAgICAgICAgbiA9IEZyZXEueCwNCiAgICAgICAgICAgICAgICAgICBwZXJjZW50YWdlID0gRnJlcS55KQ0Ka2FibGUoY291bnRyeSkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgIGFnZSwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIGltcF9hZ2UsIA0KICAgICAgICAgaWRlYWxfYWdlLCANCiAgICAgICAgIGltcF9oZWlnaHQsIA0KICAgICAgICAgaWRlYWxfaGVpZ2h0KSANCiAgICAgICAgICNpZGVhbF9hZ2VfcmVsKQ0Kcm91bmQoY29yKGNvciwgdXNlPSJwYWlyd2lzZS5jb21wbGV0ZS5vYnMiKSwyKQ0KYXBhX3RhYmxlX2NvciA9IGFwYS5jb3IudGFibGUoY29yLCBmaWxlbmFtZSA9ICJkZXNjcmlwdGl2ZXMuZG9jIikNCmBgYA0K</div>
 
 
 

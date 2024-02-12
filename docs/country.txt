@@ -1,4 +1,4 @@
-"Var1","Freq.x","Freq.y"
+"Country","n","percentage"
 "1","Afghanistan",1,0.01
 "2","Albania",2,0.02
 "3","Algeria",7,0.05
