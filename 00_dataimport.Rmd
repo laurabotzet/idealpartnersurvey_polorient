@@ -78,6 +78,16 @@ fulldata_selected = fulldata %>%
          )
 ```
 
+## Recode interest* variables for Danish dataset
+In the Danish dataset, these variables range from 1 to 7 instead of 0 to 6
+```{r}
+table(fulldata_selected$interest_monrel)
+fulldata_selected <- fulldata_selected %>%
+  mutate(interest_single = ifelse(language == "danish", interest_single - 1, interest_single),
+         interest_sexrel = ifelse(language == "danish", interest_sexrel - 1, interest_sexrel),
+         interest_nonmonrel = ifelse(language == "danish", interest_nonmonrel - 1, interest_nonmonrel),
+         interest_monrel = ifelse(language == "danish", interest_monrel - 1, interest_monrel))
+```
 
 ## Save Dataset
 ```{r Save Dataset}
