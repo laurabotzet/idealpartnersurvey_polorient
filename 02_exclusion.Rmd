@@ -27,19 +27,20 @@ data_included = fulldata_selected_wrangled
 ```
 
 #### All participants younger than 18 {.tabset .active}
-In total, we excluded `r sum(fulldata_selected_wrangled$age < 18, na.rm = T)` participants because they are younger than 18.
+From the initial dataset of respondents (n = 68,100), `r sum(fulldata_selected_wrangled$age < 18, na.rm = T) + sum(is.na(fulldata_selected_wrangled$age))` could not participate, because they were younger than 18 years of age.
 ```{r Age}
 data_included = fulldata_selected_wrangled %>%
   filter(age >= 18 |
          is.na(age))
 
-table(is.na(data_included$age))
+nrow(data_included)
+
+fulldata_selected_wrangled = data_included
 ```
+The total number of responses was `r nrow(data_included)`. 
 
 #### All participants who do not identify as women {.tabset}
-In total, we excluded `r sum(fulldata_selected_wrangled$sex == "Man", fulldata_selected_wrangled$sex == "Genderqueer/Nonbinary", fulldata_selected_wrangled$sex == "None of the above", fulldata_selected_wrangled$sex == "Prefer not to say", fulldata_selected_wrangled$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
-
-Consecutively, this means we excluded `r sum(data_included$sex == "Man", data_included$sex == "Genderqueer/Nonbinary", data_included$sex == "None of the above", data_included$sex == "Prefer not to say", data_included$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
+From the initial dataset of respondents (n = 68,100), we excluded `r sum(fulldata_selected_wrangled$sex == "Man", fulldata_selected_wrangled$sex == "Genderqueer/Nonbinary", fulldata_selected_wrangled$sex == "None of the above", fulldata_selected_wrangled$sex == "Prefer not to say", fulldata_selected_wrangled$sex == "Other", na.rm = T)` participants because they did not identify as women (Men, Genderqueer/Nonbinary; None of the above; Prefer not to say; Other)
 
 ```{r Sex}
 table(data_included$sex)
@@ -57,7 +58,7 @@ table(is.na(data_included$sex))
 ```
 
 #### All participants who do not identify as heterosexual {.tabset}
-In total, we excluded `r sum(fulldata_selected_wrangled$sexual_orientation == "Lesbian/Gay/Homosexual", fulldata_selected_wrangled$sexual_orientation == "Bisexual/Pansexual", fulldata_selected_wrangled$sexual_orientation == "Queer", fulldata_selected_wrangled$sexual_orientation == "Asexual", fulldata_selected_wrangled$sexual_orientation == "Prefer not to say", fulldata_selected_wrangled$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)
+From the initial dataset of respondents (n = 68,100), we excluded `r sum(fulldata_selected_wrangled$sexual_orientation == "Lesbian/Gay/Homosexual", fulldata_selected_wrangled$sexual_orientation == "Bisexual/Pansexual", fulldata_selected_wrangled$sexual_orientation == "Queer", fulldata_selected_wrangled$sexual_orientation == "Asexual", fulldata_selected_wrangled$sexual_orientation == "Prefer not to say", fulldata_selected_wrangled$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)
 
 Consecutively, this means we excluded `r sum(data_included$sexual_orientation == "Lesbian/Gay/Homosexual", data_included$sexual_orientation == "Bisexual/Pansexual", data_included$sexual_orientation == "Queer", data_included$sexual_orientation == "Asexual", data_included$sexual_orientation == "Prefer not to say", data_included$sexual_orientation == "Other", na.rm = T)` participants because they did not identify as heterosexual (Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer; Asexual; Prefer not to say; Other)  
 ```{r Sexuality}
@@ -74,40 +75,38 @@ table(is.na(data_included$sexual_orientation))
 ```
 
 #### All participants who indicated being in a relationship {.tabset}
-In total, we excluded `r sum(fulldata_selected_wrangled$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", fulldata_selected_wrangled$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(fulldata_selected_wrangled$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
+```{r}
+fulldata_selected_wrangled = fulldata_selected_wrangled %>%
+  mutate(relationship_binary = ifelse(is.na(relationship), 0,
+                                      ifelse(relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", 1,
+                                             ifelse(relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", 1,
+                                                    ifelse(relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", 1,
+                                                           ifelse(relationship %contains% "Other", 1, 0))))))
+table(fulldata_selected_wrangled$relationship_binary)
 
-Consecutively, we excluded `r sum(data_included$relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", data_included$relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", data_included$relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) and `r sum(data_included$relationship %contains% "Other", na.rm = T)` participants where it was not sure whether they were currently single (Other).
-
-```{r Relationship}
-table(data_included$relationship)
-
-data_included_test1 = data_included %>%
-  filter((!(relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship") &
-         !(relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship") &
-         !(relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners") &
-         !(relationship %contains% "Other")) |
-         is.na(relationship))
-
-table(data_included_test1$relationship)
-table(is.na(data_included_test1$relationship))
+data_included = data_included %>%
+  mutate(relationship_binary = ifelse(is.na(relationship), 0,
+                                      ifelse(relationship %contains% "New (less than 1 month old) romantic and/or sexual relationship", 1,
+                                             ifelse(relationship %contains% "Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship", 1,
+                                                    ifelse(relationship %contains% "Long-term committed/exclusive sexual relationship with one or more partners", 1,
+                                                           ifelse(relationship %contains% "Other", 1, 0))))))
+table(data_included$relationship_binary)
 ```
 
-##### Relationship check: With old relationships variable {.tabset}
-Just to make sure, that our data wrangling earlier worked, we checked the exclusion process based on old relationships variable
-```{r Relationship Check}
-data_included_test2 = data_included %>%
-  filter(relationship1 != "True") %>%
-  filter(relationship3 != "True") %>%
-  filter(relationship4 != "True") %>%
-  filter(relationship5 != "True")
+From the initial dataset of respondents (n = 68,100), we excluded `r sum(fulldata_selected_wrangled$relationship_binary, na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) or participants where it was not sure whether they were currently single (Other).
 
-data_included = data_included_test1 %>%
-  # Drop unneccessary relationship variables
-  select(-relationship1, -relationship2, -relationship3, -relationship4, -relationship5) 
+Consecutively, we excluded `r sum(data_included$relationship_binary, na.rm = T)` participants because they indicated being in a relationship (New (less than 1 month old) romantic and/or sexual relationship ; Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship; Long-term committed/exclusive sexual relationship with one or more partners) or participants where it was not sure whether they were currently single (Other).
+
+```{r}
+data_included = data_included %>% filter(relationship_binary == 0) %>%
+  select(-relationship1, -relationship2, -relationship3, -relationship4, -relationship5, -relationship_binary)
 ```
+
 
 #### All participants who did not specify their political orientation {.tabset}
-In total, we excluded 4329 participants because they did not specify their political orientation. 
+From the initial dataset of respondents (n = 68,100), we excluded `r sum(is.na(fulldata_selected_wrangled$political_orientation))` participants because they did not specify their political orientation. 
+
+Consecutively, we excluded `r sum(is.na(data_included$political_orientation))` participants because they did not specify their political orientation. 
 ```{r Political Orientation}
 data_included = data_included %>%
   mutate(political_orientation = ifelse(political_orientation == "", NA, political_orientation))
@@ -119,7 +118,7 @@ data_included = data_included %>%
 ```
 
 #### All participants who did not answer the survey seriously or chose not to answer the seriousness question {.tabset}
-In total, we excluded `r sum(fulldata_selected_wrangled$answer_accuracy == "I did not answer seriously; please disregard my information.", fulldata_selected_wrangled$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
+From the initial dataset of respondents (n = 68,100), we excluded `r sum(fulldata_selected_wrangled$answer_accuracy == "I did not answer seriously; please disregard my information.", fulldata_selected_wrangled$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
 
 Consecutively, we excluded `r sum(data_included$answer_accuracy == "I did not answer seriously; please disregard my information.", data_included$answer_accuracy == "I choose not to answer.", na.rm = T)` participants because they indicated not answering the survey seriously (I did not answer seriously, please disregard my information; I choose not to answer)
 
