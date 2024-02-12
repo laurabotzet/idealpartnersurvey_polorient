@@ -562,23 +562,23 @@ monogamous relationships items should range from 0 to 6</p>
 <span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="fu">lapply</span>(table)</span></code></pre></div>
 <pre><code>## $interest_single
 ## 
-##     0     1     2     3     4     5     6     7 
-## 16963  7793  8019 10533  5468  2802  1992    27 
+##     0     1     2     3     4     5     6 
+## 17549  7474  7922 10540  5402  2738  1972 
 ## 
 ## $interest_sexrel
 ## 
-##     0     1     2     3     4     5     6     7 
-## 18250  6698  7139  8129  5613  3453  3583   717 
+##     0     1     2     3     4     5     6 
+## 18336  6631  7148  8171  5716  3575  4005 
 ## 
 ## $interest_nonmonrel
 ## 
-##     0     1     2     3     4     5     6     7 
-## 31167  6682  4377  4681  2763  1666  2072    27 
+##     0     1     2     3     4     5     6 
+## 32054  5979  4297  4668  2738  1624  2075 
 ## 
 ## $interest_monrel
 ## 
-##     0     1     2     3     4     5     6     7 
-##  3613  1080  1419  4214  5672  9668 26965   842</code></pre>
+##     0     1     2     3     4     5     6 
+##  3667  1039  1442  4249  5718  9801 27557</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>interest_single)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 41141 rows containing non-finite values (`stat_bin()`).</code></pre>
@@ -859,7 +859,7 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb1
 <span id="cb123-3"><a href="#cb123-3" tabindex="-1"></a>         <span class="at">ideal_height_numeric =</span> <span class="fu">as.factor</span>(ideal_height))</span>
 <span id="cb123-4"><a href="#cb123-4" tabindex="-1"></a></span>
 <span id="cb123-5"><a href="#cb123-5" tabindex="-1"></a>fulldata_selected_wrangled<span class="sc">$</span>ideal_height_numeric <span class="ot">=</span> </span>
-<span id="cb123-6"><a href="#cb123-6" tabindex="-1"></a>  <span class="fu">recode</span>(fulldata_selected_wrangled<span class="sc">$</span>ideal_height_numeric,</span>
+<span id="cb123-6"><a href="#cb123-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">recode</span>(fulldata_selected_wrangled<span class="sc">$</span>ideal_height_numeric,</span>
 <span id="cb123-7"><a href="#cb123-7" tabindex="-1"></a>         <span class="st">&#39;much shorter than me&#39;</span> <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span>,<span class="st">&#39;shorter than me&#39;</span> <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span>,</span>
 <span id="cb123-8"><a href="#cb123-8" tabindex="-1"></a>         <span class="st">&#39;around the same height as me&#39;</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">&#39;taller than me&#39;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
 <span id="cb123-9"><a href="#cb123-9" tabindex="-1"></a>         <span class="st">&#39;much taller than me&#39;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="at">.default =</span> <span class="cn">NULL</span>, <span class="at">.missing =</span> <span class="cn">NULL</span>)</span>
@@ -918,37 +918,33 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="#cb1
 <div id="country" class="section level3 tabset">
 <h3 class="tabset">Country</h3>
 <div class="sourceCode" id="cb137"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>country)</span>
-<span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>country))</span></code></pre></div>
+class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">&quot;Korea, South&quot;</span>,</span>
+<span id="cb137-3"><a href="#cb137-3" tabindex="-1"></a>                          <span class="st">&quot;South Korea&quot;</span>,</span>
+<span id="cb137-4"><a href="#cb137-4" tabindex="-1"></a>                          country),</span>
+<span id="cb137-5"><a href="#cb137-5" tabindex="-1"></a>         <span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">&quot;Congo, Democratic Republic of the&quot;</span>,</span>
+<span id="cb137-6"><a href="#cb137-6" tabindex="-1"></a>                          <span class="st">&quot;Congo, Republic of the&quot;</span>,</span>
+<span id="cb137-7"><a href="#cb137-7" tabindex="-1"></a>                          country))</span>
+<span id="cb137-8"><a href="#cb137-8" tabindex="-1"></a></span>
+<span id="cb137-9"><a href="#cb137-9" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>country)</span>
+<span id="cb137-10"><a href="#cb137-10" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>country))</span></code></pre></div>
 <pre><code>## 
 ## FALSE 
 ## 94738</code></pre>
-</div>
-<div id="problem-with-south-korea-korea-south"
-class="section level3 tabset">
-<h3 class="tabset">Problem With South Korea / Korea, South</h3>
-<div class="sourceCode" id="cb139"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">&quot;Korea, South&quot;</span>,</span>
-<span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a>                          <span class="st">&quot;South Korea&quot;</span>,</span>
-<span id="cb139-4"><a href="#cb139-4" tabindex="-1"></a>                          country),</span>
-<span id="cb139-5"><a href="#cb139-5" tabindex="-1"></a>         <span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">&quot;Congo, Democratic Republic of the&quot;</span>,</span>
-<span id="cb139-6"><a href="#cb139-6" tabindex="-1"></a>                          <span class="st">&quot;Congo, Republic of the&quot;</span>,</span>
-<span id="cb139-7"><a href="#cb139-7" tabindex="-1"></a>                          country))</span></code></pre></div>
 </div>
 <div id="language" class="section level3 tabset">
 <h3 class="tabset">Language</h3>
 <p>Chinese, Danish, English, French, German, Japanese, Portuguese,
 Russian, Spanish, Italian</p>
-<div class="sourceCode" id="cb140"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>language)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>language)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##        441       2316      24387      18483      13346       6512       1577 
 ## portuguese    russian    spanish 
 ##       6450       1455      19771</code></pre>
-<div class="sourceCode" id="cb142"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>country))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>country))</span></code></pre></div>
 <pre><code>## 
 ## FALSE 
 ## 94738</code></pre>
@@ -957,8 +953,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb1
 <h3 class="tabset">Sex</h3>
 <p>Categories: Woman; Genderqueer/Nonbinary; Man; None of the above;
 Prefer not to say; Other</p>
-<div class="sourceCode" id="cb144"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ##                       Genderqueer/Nonbinary                   Man 
 ##                 26638                   840                  2055 
@@ -966,21 +962,21 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb1
 ##                    58                    43                   225 
 ##                 Woman 
 ##                 64879</code></pre>
-<div class="sourceCode" id="cb146"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
-<span id="cb146-2"><a href="#cb146-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb146-3"><a href="#cb146-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">as.character</span>(sex),</span>
-<span id="cb146-4"><a href="#cb146-4" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, sex),</span>
-<span id="cb146-5"><a href="#cb146-5" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">factor</span>(sex))</span>
-<span id="cb146-6"><a href="#cb146-6" tabindex="-1"></a></span>
-<span id="cb146-7"><a href="#cb146-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
+<span id="cb145-2"><a href="#cb145-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb145-3"><a href="#cb145-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">as.character</span>(sex),</span>
+<span id="cb145-4"><a href="#cb145-4" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, sex),</span>
+<span id="cb145-5"><a href="#cb145-5" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">factor</span>(sex))</span>
+<span id="cb145-6"><a href="#cb145-6" tabindex="-1"></a></span>
+<span id="cb145-7"><a href="#cb145-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sex)</span></code></pre></div>
 <pre><code>## 
 ## Genderqueer/Nonbinary                   Man     None of the above 
 ##                   840                  2055                    58 
 ##                 Other     Prefer not to say                 Woman 
 ##                    43                   225                 64879</code></pre>
-<div class="sourceCode" id="cb148"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>sex))</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>sex))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 68100 26638</code></pre>
@@ -989,8 +985,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb1
 <h3 class="tabset">Sexual Orientation</h3>
 <p>heterosexual; Lesbian/Gay/Homosexual; Bisexual/Pansexual; Queer;
 Asexual; Prefer not to say; Other</p>
-<div class="sourceCode" id="cb150"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
 <pre><code>## 
 ##                                       Asexual     Bisexual/Pansexual 
 ##                  26638                    562                   9605 
@@ -998,14 +994,14 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb1
 ##                   1508                    313                    634 
 ##                  Queer  Straight/Heterosexual 
 ##                    832                  54646</code></pre>
-<div class="sourceCode" id="cb152"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
-<span id="cb152-2"><a href="#cb152-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb152-3"><a href="#cb152-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexual_orientation =</span> <span class="fu">as.character</span>(sexual_orientation),</span>
-<span id="cb152-4"><a href="#cb152-4" tabindex="-1"></a>         <span class="at">sexual_orientation =</span> <span class="fu">ifelse</span>(sexual_orientation <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, sexual_orientation),</span>
-<span id="cb152-5"><a href="#cb152-5" tabindex="-1"></a>         <span class="at">sexual_orientation =</span> <span class="fu">factor</span>(sexual_orientation))</span>
-<span id="cb152-6"><a href="#cb152-6" tabindex="-1"></a></span>
-<span id="cb152-7"><a href="#cb152-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
+<span id="cb151-2"><a href="#cb151-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb151-3"><a href="#cb151-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexual_orientation =</span> <span class="fu">as.character</span>(sexual_orientation),</span>
+<span id="cb151-4"><a href="#cb151-4" tabindex="-1"></a>         <span class="at">sexual_orientation =</span> <span class="fu">ifelse</span>(sexual_orientation <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, sexual_orientation),</span>
+<span id="cb151-5"><a href="#cb151-5" tabindex="-1"></a>         <span class="at">sexual_orientation =</span> <span class="fu">factor</span>(sexual_orientation))</span>
+<span id="cb151-6"><a href="#cb151-6" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="#cb151-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation)</span></code></pre></div>
 <pre><code>## 
 ##                Asexual     Bisexual/Pansexual Lesbian/Gay/Homosexual 
 ##                    562                   9605                   1508 
@@ -1013,72 +1009,72 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb1
 ##                    313                    634                    832 
 ##  Straight/Heterosexual 
 ##                  54646</code></pre>
-<div class="sourceCode" id="cb154"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation))</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>sexual_orientation))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 68100 26638</code></pre>
 </div>
 <div id="relationship-variable" class="section level3 tabset">
 <h3 class="tabset">Relationship Variable</h3>
-<div class="sourceCode" id="cb156"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship) <span class="co">#No romantic or sexual relationships during the past 3 months</span></span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship) <span class="co">#No romantic or sexual relationships during the past 3 months</span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 78064 16674</code></pre>
-<div class="sourceCode" id="cb158"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship1) <span class="co">#Other</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship1) <span class="co">#Other</span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 94434   304</code></pre>
-<div class="sourceCode" id="cb160"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship2) <span class="co">#Short-term (casual) sexual relationship (e.g. hookups or one-night-stands)</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship2) <span class="co">#Short-term (casual) sexual relationship (e.g. hookups or one-night-stands)</span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 88348  6390</code></pre>
-<div class="sourceCode" id="cb162"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship3) <span class="co">#New (less than 1 month old) romantic and/or sexual relationship </span></span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship3) <span class="co">#New (less than 1 month old) romantic and/or sexual relationship </span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 89708  5030</code></pre>
-<div class="sourceCode" id="cb164"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship4) <span class="co">#Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship4) <span class="co">#Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship</span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 85838  8900</code></pre>
-<div class="sourceCode" id="cb166"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship5)<span class="co">#Long-term committed/exclusive sexual relationship with one or more partners</span></span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship5)<span class="co">#Long-term committed/exclusive sexual relationship with one or more partners</span></span></code></pre></div>
 <pre><code>## 
 ## False  True 
 ## 63392 31346</code></pre>
-<div class="sourceCode" id="cb168"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb168-2"><a href="#cb168-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
-<span id="cb168-3"><a href="#cb168-3" tabindex="-1"></a>                               <span class="st">&quot;No romantic or sexual relationships during the past 3 months, &quot;</span>,</span>
-<span id="cb168-4"><a href="#cb168-4" tabindex="-1"></a>                               <span class="st">&quot;&quot;</span>),</span>
-<span id="cb168-5"><a href="#cb168-5" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship1 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
-<span id="cb168-6"><a href="#cb168-6" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
-<span id="cb168-7"><a href="#cb168-7" tabindex="-1"></a>                                     <span class="st">&quot;Other, &quot;</span>),</span>
-<span id="cb168-8"><a href="#cb168-8" tabindex="-1"></a>                               relationship),</span>
-<span id="cb168-9"><a href="#cb168-9" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship2 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
-<span id="cb168-10"><a href="#cb168-10" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
-<span id="cb168-11"><a href="#cb168-11" tabindex="-1"></a>                                     <span class="st">&quot;Short-term (casual) sexual relationship (e.g. hookups or one-night-stands), &quot;</span>),</span>
-<span id="cb168-12"><a href="#cb168-12" tabindex="-1"></a>                               relationship),</span>
-<span id="cb168-13"><a href="#cb168-13" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship3 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
-<span id="cb168-14"><a href="#cb168-14" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
-<span id="cb168-15"><a href="#cb168-15" tabindex="-1"></a>                                     <span class="st">&quot;New (less than 1 month old) romantic and/or sexual relationship, &quot;</span>),</span>
-<span id="cb168-16"><a href="#cb168-16" tabindex="-1"></a>                               relationship),</span>
-<span id="cb168-17"><a href="#cb168-17" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship4 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
-<span id="cb168-18"><a href="#cb168-18" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
-<span id="cb168-19"><a href="#cb168-19" tabindex="-1"></a>                                     <span class="st">&quot;Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship, &quot;</span>),</span>
-<span id="cb168-20"><a href="#cb168-20" tabindex="-1"></a>                               relationship),</span>
-<span id="cb168-21"><a href="#cb168-21" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship5 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>, </span>
-<span id="cb168-22"><a href="#cb168-22" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
-<span id="cb168-23"><a href="#cb168-23" tabindex="-1"></a>                                     <span class="st">&quot;Long-term committed/exclusive sexual relationship with one or more partners, &quot;</span>), </span>
-<span id="cb168-24"><a href="#cb168-24" tabindex="-1"></a>                               relationship),</span>
-<span id="cb168-25"><a href="#cb168-25" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, relationship))</span>
-<span id="cb168-26"><a href="#cb168-26" tabindex="-1"></a></span>
-<span id="cb168-27"><a href="#cb168-27" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="#cb167-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
+<span id="cb167-3"><a href="#cb167-3" tabindex="-1"></a>                               <span class="st">&quot;No romantic or sexual relationships during the past 3 months, &quot;</span>,</span>
+<span id="cb167-4"><a href="#cb167-4" tabindex="-1"></a>                               <span class="st">&quot;&quot;</span>),</span>
+<span id="cb167-5"><a href="#cb167-5" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship1 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
+<span id="cb167-6"><a href="#cb167-6" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
+<span id="cb167-7"><a href="#cb167-7" tabindex="-1"></a>                                     <span class="st">&quot;Other, &quot;</span>),</span>
+<span id="cb167-8"><a href="#cb167-8" tabindex="-1"></a>                               relationship),</span>
+<span id="cb167-9"><a href="#cb167-9" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship2 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
+<span id="cb167-10"><a href="#cb167-10" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
+<span id="cb167-11"><a href="#cb167-11" tabindex="-1"></a>                                     <span class="st">&quot;Short-term (casual) sexual relationship (e.g. hookups or one-night-stands), &quot;</span>),</span>
+<span id="cb167-12"><a href="#cb167-12" tabindex="-1"></a>                               relationship),</span>
+<span id="cb167-13"><a href="#cb167-13" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship3 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
+<span id="cb167-14"><a href="#cb167-14" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
+<span id="cb167-15"><a href="#cb167-15" tabindex="-1"></a>                                     <span class="st">&quot;New (less than 1 month old) romantic and/or sexual relationship, &quot;</span>),</span>
+<span id="cb167-16"><a href="#cb167-16" tabindex="-1"></a>                               relationship),</span>
+<span id="cb167-17"><a href="#cb167-17" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship4 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>,</span>
+<span id="cb167-18"><a href="#cb167-18" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
+<span id="cb167-19"><a href="#cb167-19" tabindex="-1"></a>                                     <span class="st">&quot;Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship, &quot;</span>),</span>
+<span id="cb167-20"><a href="#cb167-20" tabindex="-1"></a>                               relationship),</span>
+<span id="cb167-21"><a href="#cb167-21" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship5 <span class="sc">==</span> <span class="st">&quot;True&quot;</span>, </span>
+<span id="cb167-22"><a href="#cb167-22" tabindex="-1"></a>                               <span class="fu">paste</span>(relationship,</span>
+<span id="cb167-23"><a href="#cb167-23" tabindex="-1"></a>                                     <span class="st">&quot;Long-term committed/exclusive sexual relationship with one or more partners, &quot;</span>), </span>
+<span id="cb167-24"><a href="#cb167-24" tabindex="-1"></a>                               relationship),</span>
+<span id="cb167-25"><a href="#cb167-25" tabindex="-1"></a>         <span class="at">relationship =</span> <span class="fu">ifelse</span>(relationship <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, relationship))</span>
+<span id="cb167-26"><a href="#cb167-26" tabindex="-1"></a></span>
+<span id="cb167-27"><a href="#cb167-27" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship)</span></code></pre></div>
 <pre><code>## 
 ##                                                                                                                                                                                                                                                                                                             Long-term committed/exclusive sexual relationship with one or more partners,  
 ##                                                                                                                                                                                                                                                                                                                                                                                     29995 
@@ -1170,9 +1166,9 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="#cb1
 ##                                                                                                                                                                                                                                                                                                                                                                                         2 
 ##                                                                                                                                                 No romantic or sexual relationships during the past 3 months,  Short-term (casual) sexual relationship (e.g. hookups or one-night-stands),  Ongoing (longer than 1 month) uncommitted/non-exclusive romantic and/or sexual relationship,  
 ##                                                                                                                                                                                                                                                                                                                                                                                        10</code></pre>
-<div class="sourceCode" id="cb170"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" tabindex="-1"></a><span class="co"># Check whether command worked correctly</span></span>
-<span id="cb170-2"><a href="#cb170-2" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship <span class="sc">%contains%</span> <span class="st">&quot;No romantic or sexual relationships during the past 3 months&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" tabindex="-1"></a><span class="co"># Check whether command worked correctly</span></span>
+<span id="cb169-2"><a href="#cb169-2" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>relationship <span class="sc">%contains%</span> <span class="st">&quot;No romantic or sexual relationships during the past 3 months&quot;</span>) </span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 48257 16674</code></pre>
@@ -1182,8 +1178,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="#cb1
 <p>I took the survey seriously; please use my information in the study.;
 I did not answer seriously, please disregard my information; I choose
 not to answer</p>
-<div class="sourceCode" id="cb172"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy)</span></code></pre></div>
 <pre><code>## 
 ##                                                                      
 ##                                                                33689 
@@ -1193,14 +1189,14 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="#cb1
 ##                                                                  734 
 ## I took the survey seriously; please use my information in the study. 
 ##                                                                58979</code></pre>
-<div class="sourceCode" id="cb174"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
-<span id="cb174-2"><a href="#cb174-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb174-3"><a href="#cb174-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">answer_accuracy =</span> <span class="fu">as.character</span>(answer_accuracy),</span>
-<span id="cb174-4"><a href="#cb174-4" tabindex="-1"></a>         <span class="at">answer_accuracy =</span> <span class="fu">ifelse</span>(answer_accuracy <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, answer_accuracy),</span>
-<span id="cb174-5"><a href="#cb174-5" tabindex="-1"></a>         <span class="at">answer_accuracy =</span> <span class="fu">factor</span>(answer_accuracy))</span>
-<span id="cb174-6"><a href="#cb174-6" tabindex="-1"></a></span>
-<span id="cb174-7"><a href="#cb174-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" tabindex="-1"></a><span class="co"># Set missing values as NA</span></span>
+<span id="cb173-2"><a href="#cb173-2" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb173-3"><a href="#cb173-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">answer_accuracy =</span> <span class="fu">as.character</span>(answer_accuracy),</span>
+<span id="cb173-4"><a href="#cb173-4" tabindex="-1"></a>         <span class="at">answer_accuracy =</span> <span class="fu">ifelse</span>(answer_accuracy <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA</span>, answer_accuracy),</span>
+<span id="cb173-5"><a href="#cb173-5" tabindex="-1"></a>         <span class="at">answer_accuracy =</span> <span class="fu">factor</span>(answer_accuracy))</span>
+<span id="cb173-6"><a href="#cb173-6" tabindex="-1"></a></span>
+<span id="cb173-7"><a href="#cb173-7" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy)</span></code></pre></div>
 <pre><code>## 
 ##                                              I choose not to answer. 
 ##                                                                 1336 
@@ -1208,15 +1204,15 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="#cb1
 ##                                                                  734 
 ## I took the survey seriously; please use my information in the study. 
 ##                                                                58979</code></pre>
-<div class="sourceCode" id="cb176"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy))</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(fulldata_selected_wrangled<span class="sc">$</span>answer_accuracy))</span></code></pre></div>
 <pre><code>## 
 ## FALSE  TRUE 
 ## 61049 33689</code></pre>
-<div class="sourceCode" id="cb178"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
-<span id="cb178-2"><a href="#cb178-2" tabindex="-1"></a>  <span class="fu">select</span>(sex, answer_accuracy) <span class="sc">%&gt;%</span></span>
-<span id="cb178-3"><a href="#cb178-3" tabindex="-1"></a>  <span class="fu">md_pattern</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="#cb177-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="sc">%&gt;%</span></span>
+<span id="cb177-2"><a href="#cb177-2" tabindex="-1"></a>  <span class="fu">select</span>(sex, answer_accuracy) <span class="sc">%&gt;%</span></span>
+<span id="cb177-3"><a href="#cb177-3" tabindex="-1"></a>  <span class="fu">md_pattern</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   description                     sex answer_accuracy var_miss n_miss
 ##   &lt;chr&gt;                         &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
@@ -1229,73 +1225,73 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="#cb1
 class="section level3 tabset">
 <h3 class="tabset">Creating new Variables for Ideal Partner
 Preferences</h3>
-<div class="sourceCode" id="cb180"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span> </span>
-<span id="cb180-2"><a href="#cb180-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pref_level_kind_supportive =</span> (pref_level_kind <span class="sc">+</span> pref_level_supportive)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb180-3"><a href="#cb180-3" tabindex="-1"></a>         <span class="at">pref_level_attractiveness =</span> (pref_level_attractive_body <span class="sc">+</span></span>
-<span id="cb180-4"><a href="#cb180-4" tabindex="-1"></a>                                        pref_level_attractive_face)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb180-5"><a href="#cb180-5" tabindex="-1"></a>         <span class="at">pref_level_financially_secure_successful_ambitious =</span> (pref_level_financially_secure <span class="sc">+</span> pref_level_successful_ambitious)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb180-6"><a href="#cb180-6" tabindex="-1"></a>         <span class="at">pref_level_confident_assertive =</span> (pref_level_confident <span class="sc">+</span> pref_level_assertive)<span class="sc">/</span><span class="dv">2</span>, </span>
-<span id="cb180-7"><a href="#cb180-7" tabindex="-1"></a>         <span class="at">pref_level_intelligence_educated =</span> (pref_level_intelligence <span class="sc">+</span> pref_level_educated)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb180-8"><a href="#cb180-8" tabindex="-1"></a></span>
-<span id="cb180-9"><a href="#cb180-9" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_kind_supportive)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" tabindex="-1"></a>fulldata_selected_wrangled <span class="ot">=</span> fulldata_selected_wrangled <span class="sc">%&gt;%</span> </span>
+<span id="cb179-2"><a href="#cb179-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pref_level_kind_supportive =</span> (pref_level_kind <span class="sc">+</span> pref_level_supportive)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb179-3"><a href="#cb179-3" tabindex="-1"></a>         <span class="at">pref_level_attractiveness =</span> (pref_level_attractive_body <span class="sc">+</span></span>
+<span id="cb179-4"><a href="#cb179-4" tabindex="-1"></a>                                        pref_level_attractive_face)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb179-5"><a href="#cb179-5" tabindex="-1"></a>         <span class="at">pref_level_financially_secure_successful_ambitious =</span> (pref_level_financially_secure <span class="sc">+</span> pref_level_successful_ambitious)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb179-6"><a href="#cb179-6" tabindex="-1"></a>         <span class="at">pref_level_confident_assertive =</span> (pref_level_confident <span class="sc">+</span> pref_level_assertive)<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb179-7"><a href="#cb179-7" tabindex="-1"></a>         <span class="at">pref_level_intelligence_educated =</span> (pref_level_intelligence <span class="sc">+</span> pref_level_educated)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb179-8"><a href="#cb179-8" tabindex="-1"></a></span>
+<span id="cb179-9"><a href="#cb179-9" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_kind_supportive)</span></code></pre></div>
 <pre><code>## 
 ##     1   1.5     2   2.5     3   3.5     4   4.5     5   5.5     6 
 ##     5     5    27    86   346  1276  4385  9485 15801 15765 16482</code></pre>
-<div class="sourceCode" id="cb182"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_attractiveness)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_attractiveness)</span></code></pre></div>
 <pre><code>## 
 ##     0   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5   5.5     6 
 ##    26    38   294   514  1429  2353  8528  9893 15006 10768  7628  2884  1973</code></pre>
-<div class="sourceCode" id="cb184"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="#cb184-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
 <pre><code>## 
 ##     0   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5   5.5     6 
 ##    15    22    77   236   755  1812  4958  9082 13177 12733 10168  5313  3337</code></pre>
-<div class="sourceCode" id="cb186"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="#cb186-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_confident_assertive)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_confident_assertive)</span></code></pre></div>
 <pre><code>## 
 ##     0   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5   5.5     6 
 ##     1     5    22   106   329  1110  4433  9205 14201 13471 11027  6166  3461</code></pre>
-<div class="sourceCode" id="cb188"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_intelligence_educated)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" tabindex="-1"></a><span class="fu">table</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_intelligence_educated)</span></code></pre></div>
 <pre><code>## 
 ##     0   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5   5.5     6 
 ##     4     5    21    71   186   532  2196  4916 10967 12853 14678  8858  7989</code></pre>
-<div class="sourceCode" id="cb190"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_kind_supportive)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_kind_supportive)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 31075 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb193"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_attractiveness)</span></code></pre></div>
+<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb192"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="#cb192-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_attractiveness)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 33404 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
-<div class="sourceCode" id="cb196"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
+<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<div class="sourceCode" id="cb195"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 33053 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
-<div class="sourceCode" id="cb199"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_confident_assertive)</span></code></pre></div>
+<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<div class="sourceCode" id="cb198"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_confident_assertive)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 31201 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-2-4.png" width="672" /></p>
-<div class="sourceCode" id="cb202"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_intelligence_educated)</span></code></pre></div>
+<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<div class="sourceCode" id="cb201"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" tabindex="-1"></a><span class="fu">qplot</span>(fulldata_selected_wrangled<span class="sc">$</span>pref_level_intelligence_educated)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 31462 rows containing non-finite values (`stat_bin()`).</code></pre>
-<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-2-5.png" width="672" /></p>
+<p><img src="01_datawrangling_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
 </div>
 <div id="save-data" class="section level3">
 <h3>Save Data</h3>
-<div class="sourceCode" id="cb205"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" tabindex="-1"></a><span class="fu">write.csv</span>(fulldata_selected_wrangled, <span class="at">file =</span> <span class="st">&quot;fulldata_selected_wrangled.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="#cb204-1" tabindex="-1"></a><span class="fu">write.csv</span>(fulldata_selected_wrangled, <span class="at">file =</span> <span class="st">&quot;fulldata_selected_wrangled.csv&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRhdGEgV3JhbmdsaW5nPC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2ZvbGRpbmc6ICJzaG93Ig0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGNhcikNCmxpYnJhcnkocHN5Y2gpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KGZvcm1yKQ0KbGlicmFyeShjb2RlYm9vaykNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KDQojIyMgRGF0YQ0KTG9hZCBzZWxlY3RlZCBkYXRhIGJhc2VkIG9uIDAwX2RhdGFpbXBvcnQNCmBgYHtyIERhdGF9DQpmdWxsZGF0YV9zZWxlY3RlZCA9IHJlYWQuY3N2KGZpbGUgPSAiZnVsbGRhdGFfc2VsZWN0ZWQuY3N2IilbLC0xXQ0KYGBgDQoNCg0KIyMjIEluc3BlY3QgRGF0YSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgSW5zcGVjdCBEYXRhfQ0KY29sbmFtZXMoZnVsbGRhdGFfc2VsZWN0ZWQpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWQNCmBgYA0KDQojIyMgQWdlIHsudGFic2V0fQ0KUGFydGljaXBhbnRzIHlvdW5nZXIgdGhhbiAxOCB3ZXJlIGFibGUgdG8gaW5zZXJ0IGFnZSBidXQgdGhlIHN1cnZleSB3YXMgZW5kZWQgZm9yIHRoZW0gYWZ0ZXJ3YXJkcy4NCmBgYHtyIEFnZX0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSkNCmBgYA0KU2V0IGFsbCBudW1iZXJzID4gMTAwIGFzIG1pc3Npbmc6DQpgYGB7ciBBZ2UgMn0NCnN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhZ2UgPiAxMDApDQojIFRoaXMgbWVhbnMgdGhhdCBhZ2UgaXMgc2V0IGFzIG1pc3NpbmcgZm9yIDE1IHBlb3BsZQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoYWdlID0gaWZlbHNlKGFnZSA+IDEwMCwgTkEsIGFnZSkpDQoNCnRhYmxlKGlzLm5hKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSkpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSA8IDE4KQ0KIyAyNjYzOCBwZW9wbGUgd2VyZSBub3QgYWxsb3dlZCB0byBwYXJ0aWNpcGF0ZSBpbiB0aGUgc3VydmV5IGJlY2F1c2UgdGhleSB3ZXJlIHlvdW5nZXIgdGhhbiAxOA0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpQb2xpdGljYWwgT3JpZW50YXRpb24gaXRlbSBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYNCmBgYHtyIFBvbGl0aWNhbCBPcmllbnRhdGlvbn0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoInBvbGl0aWNhbF9vcmllbnRhdGlvbiIpICU+JQ0KICBsYXBwbHkodGFibGUpDQoNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCmBgYA0KDQojIyMgUHJlZmVycmVkIFJlbGF0aW9uc2hpcCBPcHRpb25zIHsudGFic2V0fQ0KSW50ZXJlc3QgaW4gYmVpbmcgc2luZ2xlLCBpbnRlcmVzdCBpbiBzZXh1YWwgKG5vbi1yb21hbnRpYykgcmVsYXRpb25zaGlwcywgaW50ZXJlc3QgaW4gbm9uLW1vbm9nYW1vdXMgcmVsYXRpb25zaGlwcyBhbmQgaW50ZXJlc3QgaW4gbW9ub2dhbW91cyByZWxhdGlvbnNoaXBzIGl0ZW1zIHNob3VsZCByYW5nZSBmcm9tIDAgdG8gNiANCmBgYHtyIFByZWZlcnJlZCBSZWxhdGlvbnNoaXAgT3B0aW9uc30NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3Qoc3RhcnRzX3dpdGgoImludGVyZXN0XyIpKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9zaW5nbGUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9zZXhyZWwpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9ub25tb25yZWwpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9tb25yZWwpDQpgYGANCiANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljYWwsIGFuZCBSZWxpZ2lvdXMgU2ltaWxhcml0eSB7LnRhYnNldH0NClByZWZlcmVuY2VzIGZvciBwb2xpdGljYWwsIGV0aG5pY2FsIGFuZCByZWxpZ2lvdXMgc2ltaWxhcml0eSBpdGVtcyBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYgDQpgYGB7ciBQb2xpdGljYWwsIGV0aG5pY2FsIGFuZCByZWxpZ2lvdXMgc2ltaWxhcml0eX0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoInByZWZfcG9saXRpY2Fsc2ltIiwgInByZWZfZXRobmljYWxzaW0iLCAicHJlZl9yZWxpZ2lvdXNzaW0iKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX3BvbGl0aWNhbHNpbSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfZXRobmljYWxzaW0pDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX3JlbGlnaW91c3NpbSkNCmBgYA0KDQojIyMgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCkFsbCBpZGVhbCBwYXJ0bmVyIHByZWZlcmVuY2UgaXRlbXMgc2hvdWxkIHJhbmdlIGZyb20gMCB0byA2IA0KYGBge3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlc30NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3Qoc3RhcnRzX3dpdGgoInByZWZfIikpICU+JQ0KICBzZWxlY3QoLXByZWZfcG9saXRpY2Fsc2ltLCAtcHJlZl9ldGhuaWNhbHNpbSwgLXByZWZfcmVsaWdpb3Vzc2ltKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2tpbmQpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX3N1cHBvcnRpdmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9jb25maWRlbnQpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCkNCg0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KHN0YXJ0c193aXRoKCJwcmVmXyIpKSAlPiUNCiAgc2VsZWN0KC1wcmVmX3BvbGl0aWNhbHNpbSwgLXByZWZfZXRobmljYWxzaW0sIC1wcmVmX3JlbGlnaW91c3NpbSkgJT4lDQogIG1kX3BhdHRlcm4oKQ0KYGBgDQoNCg0KIyMjIElkZWFsIEFnZSBhbmQgSWRlYWwgSGVpZ2h0IHsudGFic2V0fQ0KIyMjIyBJbXBvcnRhbmNlIEFnZQ0KSXRlbSBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYgDQpgYGB7ciBJbXBvcnRhbmNlIEFnZX0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoImltcF9hZ2UiKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbXBfYWdlKQ0KDQpgYGANCg0KIyMjIyBJZGVhbCBBZ2UNClRoaXMgaXRlbSBpcyBpbiBvcGVuIGZvcm1hdCBzdHlsZQ0KYGBge3IgSWRlYWwgQWdlfQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIHNlbGVjdCgiaWRlYWxfYWdlIikgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfYWdlKQ0KYGBgDQoNClZhcmlhYmxlIGlkZWFsX2FnZSB3YXMgbm90IHJlc3RyaWN0ZWQgdG8gYSByZWFzb25hYmxlIG51bWJlciwgdGh1cyBudW1iZXJzIGxhcmdlciB0aGFuIDEwMCB3ZXJlIHBvc3NpYmxlLiBUbyBkZWFsIHdpdGggdGhpcyB3ZSB3aWxsIHNldCBhbGwgbnVtYmVycyA+PSAxMDAgYXMgbWlzc2luZy4NCmBgYHtyIElkZWFsIEFnZSAyfQ0Kc3VtKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2FnZSA+IDEwMCwgbmEucm0gPSBUKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoaWRlYWxfYWdlID0gaWZlbHNlKGlkZWFsX2FnZSA+IDEwMCwgTkEsIGlkZWFsX2FnZSkpDQogICAgICAgICAgDQp0YWJsZShpcy5uYShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpZGVhbF9hZ2UpKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KGlkZWFsX2FnZSkgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfYWdlKQ0KYGBgDQoNCiMjIyMgSW1wb3J0YW5jZSBIZWlnaHQNCkl0ZW0gc2hvdWxkIHJhbmdlIGZyb20gMCB0byA2IA0KYGBge3IgSW1wb3J0YW5jZSBIZWlnaHR9DQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KCJpbXBfaGVpZ2h0IikgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaW1wX2hlaWdodCkNCmBgYA0KDQojIyMjIElkZWFsIEhlaWdodA0KSXRlbSBoYXMgdGhlIG9wdGlvbnM6IG11Y2ggc2hvcnRlciB0aGFuIG1lLCBzaG9ydGVyIHRoYW4gbWUsIGFyb3VuZCB0aGUgc2FtZSBoZWlnaHQgYXMgbWUsIHRhbGxlciB0aGFuIG1lLCBtdWNoIHRhbGxlciB0aGFuIG1lDQpgYGB7ciBJZGVhbCBIZWlnaHR9DQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpZGVhbF9oZWlnaHQpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShpZGVhbF9oZWlnaHQgPSBpZmVsc2UoaWRlYWxfaGVpZ2h0ID09ICIiLCBOQSwgaWRlYWxfaGVpZ2h0KSwNCiAgICAgICAgIGlkZWFsX2hlaWdodF9udW1lcmljID0gYXMuZmFjdG9yKGlkZWFsX2hlaWdodCkpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodF9udW1lcmljID0gDQogIHJlY29kZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpZGVhbF9oZWlnaHRfbnVtZXJpYywNCiAgICAgICAgICdtdWNoIHNob3J0ZXIgdGhhbiBtZScgPSAtMiwnc2hvcnRlciB0aGFuIG1lJyA9IC0xLA0KICAgICAgICAgJ2Fyb3VuZCB0aGUgc2FtZSBoZWlnaHQgYXMgbWUnID0gMCwgJ3RhbGxlciB0aGFuIG1lJyA9IDEsDQogICAgICAgICAnbXVjaCB0YWxsZXIgdGhhbiBtZScgPSAyLCAuZGVmYXVsdCA9IE5VTEwsIC5taXNzaW5nID0gTlVMTCkNCg0KY3Jvc3N0YWJzKH5pZGVhbF9oZWlnaHRfbnVtZXJpYyArIGlkZWFsX2hlaWdodCwgZGF0YSA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkKQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfaGVpZ2h0KQ0KY2xhc3MoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfaGVpZ2h0X251bWVyaWMpDQpsZXZlbHMoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfaGVpZ2h0X251bWVyaWMpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoImlkZWFsX2hlaWdodF9udW1lcmljIikgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfaGVpZ2h0X251bWVyaWMpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShpZGVhbF9oZWlnaHQgPSBpZGVhbF9oZWlnaHRfbnVtZXJpYykgJT4lDQogIHNlbGVjdCgtaWRlYWxfaGVpZ2h0X251bWVyaWMpDQpgYGANCg0KDQojIyMgQ291bnRyeSB7LnRhYnNldH0NCmBgYHtyIENvdW50cnl9DQp4ID0gdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkY291bnRyeSkNCnRhYmxlKGlzLm5hKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGNvdW50cnkpKQ0KYGBgDQoNCiMjIyBQcm9ibGVtIFdpdGggU291dGggS29yZWEgLyBLb3JlYSwgU291dGggey50YWJzZXR9DQpgYGB7cn0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShjb3VudHJ5ID0gaWZlbHNlKGNvdW50cnkgPT0gIktvcmVhLCBTb3V0aCIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICJTb3V0aCBLb3JlYSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnkpLA0KICAgICAgICAgY291bnRyeSA9IGlmZWxzZShjb3VudHJ5ID09ICJDb25nbywgRGVtb2NyYXRpYyBSZXB1YmxpYyBvZiB0aGUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAiQ29uZ28sIFJlcHVibGljIG9mIHRoZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnkpKQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCkNoaW5lc2UsIERhbmlzaCwgRW5nbGlzaCwgRnJlbmNoLCBHZXJtYW4sIEphcGFuZXNlLCBQb3J0dWd1ZXNlLCBSdXNzaWFuLCBTcGFuaXNoLCBJdGFsaWFuDQpgYGB7ciBMYW5ndWFnZX0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGxhbmd1YWdlKQ0KdGFibGUoaXMubmEoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkY291bnRyeSkpDQpgYGANCg0KIyMjIFNleCB7LnRhYnNldH0NCkNhdGVnb3JpZXM6IFdvbWFuOyBHZW5kZXJxdWVlci9Ob25iaW5hcnk7IE1hbjsgTm9uZSBvZiB0aGUgYWJvdmU7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcg0KYGBge3IgU2V4fQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4KQ0KDQojIFNldCBtaXNzaW5nIHZhbHVlcyBhcyBOQQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgbXV0YXRlKHNleCA9IGFzLmNoYXJhY3RlcihzZXgpLA0KICAgICAgICAgc2V4ID0gaWZlbHNlKHNleCA9PSAiIiwgTkEsIHNleCksDQogICAgICAgICBzZXggPSBmYWN0b3Ioc2V4KSkNCg0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4KQ0KDQp0YWJsZShpcy5uYShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXgpKQ0KYGBgDQoNCiMjIyBTZXh1YWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpoZXRlcm9zZXh1YWw7IExlc2JpYW4vR2F5L0hvbW9zZXh1YWw7IEJpc2V4dWFsL1BhbnNleHVhbDsgUXVlZXI7IEFzZXh1YWw7IFByZWZlciBub3QgdG8gc2F5OyBPdGhlcg0KYGBge3IgU2V4dWFsIE9yaWVudGF0aW9ufQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4dWFsX29yaWVudGF0aW9uKQ0KDQojIFNldCBtaXNzaW5nIHZhbHVlcyBhcyBOQQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgbXV0YXRlKHNleHVhbF9vcmllbnRhdGlvbiA9IGFzLmNoYXJhY3RlcihzZXh1YWxfb3JpZW50YXRpb24pLA0KICAgICAgICAgc2V4dWFsX29yaWVudGF0aW9uID0gaWZlbHNlKHNleHVhbF9vcmllbnRhdGlvbiA9PSAiIiwgTkEsIHNleHVhbF9vcmllbnRhdGlvbiksDQogICAgICAgICBzZXh1YWxfb3JpZW50YXRpb24gPSBmYWN0b3Ioc2V4dWFsX29yaWVudGF0aW9uKSkNCg0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4dWFsX29yaWVudGF0aW9uKQ0KDQp0YWJsZShpcy5uYShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRzZXh1YWxfb3JpZW50YXRpb24pKQ0KYGBgDQoNCiMjIyBSZWxhdGlvbnNoaXAgVmFyaWFibGUgey50YWJzZXR9DQpgYGB7ciBSZWxhdGlvbnNoaXAgdmFyaWFibGV9DQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRyZWxhdGlvbnNoaXApICNObyByb21hbnRpYyBvciBzZXh1YWwgcmVsYXRpb25zaGlwcyBkdXJpbmcgdGhlIHBhc3QgMyBtb250aHMNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcDEpICNPdGhlcg0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwMikgI1Nob3J0LXRlcm0gKGNhc3VhbCkgc2V4dWFsIHJlbGF0aW9uc2hpcCAoZS5nLiBob29rdXBzIG9yIG9uZS1uaWdodC1zdGFuZHMpDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRyZWxhdGlvbnNoaXAzKSAjTmV3IChsZXNzIHRoYW4gMSBtb250aCBvbGQpIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwIA0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwNCkgI09uZ29pbmcgKGxvbmdlciB0aGFuIDEgbW9udGgpIHVuY29tbWl0dGVkL25vbi1leGNsdXNpdmUgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXANCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcDUpI0xvbmctdGVybSBjb21taXR0ZWQvZXhjbHVzaXZlIHNleHVhbCByZWxhdGlvbnNoaXAgd2l0aCBvbmUgb3IgbW9yZSBwYXJ0bmVycw0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUocmVsYXRpb25zaGlwID0gaWZlbHNlKHJlbGF0aW9uc2hpcCA9PSAiVHJ1ZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk5vIHJvbWFudGljIG9yIHNleHVhbCByZWxhdGlvbnNoaXBzIGR1cmluZyB0aGUgcGFzdCAzIG1vbnRocywgIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiIiksDQogICAgICAgICByZWxhdGlvbnNoaXAgPSBpZmVsc2UocmVsYXRpb25zaGlwMSA9PSAiVHJ1ZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzdGUocmVsYXRpb25zaGlwLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJPdGhlciwgIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVsYXRpb25zaGlwKSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXAyID09ICJUcnVlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXN0ZShyZWxhdGlvbnNoaXAsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlNob3J0LXRlcm0gKGNhc3VhbCkgc2V4dWFsIHJlbGF0aW9uc2hpcCAoZS5nLiBob29rdXBzIG9yIG9uZS1uaWdodC1zdGFuZHMpLCAiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWxhdGlvbnNoaXApLA0KICAgICAgICAgcmVsYXRpb25zaGlwID0gaWZlbHNlKHJlbGF0aW9uc2hpcDMgPT0gIlRydWUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3RlKHJlbGF0aW9uc2hpcCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiTmV3IChsZXNzIHRoYW4gMSBtb250aCBvbGQpIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwLCAiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWxhdGlvbnNoaXApLA0KICAgICAgICAgcmVsYXRpb25zaGlwID0gaWZlbHNlKHJlbGF0aW9uc2hpcDQgPT0gIlRydWUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3RlKHJlbGF0aW9uc2hpcCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiT25nb2luZyAobG9uZ2VyIHRoYW4gMSBtb250aCkgdW5jb21taXR0ZWQvbm9uLWV4Y2x1c2l2ZSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCwgIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVsYXRpb25zaGlwKSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXA1ID09ICJUcnVlIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzdGUocmVsYXRpb25zaGlwLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMsICIpLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWxhdGlvbnNoaXApLA0KICAgICAgICAgcmVsYXRpb25zaGlwID0gaWZlbHNlKHJlbGF0aW9uc2hpcCA9PSAiIiwgTkEsIHJlbGF0aW9uc2hpcCkpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcCkNCg0KIyBDaGVjayB3aGV0aGVyIGNvbW1hbmQgd29ya2VkIGNvcnJlY3RseQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwICVjb250YWlucyUgIk5vIHJvbWFudGljIG9yIHNleHVhbCByZWxhdGlvbnNoaXBzIGR1cmluZyB0aGUgcGFzdCAzIG1vbnRocyIpIA0KYGBgDQoNCiMjIyBBbnN3ZXIgQWNjdXJhY3kgey50YWJzZXR9DQpJIHRvb2sgdGhlIHN1cnZleSBzZXJpb3VzbHk7IHBsZWFzZSB1c2UgbXkgaW5mb3JtYXRpb24gaW4gdGhlIHN0dWR5LjsgSSBkaWQgbm90IGFuc3dlciBzZXJpb3VzbHksIHBsZWFzZSBkaXNyZWdhcmQgbXkgaW5mb3JtYXRpb247IEkgY2hvb3NlIG5vdCB0byBhbnN3ZXINCmBgYHtyIEFuc3dlciBhY2N1cmFjeX0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFuc3dlcl9hY2N1cmFjeSkNCg0KIyBTZXQgbWlzc2luZyB2YWx1ZXMgYXMgTkENCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShhbnN3ZXJfYWNjdXJhY3kgPSBhcy5jaGFyYWN0ZXIoYW5zd2VyX2FjY3VyYWN5KSwNCiAgICAgICAgIGFuc3dlcl9hY2N1cmFjeSA9IGlmZWxzZShhbnN3ZXJfYWNjdXJhY3kgPT0gIiIsIE5BLCBhbnN3ZXJfYWNjdXJhY3kpLA0KICAgICAgICAgYW5zd2VyX2FjY3VyYWN5ID0gZmFjdG9yKGFuc3dlcl9hY2N1cmFjeSkpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFuc3dlcl9hY2N1cmFjeSkNCg0KdGFibGUoaXMubmEoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkYW5zd2VyX2FjY3VyYWN5KSkNCg0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KHNleCwgYW5zd2VyX2FjY3VyYWN5KSAlPiUNCiAgbWRfcGF0dGVybigpDQpgYGANCg0KIyMjIENyZWF0aW5nIG5ldyBWYXJpYWJsZXMgZm9yIElkZWFsIFBhcnRuZXIgUHJlZmVyZW5jZXMgey50YWJzZXR9DQpgYGB7cn0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lIA0KICBtdXRhdGUocHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUgPSAocHJlZl9sZXZlbF9raW5kICsgcHJlZl9sZXZlbF9zdXBwb3J0aXZlKS8yLA0KICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcyA9IChwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSArDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UpLzIsDQogICAgICAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cyA9IChwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSArIHByZWZfbGV2ZWxfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMpLzIsDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUgPSAocHJlZl9sZXZlbF9jb25maWRlbnQgKyBwcmVmX2xldmVsX2Fzc2VydGl2ZSkvMiwgDQogICAgICAgICBwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCA9IChwcmVmX2xldmVsX2ludGVsbGlnZW5jZSArIHByZWZfbGV2ZWxfZWR1Y2F0ZWQpLzIpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlKQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcykNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlKQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQpDQoNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCkNCmBgYA0KDQojIyMgU2F2ZSBEYXRhDQpgYGB7ciBTYXZlIGRhdGF9DQp3cml0ZS5jc3YoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQsIGZpbGUgPSAiZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQuY3N2IikNCmBgYA0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRhdGEgV3JhbmdsaW5nPC9mb250Pg0KY3NsOiBhcGEtY3VzdG9tLW5vLWlzc3VlLmNzbA0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2ZvbGRpbmc6ICJzaG93Ig0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KLS0tDQojIyB7LnRhYnNldH0NCg0KIyMjIExpYnJhcnkNCmBgYHtyIExpYnJhcnl9DQpsaWJyYXJ5KGNhcikNCmxpYnJhcnkocHN5Y2gpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KGZvcm1yKQ0KbGlicmFyeShjb2RlYm9vaykNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KDQojIyMgRGF0YQ0KTG9hZCBzZWxlY3RlZCBkYXRhIGJhc2VkIG9uIDAwX2RhdGFpbXBvcnQNCmBgYHtyIERhdGF9DQpmdWxsZGF0YV9zZWxlY3RlZCA9IHJlYWQuY3N2KGZpbGUgPSAiZnVsbGRhdGFfc2VsZWN0ZWQuY3N2IilbLC0xXQ0KYGBgDQoNCg0KIyMjIEluc3BlY3QgRGF0YSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgSW5zcGVjdCBEYXRhfQ0KY29sbmFtZXMoZnVsbGRhdGFfc2VsZWN0ZWQpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWQNCmBgYA0KDQojIyMgQWdlIHsudGFic2V0fQ0KUGFydGljaXBhbnRzIHlvdW5nZXIgdGhhbiAxOCB3ZXJlIGFibGUgdG8gaW5zZXJ0IGFnZSBidXQgdGhlIHN1cnZleSB3YXMgZW5kZWQgZm9yIHRoZW0gYWZ0ZXJ3YXJkcy4NCmBgYHtyIEFnZX0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSkNCmBgYA0KU2V0IGFsbCBudW1iZXJzID4gMTAwIGFzIG1pc3Npbmc6DQpgYGB7ciBBZ2UgMn0NCnN1bShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhZ2UgPiAxMDApDQojIFRoaXMgbWVhbnMgdGhhdCBhZ2UgaXMgc2V0IGFzIG1pc3NpbmcgZm9yIDE1IHBlb3BsZQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoYWdlID0gaWZlbHNlKGFnZSA+IDEwMCwgTkEsIGFnZSkpDQoNCnRhYmxlKGlzLm5hKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSkpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFnZSA8IDE4KQ0KIyAyNjYzOCBwZW9wbGUgd2VyZSBub3QgYWxsb3dlZCB0byBwYXJ0aWNpcGF0ZSBpbiB0aGUgc3VydmV5IGJlY2F1c2UgdGhleSB3ZXJlIHlvdW5nZXIgdGhhbiAxOA0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpQb2xpdGljYWwgT3JpZW50YXRpb24gaXRlbSBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYNCmBgYHtyIFBvbGl0aWNhbCBPcmllbnRhdGlvbn0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoInBvbGl0aWNhbF9vcmllbnRhdGlvbiIpICU+JQ0KICBsYXBwbHkodGFibGUpDQoNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikNCmBgYA0KDQojIyMgUHJlZmVycmVkIFJlbGF0aW9uc2hpcCBPcHRpb25zIHsudGFic2V0fQ0KSW50ZXJlc3QgaW4gYmVpbmcgc2luZ2xlLCBpbnRlcmVzdCBpbiBzZXh1YWwgKG5vbi1yb21hbnRpYykgcmVsYXRpb25zaGlwcywgaW50ZXJlc3QgaW4gbm9uLW1vbm9nYW1vdXMgcmVsYXRpb25zaGlwcyBhbmQgaW50ZXJlc3QgaW4gbW9ub2dhbW91cyByZWxhdGlvbnNoaXBzIGl0ZW1zIHNob3VsZCByYW5nZSBmcm9tIDAgdG8gNiANCmBgYHtyIFByZWZlcnJlZCBSZWxhdGlvbnNoaXAgT3B0aW9uc30NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3Qoc3RhcnRzX3dpdGgoImludGVyZXN0XyIpKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9zaW5nbGUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9zZXhyZWwpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9ub25tb25yZWwpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbnRlcmVzdF9tb25yZWwpDQpgYGANCiANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljYWwsIGFuZCBSZWxpZ2lvdXMgU2ltaWxhcml0eSB7LnRhYnNldH0NClByZWZlcmVuY2VzIGZvciBwb2xpdGljYWwsIGV0aG5pY2FsIGFuZCByZWxpZ2lvdXMgc2ltaWxhcml0eSBpdGVtcyBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYgDQpgYGB7ciBQb2xpdGljYWwsIGV0aG5pY2FsIGFuZCByZWxpZ2lvdXMgc2ltaWxhcml0eX0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoInByZWZfcG9saXRpY2Fsc2ltIiwgInByZWZfZXRobmljYWxzaW0iLCAicHJlZl9yZWxpZ2lvdXNzaW0iKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX3BvbGl0aWNhbHNpbSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfZXRobmljYWxzaW0pDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX3JlbGlnaW91c3NpbSkNCmBgYA0KDQojIyMgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCkFsbCBpZGVhbCBwYXJ0bmVyIHByZWZlcmVuY2UgaXRlbXMgc2hvdWxkIHJhbmdlIGZyb20gMCB0byA2IA0KYGBge3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlc30NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3Qoc3RhcnRzX3dpdGgoInByZWZfIikpICU+JQ0KICBzZWxlY3QoLXByZWZfcG9saXRpY2Fsc2ltLCAtcHJlZl9ldGhuaWNhbHNpbSwgLXByZWZfcmVsaWdpb3Vzc2ltKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2tpbmQpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX3N1cHBvcnRpdmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9jb25maWRlbnQpDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSkNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCkNCg0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KHN0YXJ0c193aXRoKCJwcmVmXyIpKSAlPiUNCiAgc2VsZWN0KC1wcmVmX3BvbGl0aWNhbHNpbSwgLXByZWZfZXRobmljYWxzaW0sIC1wcmVmX3JlbGlnaW91c3NpbSkgJT4lDQogIG1kX3BhdHRlcm4oKQ0KYGBgDQoNCg0KIyMjIElkZWFsIEFnZSBhbmQgSWRlYWwgSGVpZ2h0IHsudGFic2V0fQ0KIyMjIyBJbXBvcnRhbmNlIEFnZQ0KSXRlbSBzaG91bGQgcmFuZ2UgZnJvbSAwIHRvIDYgDQpgYGB7ciBJbXBvcnRhbmNlIEFnZX0NCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBzZWxlY3QoImltcF9hZ2UiKSAlPiUNCiAgbGFwcGx5KHRhYmxlKQ0KDQpxcGxvdChmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpbXBfYWdlKQ0KDQpgYGANCg0KIyMjIyBJZGVhbCBBZ2UNClRoaXMgaXRlbSBpcyBpbiBvcGVuIGZvcm1hdCBzdHlsZQ0KYGBge3IgSWRlYWwgQWdlfQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIHNlbGVjdCgiaWRlYWxfYWdlIikgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfYWdlKQ0KYGBgDQoNClZhcmlhYmxlIGlkZWFsX2FnZSB3YXMgbm90IHJlc3RyaWN0ZWQgdG8gYSByZWFzb25hYmxlIG51bWJlciwgdGh1cyBudW1iZXJzIGxhcmdlciB0aGFuIDEwMCB3ZXJlIHBvc3NpYmxlLiBUbyBkZWFsIHdpdGggdGhpcyB3ZSB3aWxsIHNldCBhbGwgbnVtYmVycyA+PSAxMDAgYXMgbWlzc2luZy4NCmBgYHtyIElkZWFsIEFnZSAyfQ0Kc3VtKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2FnZSA+IDEwMCwgbmEucm0gPSBUKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoaWRlYWxfYWdlID0gaWZlbHNlKGlkZWFsX2FnZSA+IDEwMCwgTkEsIGlkZWFsX2FnZSkpDQogICAgICAgICAgDQp0YWJsZShpcy5uYShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpZGVhbF9hZ2UpKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KGlkZWFsX2FnZSkgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfYWdlKQ0KYGBgDQoNCiMjIyMgSW1wb3J0YW5jZSBIZWlnaHQNCkl0ZW0gc2hvdWxkIHJhbmdlIGZyb20gMCB0byA2IA0KYGBge3IgSW1wb3J0YW5jZSBIZWlnaHR9DQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KCJpbXBfaGVpZ2h0IikgJT4lDQogIGxhcHBseSh0YWJsZSkNCg0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaW1wX2hlaWdodCkNCmBgYA0KDQojIyMjIElkZWFsIEhlaWdodA0KSXRlbSBoYXMgdGhlIG9wdGlvbnM6IG11Y2ggc2hvcnRlciB0aGFuIG1lLCBzaG9ydGVyIHRoYW4gbWUsIGFyb3VuZCB0aGUgc2FtZSBoZWlnaHQgYXMgbWUsIHRhbGxlciB0aGFuIG1lLCBtdWNoIHRhbGxlciB0aGFuIG1lDQpgYGB7ciBJZGVhbCBIZWlnaHR9DQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRpZGVhbF9oZWlnaHQpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShpZGVhbF9oZWlnaHQgPSBpZmVsc2UoaWRlYWxfaGVpZ2h0ID09ICIiLCBOQSwgaWRlYWxfaGVpZ2h0KSwNCiAgICAgICAgIGlkZWFsX2hlaWdodF9udW1lcmljID0gYXMuZmFjdG9yKGlkZWFsX2hlaWdodCkpDQoNCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodF9udW1lcmljID0gDQogIGRwbHlyOjpyZWNvZGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkaWRlYWxfaGVpZ2h0X251bWVyaWMsDQogICAgICAgICAnbXVjaCBzaG9ydGVyIHRoYW4gbWUnID0gLTIsJ3Nob3J0ZXIgdGhhbiBtZScgPSAtMSwNCiAgICAgICAgICdhcm91bmQgdGhlIHNhbWUgaGVpZ2h0IGFzIG1lJyA9IDAsICd0YWxsZXIgdGhhbiBtZScgPSAxLA0KICAgICAgICAgJ211Y2ggdGFsbGVyIHRoYW4gbWUnID0gMiwgLmRlZmF1bHQgPSBOVUxMLCAubWlzc2luZyA9IE5VTEwpDQoNCmNyb3NzdGFicyh+aWRlYWxfaGVpZ2h0X251bWVyaWMgKyBpZGVhbF9oZWlnaHQsIGRhdGEgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCkNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodCkNCmNsYXNzKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodF9udW1lcmljKQ0KbGV2ZWxzKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodF9udW1lcmljKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgc2VsZWN0KCJpZGVhbF9oZWlnaHRfbnVtZXJpYyIpICU+JQ0KICBsYXBwbHkodGFibGUpDQoNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGlkZWFsX2hlaWdodF9udW1lcmljKQ0KDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoaWRlYWxfaGVpZ2h0ID0gaWRlYWxfaGVpZ2h0X251bWVyaWMpICU+JQ0KICBzZWxlY3QoLWlkZWFsX2hlaWdodF9udW1lcmljKQ0KYGBgDQoNCg0KIyMjIENvdW50cnkgey50YWJzZXR9DQpgYGB7ciBDb3VudHJ5fQ0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgbXV0YXRlKGNvdW50cnkgPSBpZmVsc2UoY291bnRyeSA9PSAiS29yZWEsIFNvdXRoIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIlNvdXRoIEtvcmVhIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgY291bnRyeSksDQogICAgICAgICBjb3VudHJ5ID0gaWZlbHNlKGNvdW50cnkgPT0gIkNvbmdvLCBEZW1vY3JhdGljIFJlcHVibGljIG9mIHRoZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICJDb25nbywgUmVwdWJsaWMgb2YgdGhlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgY291bnRyeSkpDQoNCnggPSB0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRjb3VudHJ5KQ0KdGFibGUoaXMubmEoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkY291bnRyeSkpDQpgYGANCg0KDQojIyMgTGFuZ3VhZ2Ugey50YWJzZXR9DQpDaGluZXNlLCBEYW5pc2gsIEVuZ2xpc2gsIEZyZW5jaCwgR2VybWFuLCBKYXBhbmVzZSwgUG9ydHVndWVzZSwgUnVzc2lhbiwgU3BhbmlzaCwgSXRhbGlhbg0KYGBge3IgTGFuZ3VhZ2V9DQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRsYW5ndWFnZSkNCnRhYmxlKGlzLm5hKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGNvdW50cnkpKQ0KYGBgDQoNCiMjIyBTZXggey50YWJzZXR9DQpDYXRlZ29yaWVzOiBXb21hbjsgR2VuZGVycXVlZXIvTm9uYmluYXJ5OyBNYW47IE5vbmUgb2YgdGhlIGFib3ZlOyBQcmVmZXIgbm90IHRvIHNheTsgT3RoZXINCmBgYHtyIFNleH0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleCkNCg0KIyBTZXQgbWlzc2luZyB2YWx1ZXMgYXMgTkENCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShzZXggPSBhcy5jaGFyYWN0ZXIoc2V4KSwNCiAgICAgICAgIHNleCA9IGlmZWxzZShzZXggPT0gIiIsIE5BLCBzZXgpLA0KICAgICAgICAgc2V4ID0gZmFjdG9yKHNleCkpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleCkNCg0KdGFibGUoaXMubmEoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4KSkNCmBgYA0KDQojIyMgU2V4dWFsIE9yaWVudGF0aW9uIHsudGFic2V0fQ0KaGV0ZXJvc2V4dWFsOyBMZXNiaWFuL0dheS9Ib21vc2V4dWFsOyBCaXNleHVhbC9QYW5zZXh1YWw7IFF1ZWVyOyBBc2V4dWFsOyBQcmVmZXIgbm90IHRvIHNheTsgT3RoZXINCmBgYHtyIFNleHVhbCBPcmllbnRhdGlvbn0NCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbikNCg0KIyBTZXQgbWlzc2luZyB2YWx1ZXMgYXMgTkENCmZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkID0gZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIG11dGF0ZShzZXh1YWxfb3JpZW50YXRpb24gPSBhcy5jaGFyYWN0ZXIoc2V4dWFsX29yaWVudGF0aW9uKSwNCiAgICAgICAgIHNleHVhbF9vcmllbnRhdGlvbiA9IGlmZWxzZShzZXh1YWxfb3JpZW50YXRpb24gPT0gIiIsIE5BLCBzZXh1YWxfb3JpZW50YXRpb24pLA0KICAgICAgICAgc2V4dWFsX29yaWVudGF0aW9uID0gZmFjdG9yKHNleHVhbF9vcmllbnRhdGlvbikpDQoNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHNleHVhbF9vcmllbnRhdGlvbikNCg0KdGFibGUoaXMubmEoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkc2V4dWFsX29yaWVudGF0aW9uKSkNCmBgYA0KDQojIyMgUmVsYXRpb25zaGlwIFZhcmlhYmxlIHsudGFic2V0fQ0KYGBge3IgUmVsYXRpb25zaGlwIHZhcmlhYmxlfQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwKSAjTm8gcm9tYW50aWMgb3Igc2V4dWFsIHJlbGF0aW9uc2hpcHMgZHVyaW5nIHRoZSBwYXN0IDMgbW9udGhzDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRyZWxhdGlvbnNoaXAxKSAjT3RoZXINCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcDIpICNTaG9ydC10ZXJtIChjYXN1YWwpIHNleHVhbCByZWxhdGlvbnNoaXAgKGUuZy4gaG9va3VwcyBvciBvbmUtbmlnaHQtc3RhbmRzKQ0KdGFibGUoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcmVsYXRpb25zaGlwMykgI05ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCANCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcDQpICNPbmdvaW5nIChsb25nZXIgdGhhbiAxIG1vbnRoKSB1bmNvbW1pdHRlZC9ub24tZXhjbHVzaXZlIHJvbWFudGljIGFuZC9vciBzZXh1YWwgcmVsYXRpb25zaGlwDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRyZWxhdGlvbnNoaXA1KSNMb25nLXRlcm0gY29tbWl0dGVkL2V4Y2x1c2l2ZSBzZXh1YWwgcmVsYXRpb25zaGlwIHdpdGggb25lIG9yIG1vcmUgcGFydG5lcnMNCg0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgPSBmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCAlPiUNCiAgbXV0YXRlKHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXAgPT0gIlRydWUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJObyByb21hbnRpYyBvciBzZXh1YWwgcmVsYXRpb25zaGlwcyBkdXJpbmcgdGhlIHBhc3QgMyBtb250aHMsICIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiIpLA0KICAgICAgICAgcmVsYXRpb25zaGlwID0gaWZlbHNlKHJlbGF0aW9uc2hpcDEgPT0gIlRydWUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3RlKHJlbGF0aW9uc2hpcCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiT3RoZXIsICIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlbGF0aW9uc2hpcCksDQogICAgICAgICByZWxhdGlvbnNoaXAgPSBpZmVsc2UocmVsYXRpb25zaGlwMiA9PSAiVHJ1ZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzdGUocmVsYXRpb25zaGlwLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJTaG9ydC10ZXJtIChjYXN1YWwpIHNleHVhbCByZWxhdGlvbnNoaXAgKGUuZy4gaG9va3VwcyBvciBvbmUtbmlnaHQtc3RhbmRzKSwgIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVsYXRpb25zaGlwKSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXAzID09ICJUcnVlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXN0ZShyZWxhdGlvbnNoaXAsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk5ldyAobGVzcyB0aGFuIDEgbW9udGggb2xkKSByb21hbnRpYyBhbmQvb3Igc2V4dWFsIHJlbGF0aW9uc2hpcCwgIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVsYXRpb25zaGlwKSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXA0ID09ICJUcnVlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXN0ZShyZWxhdGlvbnNoaXAsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk9uZ29pbmcgKGxvbmdlciB0aGFuIDEgbW9udGgpIHVuY29tbWl0dGVkL25vbi1leGNsdXNpdmUgcm9tYW50aWMgYW5kL29yIHNleHVhbCByZWxhdGlvbnNoaXAsICIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlbGF0aW9uc2hpcCksDQogICAgICAgICByZWxhdGlvbnNoaXAgPSBpZmVsc2UocmVsYXRpb25zaGlwNSA9PSAiVHJ1ZSIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3RlKHJlbGF0aW9uc2hpcCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiTG9uZy10ZXJtIGNvbW1pdHRlZC9leGNsdXNpdmUgc2V4dWFsIHJlbGF0aW9uc2hpcCB3aXRoIG9uZSBvciBtb3JlIHBhcnRuZXJzLCAiKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVsYXRpb25zaGlwKSwNCiAgICAgICAgIHJlbGF0aW9uc2hpcCA9IGlmZWxzZShyZWxhdGlvbnNoaXAgPT0gIiIsIE5BLCByZWxhdGlvbnNoaXApKQ0KDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRyZWxhdGlvbnNoaXApDQoNCiMgQ2hlY2sgd2hldGhlciBjb21tYW5kIHdvcmtlZCBjb3JyZWN0bHkNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHJlbGF0aW9uc2hpcCAlY29udGFpbnMlICJObyByb21hbnRpYyBvciBzZXh1YWwgcmVsYXRpb25zaGlwcyBkdXJpbmcgdGhlIHBhc3QgMyBtb250aHMiKSANCmBgYA0KDQojIyMgQW5zd2VyIEFjY3VyYWN5IHsudGFic2V0fQ0KSSB0b29rIHRoZSBzdXJ2ZXkgc2VyaW91c2x5OyBwbGVhc2UgdXNlIG15IGluZm9ybWF0aW9uIGluIHRoZSBzdHVkeS47IEkgZGlkIG5vdCBhbnN3ZXIgc2VyaW91c2x5LCBwbGVhc2UgZGlzcmVnYXJkIG15IGluZm9ybWF0aW9uOyBJIGNob29zZSBub3QgdG8gYW5zd2VyDQpgYGB7ciBBbnN3ZXIgYWNjdXJhY3l9DQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhbnN3ZXJfYWNjdXJhY3kpDQoNCiMgU2V0IG1pc3NpbmcgdmFsdWVzIGFzIE5BDQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JQ0KICBtdXRhdGUoYW5zd2VyX2FjY3VyYWN5ID0gYXMuY2hhcmFjdGVyKGFuc3dlcl9hY2N1cmFjeSksDQogICAgICAgICBhbnN3ZXJfYWNjdXJhY3kgPSBpZmVsc2UoYW5zd2VyX2FjY3VyYWN5ID09ICIiLCBOQSwgYW5zd2VyX2FjY3VyYWN5KSwNCiAgICAgICAgIGFuc3dlcl9hY2N1cmFjeSA9IGZhY3RvcihhbnN3ZXJfYWNjdXJhY3kpKQ0KDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRhbnN3ZXJfYWNjdXJhY3kpDQoNCnRhYmxlKGlzLm5hKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJGFuc3dlcl9hY2N1cmFjeSkpDQoNCg0KZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQgJT4lDQogIHNlbGVjdChzZXgsIGFuc3dlcl9hY2N1cmFjeSkgJT4lDQogIG1kX3BhdHRlcm4oKQ0KYGBgDQoNCiMjIyBDcmVhdGluZyBuZXcgVmFyaWFibGVzIGZvciBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KYGBge3J9DQpmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCA9IGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkICU+JSANCiAgbXV0YXRlKHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlID0gKHByZWZfbGV2ZWxfa2luZCArIHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSkvMiwNCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MgPSAocHJlZl9sZXZlbF9hdHRyYWN0aXZlX2JvZHkgKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9mYWNlKS8yLA0KICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMgPSAocHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmUgKyBwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKS8yLA0KICAgICAgICAgcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlID0gKHByZWZfbGV2ZWxfY29uZmlkZW50ICsgcHJlZl9sZXZlbF9hc3NlcnRpdmUpLzIsIA0KICAgICAgICAgcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQgPSAocHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UgKyBwcmVmX2xldmVsX2VkdWNhdGVkKS8yKQ0KDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSkNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MpDQp0YWJsZShmdWxsZGF0YV9zZWxlY3RlZF93cmFuZ2xlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cykNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSkNCnRhYmxlKGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkKQ0KDQoNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcykNCnFwbG90KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkJHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlKQ0KcXBsb3QoZnVsbGRhdGFfc2VsZWN0ZWRfd3JhbmdsZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQpDQpgYGANCg0KIyMjIFNhdmUgRGF0YQ0KYGBge3IgU2F2ZSBkYXRhfQ0Kd3JpdGUuY3N2KGZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkLCBmaWxlID0gImZ1bGxkYXRhX3NlbGVjdGVkX3dyYW5nbGVkLmNzdiIpDQpgYGANCg0KDQo=</div>
 
 
 

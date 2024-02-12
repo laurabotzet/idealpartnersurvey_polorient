@@ -174,7 +174,7 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
          ideal_height_numeric = as.factor(ideal_height))
 
 fulldata_selected_wrangled$ideal_height_numeric = 
-  recode(fulldata_selected_wrangled$ideal_height_numeric,
+  dplyr::recode(fulldata_selected_wrangled$ideal_height_numeric,
          'much shorter than me' = -2,'shorter than me' = -1,
          'around the same height as me' = 0, 'taller than me' = 1,
          'much taller than me' = 2, .default = NULL, .missing = NULL)
@@ -198,12 +198,6 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
 
 ### Country {.tabset}
 ```{r Country}
-x = table(fulldata_selected_wrangled$country)
-table(is.na(fulldata_selected_wrangled$country))
-```
-
-### Problem With South Korea / Korea, South {.tabset}
-```{r}
 fulldata_selected_wrangled = fulldata_selected_wrangled %>%
   mutate(country = ifelse(country == "Korea, South",
                           "South Korea",
@@ -211,7 +205,11 @@ fulldata_selected_wrangled = fulldata_selected_wrangled %>%
          country = ifelse(country == "Congo, Democratic Republic of the",
                           "Congo, Republic of the",
                           country))
+
+x = table(fulldata_selected_wrangled$country)
+table(is.na(fulldata_selected_wrangled$country))
 ```
+
 
 ### Language {.tabset}
 Chinese, Danish, English, French, German, Japanese, Portuguese, Russian, Spanish, Italian
