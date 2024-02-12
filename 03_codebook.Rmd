@@ -141,6 +141,12 @@ data_included = data_included %>%
 qplot(data_included$ideal_age_rel)
 ```
 
+### Number of participants and number of countries
+```{r}
+nrow(data_included)
+length(unique(data_included$country))
+```
+
 ### Create Codebook {.tabset}
 ```{r create codebook}
 data_included = data_included %>%
