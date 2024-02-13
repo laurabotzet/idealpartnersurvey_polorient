@@ -602,9 +602,6 @@ slope for country.</p>
 <h6>Algorithm: Find breaking point</h6>
 <p>See 11_twolines_analyses_multilevel</p>
 </div>
-<div id="run-multilevel-regression" class="section level6">
-<h6>Run Multilevel Regression</h6>
-</div>
 <div id="regression-1-x-breaking_point" class="section level6">
 <h6>Regression 1 (x &lt;= breaking_point)</h6>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>model_pref_politicalsim_1 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
@@ -2749,211 +2746,25 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="#cb
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 </div>
-<div id="h2b-preference-for-the-level-of-kindness-supportiveness"
+<div id="h2b-preference-for-the-level-of-confidence-assertiveness"
 class="section level4 tabset">
 <h4 class="tabset">H2b Preference for the Level of
-Kindness-Supportiveness</h4>
-<p>H2b There is no link between right-wing political orientation and
-women’s preferences for the level of kindness and supportiveness.<br />
-Outcome: Level ratings for partner’s kindness-supportiveness. Predictor:
-Political Orientation. Random intercept and random slope for
-country.</p>
-<div id="models-4" class="section level5">
-<h5>Models</h5>
-<div class="sourceCode" id="cb1272"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="#cb1272-1" tabindex="-1"></a>model_pref_level_kind_supportive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
-</div>
-<div id="summary-4" class="section level5">
-<h5>Summary</h5>
-<div class="sourceCode" id="cb1273"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="#cb1273-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_kind_supportive)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
-## Formula: 
-## pref_level_kind_supportive ~ political_orientation + (1 + political_orientation |  
-##     country)
-##    Data: data_included_documented
-## Control: lmerControl(optimizer = &quot;bobyqa&quot;)
-## 
-## REML criterion at convergence: 26550.1
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -4.7907 -0.6652  0.0687  0.8000  1.7293 
-## 
-## Random effects:
-##  Groups   Name                  Variance  Std.Dev. Corr
-##  country  (Intercept)           1.657e-02 0.128718     
-##           political_orientation 5.642e-05 0.007511 0.56
-##  Residual                       4.674e-01 0.683662     
-## Number of obs: 12729, groups:  country, 143
-## 
-## Fixed effects:
-##                        Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept)            5.163681   0.022796 44.855531 226.521   &lt;2e-16 ***
-## political_orientation  0.011053   0.004833 14.568403   2.287   0.0376 *  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## pltcl_rnttn -0.426</code></pre>
-<div class="sourceCode" id="cb1275"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="#cb1275-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_kind_supportive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## Computing profile confidence intervals ...</code></pre>
-<pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
-## profile: using minstep
-
-## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
-## profile: using minstep
-
-## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
-## profile: using minstep</code></pre>
-<pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig01</code></pre>
-<pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig02</code></pre>
-<pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
-## .sig01: falling back to linear interpolation</code></pre>
-<pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
-## .sig02: falling back to linear interpolation</code></pre>
-<pre><code>##                             0.15 %    99.85 %
-## .sig01                 0.085731705 0.20670347
-## .sig02                -1.000000000 1.00000000
-## .sig03                 0.000000000 0.03294017
-## .sigma                 0.671097562 0.69661278
-## (Intercept)            5.095444447 5.23771219
-## political_orientation -0.005103504 0.02736140</code></pre>
-</div>
-<div id="standardized-coefficients-4" class="section level5">
-<h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1283"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="#cb1283-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 5
-##   Parameter             Std_Coefficient    CI   CI_low CI_high
-##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept)                    0      0.997  0        0     
-## 2 political_orientation          0.0215 0.997 -0.00640  0.0494</code></pre>
-<div class="sourceCode" id="cb1285"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="#cb1285-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 4
-##   Parameter                CI   CI_low CI_high
-##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept)           0.997  0        0     
-## 2 political_orientation 0.997 -0.00640  0.0494</code></pre>
-<div class="sourceCode" id="cb1287"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="#cb1287-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
-</div>
-<div id="plot-4" class="section level5 active">
-<h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1288"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="#cb1288-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1288-2"><a href="#cb1288-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1288-3"><a href="#cb1288-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1288-4"><a href="#cb1288-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.00451923 (tol = 0.002, component 1)</code></pre>
-<p><img src="05_analyses_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-</div>
-</div>
-<div id="h2c-preference-for-the-level-of-attractiveness"
-class="section level4 tabset">
-<h4 class="tabset">H2c Preference for the Level of Attractiveness</h4>
-<p>H2c There is no link between right-wing political orientation and
-women’s preferences for the level of attractiveness.<br />
-Outcome: Level ratings for partner’s attractiveness. Predictor:
-Political Orientation. Random intercept and random slope for
-country.</p>
-<div id="models-5" class="section level5">
-<h5>Models</h5>
-<div class="sourceCode" id="cb1290"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="#cb1290-1" tabindex="-1"></a>model_pref_level_attractiveness <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
-</div>
-<div id="summary-5" class="section level5">
-<h5>Summary</h5>
-<div class="sourceCode" id="cb1291"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="#cb1291-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_attractiveness)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
-## Formula: 
-## pref_level_attractiveness ~ political_orientation + (1 + political_orientation |  
-##     country)
-##    Data: data_included_documented
-## Control: lmerControl(optimizer = &quot;bobyqa&quot;)
-## 
-## REML criterion at convergence: 32918.9
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -4.6503 -0.6477 -0.0244  0.6476  2.5185 
-## 
-## Random effects:
-##  Groups   Name                  Variance Std.Dev. Corr
-##  country  (Intercept)           0.01093  0.10452      
-##           political_orientation 0.00027  0.01643  0.28
-##  Residual                       0.80567  0.89759      
-## Number of obs: 12526, groups:  country, 142
-## 
-## Fixed effects:
-##                        Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept)            3.927775   0.025446 33.185806 154.356  &lt; 2e-16 ***
-## political_orientation  0.039238   0.007106 12.674681   5.522 0.000108 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## pltcl_rnttn -0.559</code></pre>
-<div class="sourceCode" id="cb1293"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="#cb1293-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_attractiveness, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## Computing profile confidence intervals ...</code></pre>
-<pre><code>##                            0.15 %    99.85 %
-## .sig01                 0.06770729 0.18832187
-## .sig02                -0.75850240 0.91589442
-## .sig03                 0.00000000 0.05867958
-## .sigma                 0.88097657 0.91472753
-## (Intercept)            3.84943833 4.00914319
-## political_orientation  0.01356438 0.06154413</code></pre>
-</div>
-<div id="standardized-coefficients-5" class="section level5">
-<h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1296"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1296-1"><a href="#cb1296-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_attractiveness, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 5
-##   Parameter             Std_Coefficient    CI CI_low CI_high
-##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept)                    0      0.997 0       0     
-## 2 political_orientation          0.0583 0.997 0.0270  0.0897</code></pre>
-</div>
-<div id="plot-5" class="section level5 active">
-<h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1298"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="#cb1298-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1298-2"><a href="#cb1298-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1298-3"><a href="#cb1298-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1298-4"><a href="#cb1298-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.002634 (tol = 0.002, component 1)</code></pre>
-<p><img src="05_analyses_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-</div>
-</div>
-<div id="h2d-preference-for-the-level-of-confidence-assertiveness"
-class="section level4 tabset">
-<h4 class="tabset">H2d Preference for the Level of
 Confidence-Assertiveness</h4>
-<p>H2d There is a positive linear link between right-wing political
+<p>H2b There is a positive linear link between right-wing political
 orientation and women’s preferences for the level of confidence and
 assertiveness.<br />
 Outcome: Level ratings for partner’s confidence-assertiveness.
 Predictor: Political Orientation. Random intercept and random slope for
 country.</p>
-<div id="models-6" class="section level5">
+<div id="models-4" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1300"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="#cb1300-1" tabindex="-1"></a>model_pref_level_confident_assertive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1272"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="#cb1272-1" tabindex="-1"></a>model_pref_level_confident_assertive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
-<div id="summary-6" class="section level5">
+<div id="summary-4" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1301"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="#cb1301-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_confident_assertive)</span></code></pre></div>
+<div class="sourceCode" id="cb1273"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="#cb1273-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_confident_assertive)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: pref_level_confident_assertive ~ political_orientation + (1 +  
@@ -2984,8 +2795,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.544</code></pre>
-<div class="sourceCode" id="cb1303"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="#cb1303-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_confident_assertive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1275"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="#cb1275-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_confident_assertive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep</code></pre>
@@ -3265,44 +3076,44 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="#cb
 ## (Intercept)            4.291019618 4.57603976
 ## political_orientation  0.003430270 0.05344236</code></pre>
 </div>
-<div id="standardized-coefficients-6" class="section level5">
+<div id="standardized-coefficients-4" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1311"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1311-1"><a href="#cb1311-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_confident_assertive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1283"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="#cb1283-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_confident_assertive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                    0      0.997 0       0     
 ## 2 political_orientation          0.0476 0.997 0.0102  0.0850</code></pre>
 </div>
-<div id="plot-6" class="section level5 active">
+<div id="plot-4" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1313"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1313-1"><a href="#cb1313-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1313-2"><a href="#cb1313-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1313-3"><a href="#cb1313-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1313-4"><a href="#cb1313-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
-<p><img src="05_analyses_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1285"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="#cb1285-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1285-2"><a href="#cb1285-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1285-3"><a href="#cb1285-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1285-4"><a href="#cb1285-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<p><img src="05_analyses_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 </div>
-<div id="h2e-preference-for-the-level-of-education-intelligence"
+<div id="h2c-preference-for-the-level-of-education-intelligence"
 class="section level4 tabset">
-<h4 class="tabset">H2e Preference for the Level of
+<h4 class="tabset">H2c Preference for the Level of
 Education-Intelligence</h4>
-<p>H2e There is no link between right-wing political orientation and
+<p>H2c There is no link between right-wing political orientation and
 women’s preferences for the level of education and intelligence.<br />
 Outcome: Level ratings for partner’s education-intelligence. Predictor:
 Political Orientation. Random intercept and random slope for
 country.</p>
-<div id="models-7" class="section level5">
+<div id="models-5" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1314"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="#cb1314-1" tabindex="-1"></a>model_pref_level_intelligence_educated <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1286"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="#cb1286-1" tabindex="-1"></a>model_pref_level_intelligence_educated <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
-<div id="summary-7" class="section level5">
+<div id="summary-5" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1315"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="#cb1315-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_intelligence_educated)</span></code></pre></div>
+<div class="sourceCode" id="cb1287"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="#cb1287-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_intelligence_educated)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: pref_level_intelligence_educated ~ political_orientation + (1 +  
@@ -3333,8 +3144,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.556</code></pre>
-<div class="sourceCode" id="cb1317"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="#cb1317-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_intelligence_educated, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1289"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="#cb1289-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_intelligence_educated, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
@@ -3615,34 +3426,220 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="#cb
 ## (Intercept)            4.687218265 4.92338841
 ## political_orientation -0.006088975 0.05130632</code></pre>
 </div>
-<div id="standardized-coefficients-7" class="section level5">
+<div id="standardized-coefficients-5" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1324"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="#cb1324-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1296"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1296-1"><a href="#cb1296-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI   CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                    0      0.997  0        0     
 ## 2 political_orientation          0.0351 0.997 -0.00712  0.0774</code></pre>
-<div class="sourceCode" id="cb1326"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1326-1"><a href="#cb1326-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1298"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="#cb1298-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   Parameter                CI   CI_low CI_high
 ##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)           0.997  0        0     
 ## 2 political_orientation 0.997 -0.00712  0.0774</code></pre>
-<div class="sourceCode" id="cb1328"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1328-1"><a href="#cb1328-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
+<div class="sourceCode" id="cb1300"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="#cb1300-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
+</div>
+<div id="plot-5" class="section level5 active">
+<h5 class="active">Plot</h5>
+<div class="sourceCode" id="cb1301"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="#cb1301-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1301-2"><a href="#cb1301-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1301-3"><a href="#cb1301-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1301-4"><a href="#cb1301-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00200785 (tol = 0.002, component 1)</code></pre>
+<p><img src="05_analyses_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+</div>
+<div id="h2d-preference-for-the-level-of-kindness-supportiveness"
+class="section level4 tabset">
+<h4 class="tabset">H2d Preference for the Level of
+Kindness-Supportiveness</h4>
+<p>H2d There is no link between right-wing political orientation and
+women’s preferences for the level of kindness and supportiveness.<br />
+Outcome: Level ratings for partner’s kindness-supportiveness. Predictor:
+Political Orientation. Random intercept and random slope for
+country.</p>
+<div id="models-6" class="section level5">
+<h5>Models</h5>
+<div class="sourceCode" id="cb1303"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="#cb1303-1" tabindex="-1"></a>model_pref_level_kind_supportive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+</div>
+<div id="summary-6" class="section level5">
+<h5>Summary</h5>
+<div class="sourceCode" id="cb1304"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="#cb1304-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_kind_supportive)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## pref_level_kind_supportive ~ political_orientation + (1 + political_orientation |  
+##     country)
+##    Data: data_included_documented
+## Control: lmerControl(optimizer = &quot;bobyqa&quot;)
+## 
+## REML criterion at convergence: 26550.1
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.7907 -0.6652  0.0687  0.8000  1.7293 
+## 
+## Random effects:
+##  Groups   Name                  Variance  Std.Dev. Corr
+##  country  (Intercept)           1.657e-02 0.128718     
+##           political_orientation 5.642e-05 0.007511 0.56
+##  Residual                       4.674e-01 0.683662     
+## Number of obs: 12729, groups:  country, 143
+## 
+## Fixed effects:
+##                        Estimate Std. Error        df t value Pr(&gt;|t|)    
+## (Intercept)            5.163681   0.022796 44.855531 226.521   &lt;2e-16 ***
+## political_orientation  0.011053   0.004833 14.568403   2.287   0.0376 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## pltcl_rnttn -0.426</code></pre>
+<div class="sourceCode" id="cb1306"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="#cb1306-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_kind_supportive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## Computing profile confidence intervals ...</code></pre>
+<pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
+## profile: using minstep
+
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
+## profile: using minstep
+
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
+## profile: using minstep</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig01</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig02</code></pre>
+<pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
+## .sig01: falling back to linear interpolation</code></pre>
+<pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
+## .sig02: falling back to linear interpolation</code></pre>
+<pre><code>##                             0.15 %    99.85 %
+## .sig01                 0.085731705 0.20670347
+## .sig02                -1.000000000 1.00000000
+## .sig03                 0.000000000 0.03294017
+## .sigma                 0.671097562 0.69661278
+## (Intercept)            5.095444447 5.23771219
+## political_orientation -0.005103504 0.02736140</code></pre>
+</div>
+<div id="standardized-coefficients-6" class="section level5">
+<h5>Standardized Coefficients</h5>
+<div class="sourceCode" id="cb1314"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="#cb1314-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   Parameter             Std_Coefficient    CI   CI_low CI_high
+##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)                    0      0.997  0        0     
+## 2 political_orientation          0.0215 0.997 -0.00640  0.0494</code></pre>
+<div class="sourceCode" id="cb1316"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1316-1"><a href="#cb1316-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   Parameter                CI   CI_low CI_high
+##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)           0.997  0        0     
+## 2 political_orientation 0.997 -0.00640  0.0494</code></pre>
+<div class="sourceCode" id="cb1318"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1318-1"><a href="#cb1318-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
+</div>
+<div id="plot-6" class="section level5 active">
+<h5 class="active">Plot</h5>
+<div class="sourceCode" id="cb1319"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1319-1"><a href="#cb1319-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1319-2"><a href="#cb1319-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1319-3"><a href="#cb1319-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1319-4"><a href="#cb1319-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00451923 (tol = 0.002, component 1)</code></pre>
+<p><img src="05_analyses_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+</div>
+<div id="h2e-preference-for-the-level-of-attractiveness"
+class="section level4 tabset">
+<h4 class="tabset">H2e Preference for the Level of Attractiveness</h4>
+<p>H2e There is no link between right-wing political orientation and
+women’s preferences for the level of attractiveness.<br />
+Outcome: Level ratings for partner’s attractiveness. Predictor:
+Political Orientation. Random intercept and random slope for
+country.</p>
+<div id="models-7" class="section level5">
+<h5>Models</h5>
+<div class="sourceCode" id="cb1321"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1321-1"><a href="#cb1321-1" tabindex="-1"></a>model_pref_level_attractiveness <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+</div>
+<div id="summary-7" class="section level5">
+<h5>Summary</h5>
+<div class="sourceCode" id="cb1322"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="#cb1322-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_attractiveness)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## pref_level_attractiveness ~ political_orientation + (1 + political_orientation |  
+##     country)
+##    Data: data_included_documented
+## Control: lmerControl(optimizer = &quot;bobyqa&quot;)
+## 
+## REML criterion at convergence: 32918.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.6503 -0.6477 -0.0244  0.6476  2.5185 
+## 
+## Random effects:
+##  Groups   Name                  Variance Std.Dev. Corr
+##  country  (Intercept)           0.01093  0.10452      
+##           political_orientation 0.00027  0.01643  0.28
+##  Residual                       0.80567  0.89759      
+## Number of obs: 12526, groups:  country, 142
+## 
+## Fixed effects:
+##                        Estimate Std. Error        df t value Pr(&gt;|t|)    
+## (Intercept)            3.927775   0.025446 33.185806 154.356  &lt; 2e-16 ***
+## political_orientation  0.039238   0.007106 12.674681   5.522 0.000108 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## pltcl_rnttn -0.559</code></pre>
+<div class="sourceCode" id="cb1324"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="#cb1324-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_attractiveness, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## Computing profile confidence intervals ...</code></pre>
+<pre><code>##                            0.15 %    99.85 %
+## .sig01                 0.06770729 0.18832187
+## .sig02                -0.75850240 0.91589442
+## .sig03                 0.00000000 0.05867958
+## .sigma                 0.88097657 0.91472753
+## (Intercept)            3.84943833 4.00914319
+## political_orientation  0.01356438 0.06154413</code></pre>
+</div>
+<div id="standardized-coefficients-7" class="section level5">
+<h5>Standardized Coefficients</h5>
+<div class="sourceCode" id="cb1327"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="#cb1327-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_attractiveness, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   Parameter             Std_Coefficient    CI CI_low CI_high
+##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)                    0      0.997 0       0     
+## 2 political_orientation          0.0583 0.997 0.0270  0.0897</code></pre>
 </div>
 <div id="plot-7" class="section level5 active">
 <h5 class="active">Plot</h5>
 <div class="sourceCode" id="cb1329"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1329-1"><a href="#cb1329-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+class="sourceCode r"><code class="sourceCode r"><span id="cb1329-1"><a href="#cb1329-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
 <span id="cb1329-2"><a href="#cb1329-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
 <span id="cb1329-3"><a href="#cb1329-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb1329-4"><a href="#cb1329-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.00200785 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.002634 (tol = 0.002, component 1)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 </div>
 </div>
@@ -3992,7 +3989,7 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1378-1"><a href="#cb
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPk1haW4gQW5hbHlzZXM8L2ZvbnQ+DQpjc2w6IGFwYS1jdXN0b20tbm8taXNzdWUuY3NsDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZm9sZGluZzogInNob3ciDQplZGl0b3Jfb3B0aW9uczogDQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQotLS0NCg0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZWZmZWN0cykNCmxpYnJhcnkoZWZmZWN0c2l6ZSkNCiNsaWJyYXJ5KGxtZTQpDQpsaWJyYXJ5KHNqc3RhdHMpDQpsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoUkNvbG9yQnJld2VyKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KG1nY3YpICAgICAgICAgDQpsaWJyYXJ5KHN0cmluZ3IpICAgICANCmxpYnJhcnkoc2FuZHdpY2gpICAgICANCmxpYnJhcnkobG10ZXN0KSANCmxpYnJhcnkobWlucWEpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQpgYGANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljLCBhbmQgUmVsaWdpb3VzIFNpbWlsYXJpdHkgey50YWJzZXQgLmFjdGl2ZX0NCiMjIyMgSDFhIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gUG9saXRpY2FsIEJlbGllZnMgey50YWJzZXR9DQpIMWEoMSkgVGhlcmUgaXMgbm8gbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciBwYXJ0bmVy4oCZcyBzaW1pbGFyIHBvbGl0aWNhbCBiZWxpZWZzIGFuZCB2YWx1ZXMuDQpIMWEoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBxdWFkcmF0aWMgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCg0KIyMjIyMgSDFhKDEpIExpbmVhciBFZmZlY3QgIHsudGFic2V0fQ0KIyMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4gPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIA0KICAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4pDQpjb25maW50KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbWV0aG9kID0gInJlZml0IiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMjIEgxYSgyKSBRdWFkcmF0aWMgRWZmZWN0IHsudGFic2V0fQ0KSGVyZSwgd2UgYXJlIGV4YW1pbmluZyB0aGUgcXVhZHJhdGljIGVmZmVjdCBvZiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBvbiBwcmVmZXJyZWQgcG9saXRpY2FsIHNpbWlsYXJpdHkgaW4gYSBwYXJ0bmVyIHVzaW5nIHRoZSBUd28gTGluZXMgQXBwcm9hY2ggKFNpbW9uc29obiwgMjAxOCkuIFdlIGFyZSB1c2luZyB0aGUgUm9iaW4gSG9vZCBBbGdvcml0aG0gaW4gb3JkZXIgdG8gc2V0IHRoZSBicmVha2luZyBwb2ludC4gVGhlbiwgd2UgYXJlIGNhbGN1bGF0aW5nIHR3byBtdWx0aWxldmVsIHJlZ3Jlc3Npb25zIG9uIGVpdGhlciBzaWRlIG9mIHRoZSBicmVha2luZyBwb2ludC4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcnM6IFBvbGl0aWNhbCBPcmllbnRhdGlvbiAmIEFnZS4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyMgQWxnb3JpdGhtOiBGaW5kIGJyZWFraW5nIHBvaW50DQpTZWUgMTFfdHdvbGluZXNfYW5hbHlzZXNfbXVsdGlsZXZlbA0KDQoNCiMjIyMjIyBSdW4gTXVsdGlsZXZlbCBSZWdyZXNzaW9uDQojIyMjIyMgUmVncmVzc2lvbiAxICh4IDw9IGJyZWFraW5nX3BvaW50KQ0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xID0gbG1lcihwcmVmX3BvbGl0aWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRwbHlyOjpmaWx0ZXIocG9saXRpY2FsX29yaWVudGF0aW9uIDw9IDMpLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQoNCnN1bW1hcnkobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMSkNCmNvbmZpbnQobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMSwgbGV2ZWwgPSAwLjk5NykNCg0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMSkpDQpgYGANCg0KIyMjIyMjIFJlZ3Jlc3Npb24gMiAoeCA+PSBicmVha2luZ19wb2ludCkNCmBgYHtyfQ0KbW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiA9IGxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkcGx5cjo6ZmlsdGVyKHBvbGl0aWNhbF9vcmllbnRhdGlvbiA+PSAzKSwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KDQpzdW1tYXJ5KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzIpDQpjb25maW50KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzIsIGxldmVsID0gMC45OTcpDQoNCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCg0KcGxvdChhbGxFZmZlY3RzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzIpKQ0KYGBgDQoNCiMjIyMgSDFiIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gRXRobmljaXR5L1JhY2Ugey50YWJzZXR9DQpIMWIgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgZXRobmljaXR5L3JhY2UuIA0KT3V0Y29tZTogUHJlZmVyZW5jZSByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mgc2ltaWxhciBldGhuaWNpdHkvcmFjZS4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2V0aG5pY2Fsc2ltIDwtIGxtZXIocHJlZl9ldGhuaWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2V0aG5pY2Fsc2ltKQ0KY29uZmludChtb2RlbF9wcmVmX2V0aG5pY2Fsc2ltLCBsZXZlbCA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX2V0aG5pY2Fsc2ltLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfZXRobmljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDFjIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gUmVsaWdpb24gey50YWJzZXR9DQpIMWMgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgcmVsaWdpb3VzIGJlbGllZnMuICANCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcmVsaWdpb3VzIGJlbGllZnMuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9yZWxpZ2lvdXNzaW0gPC0gbG1lcihwcmVmX3JlbGlnaW91c3NpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX3JlbGlnaW91c3NpbSkNCmNvbmZpbnQobW9kZWxfcHJlZl9yZWxpZ2lvdXNzaW0sIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcmVsaWdpb3Vzc2ltLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfcmVsaWdpb3Vzc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCiMjIyMgSDJhIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBGaW5hbmNpYWwgU2VjdXJpdHktIFN1Y2Nlc3NmdWxuZXNzIHsudGFic2V0fQ0KSDJhIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2YgZmluYW5jaWFsIHNlY3VyaXR5IGFuZCBzdWNjZXNzZnVsbmVzcy4NCk91dGNvbWU6IExldmVsIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBmaW5hbmNpYWwgc2VjdXJpdHktc3VjY2Vzc2Z1bG5lc3MuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMgPC0NCiAgbG1lcigNCiAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cyB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxICsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBvbGl0aWNhbF9vcmllbnRhdGlvbiB8DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb3VudHJ5KSwNCiAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLA0KICAgIGNvbnRyb2wgPSBsbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikNCiAgKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cykNCmNvbmZpbnQobW9kZWxfcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgyYiBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgS2luZG5lc3MtU3VwcG9ydGl2ZW5lc3Mgey50YWJzZXR9DQpIMmIgVGhlcmUgaXMgbm8gbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBraW5kbmVzcyBhbmQgc3VwcG9ydGl2ZW5lc3MuICANCk91dGNvbWU6IExldmVsIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBraW5kbmVzcy1zdXBwb3J0aXZlbmVzcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSA8LSBsbWVyKHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCmNpKHN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIG1ldGhvZCA9ICJiYXNpYyIpLCBjaSA9IDAuOTk3KQ0KI2NhbGN1bGF0ZSBieSBoYW5kIHRvIGdldCBleGFjdCBudW1iZXJzDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDJjIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBBdHRyYWN0aXZlbmVzcyB7LnRhYnNldH0NCkgyYyBUaGVyZSBpcyBubyBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgdGhlIGxldmVsIG9mIGF0dHJhY3RpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgYXR0cmFjdGl2ZW5lc3MuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcyA8LSBsbWVyKHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcykNCmNvbmZpbnQobW9kZWxfcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgyZCBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgQ29uZmlkZW5jZS1Bc3NlcnRpdmVuZXNzIHsudGFic2V0fQ0KSDJkIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2YgY29uZmlkZW5jZSBhbmQgYXNzZXJ0aXZlbmVzcy4gIA0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGNvbmZpZGVuY2UtYXNzZXJ0aXZlbmVzcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUgPC0gbG1lcihwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihwcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDJlIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBFZHVjYXRpb24tSW50ZWxsaWdlbmNlIHsudGFic2V0fQ0KSDJlIFRoZXJlIGlzIG5vIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2YgZWR1Y2F0aW9uIGFuZCBpbnRlbGxpZ2VuY2UuICANCk91dGNvbWU6IExldmVsIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBlZHVjYXRpb24taW50ZWxsaWdlbmNlLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkIDwtIGxtZXIocHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCBsZXZlbCA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCg0KY2koc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgbWV0aG9kID0gImJhc2ljIiksIGNpID0gMC45OTcpDQojY2FsY3VsYXRlIGJ5IGhhbmQgdG8gZ2V0IGV4YWN0IG51bWJlcnMNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KIyMjIElkZWFsIEFnZSBhbmQgSGVpZ2h0IHsudGFic2V0fQ0KIyMjIyBIM2EoMSkgSW1wb3J0YW5jZSBSYXRpbmdzIGZvciBQYXJ0bmVyJ3MgQWdlIHsudGFic2V0fQ0KSDNhKDEpIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIGltcG9ydGFuY2UgcmF0aW5ncyBmb3IgcGFydG5lcuKAmXMgYWdlLiANCk91dGNvbWU6IEltcG9ydGFuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIGFnZS4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9pbXBfYWdlIDwtIGxtZXIoaW1wX2FnZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9pbXBfYWdlKQ0KY29uZmludChtb2RlbF9pbXBfYWdlLCBsZXZlbD0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2ltcF9hZ2UsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIoaW1wX2FnZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KIyMjIyBIM2EoMikgTGV2ZWwgUmF0aW5ncyBmb3IgUGFydG5lcidzIEFnZSB7LnRhYnNldH0NCkgzYSgyKSBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHRoZSByZWxhdGl2ZSBhZ2UgZGlzY3JlcGFuY3kgYmV0d2VlbiBpZGVhbCBwYXJ0bmVy4oCZcyBhZ2UgYW5kIHdvbWVu4oCZcyBhZ2UuIChkaXNjcmVwYW5jeSBjYWxjdWxhdGVkIGFzIGlkZWFsIHBhcnRuZXLigJlzIGFnZSDigJMgd29tZW7igJlzIGFnZSkNCk91dGNvbWU6IERpc2NyZXBhbmN5IGJldHdlZW4gbGV2ZWwgcmF0aW5ncyBmb3IgaWRlYWwgcGFydG5lcidzIGFnZSBhbmQgd29tZW4ncyBhZ2UgKGlkZWFsX2FnZV9yZWwpDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaWRlYWxfYWdlX3JlbCA8LSBsbWVyKGlkZWFsX2FnZV9yZWwgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaWRlYWxfYWdlX3JlbCkNCmNvbmZpbnQobW9kZWxfaWRlYWxfYWdlX3JlbCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfaWRlYWxfYWdlX3JlbCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGlkZWFsX2FnZV9yZWwgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDNiKDEpIEltcG9ydGFuY2UgUmF0aW5ncyBmb3IgUGFydG5lcidzIEhlaWdodCB7LnRhYnNldH0NCkgzYigxKSBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBpbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXLigJlzIGhlaWdodC4NCk91dGNvbWU6IEltcG9ydGFuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIGhlaWdodC4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9pbXBfaGVpZ2h0IDwtIGxtZXIoaW1wX2hlaWdodCB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9pbXBfaGVpZ2h0KQ0KY29uZmludChtb2RlbF9pbXBfaGVpZ2h0LCBsZXZlbCA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9pbXBfaGVpZ2h0LCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGltcF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDNiKDIpIExldmVsIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBIZWlnaHQgey50YWJzZXR9DQpIM2IoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCBpZGVhbCBwYXJ0bmVy4oCZcyBoZWlnaHQuDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBpZGVhbCBwYXJ0bmVyJ3MgaGVpZ2h0Lg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX2lkZWFsX2hlaWdodCA8LSBsbWVyKGlkZWFsX2hlaWdodCB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9pZGVhbF9oZWlnaHQpDQpjb25maW50KG1vZGVsX2lkZWFsX2hlaWdodCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfaWRlYWxfaGVpZ2h0LCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGlkZWFsX2hlaWdodCB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPk1haW4gQW5hbHlzZXM8L2ZvbnQ+DQpjc2w6IGFwYS1jdXN0b20tbm8taXNzdWUuY3NsDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZm9sZGluZzogInNob3ciDQplZGl0b3Jfb3B0aW9uczogDQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQotLS0NCg0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZWZmZWN0cykNCmxpYnJhcnkoZWZmZWN0c2l6ZSkNCiNsaWJyYXJ5KGxtZTQpDQpsaWJyYXJ5KHNqc3RhdHMpDQpsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoUkNvbG9yQnJld2VyKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KG1nY3YpICAgICAgICAgDQpsaWJyYXJ5KHN0cmluZ3IpICAgICANCmxpYnJhcnkoc2FuZHdpY2gpICAgICANCmxpYnJhcnkobG10ZXN0KSANCmxpYnJhcnkobWlucWEpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQpgYGANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljLCBhbmQgUmVsaWdpb3VzIFNpbWlsYXJpdHkgey50YWJzZXQgLmFjdGl2ZX0NCiMjIyMgSDFhIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gUG9saXRpY2FsIEJlbGllZnMgey50YWJzZXR9DQpIMWEoMSkgVGhlcmUgaXMgbm8gbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciBwYXJ0bmVy4oCZcyBzaW1pbGFyIHBvbGl0aWNhbCBiZWxpZWZzIGFuZCB2YWx1ZXMuDQpIMWEoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBxdWFkcmF0aWMgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCg0KIyMjIyMgSDFhKDEpIExpbmVhciBFZmZlY3QgIHsudGFic2V0fQ0KIyMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4gPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIA0KICAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4pDQpjb25maW50KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbWV0aG9kID0gInJlZml0IiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMjIEgxYSgyKSBRdWFkcmF0aWMgRWZmZWN0IHsudGFic2V0fQ0KSGVyZSwgd2UgYXJlIGV4YW1pbmluZyB0aGUgcXVhZHJhdGljIGVmZmVjdCBvZiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBvbiBwcmVmZXJyZWQgcG9saXRpY2FsIHNpbWlsYXJpdHkgaW4gYSBwYXJ0bmVyIHVzaW5nIHRoZSBUd28gTGluZXMgQXBwcm9hY2ggKFNpbW9uc29obiwgMjAxOCkuIFdlIGFyZSB1c2luZyB0aGUgUm9iaW4gSG9vZCBBbGdvcml0aG0gaW4gb3JkZXIgdG8gc2V0IHRoZSBicmVha2luZyBwb2ludC4gVGhlbiwgd2UgYXJlIGNhbGN1bGF0aW5nIHR3byBtdWx0aWxldmVsIHJlZ3Jlc3Npb25zIG9uIGVpdGhlciBzaWRlIG9mIHRoZSBicmVha2luZyBwb2ludC4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcnM6IFBvbGl0aWNhbCBPcmllbnRhdGlvbiAmIEFnZS4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyMgQWxnb3JpdGhtOiBGaW5kIGJyZWFraW5nIHBvaW50DQpTZWUgMTFfdHdvbGluZXNfYW5hbHlzZXNfbXVsdGlsZXZlbA0KDQoNCiMjIyMjIyBSZWdyZXNzaW9uIDEgKHggPD0gYnJlYWtpbmdfcG9pbnQpDQpgYGB7cn0NCm1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEgPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZHBseXI6OmZpbHRlcihwb2xpdGljYWxfb3JpZW50YXRpb24gPD0gMyksIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCg0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKQ0KY29uZmludChtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xLCBsZXZlbCA9IDAuOTk3KQ0KDQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCnBsb3QoYWxsRWZmZWN0cyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKSkNCmBgYA0KDQojIyMjIyMgUmVncmVzc2lvbiAyICh4ID49IGJyZWFraW5nX3BvaW50KQ0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yID0gbG1lcihwcmVmX3BvbGl0aWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRwbHlyOjpmaWx0ZXIocG9saXRpY2FsX29yaWVudGF0aW9uID49IDMpLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQoNCnN1bW1hcnkobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikNCmNvbmZpbnQobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiwgbGV2ZWwgPSAwLjk5NykNCg0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikpDQpgYGANCg0KIyMjIyBIMWIgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBFdGhuaWNpdHkvUmFjZSB7LnRhYnNldH0NCkgxYiBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciBldGhuaWNpdHkvcmFjZS4gDQpPdXRjb21lOiBQcmVmZXJlbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBzaW1pbGFyIGV0aG5pY2l0eS9yYWNlLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfZXRobmljYWxzaW0gPC0gbG1lcihwcmVmX2V0aG5pY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfZXRobmljYWxzaW0pDQpjb25maW50KG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9ldGhuaWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KIyMjIyBIMWMgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBSZWxpZ2lvbiB7LnRhYnNldH0NCkgxYyBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4gIA0KT3V0Y29tZTogUHJlZmVyZW5jZSByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3JlbGlnaW91c3NpbSA8LSBsbWVyKHByZWZfcmVsaWdpb3Vzc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfcmVsaWdpb3Vzc2ltKQ0KY29uZmludChtb2RlbF9wcmVmX3JlbGlnaW91c3NpbSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9yZWxpZ2lvdXNzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9yZWxpZ2lvdXNzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KIyMjIyBIMmEgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEZpbmFuY2lhbCBTZWN1cml0eS0gU3VjY2Vzc2Z1bG5lc3Mgey50YWJzZXR9DQpIMmEgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBmaW5hbmNpYWwgc2VjdXJpdHkgYW5kIHN1Y2Nlc3NmdWxuZXNzLg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGZpbmFuY2lhbCBzZWN1cml0eS1zdWNjZXNzZnVsbmVzcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cyA8LQ0KICBsbWVyKA0KICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDEgKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcG9saXRpY2FsX29yaWVudGF0aW9uIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnkpLA0KICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsDQogICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKQ0KICApDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDJiIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBDb25maWRlbmNlLUFzc2VydGl2ZW5lc3Mgey50YWJzZXR9DQpIMmIgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBjb25maWRlbmNlIGFuZCBhc3NlcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgY29uZmlkZW5jZS1hc3NlcnRpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSA8LSBsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQojIyMjIEgyYyBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgRWR1Y2F0aW9uLUludGVsbGlnZW5jZSB7LnRhYnNldH0NCkgyYyBUaGVyZSBpcyBubyBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgdGhlIGxldmVsIG9mIGVkdWNhdGlvbiBhbmQgaW50ZWxsaWdlbmNlLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgZWR1Y2F0aW9uLWludGVsbGlnZW5jZS4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCA8LSBsbWVyKHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCmNpKHN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIG1ldGhvZCA9ICJiYXNpYyIpLCBjaSA9IDAuOTk3KQ0KI2NhbGN1bGF0ZSBieSBoYW5kIHRvIGdldCBleGFjdCBudW1iZXJzDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCg0KIyMjIyBIMmQgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEtpbmRuZXNzLVN1cHBvcnRpdmVuZXNzIHsudGFic2V0fQ0KSDJkIFRoZXJlIGlzIG5vIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2Yga2luZG5lc3MgYW5kIHN1cHBvcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mga2luZG5lc3Mtc3VwcG9ydGl2ZW5lc3MuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUgPC0gbG1lcihwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSkNCmNvbmZpbnQobW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpjaShzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCBtZXRob2QgPSAiYmFzaWMiKSwgY2kgPSAwLjk5NykNCiNjYWxjdWxhdGUgYnkgaGFuZCB0byBnZXQgZXhhY3QgbnVtYmVycw0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgyZSBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgQXR0cmFjdGl2ZW5lc3Mgey50YWJzZXR9DQpIMmUgVGhlcmUgaXMgbm8gbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBhdHRyYWN0aXZlbmVzcy4gIA0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGF0dHJhY3RpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MgPC0gbG1lcihwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcyB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQoNCiMjIyBJZGVhbCBBZ2UgYW5kIEhlaWdodCB7LnRhYnNldH0NCiMjIyMgSDNhKDEpIEltcG9ydGFuY2UgUmF0aW5ncyBmb3IgUGFydG5lcidzIEFnZSB7LnRhYnNldH0NCkgzYSgxKSBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBpbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXLigJlzIGFnZS4gDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBhZ2UuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2FnZSA8LSBsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2FnZSkNCmNvbmZpbnQobW9kZWxfaW1wX2FnZSwgbGV2ZWw9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9pbXBfYWdlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDNhKDIpIExldmVsIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBBZ2Ugey50YWJzZXR9DQpIM2EoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB0aGUgcmVsYXRpdmUgYWdlIGRpc2NyZXBhbmN5IGJldHdlZW4gaWRlYWwgcGFydG5lcuKAmXMgYWdlIGFuZCB3b21lbuKAmXMgYWdlLiAoZGlzY3JlcGFuY3kgY2FsY3VsYXRlZCBhcyBpZGVhbCBwYXJ0bmVy4oCZcyBhZ2Ug4oCTIHdvbWVu4oCZcyBhZ2UpDQpPdXRjb21lOiBEaXNjcmVwYW5jeSBiZXR3ZWVuIGxldmVsIHJhdGluZ3MgZm9yIGlkZWFsIHBhcnRuZXIncyBhZ2UgYW5kIHdvbWVuJ3MgYWdlIChpZGVhbF9hZ2VfcmVsKQ0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX2lkZWFsX2FnZV9yZWwgPC0gbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX2lkZWFsX2FnZV9yZWwpDQpjb25maW50KG1vZGVsX2lkZWFsX2FnZV9yZWwsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2FnZV9yZWwsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigxKSBJbXBvcnRhbmNlIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBIZWlnaHQgey50YWJzZXR9DQpIM2IoMSkgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgaW1wb3J0YW5jZSByYXRpbmdzIGZvciBwYXJ0bmVy4oCZcyBoZWlnaHQuDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBoZWlnaHQuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2hlaWdodCA8LSBsbWVyKGltcF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2hlaWdodCkNCmNvbmZpbnQobW9kZWxfaW1wX2hlaWdodCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfaW1wX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpbXBfaGVpZ2h0IH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigyKSBMZXZlbCBSYXRpbmdzIGZvciBQYXJ0bmVyJ3MgSGVpZ2h0IHsudGFic2V0fQ0KSDNiKDIpIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgaWRlYWwgcGFydG5lcuKAmXMgaGVpZ2h0Lg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgaWRlYWwgcGFydG5lcidzIGhlaWdodC4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9pZGVhbF9oZWlnaHQgPC0gbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaWRlYWxfaGVpZ2h0KQ0KY29uZmludChtb2RlbF9pZGVhbF9oZWlnaHQsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQo=</div>
 
 
 

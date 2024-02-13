@@ -80,7 +80,6 @@ Predictors: Political Orientation & Age. Random intercept and random slope for c
 See 11_twolines_analyses_multilevel
 
 
-###### Run Multilevel Regression
 ###### Regression 1 (x <= breaking_point)
 ```{r}
 model_pref_politicalsim_1 = lmer(pref_politicalsim ~ political_orientation +
@@ -206,8 +205,71 @@ lmer(pref_level_financially_secure_successful_ambitious ~ political_orientation 
     plot()
 ```
 
-#### H2b Preference for the Level of Kindness-Supportiveness {.tabset}
-H2b There is no link between right-wing political orientation and women’s preferences for the level of kindness and supportiveness.  
+#### H2b Preference for the Level of Confidence-Assertiveness {.tabset}
+H2b There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
+Outcome: Level ratings for partner's confidence-assertiveness.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_pref_level_confident_assertive <- lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_pref_level_confident_assertive)
+confint(model_pref_level_confident_assertive, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_confident_assertive, method = "basic", ci = 0.997)
+```
+
+#####  Plot {.active}
+```{r}
+lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+
+#### H2c Preference for the Level of Education-Intelligence {.tabset}
+H2c There is no link between right-wing political orientation and women’s preferences for the level of education and intelligence.  
+Outcome: Level ratings for partner's education-intelligence.
+Predictor: Political Orientation. Random intercept and random slope for country.
+
+##### Models
+```{r}
+model_pref_level_intelligence_educated <- lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
+```
+
+##### Summary
+```{r}
+summary(model_pref_level_intelligence_educated)
+confint(model_pref_level_intelligence_educated, level = 0.997)
+```
+
+##### Standardized Coefficients
+```{r}
+standardize_parameters(model_pref_level_intelligence_educated, method = "basic", ci = 0.997)
+
+ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic"), ci = 0.997)
+#calculate by hand to get exact numbers
+```
+
+#####  Plot {.active}
+```{r}
+lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country),
+       data = data_included_documented) %>%
+    allEffects() %>%
+    plot()
+```
+
+
+#### H2d Preference for the Level of Kindness-Supportiveness {.tabset}
+H2d There is no link between right-wing political orientation and women’s preferences for the level of kindness and supportiveness.  
 Outcome: Level ratings for partner's kindness-supportiveness.
 Predictor: Political Orientation. Random intercept and random slope for country.
 
@@ -238,8 +300,8 @@ lmer(pref_level_kind_supportive ~ political_orientation + (1+political_orientati
     plot()
 ```
 
-#### H2c Preference for the Level of Attractiveness {.tabset}
-H2c There is no link between right-wing political orientation and women’s preferences for the level of attractiveness.  
+#### H2e Preference for the Level of Attractiveness {.tabset}
+H2e There is no link between right-wing political orientation and women’s preferences for the level of attractiveness.  
 Outcome: Level ratings for partner's attractiveness.
 Predictor: Political Orientation. Random intercept and random slope for country.
 
@@ -267,66 +329,7 @@ lmer(pref_level_attractiveness ~ political_orientation + (1+political_orientatio
     plot()
 ```
 
-#### H2d Preference for the Level of Confidence-Assertiveness {.tabset}
-H2d There is a positive linear link between right-wing political orientation and women’s preferences for the level of confidence and assertiveness.  
-Outcome: Level ratings for partner's confidence-assertiveness.
-Predictor: Political Orientation. Random intercept and random slope for country.
 
-##### Models
-```{r}
-model_pref_level_confident_assertive <- lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-```
-
-##### Summary
-```{r}
-summary(model_pref_level_confident_assertive)
-confint(model_pref_level_confident_assertive, level = 0.997)
-```
-
-##### Standardized Coefficients
-```{r}
-standardize_parameters(model_pref_level_confident_assertive, method = "basic", ci = 0.997)
-```
-
-#####  Plot {.active}
-```{r}
-lmer(pref_level_confident_assertive ~ political_orientation + (1+political_orientation|country),
-       data = data_included_documented) %>%
-    allEffects() %>%
-    plot()
-```
-
-#### H2e Preference for the Level of Education-Intelligence {.tabset}
-H2e There is no link between right-wing political orientation and women’s preferences for the level of education and intelligence.  
-Outcome: Level ratings for partner's education-intelligence.
-Predictor: Political Orientation. Random intercept and random slope for country.
-
-##### Models
-```{r}
-model_pref_level_intelligence_educated <- lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country), data = data_included_documented, control =lmerControl(optimizer = "bobyqa"))
-```
-
-##### Summary
-```{r}
-summary(model_pref_level_intelligence_educated)
-confint(model_pref_level_intelligence_educated, level = 0.997)
-```
-
-##### Standardized Coefficients
-```{r}
-standardize_parameters(model_pref_level_intelligence_educated, method = "basic", ci = 0.997)
-
-ci(standardize_parameters(model_pref_level_intelligence_educated, method = "basic"), ci = 0.997)
-#calculate by hand to get exact numbers
-```
-
-#####  Plot {.active}
-```{r}
-lmer(pref_level_intelligence_educated ~ political_orientation + (1+political_orientation|country),
-       data = data_included_documented) %>%
-    allEffects() %>%
-    plot()
-```
 
 ### Ideal Age and Height {.tabset}
 #### H3a(1) Importance Ratings for Partner's Age {.tabset}
