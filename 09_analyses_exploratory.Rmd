@@ -141,8 +141,8 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
 summary(model)
 ```
 
-###### H1a(2) Quadratic Effect
-###### Regression 1 (x <= breaking_point)
+###### H1a(2) Quadratic Effect {.tabset}
+####### Regression 1 (x <= breaking_point)
 ```{r}
 data_included_documented_rescon_wide_reg1 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation <= 3) %>%
@@ -194,7 +194,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses_reg1, S =
 summary(model)
 ```
 
-###### Regression 2 (x >= breaking_point)
+####### Regression 2 (x >= breaking_point)
 ```{r}
 data_included_documented_rescon_wide_reg2 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation >= 3) %>%
