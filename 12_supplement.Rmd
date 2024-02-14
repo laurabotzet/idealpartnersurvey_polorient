@@ -54,7 +54,7 @@ data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ```
 
 #### S1 Interest in Single Life {.tabset}
-H1a There is a negative linear link between right-wing political orientation and women’s interest in being single.  
+S1 There is a negative linear link between right-wing political orientation and women’s interest in being single.  
 Outcome: Ratings for interest in single life. Predictor: Political Orientation. Random intercept and random slope for country.
 
 ##### Models
@@ -82,7 +82,7 @@ lmer(interest_single ~ political_orientation + (1 | country),
 ```
 
 #### S2 Interest in Sexual, Non-Romantic Relationships {.tabset}
-H1b There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
+S2 There is a negative linear link between right-wing political orientation and women’s interest in having sexual, non-romantic relationships (e.g., hookups, one-night stands).
 Outcome: Ratings for interest in having sexual, non-romantic relationships. Predictor: Political Orientation. Random intercept and random slope for country.
 
 ##### Models
@@ -111,7 +111,7 @@ lmer(interest_sexrel ~ political_orientation + (1 + political_orientation| count
 ```
 
 #### S3 Interest in Non-Monogamous Relationships {.tabset}
-H1c There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
+S3 There is a negative linear link between right-wing political orientation and women’s interest in having non-monogamous relationships.
 Outcome: Ratings for interest in having non-monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
 
 ##### Models
@@ -140,7 +140,7 @@ lmer(interest_nonmonrel ~ political_orientation + (1+political_orientation|count
 ```
 
 #### S4 Interest in Monogamous Relationships {.tabset}
-H1d There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
+S4 There is no link between right-wing political orientation and women’s interest in having monogamous relationships.
 Outcome: Ratings for interest in having monogamous relationships. Predictor: Political Orientation. Random intercept and random slope for country.
 
 ##### Models
@@ -295,7 +295,7 @@ lmer(interest_monrel ~ political_orientation + age + (1| country),
 ```
 
 
-### Preferred Relationship Options Exploratory Analysis
+### Exploratory Analysis
 #### Data
 Load selected data based on 03_codebook
 ```{r}
@@ -376,7 +376,7 @@ models_interest_single_se = models_interest_single %>%
 models_interest_single_analyses = left_join(models_interest_single_coef,
                                             models_interest_single_se,
                                             by = "name") %>%
-  mutate(outcome = "H1a) Interest in Single Life")
+  mutate(outcome = "S1 Interest in Single Life")
 
 countries_rescon =
   data_included_documented_rescon %>%
@@ -387,6 +387,7 @@ countries_rescon =
   arrange(-Freq)
 
 models_interest_single_analyses$n = countries_rescon$Freq
+sum(models_interest_single_analyses$n)
 
 model = mvmeta(mean ~ 1, data = models_interest_single_analyses, S = se^2,
                method = "fixed")
@@ -432,7 +433,7 @@ models_interest_sexrel_se = models_interest_sexrel %>%
 models_interest_sexrel_analyses = left_join(models_interest_sexrel_coef,
                                             models_interest_sexrel_se,
                                             by = "name") %>%
-  mutate(outcome = "H1b) Interest in Sexual, Non-Romantic Relationships")
+  mutate(outcome = "S2 Interest in Sexual, Non-Romantic Relationships")
 
 countries_rescon =
   data_included_documented_rescon %>%
@@ -443,6 +444,7 @@ countries_rescon =
   arrange(-Freq)
 
 models_interest_sexrel_analyses$n = countries_rescon$Freq
+sum(models_interest_sexrel_analyses$n)
 
 model = mvmeta(mean ~ 1, data = models_interest_sexrel_analyses, S = se^2,
                method = "fixed")
@@ -488,7 +490,7 @@ models_interest_nonmonrel_se = models_interest_nonmonrel %>%
 models_interest_nonmonrel_analyses = left_join(models_interest_nonmonrel_coef,
                                             models_interest_nonmonrel_se,
                                             by = "name") %>%
-  mutate(outcome = "H1c) Interest in Non-Monogamous Relationships")
+  mutate(outcome = "S3 Interest in Non-Monogamous Relationships")
 
 countries_rescon =
   data_included_documented_rescon %>%
@@ -499,6 +501,7 @@ countries_rescon =
   arrange(-Freq)
 
 models_interest_nonmonrel_analyses$n = countries_rescon$Freq
+sum(models_interest_nonmonrel_analyses$n)
 
 model = mvmeta(mean ~ 1, data = models_interest_nonmonrel_analyses, S = se^2,
                method = "fixed")
@@ -544,7 +547,7 @@ models_interest_monrel_se = models_interest_monrel %>%
 models_interest_monrel_analyses = left_join(models_interest_monrel_coef,
                                             models_interest_monrel_se,
                                             by = "name") %>%
-  mutate(outcome = "H1c) Interest in Monogamous Relationships")
+  mutate(outcome = "S4 Interest in Monogamous Relationships")
 
 countries_rescon =
   data_included_documented_rescon %>%
@@ -555,6 +558,7 @@ countries_rescon =
   arrange(-Freq)
 
 models_interest_monrel_analyses$n = countries_rescon$Freq
+sum(models_interest_monrel_analyses$n)
 
 model = mvmeta(mean ~ 1, data = models_interest_monrel_analyses, S = se^2,
                method = "fixed")
