@@ -31,6 +31,7 @@ library(lm.beta)
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(knitr)
 
 apatheme = theme_bw() +
   theme(panel.grid.major = element_blank(),
@@ -52,7 +53,7 @@ data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 countries = as.data.frame(table(data_included_documented$country)) %>%
   arrange(-Freq)
 
-countries
+kable(countries)
 ```
 We will include all countries with more than 500 participants. This allows us to show effect sizes for a diverse range of countries.
 Diversity of countries is indicated by:
@@ -82,7 +83,7 @@ countries_rescon
 ```
 
 
-### Analyses {.tabset}
+### Analyses {.tabset .active}
 #### Political, Ethnic, and Religious Similarity {.tabset}
 ##### H1a Preference for Similarity in Political Beliefs {.tabset}
 ###### H1a(1) Linear Effect
@@ -141,8 +142,8 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
 summary(model)
 ```
 
-###### H1a(2) Quadratic Effect {.tabset}
-####### Regression 1 (x <= breaking_point)
+###### H1a(2) Quadratic Effect: Regression 1 (x <= breaking_point)
+
 ```{r}
 data_included_documented_rescon_wide_reg1 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation <= 3) %>%
@@ -194,7 +195,7 @@ model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses_reg1, S =
 summary(model)
 ```
 
-####### Regression 2 (x >= breaking_point)
+###### H1a(2) Quadratic Effect: Regression 2 (x >= breaking_point)
 ```{r}
 data_included_documented_rescon_wide_reg2 = data_included_documented_rescon %>%
   dplyr::filter(political_orientation >= 3) %>%

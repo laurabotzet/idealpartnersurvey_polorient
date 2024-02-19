@@ -27,7 +27,7 @@ data_included = fulldata_selected_wrangled
 ```
 
 #### All participants younger than 18 {.tabset .active}
-From the initial dataset of respondents (n = 68,100), `r sum(fulldata_selected_wrangled$age < 18, na.rm = T) + sum(is.na(fulldata_selected_wrangled$age))` could not participate, because they were younger than 18 years of age.
+From the initial dataset of respondents (N = 94,738), `r sum(fulldata_selected_wrangled$age < 18, na.rm = T) + sum(is.na(fulldata_selected_wrangled$age))` could not participate, because they were younger than 18 years of age.
 ```{r Age}
 data_included = fulldata_selected_wrangled %>%
   filter(age >= 18 |
