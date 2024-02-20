@@ -150,17 +150,19 @@ length(unique(data_included$country))
 ### Create Codebook {.tabset}
 ```{r create codebook}
 data_included = data_included %>%
-  select(sex, age, country, language, political_orientation,
-          interest_single, interest_sexrel, interest_nonmonrel, interest_monrel,
+  select(sex, country, language,
+         political_orientation, age, 
           pref_politicalsim, pref_ethnicalsim, pref_religioussim,
           pref_level_financially_secure_successful_ambitious, pref_level_financially_secure, 
           pref_level_successful_ambitious,
-          pref_level_kind_supportive, pref_level_kind, pref_level_supportive,
-          pref_level_attractiveness, pref_level_attractive_body, pref_level_attractive_face,
           pref_level_confident_assertive, pref_level_confident, pref_level_assertive,
           pref_level_intelligence_educated, pref_level_intelligence, pref_level_educated,
+          pref_level_kind_supportive, pref_level_kind, pref_level_supportive,
+          pref_level_attractiveness, pref_level_attractive_body, pref_level_attractive_face,
           imp_age, ideal_age, ideal_age_rel,
-          imp_height, ideal_height)
+          imp_height, ideal_height,
+         interest_single, interest_sexrel, interest_nonmonrel, interest_monrel
+          )
 
 codebook(data_included)
 ```
