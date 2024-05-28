@@ -35,6 +35,9 @@ editor_options:
 </div>
 
 #### Authors of this Website
-Lena Kuschel (lena.kuschel@stud.uni-goetttingen.de)  
+
 Laura Botzet (botzet@uni-goettingen.de)
+
+Lena Kuschel (lena.kuschel@stud.uni-goettingen.de)  
+
 
