@@ -26,6 +26,7 @@ library(knitr)
 library(dplyr)
 library(jtools)
 library(raincloudplots)
+library(countrycode)
 
 apatheme = theme_bw() +
   theme(panel.grid.major = element_blank(),
@@ -67,8 +68,8 @@ data_included_documented = data_included_documented %>%
 
 ### Missingness Pattern {.tabset}
 ```{r}
-crosstabs(~ is.na(data_included_documented$pref_level_kind) +
-            is.na(data_included_documented$pref_level_supportive))
+# crosstabs(~ is.na(data_included_documented$pref_level_kind) +
+#             is.na(data_included_documented$pref_level_supportive))
 ```
 
 ### Summary {.tabset .active}
@@ -135,18 +136,18 @@ cor.test(data_included_documented$pref_level_attractive_body,
 
 ### Language {.tabset}
 ```{r}
-n = nrow(data_included_documented)
+n_part = nrow(data_included_documented)
 
 table(data_included_documented$language)
 
-round((table(data_included_documented$language)/n)*100,2)
+round((table(data_included_documented$language)/n_part)*100,2)
 ```
 
 ### Country {.tabset}
 ```{r}
 country_absolute = as.data.frame(table(data_included_documented$country))
 
-country_freq = as.data.frame(round((table(data_included_documented$country)/n)*100,2))
+country_freq = as.data.frame(round((table(data_included_documented$country)/n_part)*100,2))
 
 country = left_join(country_absolute, country_freq, by = "Var1")
 country = country %>% rename(Country = Var1,
@@ -155,6 +156,24 @@ country = country %>% rename(Country = Var1,
 kable(country)
 
 write.table(country, file = "country.txt", sep = ",")
+
+kable(country %>% arrange(-n))
+```
+
+```{r}
+country = country %>% 
+  mutate(continent = countrycode(Country,
+                                 origin = "country.name",
+                                 destination = "region"),
+         continent = ifelse(Country == "Micronesia",
+                            "Oceania",
+                            continent))
+
+continents <- country %>%
+  group_by(continent) %>%
+  summarize(n = sum(n)) %>%
+  mutate(freq = round((n/n_part)*100, 2)) %>%
+  arrange(-n)
 ```
 
 ### Descriptives and Correlation Table {.tabset}

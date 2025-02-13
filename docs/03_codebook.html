@@ -13,7 +13,7 @@
 
 <title>Codebook</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -32,28 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<script src="site_libs/htmlwidgets-1.6.3/htmlwidgets.js"></script>
-<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.30/datatables.js"></script>
-<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="site_libs/jszip-1.13.4/jszip.min.js"></script>
-<script src="site_libs/pdfmake-1.13.4/pdfmake.js"></script>
-<script src="site_libs/pdfmake-1.13.4/vfs_fonts.js"></script>
-<link href="site_libs/dt-ext-buttons-1.13.4/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="site_libs/dt-ext-buttons-1.13.4/js/dataTables.buttons.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.4/js/buttons.html5.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.4/js/buttons.colVis.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.4/js/buttons.print.min.js"></script>
-<link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
-<link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="site_libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -76,7 +56,7 @@
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -580,7 +560,8 @@ age</p>
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1200 rows containing non-finite values (`stat_bin()`).</code></pre>
+<pre><code>## Warning: Removed 1200 rows containing non-finite outside the scale range
+## (`stat_bin()`).</code></pre>
 <p><img src="03_codebook_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 </div>
@@ -626,7 +607,7 @@ missing values on any column.</p>
 Metadata for search engines
 </summary>
 <ul>
-<li><strong>Date published</strong>: 2024-02-20</li>
+<li><strong>Date published</strong>: 2025-02-13</li>
 </ul>
 <table class="kable_wrapper">
 <tbody>
@@ -742,9 +723,11 @@ Metadata for search engines
 </tbody>
 </table>
 </details>
-<p>#Variables</p>
 </div>
 </div>
+</div>
+<div id="variables" class="section level2">
+<h2>Variables</h2>
 <div id="sex" class="section level3 tabset">
 <h3 class="tabset">sex</h3>
 <p>Do you identify as…</p>
@@ -3290,15 +3273,673 @@ relationship(s)</td>
 </div>
 <div id="codebook-table" class="section level2">
 <h2>Codebook table</h2>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-5481f617d7ca81c54183" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5481f617d7ca81c54183">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"4614\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.651957456438108\" data-max=\"1\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"144\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.861544313427158\" data-max=\"26.2319873973966\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.435763831355171\" data-max=\"7.28506786990768\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"data":[["<a href=\"#sex\">sex<\/a>","<a href=\"#country\">country<\/a>","<a href=\"#language\">language<\/a>","<a href=\"#political_orientation\">political_orientation<\/a>","<a href=\"#age\">age<\/a>","<a href=\"#pref_politicalsim\">pref_politicalsim<\/a>","<a href=\"#pref_ethnicalsim\">pref_ethnicalsim<\/a>","<a href=\"#pref_religioussim\">pref_religioussim<\/a>","<a href=\"#pref_level_financially_secure_successful_ambitious\">pref_level_financially_secure_successful_ambitious<\/a>","<a href=\"#pref_level_financially_secure\">pref_level_financially_secure<\/a>","<a href=\"#pref_level_successful_ambitious\">pref_level_successful_ambitious<\/a>","<a href=\"#pref_level_confident_assertive\">pref_level_confident_assertive<\/a>","<a href=\"#pref_level_confident\">pref_level_confident<\/a>","<a href=\"#pref_level_assertive\">pref_level_assertive<\/a>","<a href=\"#pref_level_intelligence_educated\">pref_level_intelligence_educated<\/a>","<a href=\"#pref_level_intelligence\">pref_level_intelligence<\/a>","<a href=\"#pref_level_educated\">pref_level_educated<\/a>","<a href=\"#pref_level_kind_supportive\">pref_level_kind_supportive<\/a>","<a href=\"#pref_level_kind\">pref_level_kind<\/a>","<a href=\"#pref_level_supportive\">pref_level_supportive<\/a>","<a href=\"#pref_level_attractiveness\">pref_level_attractiveness<\/a>","<a href=\"#pref_level_attractive_body\">pref_level_attractive_body<\/a>","<a href=\"#pref_level_attractive_face\">pref_level_attractive_face<\/a>","<a href=\"#imp_age\">imp_age<\/a>","<a href=\"#ideal_age\">ideal_age<\/a>","<a href=\"#ideal_age_rel\">ideal_age_rel<\/a>","<a href=\"#imp_height\">imp_height<\/a>","<a href=\"#ideal_height\">ideal_height<\/a>","<a href=\"#interest_single\">interest_single<\/a>","<a href=\"#interest_sexrel\">interest_sexrel<\/a>","<a href=\"#interest_nonmonrel\">interest_nonmonrel<\/a>","<a href=\"#interest_monrel\">interest_monrel<\/a>"],["Do you identify as…","In what country do you live?","Language of Survey","Where would you place yourself on the political spectrum?","How old are you?","Similar political beliefs and values as me - How important is it to you?","Ethnicity/race - Should your partner's ethnicity/race be different or the same as you?","Similar religious beliefs as me - How important is it to you",null,"Financial security - How financially secure should your partner be?","Successful/ambitious - How successful/ambitious should your partner be?",null,"Level of confidence - How confident should your partner be?","Level of assertiveness - How assertive should your partner be?",null,"Level of intelligence - How intelligent should your partner be?","Level of education - How educated should your partner be?",null,"Level of kindness - How kind should your partner be?","Supportive - How supportive should your partner be?",null,"Attractive body - How attractive should your partner's body be?","Attractive face - How attractive should your partner's face be?","How important is the age of your ideal long-term partner?","The perfect age for my ideal long-term partner is __ years old.","The perfect age for my ideal long-term partner is __ years old.","How important is your ideal long-term partner’s height?","My ideal long-term partner’s height is __.","How interested are you in each of the following relationship options at some time in the future? - Being non-partnered (e.g., solo, single, not committed)","How interested are you in each of the following relationship options at some time in the future? - Having sexual, non-romantic relationship(s) (e.g., hookups, one-night stands)","How interested are you in each of the following relationship options at some time in the future? -Having non-monogamous relationship(s)","How interested are you in each of the following relationship options at some time in the future? - Having monogamous relationship(s)"],["character","character","character","haven_labelled","numeric","haven_labelled","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","numeric","haven_labelled","haven_labelled","haven_labelled","numeric","numeric","haven_labelled","numeric","haven_labelled","haven_labelled","haven_labelled","haven_labelled"],[null,null,null,"0. LEFT,<br>6. RIGHT",null,"0. not at all important,<br>6. very important","0. different from me,<br>6. same as me","0. not at all important,<br>6. very important",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very",null,"0. not at all,<br>6. very","0. not at all,<br>6. very","0. not at all important,<br>6. very important",null,null,"0. not at all important,<br>6. very important",null,"0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested","0. not at all interested,<br>6. very interested"],[0,0,0,0,4,308,4614,320,706,557,478,560,367,496,534,370,473,528,338,490,731,654,529,144,1196,1200,231,733,49,64,112,92],[1,1,1,1,0.9996982726106962,0.9767669910236102,0.6519574564381081,0.9758618088556988,0.9467451157878857,0.9579844610394509,0.9639435769782002,0.9577581654974731,0.9723165120313797,0.9625858037263333,0.9597193935279476,0.9720902164894019,0.9643207362148299,0.9601719846119031,0.9745040356038319,0.9630383948102889,0.9448593196047371,0.9506675718488345,0.9600965527645772,0.9891378139850645,0.9097835105981745,0.9094817832088707,0.9825752432677076,0.9447084559100852,0.9963038394810289,0.9951723617711398,0.9915516330994946,0.9930602700460134],[1,144,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["5","4","6","0"," 18.0","0","0","0","  0.0","0","0","  1.0","0","0","  0.5","0","0","  2.0","0","0","  0.0","0","0","0"," 10.0","-34.0","0"," -2.0","0","0","0","0"],[null,null,null,"3","21.0","3","3","3"," 4.5","4","4"," 4.5","5","4"," 5.0","5","5"," 5.0","5","5"," 4.0","4","4","4","25.0"," 2.0","4"," 1.0","2","2","0","6"],["5","32","10","6"," 67","6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","  6","6","6","6","100"," 82","6","  2","6","6","6","6"],[null,null,null,2.528022931281587,23.72028974571795,3.226503977141092,3.273169038528289,2.950761382082399,4.351246912596606,4.251574803149606,4.436184364973785,4.385051586989053,4.686811481768813,4.081498315179061,4.729309125206319,4.785830682082719,4.666536295369212,5.139563202136853,5.258688752999459,5.020678311271246,4.044307839693437,3.840038086169959,4.228394091766185,3.631358194158468,26.23198739739657,2.522683918055901,3.948641179180101,1.028265729798786,2.222970926711084,2.404077920109149,0.8615443134271586,4.819673376376756],[null,null,null,1.366020067149648,6.896534484997524,1.91648023636394,1.439919508249596,2.199673104269181,0.8958860372271881,1.112366274814104,1.075004808385804,0.8409224122375829,1.024134928117028,1.04255991281249,0.8202859836964049,0.8929550213040071,1.030681790861681,0.6994720539511446,0.8538258565071191,0.893364266237763,0.9095593084820356,1.016898826547788,1.04593404620559,1.419649474395947,7.285067869907681,3.142702625132426,1.491129007109801,0.4357638313551717,1.763918047053096,1.982390269372162,1.49812244662002,1.751717145901789],[0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,2,null,2,2,2,null,2,2,null,2,2,null,2,2,null,2,2,null,2,2,2,null,null,2,null,2,2,2,2],[null,null,null,"▂▃▅▇▁▂▁▁","▇▂▁▁▁","▆▂▃▇▁▇▆▅","▁▁▂▇▁▃▂▂","▇▂▃▅▁▅▃▆","▁▁▅▇▆","▁▁▁▅▁▇▆▃","▁▁▁▃▁▇▇▅","▁▂▇▇▃","▁▁▁▂▁▇▇▆","▁▁▁▅▁▇▅▂","▁▁▂▆▇","▁▁▁▁▁▆▇▅","▁▁▁▂▁▇▇▆","▁▁▁▇▇","▁▁▁▁▁▂▆▇","▁▁▁▁▁▅▇▇","▁▁▆▇▅","▁▁▁▆▁▇▃▁","▁▁▁▅▁▇▆▂","▁▁▂▅▁▇▃▂","▇▃▁▁▁","▁▇▁▁▁","▁▁▂▅▁▇▆▃","▁▁▁▇▁","▇▅▅▇▁▃▂▂","▇▃▅▅▁▃▂▃","▇▁▁▁▁▁▁▁","▁▁▁▁▁▂▃▇"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>name<\/th>\n      <th>label<\/th>\n      <th>data_type<\/th>\n      <th>value_labels<\/th>\n      <th>n_missing<\/th>\n      <th>complete_rate<\/th>\n      <th>n_unique<\/th>\n      <th>empty<\/th>\n      <th>min<\/th>\n      <th>median<\/th>\n      <th>max<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n      <th>whitespace<\/th>\n      <th>n_value_labels<\/th>\n      <th>hist<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["copy","csv","excel","pdf","print"],"pageLength":200,"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,50,100,200]}},"evals":[],"jsHooks":[]}</script>
+<table style="width:100%;">
+<colgroup>
+<col width="24%" />
+<col width="37%" />
+<col width="3%" />
+<col width="10%" />
+<col width="2%" />
+<col width="2%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="1%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">label</th>
+<th align="left">data_type</th>
+<th align="left">value_labels</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">n_unique</th>
+<th align="right">empty</th>
+<th align="left">min</th>
+<th align="left">median</th>
+<th align="left">max</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">whitespace</th>
+<th align="right">n_value_labels</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="#sex">sex</a></td>
+<td align="left">Do you identify as…</td>
+<td align="left">character</td>
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="right">1.0000000</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="left">5</td>
+<td align="left">NA</td>
+<td align="left">5</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#country">country</a></td>
+<td align="left">In what country do you live?</td>
+<td align="left">character</td>
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="right">1.0000000</td>
+<td align="right">144</td>
+<td align="right">0</td>
+<td align="left">4</td>
+<td align="left">NA</td>
+<td align="left">32</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#language">language</a></td>
+<td align="left">Language of Survey</td>
+<td align="left">character</td>
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="right">1.0000000</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="left">6</td>
+<td align="left">NA</td>
+<td align="left">10</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#political_orientation">political_orientation</a></td>
+<td align="left">Where would you place yourself on the political
+spectrum?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. LEFT,<br>6. RIGHT</td>
+<td align="right">0</td>
+<td align="right">1.0000000</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="right">2.5280229</td>
+<td align="right">1.3660201</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▂▃▅▇▁▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#age">age</a></td>
+<td align="left">How old are you?</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">4</td>
+<td align="right">0.9996983</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">18.0</td>
+<td align="left">21.0</td>
+<td align="left">67</td>
+<td align="right">23.7202897</td>
+<td align="right">6.8965345</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#pref_politicalsim">pref_politicalsim</a></td>
+<td align="left">Similar political beliefs and values as me - How
+important is it to you?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all important,<br>6. very important</td>
+<td align="right">308</td>
+<td align="right">0.9767670</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="right">3.2265040</td>
+<td align="right">1.9164802</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▆▂▃▇▁▇▆▅</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#pref_ethnicalsim">pref_ethnicalsim</a></td>
+<td align="left">Ethnicity/race - Should your partner’s ethnicity/race
+be different or the same as you?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. different from me,<br>6. same as me</td>
+<td align="right">4614</td>
+<td align="right">0.6519575</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="right">3.2731690</td>
+<td align="right">1.4399195</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▂▇▁▃▂▂</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#pref_religioussim">pref_religioussim</a></td>
+<td align="left">Similar religious beliefs as me - How important is it
+to you</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all important,<br>6. very important</td>
+<td align="right">320</td>
+<td align="right">0.9758618</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="right">2.9507614</td>
+<td align="right">2.1996731</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▇▂▃▅▁▅▃▆</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_financially_secure_successful_ambitious">pref_level_financially_secure_successful_ambitious</a></td>
+<td align="left">NA</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">706</td>
+<td align="right">0.9467451</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0.0</td>
+<td align="left">4.5</td>
+<td align="left">6</td>
+<td align="right">4.3512469</td>
+<td align="right">0.8958860</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▁▅▇▆</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_financially_secure">pref_level_financially_secure</a></td>
+<td align="left">Financial security - How financially secure should your
+partner be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">557</td>
+<td align="right">0.9579845</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">4.2515748</td>
+<td align="right">1.1123663</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▅▁▇▆▃</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_successful_ambitious">pref_level_successful_ambitious</a></td>
+<td align="left">Successful/ambitious - How successful/ambitious should
+your partner be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">478</td>
+<td align="right">0.9639436</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">4.4361844</td>
+<td align="right">1.0750048</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▃▁▇▇▅</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_confident_assertive">pref_level_confident_assertive</a></td>
+<td align="left">NA</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">560</td>
+<td align="right">0.9577582</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">1.0</td>
+<td align="left">4.5</td>
+<td align="left">6</td>
+<td align="right">4.3850516</td>
+<td align="right">0.8409224</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▂▇▇▃</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_confident">pref_level_confident</a></td>
+<td align="left">Level of confidence - How confident should your partner
+be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">367</td>
+<td align="right">0.9723165</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="right">4.6868115</td>
+<td align="right">1.0241349</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▂▁▇▇▆</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_assertive">pref_level_assertive</a></td>
+<td align="left">Level of assertiveness - How assertive should your
+partner be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">496</td>
+<td align="right">0.9625858</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">4.0814983</td>
+<td align="right">1.0425599</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▅▁▇▅▂</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_intelligence_educated">pref_level_intelligence_educated</a></td>
+<td align="left">NA</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">534</td>
+<td align="right">0.9597194</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0.5</td>
+<td align="left">5.0</td>
+<td align="left">6</td>
+<td align="right">4.7293091</td>
+<td align="right">0.8202860</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▁▂▆▇</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_intelligence">pref_level_intelligence</a></td>
+<td align="left">Level of intelligence - How intelligent should your
+partner be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">370</td>
+<td align="right">0.9720902</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="right">4.7858307</td>
+<td align="right">0.8929550</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▁▁▆▇▅</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_educated">pref_level_educated</a></td>
+<td align="left">Level of education - How educated should your partner
+be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">473</td>
+<td align="right">0.9643207</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="right">4.6665363</td>
+<td align="right">1.0306818</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▂▁▇▇▆</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_kind_supportive">pref_level_kind_supportive</a></td>
+<td align="left">NA</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">528</td>
+<td align="right">0.9601720</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">2.0</td>
+<td align="left">5.0</td>
+<td align="left">6</td>
+<td align="right">5.1395632</td>
+<td align="right">0.6994721</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▁▁▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#pref_level_kind">pref_level_kind</a></td>
+<td align="left">Level of kindness - How kind should your partner
+be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">338</td>
+<td align="right">0.9745040</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="right">5.2586888</td>
+<td align="right">0.8538259</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▁▁▂▆▇</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_supportive">pref_level_supportive</a></td>
+<td align="left">Supportive - How supportive should your partner
+be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">490</td>
+<td align="right">0.9630384</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="right">5.0206783</td>
+<td align="right">0.8933643</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▁▁▅▇▇</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_attractiveness">pref_level_attractiveness</a></td>
+<td align="left">NA</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">731</td>
+<td align="right">0.9448593</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0.0</td>
+<td align="left">4.0</td>
+<td align="left">6</td>
+<td align="right">4.0443078</td>
+<td align="right">0.9095593</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▁▆▇▅</td>
+</tr>
+<tr class="even">
+<td
+align="left"><a href="#pref_level_attractive_body">pref_level_attractive_body</a></td>
+<td align="left">Attractive body - How attractive should your partner’s
+body be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">654</td>
+<td align="right">0.9506676</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">3.8400381</td>
+<td align="right">1.0168988</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▆▁▇▃▁</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#pref_level_attractive_face">pref_level_attractive_face</a></td>
+<td align="left">Attractive face - How attractive should your partner’s
+face be?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all,<br>6. very</td>
+<td align="right">529</td>
+<td align="right">0.9600966</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">4.2283941</td>
+<td align="right">1.0459340</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▅▁▇▆▂</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#imp_age">imp_age</a></td>
+<td align="left">How important is the age of your ideal long-term
+partner?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all important,<br>6. very important</td>
+<td align="right">144</td>
+<td align="right">0.9891378</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">3.6313582</td>
+<td align="right">1.4196495</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▂▅▁▇▃▂</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#ideal_age">ideal_age</a></td>
+<td align="left">The perfect age for my ideal long-term partner is __
+years old.</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">1196</td>
+<td align="right">0.9097835</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">10.0</td>
+<td align="left">25.0</td>
+<td align="left">100</td>
+<td align="right">26.2319874</td>
+<td align="right">7.2850679</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▇▃▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#ideal_age_rel">ideal_age_rel</a></td>
+<td align="left">The perfect age for my ideal long-term partner is __
+years old.</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">1200</td>
+<td align="right">0.9094818</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">-34.0</td>
+<td align="left">2.0</td>
+<td align="left">82</td>
+<td align="right">2.5226839</td>
+<td align="right">3.1427026</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▇▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#imp_height">imp_height</a></td>
+<td align="left">How important is your ideal long-term partner’s
+height?</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all important,<br>6. very important</td>
+<td align="right">231</td>
+<td align="right">0.9825752</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="right">3.9486412</td>
+<td align="right">1.4911290</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▂▅▁▇▆▃</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#ideal_height">ideal_height</a></td>
+<td align="left">My ideal long-term partner’s height is __.</td>
+<td align="left">numeric</td>
+<td align="left">NA</td>
+<td align="right">733</td>
+<td align="right">0.9447085</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">-2.0</td>
+<td align="left">1.0</td>
+<td align="left">2</td>
+<td align="right">1.0282657</td>
+<td align="right">0.4357638</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">▁▁▁▇▁</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="#interest_single">interest_single</a></td>
+<td align="left">How interested are you in each of the following
+relationship options at some time in the future? - Being non-partnered
+(e.g., solo, single, not committed)</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all interested,<br>6. very interested</td>
+<td align="right">49</td>
+<td align="right">0.9963038</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">2</td>
+<td align="left">6</td>
+<td align="right">2.2229709</td>
+<td align="right">1.7639180</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▇▅▅▇▁▃▂▂</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#interest_sexrel">interest_sexrel</a></td>
+<td align="left">How interested are you in each of the following
+relationship options at some time in the future? - Having sexual,
+non-romantic relationship(s) (e.g., hookups, one-night stands)</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all interested,<br>6. very interested</td>
+<td align="right">64</td>
+<td align="right">0.9951724</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">2</td>
+<td align="left">6</td>
+<td align="right">2.4040779</td>
+<td align="right">1.9823903</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▇▃▅▅▁▃▂▃</td>
+</tr>
+<tr class="odd">
+<td
+align="left"><a href="#interest_nonmonrel">interest_nonmonrel</a></td>
+<td align="left">How interested are you in each of the following
+relationship options at some time in the future? -Having non-monogamous
+relationship(s)</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all interested,<br>6. very interested</td>
+<td align="right">112</td>
+<td align="right">0.9915516</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">6</td>
+<td align="right">0.8615443</td>
+<td align="right">1.4981224</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▇▁▁▁▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#interest_monrel">interest_monrel</a></td>
+<td align="left">How interested are you in each of the following
+relationship options at some time in the future? - Having monogamous
+relationship(s)</td>
+<td align="left">haven_labelled</td>
+<td align="left">0. not at all interested,<br>6. very interested</td>
+<td align="right">92</td>
+<td align="right">0.9930603</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">0</td>
+<td align="left">6</td>
+<td align="left">6</td>
+<td align="right">4.8196734</td>
+<td align="right">1.7517171</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="left">▁▁▁▁▁▂▃▇</td>
+</tr>
+</tbody>
+</table>
 <script type="application/ld+json">
 {
   "name": "data_included",
-  "datePublished": "2024-02-20",
-  "description": "The dataset has N=13257 rows and 32 columns.\n7195 rows have no missing values on any column.\n\n\n## Table of variables\nThis table contains variable names, labels, and number of missing values.\nSee the complete codebook for more.\n\n[truncated]\n\n### Note\nThis dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.2).",
+  "datePublished": "2025-02-13",
+  "description": "The dataset has N=13257 rows and 32 columns.\n7195 rows have no missing values on any column.\n\n\n## Table of variables\nThis table contains variable names, labels, and number of missing values.\nSee the complete codebook for more.\n\n[truncated]\n\n### Note\nThis dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.6).",
   "keywords": ["sex", "country", "language", "political_orientation", "age", "pref_politicalsim", "pref_ethnicalsim", "pref_religioussim", "pref_level_financially_secure_successful_ambitious", "pref_level_financially_secure", "pref_level_successful_ambitious", "pref_level_confident_assertive", "pref_level_confident", "pref_level_assertive", "pref_level_intelligence_educated", "pref_level_intelligence", "pref_level_educated", "pref_level_kind_supportive", "pref_level_kind", "pref_level_supportive", "pref_level_attractiveness", "pref_level_attractive_body", "pref_level_attractive_face", "imp_age", "ideal_age", "ideal_age_rel", "imp_height", "ideal_height", "interest_single", "interest_sexrel", "interest_nonmonrel", "interest_monrel"],
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Dataset",
   "variableMeasured": [
     {
@@ -3528,10 +4169,10 @@ this codebook publicly on the web.</p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;data_included&quot;</span><span class="fu">,</span></span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="dt">&quot;datePublished&quot;</span><span class="fu">:</span> <span class="st">&quot;2024-02-20&quot;</span><span class="fu">,</span></span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;The dataset has N=13257 rows and 32 columns.</span><span class="ch">\n</span><span class="st">7195 rows have no missing values on any column.</span><span class="ch">\n\n\n</span><span class="st">## Table of variables</span><span class="ch">\n</span><span class="st">This table contains variable names, labels, and number of missing values.</span><span class="ch">\n</span><span class="st">See the complete codebook for more.</span><span class="ch">\n\n</span><span class="st">[truncated]</span><span class="ch">\n\n</span><span class="st">### Note</span><span class="ch">\n</span><span class="st">This dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.2).&quot;</span><span class="fu">,</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="dt">&quot;datePublished&quot;</span><span class="fu">:</span> <span class="st">&quot;2025-02-13&quot;</span><span class="fu">,</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;The dataset has N=13257 rows and 32 columns.</span><span class="ch">\n</span><span class="st">7195 rows have no missing values on any column.</span><span class="ch">\n\n\n</span><span class="st">## Table of variables</span><span class="ch">\n</span><span class="st">This table contains variable names, labels, and number of missing values.</span><span class="ch">\n</span><span class="st">See the complete codebook for more.</span><span class="ch">\n\n</span><span class="st">[truncated]</span><span class="ch">\n\n</span><span class="st">### Note</span><span class="ch">\n</span><span class="st">This dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.6).&quot;</span><span class="fu">,</span></span>
 <span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>  <span class="dt">&quot;keywords&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;sex&quot;</span><span class="ot">,</span> <span class="st">&quot;country&quot;</span><span class="ot">,</span> <span class="st">&quot;language&quot;</span><span class="ot">,</span> <span class="st">&quot;political_orientation&quot;</span><span class="ot">,</span> <span class="st">&quot;age&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_politicalsim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_ethnicalsim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_religioussim&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_financially_secure_successful_ambitious&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_financially_secure&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_successful_ambitious&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_confident_assertive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_confident&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_assertive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_intelligence_educated&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_intelligence&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_educated&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_kind_supportive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_kind&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_supportive&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractiveness&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractive_body&quot;</span><span class="ot">,</span> <span class="st">&quot;pref_level_attractive_face&quot;</span><span class="ot">,</span> <span class="st">&quot;imp_age&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_age&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_age_rel&quot;</span><span class="ot">,</span> <span class="st">&quot;imp_height&quot;</span><span class="ot">,</span> <span class="st">&quot;ideal_height&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_single&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_sexrel&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_nonmonrel&quot;</span><span class="ot">,</span> <span class="st">&quot;interest_monrel&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://schema.org/&quot;</span><span class="fu">,</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;https://schema.org/&quot;</span><span class="fu">,</span></span>
 <span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Dataset&quot;</span><span class="fu">,</span></span>
 <span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>  <span class="dt">&quot;variableMeasured&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>    <span class="fu">{</span></span>

@@ -179,7 +179,6 @@ fulldata_selected_wrangled$ideal_height_numeric =
          'around the same height as me' = 0, 'taller than me' = 1,
          'much taller than me' = 2, .default = NULL, .missing = NULL)
 
-crosstabs(~ideal_height_numeric + ideal_height, data = fulldata_selected_wrangled)
 table(fulldata_selected_wrangled$ideal_height)
 class(fulldata_selected_wrangled$ideal_height_numeric)
 levels(fulldata_selected_wrangled$ideal_height_numeric)

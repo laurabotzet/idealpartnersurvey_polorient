@@ -13,7 +13,7 @@
 
 <title>Descriptives</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -56,7 +56,7 @@
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -443,14 +443,15 @@ $(document).ready(function () {
 ##     intersect, setdiff, setequal, union</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">library</span>(raincloudplots)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>apatheme <span class="ot">=</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(),</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">library</span>(countrycode)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>apatheme <span class="ot">=</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(),</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
@@ -481,18 +482,14 @@ $(document).ready(function () {
 </div>
 <div id="missingness-pattern" class="section level3 tabset">
 <h3 class="tabset">Missingness Pattern</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">crosstabs</span>(<span class="sc">~</span> <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_kind) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>            <span class="fu">is.na</span>(data_included_documented<span class="sc">$</span>pref_level_supportive))</span></code></pre></div>
-<pre><code>##                                                is.na(data_included_documented$pref_level_supportive)
-## is.na(data_included_documented$pref_level_kind) FALSE  TRUE
-##                                           FALSE 12729   190
-##                                           TRUE     38   300</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># crosstabs(~ is.na(data_included_documented$pref_level_kind) +</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#             is.na(data_included_documented$pref_level_supportive))</span></span></code></pre></div>
 </div>
 <div id="summary" class="section level3 tabset active">
 <h3 class="tabset active">Summary</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">describe</span>(data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>           <span class="fu">select_if</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">describe</span>(data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>           <span class="fu">select_if</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="33%" />
@@ -982,36 +979,36 @@ $(document).ready(function () {
 </div>
 <div id="political-orientation" class="section level3 tabset">
 <h3 class="tabset">Political Orientation</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">mean</span>(data_included_documented<span class="sc">$</span>political_orientation) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">mean</span>(data_included_documented<span class="sc">$</span>political_orientation) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 2.53</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">sd</span>(data_included_documented<span class="sc">$</span>political_orientation) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">sd</span>(data_included_documented<span class="sc">$</span>political_orientation) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1.37</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">range</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">range</span>(data_included_documented<span class="sc">$</span>political_orientation)</span></code></pre></div>
 <pre><code>## [1] 0 6</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_included_documented, <span class="fu">aes</span>(<span class="at">x =</span> political_orientation)) <span class="sc">+</span> </span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Political Orientation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)<span class="sc">+</span> </span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>), <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))<span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>  apatheme</span>
-<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>hist</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_included_documented, <span class="fu">aes</span>(<span class="at">x =</span> political_orientation)) <span class="sc">+</span> </span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Political Orientation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>), <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>))<span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  apatheme</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>hist</span></code></pre></div>
 <p><img src="04_descriptives_files/figure-html/Political%20Orientation-1.png" width="672" /></p>
 <div id="save-image" class="section level4">
 <h4>Save Image</h4>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;PO_Histogram.jpeg&quot;</span>, <span class="at">width =</span> <span class="dv">1580</span>, <span class="at">height =</span> <span class="dv">836</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>hist</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;PO_Histogram.jpeg&quot;</span>, <span class="at">width =</span> <span class="dv">1580</span>, <span class="at">height =</span> <span class="dv">836</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>hist</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## png 
 ##   2</code></pre>
 </div>
 <div id="correlation-between-political-orientation-and-age"
 class="section level4">
 <h4>Correlation between political orientation and age</h4>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>political_orientation,</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>age,</span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>political_orientation,</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>age,</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1028,9 +1025,9 @@ class="section level4">
 <div id="correlations-for-ideal-partner-preferences"
 class="section level3 tabset">
 <h3 class="tabset">Correlations for Ideal Partner Preferences</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_financially_secure,</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_successful_ambitious,</span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_financially_secure,</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_successful_ambitious,</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1042,9 +1039,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.3554542</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_confident,</span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_assertive,</span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_confident,</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_assertive,</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1056,9 +1053,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.3293371</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_intelligence,</span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_educated,</span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_intelligence,</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_educated,</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1070,9 +1067,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.4607491</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_kind,</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_supportive,</span>
-<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_kind,</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_supportive,</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1084,9 +1081,9 @@ class="section level3 tabset">
 ## sample estimates:
 ##       cor 
 ## 0.2825571</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_attractive_body,</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_attractive_face,</span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">cor.test</span>(data_included_documented<span class="sc">$</span>pref_level_attractive_body,</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>         data_included_documented<span class="sc">$</span>pref_level_attractive_face,</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1101,15 +1098,15 @@ class="section level3 tabset">
 </div>
 <div id="language" class="section level3 tabset">
 <h3 class="tabset">Language</h3>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(data_included_documented)</span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>n_part <span class="ot">=</span> <span class="fu">nrow</span>(data_included_documented)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##         96        385       2849       2385       2187        999        287 
 ## portuguese    russian    spanish 
 ##        825        207       3037</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>language)<span class="sc">/</span>n_part)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## 
 ##    chinese     danish    english     french     german    italian   japanese 
 ##       0.72       2.90      21.49      17.99      16.50       7.54       2.16 
@@ -1118,15 +1115,15 @@ class="section level3 tabset">
 </div>
 <div id="country" class="section level3 tabset">
 <h3 class="tabset">Country</h3>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>country_absolute <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country))</span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>country_freq <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country)<span class="sc">/</span>n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>country <span class="ot">=</span> <span class="fu">left_join</span>(country_absolute, country_freq, <span class="at">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>country <span class="ot">=</span> country <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Country =</span> Var1,</span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>                   <span class="at">n =</span> Freq.x,</span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a>                   <span class="at">percentage =</span> Freq.y)</span>
-<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="fu">kable</span>(country)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>country_absolute <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country))</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>country_freq <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">round</span>((<span class="fu">table</span>(data_included_documented<span class="sc">$</span>country)<span class="sc">/</span>n_part)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>country <span class="ot">=</span> <span class="fu">left_join</span>(country_absolute, country_freq, <span class="at">by =</span> <span class="st">&quot;Var1&quot;</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>country <span class="ot">=</span> country <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Country =</span> Var1,</span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a>                   <span class="at">n =</span> Freq.x,</span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>                   <span class="at">percentage =</span> Freq.y)</span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a><span class="fu">kable</span>(country)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1858,32 +1855,782 @@ class="section level3 tabset">
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">write.table</span>(country, <span class="at">file =</span> <span class="st">&quot;country.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="fu">kable</span>(country <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>n))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="right">n</th>
+<th align="right">percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">France</td>
+<td align="right">2013</td>
+<td align="right">15.18</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="right">1846</td>
+<td align="right">13.92</td>
+</tr>
+<tr class="odd">
+<td align="left">United States of America</td>
+<td align="right">1254</td>
+<td align="right">9.46</td>
+</tr>
+<tr class="even">
+<td align="left">Mexico</td>
+<td align="right">1157</td>
+<td align="right">8.73</td>
+</tr>
+<tr class="odd">
+<td align="left">Italy</td>
+<td align="right">968</td>
+<td align="right">7.30</td>
+</tr>
+<tr class="even">
+<td align="left">Brazil</td>
+<td align="right">806</td>
+<td align="right">6.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="right">562</td>
+<td align="right">4.24</td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="right">499</td>
+<td align="right">3.76</td>
+</tr>
+<tr class="odd">
+<td align="left">Denmark</td>
+<td align="right">395</td>
+<td align="right">2.98</td>
+</tr>
+<tr class="even">
+<td align="left">Colombia</td>
+<td align="right">387</td>
+<td align="right">2.92</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">338</td>
+<td align="right">2.55</td>
+</tr>
+<tr class="even">
+<td align="left">Japan</td>
+<td align="right">290</td>
+<td align="right">2.19</td>
+</tr>
+<tr class="odd">
+<td align="left">Switzerland</td>
+<td align="right">280</td>
+<td align="right">2.11</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">217</td>
+<td align="right">1.64</td>
+</tr>
+<tr class="odd">
+<td align="left">Austria</td>
+<td align="right">197</td>
+<td align="right">1.49</td>
+</tr>
+<tr class="even">
+<td align="left">Russia</td>
+<td align="right">155</td>
+<td align="right">1.17</td>
+</tr>
+<tr class="odd">
+<td align="left">Chile</td>
+<td align="right">154</td>
+<td align="right">1.16</td>
+</tr>
+<tr class="even">
+<td align="left">Australia</td>
+<td align="right">133</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Peru</td>
+<td align="right">119</td>
+<td align="right">0.90</td>
+</tr>
+<tr class="even">
+<td align="left">Belgium</td>
+<td align="right">102</td>
+<td align="right">0.77</td>
+</tr>
+<tr class="odd">
+<td align="left">Ecuador</td>
+<td align="right">102</td>
+<td align="right">0.77</td>
+</tr>
+<tr class="even">
+<td align="left">China</td>
+<td align="right">90</td>
+<td align="right">0.68</td>
+</tr>
+<tr class="odd">
+<td align="left">Venezuela</td>
+<td align="right">67</td>
+<td align="right">0.51</td>
+</tr>
+<tr class="even">
+<td align="left">Guatemala</td>
+<td align="right">61</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="odd">
+<td align="left">Ireland</td>
+<td align="right">59</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="even">
+<td align="left">Portugal</td>
+<td align="right">51</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="odd">
+<td align="left">Costa Rica</td>
+<td align="right">47</td>
+<td align="right">0.35</td>
+</tr>
+<tr class="even">
+<td align="left">India</td>
+<td align="right">45</td>
+<td align="right">0.34</td>
+</tr>
+<tr class="odd">
+<td align="left">Netherlands</td>
+<td align="right">44</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td align="left">Dominican Republic</td>
+<td align="right">41</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td align="left">Philippines</td>
+<td align="right">36</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="even">
+<td align="left">New Zealand</td>
+<td align="right">34</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="odd">
+<td align="left">Finland</td>
+<td align="right">31</td>
+<td align="right">0.23</td>
+</tr>
+<tr class="even">
+<td align="left">South Africa</td>
+<td align="right">29</td>
+<td align="right">0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">Sweden</td>
+<td align="right">27</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="even">
+<td align="left">El Salvador</td>
+<td align="right">26</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="odd">
+<td align="left">Singapore</td>
+<td align="right">26</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="even">
+<td align="left">Romania</td>
+<td align="right">24</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="odd">
+<td align="left">Uruguay</td>
+<td align="right">24</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="even">
+<td align="left">Bolivia</td>
+<td align="right">23</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">Ukraine</td>
+<td align="right">21</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">Honduras</td>
+<td align="right">18</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="odd">
+<td align="left">Indonesia</td>
+<td align="right">18</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="even">
+<td align="left">Malaysia</td>
+<td align="right">17</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="odd">
+<td align="left">Morocco</td>
+<td align="right">16</td>
+<td align="right">0.12</td>
+</tr>
+<tr class="even">
+<td align="left">Nicaragua</td>
+<td align="right">15</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Panama</td>
+<td align="right">15</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="even">
+<td align="left">United Arab Emirates</td>
+<td align="right">14</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td align="left">Belarus</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="even">
+<td align="left">Israel</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Luxembourg</td>
+<td align="right">13</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="even">
+<td align="left">Estonia</td>
+<td align="right">12</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td align="left">Norway</td>
+<td align="right">12</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">Czechia</td>
+<td align="right">11</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Paraguay</td>
+<td align="right">11</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="even">
+<td align="left">Bulgaria</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Hungary</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td align="left">Kazakhstan</td>
+<td align="right">9</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">Hong Kong</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">Latvia</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Pakistan</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">Trinidad and Tobago</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Turkey</td>
+<td align="right">8</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">Algeria</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Iran</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Poland</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Taiwan</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Tunisia</td>
+<td align="right">7</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Andorra</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Bosnia and Herzegovina</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Croatia</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Jamaica</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Kenya</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Nigeria</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Saudi Arabia</td>
+<td align="right">6</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Iceland</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">Senegal</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">Serbia</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">South Korea</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">Greece</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">Haiti</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Namibia</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">Thailand</td>
+<td align="right">4</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Bahrain</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Cameroon</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Egypt</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Georgia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Ghana</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Guyana</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Lebanon</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Lithuania</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Slovakia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Slovenia</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Sri Lanka</td>
+<td align="right">3</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Albania</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Antigua and Barbuda</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Armenia</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Benin</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Central African Republic</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Dominica</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Jordan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Kyrgyzstan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Mali</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Malta</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Mauritius</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Palestinian Territories</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Qatar</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Saint Lucia</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Turkmenistan</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">Vietnam</td>
+<td align="right">2</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Afghanistan</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Aruba</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Bahamas, The</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Barbados</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Belize</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Botswana</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Burma</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Cote d’Ivoire</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Cuba</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">East Timor (see Timor-Leste)</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethiopia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Fiji</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Grenada</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Guinea-Bissau</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Iraq</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Kuwait</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Liechtenstein</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Macedonia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Madagascar</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Maldives</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Marshall Islands</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Mauritania</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Micronesia</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Monaco</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Montenegro</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Nepal</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Saint Vincent and the Grenadines</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Sint Maarten</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">South Sudan</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Swaziland</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Syria</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Tanzania</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Uganda</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Zimbabwe</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>country <span class="ot">=</span> country <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">continent =</span> <span class="fu">countrycode</span>(Country,</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>                                 <span class="at">origin =</span> <span class="st">&quot;country.name&quot;</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>                                 <span class="at">destination =</span> <span class="st">&quot;region&quot;</span>),</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>         <span class="at">continent =</span> <span class="fu">ifelse</span>(Country <span class="sc">==</span> <span class="st">&quot;Micronesia&quot;</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>                            <span class="st">&quot;Oceania&quot;</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a>                            continent))</span></code></pre></div>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `continent = countrycode(Country, origin = &quot;country.name&quot;,
+##   destination = &quot;region&quot;)`.
+## Caused by warning:
+## ! Some values were not matched unambiguously: Micronesia</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>continents <span class="ot">&lt;-</span> country <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq =</span> <span class="fu">round</span>((n<span class="sc">/</span>n_part)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code></pre></div>
 </div>
 <div id="descriptives-and-correlation-table"
 class="section level3 tabset">
 <h3 class="tabset">Descriptives and Correlation Table</h3>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>         age,</span>
-<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>         pref_politicalsim, </span>
-<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>         pref_ethnicalsim, </span>
-<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>         pref_religioussim,</span>
-<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>         pref_level_financially_secure_successful_ambitious,</span>
-<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>         pref_level_confident_assertive,</span>
-<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
-<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a>         pref_level_kind_supportive, </span>
-<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>         pref_level_attractiveness, </span>
-<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a>         imp_age, </span>
-<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a>         ideal_age, </span>
-<span id="cb41-14"><a href="#cb41-14" tabindex="-1"></a>         imp_height, </span>
-<span id="cb41-15"><a href="#cb41-15" tabindex="-1"></a>         ideal_height,</span>
-<span id="cb41-16"><a href="#cb41-16" tabindex="-1"></a>         interest_single,</span>
-<span id="cb41-17"><a href="#cb41-17" tabindex="-1"></a>         interest_sexrel, </span>
-<span id="cb41-18"><a href="#cb41-18" tabindex="-1"></a>         interest_nonmonrel, </span>
-<span id="cb41-19"><a href="#cb41-19" tabindex="-1"></a>         interest_monrel, </span>
-<span id="cb41-20"><a href="#cb41-20" tabindex="-1"></a>         ) </span>
-<span id="cb41-21"><a href="#cb41-21" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>cor <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">select</span>(political_orientation,</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>         age,</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>         pref_politicalsim, </span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>         pref_ethnicalsim, </span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>         pref_religioussim,</span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>         pref_level_financially_secure_successful_ambitious,</span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>         pref_level_confident_assertive,</span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>         pref_level_intelligence_educated, </span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>         pref_level_kind_supportive, </span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a>         pref_level_attractiveness, </span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a>         imp_age, </span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a>         ideal_age, </span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a>         imp_height, </span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>         ideal_height,</span>
+<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>         interest_single,</span>
+<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a>         interest_sexrel, </span>
+<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a>         interest_nonmonrel, </span>
+<span id="cb43-19"><a href="#cb43-19" tabindex="-1"></a>         interest_monrel, </span>
+<span id="cb43-20"><a href="#cb43-20" tabindex="-1"></a>         ) </span>
+<span id="cb43-21"><a href="#cb43-21" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(<span class="fu">cor</span>(cor, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>),<span class="dv">2</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="12%" />
@@ -2311,11 +3058,11 @@ align="right">pref_level_financially_secure_successful_ambitious</th>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>apa_table_cor <span class="ot">=</span> <span class="fu">apa.cor.table</span>(cor, <span class="at">filename =</span> <span class="st">&quot;descriptives.doc&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAic2hvdyINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KDQojIyMgTGlicmFyeQ0KYGBge3IgTGlicmFyeX0NCmxpYnJhcnkoYXBhVGFibGVzKQ0KbGlicmFyeShmb3JtcikNCiMgbGlicmFyeShlZmZlY3RzKQ0KIyBsaWJyYXJ5KGVmZmVjdHNpemUpDQojIGxpYnJhcnkobG1lNCkNCiMgbGlicmFyeShzanN0YXRzKQ0KIyBsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeShwc3ljaCkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShqdG9vbHMpDQpsaWJyYXJ5KHJhaW5jbG91ZHBsb3RzKQ0KDQphcGF0aGVtZSA9IHRoZW1lX2J3KCkgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMubGluZSA9IGVsZW1lbnRfbGluZSgpLA0KICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpKQ0KDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQoNCmRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgZmlsdGVyKCFpcy5uYShwb2xpdGljYWxfb3JpZW50YXRpb24pKQ0KDQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIHNlbGVjdChzZXgsIGFnZSwgbGFuZ3VhZ2UsIGNvdW50cnksDQogICAgICAgICBwb2xpdGljYWxfb3JpZW50YXRpb24sDQogICAgICAgICBwcmVmX3BvbGl0aWNhbHNpbSwgcHJlZl9ldGhuaWNhbHNpbSwgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlLCBwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLCANCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50LCBwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLA0KICAgICAgICAgcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsIHByZWZfbGV2ZWxfZWR1Y2F0ZWQsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfa2luZCwgcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywNCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZV9ib2R5LCBwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGltcF9hZ2UsIGlkZWFsX2FnZSwNCiAgICAgICAgIGltcF9oZWlnaHQsIGlkZWFsX2hlaWdodCwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwgaW50ZXJlc3Rfc2V4cmVsLCBpbnRlcmVzdF9ub25tb25yZWwsIGludGVyZXN0X21vbnJlbA0KICAgICAgICAgKQ0KYGBgDQoNCiMjIyBNaXNzaW5nbmVzcyBQYXR0ZXJuIHsudGFic2V0fQ0KYGBge3J9DQpjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQogICAgICAgICAgICBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlKSkNCmBgYA0KDQojIyMgU3VtbWFyeSB7LnRhYnNldCAuYWN0aXZlfQ0KYGBge3IgU3VtbWFyeX0NCmRlc2NyaWJlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgc2VsZWN0X2lmKGlzLm51bWVyaWMpKSAlPiUNCiAga2FibGUoKQ0KYGBgDQoNCiMjIyBQb2xpdGljYWwgT3JpZW50YXRpb24gey50YWJzZXR9DQpgYGB7ciBQb2xpdGljYWwgT3JpZW50YXRpb259DQptZWFuKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pICU+JSByb3VuZCguLCAyKQ0Kc2QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikgJT4lIHJvdW5kKC4sIDIpDQpyYW5nZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKQ0KDQpoaXN0IDwtIGdncGxvdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGFlcyh4ID0gcG9saXRpY2FsX29yaWVudGF0aW9uKSkgKyANCiAgZ2VvbV9oaXN0b2dyYW0oY29sID0gImdyZXkiLCBiaW53aWR0aCA9IDAuNSwgY2VudGVyID0gMCkgKw0KICBsYWJzKHggPSAiUG9saXRpY2FsIE9yaWVudGF0aW9uIiwgeSA9ICJOdW1iZXIgb2YgUGFydGljaXBhbnRzIikrIA0KICB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KHNpemU9MTUpLCBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApLA0KICAgICAgICBheGlzLnRleHQueSA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApKSsNCiBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMCwgMSwgMiwgMywgNCwgNSwgNikpKw0KICBhcGF0aGVtZQ0KDQpoaXN0DQpgYGANCg0KDQojIyMjIFNhdmUgSW1hZ2UNCmBgYHtyfQ0KanBlZygiUE9fSGlzdG9ncmFtLmpwZWciLCB3aWR0aCA9IDE1ODAsIGhlaWdodCA9IDgzNiwgcmVzID0gMzAwKQ0KaGlzdA0KZGV2Lm9mZigpDQpgYGANCg0KIyMjIyBDb3JyZWxhdGlvbiBiZXR3ZWVuIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgYWdlDQpgYGB7cn0NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24sDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkYWdlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQpgYGANCg0KIyMjIENvcnJlbGF0aW9ucyBmb3IgSWRlYWwgUGFydG5lciBQcmVmZXJlbmNlcyB7LnRhYnNldH0NCmBgYHtyIENvcnJlbGF0aW9ucyBmb3IgaWRlYWwgcGFydG5lciBwcmVmZXJlbmNlc30NCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2NvbmZpZGVudCwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2Fzc2VydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2UsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9lZHVjYXRlZCwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KDQpjb3IudGVzdChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2JvZHksDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCmBgYA0KDQojIyMgTGFuZ3VhZ2Ugey50YWJzZXR9DQpgYGB7cn0NCm4gPSBucm93KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkNCg0KdGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGxhbmd1YWdlKQ0KDQpyb3VuZCgodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGxhbmd1YWdlKS9uKSoxMDAsMikNCmBgYA0KDQojIyMgQ291bnRyeSB7LnRhYnNldH0NCmBgYHtyfQ0KY291bnRyeV9hYnNvbHV0ZSA9IGFzLmRhdGEuZnJhbWUodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGNvdW50cnkpKQ0KDQpjb3VudHJ5X2ZyZXEgPSBhcy5kYXRhLmZyYW1lKHJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkvbikqMTAwLDIpKQ0KDQpjb3VudHJ5ID0gbGVmdF9qb2luKGNvdW50cnlfYWJzb2x1dGUsIGNvdW50cnlfZnJlcSwgYnkgPSAiVmFyMSIpDQpjb3VudHJ5ID0gY291bnRyeSAlPiUgcmVuYW1lKENvdW50cnkgPSBWYXIxLA0KICAgICAgICAgICAgICAgICAgIG4gPSBGcmVxLngsDQogICAgICAgICAgICAgICAgICAgcGVyY2VudGFnZSA9IEZyZXEueSkNCmthYmxlKGNvdW50cnkpDQoNCndyaXRlLnRhYmxlKGNvdW50cnksIGZpbGUgPSAiY291bnRyeS50eHQiLCBzZXAgPSAiLCIpDQpgYGANCg0KIyMjIERlc2NyaXB0aXZlcyBhbmQgQ29ycmVsYXRpb24gVGFibGUgey50YWJzZXR9DQpgYGB7cn0NCmNvciA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgc2VsZWN0KHBvbGl0aWNhbF9vcmllbnRhdGlvbiwNCiAgICAgICAgIGFnZSwNCiAgICAgICAgIHByZWZfcG9saXRpY2Fsc2ltLCANCiAgICAgICAgIHByZWZfZXRobmljYWxzaW0sIA0KICAgICAgICAgcHJlZl9yZWxpZ2lvdXNzaW0sDQogICAgICAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkLCANCiAgICAgICAgIHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCANCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIA0KICAgICAgICAgaW1wX2FnZSwgDQogICAgICAgICBpZGVhbF9hZ2UsIA0KICAgICAgICAgaW1wX2hlaWdodCwgDQogICAgICAgICBpZGVhbF9oZWlnaHQsDQogICAgICAgICBpbnRlcmVzdF9zaW5nbGUsDQogICAgICAgICBpbnRlcmVzdF9zZXhyZWwsIA0KICAgICAgICAgaW50ZXJlc3Rfbm9ubW9ucmVsLCANCiAgICAgICAgIGludGVyZXN0X21vbnJlbCwgDQogICAgICAgICApIA0Ka2FibGUocm91bmQoY29yKGNvciwgdXNlPSJwYWlyd2lzZS5jb21wbGV0ZS5vYnMiKSwyKSkNCmFwYV90YWJsZV9jb3IgPSBhcGEuY29yLnRhYmxlKGNvciwgZmlsZW5hbWUgPSAiZGVzY3JpcHRpdmVzLmRvYyIpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkRlc2NyaXB0aXZlczwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9mb2xkaW5nOiAic2hvdyINCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQojIyB7LnRhYnNldH0NCg0KDQojIyMgTGlicmFyeQ0KYGBge3IgTGlicmFyeX0NCmxpYnJhcnkoYXBhVGFibGVzKQ0KbGlicmFyeShmb3JtcikNCiMgbGlicmFyeShlZmZlY3RzKQ0KIyBsaWJyYXJ5KGVmZmVjdHNpemUpDQojIGxpYnJhcnkobG1lNCkNCiMgbGlicmFyeShzanN0YXRzKQ0KIyBsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeShwc3ljaCkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShqdG9vbHMpDQpsaWJyYXJ5KHJhaW5jbG91ZHBsb3RzKQ0KbGlicmFyeShjb3VudHJ5Y29kZSkNCg0KYXBhdGhlbWUgPSB0aGVtZV9idygpICsNCiAgdGhlbWUocGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBheGlzLmxpbmUgPSBlbGVtZW50X2xpbmUoKSwNCiAgICAgICAgbGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGhqdXN0ID0gMC41KSkNCg0KYGBgDQoNCiMjIyBEYXRhDQpMb2FkIHNlbGVjdGVkIGRhdGEgYmFzZWQgb24gMDNfY29kZWJvb2sNCmBgYHtyfQ0KZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkID0gcmVhZC5jc3YoZmlsZSA9ICJkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQuY3N2IilbLC0xXQ0KDQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgJT4lDQogIGZpbHRlcighaXMubmEocG9saXRpY2FsX29yaWVudGF0aW9uKSkNCg0KZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3Qoc2V4LCBhZ2UsIGxhbmd1YWdlLCBjb3VudHJ5LA0KICAgICAgICAgcG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgcHJlZl9wb2xpdGljYWxzaW0sIHByZWZfZXRobmljYWxzaW0sIHByZWZfcmVsaWdpb3Vzc2ltLA0KICAgICAgICAgcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBwcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZSwgcHJlZl9sZXZlbF9zdWNjZXNzZnVsX2FtYml0aW91cywNCiAgICAgICAgIHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwgDQogICAgICAgICBwcmVmX2xldmVsX2NvbmZpZGVudCwgcHJlZl9sZXZlbF9hc3NlcnRpdmUsDQogICAgICAgICBwcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwNCiAgICAgICAgIHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlLCBwcmVmX2xldmVsX2VkdWNhdGVkLA0KICAgICAgICAgcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsDQogICAgICAgICBwcmVmX2xldmVsX2tpbmQsIHByZWZfbGV2ZWxfc3VwcG9ydGl2ZSwNCiAgICAgICAgIHByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsDQogICAgICAgICBwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwgcHJlZl9sZXZlbF9hdHRyYWN0aXZlX2ZhY2UsDQogICAgICAgICBpbXBfYWdlLCBpZGVhbF9hZ2UsDQogICAgICAgICBpbXBfaGVpZ2h0LCBpZGVhbF9oZWlnaHQsDQogICAgICAgICBpbnRlcmVzdF9zaW5nbGUsIGludGVyZXN0X3NleHJlbCwgaW50ZXJlc3Rfbm9ubW9ucmVsLCBpbnRlcmVzdF9tb25yZWwNCiAgICAgICAgICkNCmBgYA0KDQojIyMgTWlzc2luZ25lc3MgUGF0dGVybiB7LnRhYnNldH0NCmBgYHtyfQ0KIyBjcm9zc3RhYnMofiBpcy5uYShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9raW5kKSArDQojICAgICAgICAgICAgIGlzLm5hKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX3N1cHBvcnRpdmUpKQ0KYGBgDQoNCiMjIyBTdW1tYXJ5IHsudGFic2V0IC5hY3RpdmV9DQpgYGB7ciBTdW1tYXJ5fQ0KZGVzY3JpYmUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICAgICAgICAgICBzZWxlY3RfaWYoaXMubnVtZXJpYykpICU+JQ0KICBrYWJsZSgpDQpgYGANCg0KIyMjIFBvbGl0aWNhbCBPcmllbnRhdGlvbiB7LnRhYnNldH0NCmBgYHtyIFBvbGl0aWNhbCBPcmllbnRhdGlvbn0NCm1lYW4oZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbikgJT4lIHJvdW5kKC4sIDIpDQpzZChkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcG9saXRpY2FsX29yaWVudGF0aW9uKSAlPiUgcm91bmQoLiwgMikNCnJhbmdlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwb2xpdGljYWxfb3JpZW50YXRpb24pDQoNCmhpc3QgPC0gZ2dwbG90KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgYWVzKHggPSBwb2xpdGljYWxfb3JpZW50YXRpb24pKSArIA0KICBnZW9tX2hpc3RvZ3JhbShjb2wgPSAiZ3JleSIsIGJpbndpZHRoID0gMC41LCBjZW50ZXIgPSAwKSArDQogIGxhYnMoeCA9ICJQb2xpdGljYWwgT3JpZW50YXRpb24iLCB5ID0gIk51bWJlciBvZiBQYXJ0aWNpcGFudHMiKSsgDQogIHRoZW1lKHRleHQgPSBlbGVtZW50X3RleHQoc2l6ZT0xNSksIGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxMCksDQogICAgICAgIGF4aXMudGV4dC55ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxMCkpKw0KIHNjYWxlX3hfY29udGludW91cyhicmVha3M9YygwLCAxLCAyLCAzLCA0LCA1LCA2KSkrDQogIGFwYXRoZW1lDQoNCmhpc3QNCmBgYA0KDQoNCiMjIyMgU2F2ZSBJbWFnZQ0KYGBge3J9DQpqcGVnKCJQT19IaXN0b2dyYW0uanBlZyIsIHdpZHRoID0gMTU4MCwgaGVpZ2h0ID0gODM2LCByZXMgPSAzMDApDQpoaXN0DQpkZXYub2ZmKCkNCmBgYA0KDQojIyMjIENvcnJlbGF0aW9uIGJldHdlZW4gcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCBhZ2UNCmBgYHtyfQ0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHBvbGl0aWNhbF9vcmllbnRhdGlvbiwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRhZ2UsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCmBgYA0KDQojIyMgQ29ycmVsYXRpb25zIGZvciBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KYGBge3IgQ29ycmVsYXRpb25zIGZvciBpZGVhbCBwYXJ0bmVyIHByZWZlcmVuY2VzfQ0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlLA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsDQogICAgICAgICBjb25mLmxldmVsID0gMC45NSkNCg0KY29yLnRlc3QoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfY29uZmlkZW50LA0KICAgICAgICAgZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJHByZWZfbGV2ZWxfYXNzZXJ0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2ludGVsbGlnZW5jZSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2VkdWNhdGVkLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2tpbmQsDQogICAgICAgICBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkcHJlZl9sZXZlbF9zdXBwb3J0aXZlLA0KICAgICAgICAgY29uZi5sZXZlbCA9IDAuOTUpDQoNCmNvci50ZXN0KGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfYm9keSwNCiAgICAgICAgIGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRwcmVmX2xldmVsX2F0dHJhY3RpdmVfZmFjZSwNCiAgICAgICAgIGNvbmYubGV2ZWwgPSAwLjk1KQ0KYGBgDQoNCiMjIyBMYW5ndWFnZSB7LnRhYnNldH0NCmBgYHtyfQ0Kbl9wYXJ0ID0gbnJvdyhkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpDQoNCnRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRsYW5ndWFnZSkNCg0Kcm91bmQoKHRhYmxlKGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCRsYW5ndWFnZSkvbl9wYXJ0KSoxMDAsMikNCmBgYA0KDQojIyMgQ291bnRyeSB7LnRhYnNldH0NCmBgYHtyfQ0KY291bnRyeV9hYnNvbHV0ZSA9IGFzLmRhdGEuZnJhbWUodGFibGUoZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkJGNvdW50cnkpKQ0KDQpjb3VudHJ5X2ZyZXEgPSBhcy5kYXRhLmZyYW1lKHJvdW5kKCh0YWJsZShkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQkY291bnRyeSkvbl9wYXJ0KSoxMDAsMikpDQoNCmNvdW50cnkgPSBsZWZ0X2pvaW4oY291bnRyeV9hYnNvbHV0ZSwgY291bnRyeV9mcmVxLCBieSA9ICJWYXIxIikNCmNvdW50cnkgPSBjb3VudHJ5ICU+JSByZW5hbWUoQ291bnRyeSA9IFZhcjEsDQogICAgICAgICAgICAgICAgICAgbiA9IEZyZXEueCwNCiAgICAgICAgICAgICAgICAgICBwZXJjZW50YWdlID0gRnJlcS55KQ0Ka2FibGUoY291bnRyeSkNCg0Kd3JpdGUudGFibGUoY291bnRyeSwgZmlsZSA9ICJjb3VudHJ5LnR4dCIsIHNlcCA9ICIsIikNCg0Ka2FibGUoY291bnRyeSAlPiUgYXJyYW5nZSgtbikpDQpgYGANCg0KYGBge3J9DQpjb3VudHJ5ID0gY291bnRyeSAlPiUgDQogIG11dGF0ZShjb250aW5lbnQgPSBjb3VudHJ5Y29kZShDb3VudHJ5LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3JpZ2luID0gImNvdW50cnkubmFtZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXN0aW5hdGlvbiA9ICJyZWdpb24iKSwNCiAgICAgICAgIGNvbnRpbmVudCA9IGlmZWxzZShDb3VudHJ5ID09ICJNaWNyb25lc2lhIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAiT2NlYW5pYSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGluZW50KSkNCg0KY29udGluZW50cyA8LSBjb3VudHJ5ICU+JQ0KICBncm91cF9ieShjb250aW5lbnQpICU+JQ0KICBzdW1tYXJpemUobiA9IHN1bShuKSkgJT4lDQogIG11dGF0ZShmcmVxID0gcm91bmQoKG4vbl9wYXJ0KSoxMDAsIDIpKSAlPiUNCiAgYXJyYW5nZSgtbikNCmBgYA0KDQojIyMgRGVzY3JpcHRpdmVzIGFuZCBDb3JyZWxhdGlvbiBUYWJsZSB7LnRhYnNldH0NCmBgYHtyfQ0KY29yID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICBzZWxlY3QocG9saXRpY2FsX29yaWVudGF0aW9uLA0KICAgICAgICAgYWdlLA0KICAgICAgICAgcHJlZl9wb2xpdGljYWxzaW0sIA0KICAgICAgICAgcHJlZl9ldGhuaWNhbHNpbSwgDQogICAgICAgICBwcmVmX3JlbGlnaW91c3NpbSwNCiAgICAgICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzLA0KICAgICAgICAgcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLA0KICAgICAgICAgcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIA0KICAgICAgICAgcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIA0KICAgICAgICAgcHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcywgDQogICAgICAgICBpbXBfYWdlLCANCiAgICAgICAgIGlkZWFsX2FnZSwgDQogICAgICAgICBpbXBfaGVpZ2h0LCANCiAgICAgICAgIGlkZWFsX2hlaWdodCwNCiAgICAgICAgIGludGVyZXN0X3NpbmdsZSwNCiAgICAgICAgIGludGVyZXN0X3NleHJlbCwgDQogICAgICAgICBpbnRlcmVzdF9ub25tb25yZWwsIA0KICAgICAgICAgaW50ZXJlc3RfbW9ucmVsLCANCiAgICAgICAgICkgDQprYWJsZShyb3VuZChjb3IoY29yLCB1c2U9InBhaXJ3aXNlLmNvbXBsZXRlLm9icyIpLDIpKQ0KYXBhX3RhYmxlX2NvciA9IGFwYS5jb3IudGFibGUoY29yLCBmaWxlbmFtZSA9ICJkZXNjcmlwdGl2ZXMuZG9jIikNCmBgYA0K</div>
 
 
 
@@ -2351,7 +3098,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("04_descriptives.rmd");
+  window.initializeSourceEmbed("04_descriptives.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
