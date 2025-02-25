@@ -1,0 +1,2074 @@
+---
+title: <font color="#66C2A5">Exploratory Analyses Continents</font>
+csl: apa-custom-no-issue.csl
+output: 
+  html_document:
+    code_folding: "show"
+editor_options: 
+  chunk_output_type: console
+---
+
+## {.tabset}
+
+### Library
+```{r Library}
+library(formr)
+library(effects)
+library(effectsize)
+library(lme4)
+library(sjstats)
+library(lmerTest)
+library(ggplot2)
+library(tidyr)
+library(ggpubr)
+library(RColorBrewer)
+library(coefplot)
+library(tibble)
+library(purrr) # for running multiple regression
+library(broom)
+library(mvmeta)
+library(lm.beta)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(knitr)
+library(countrycode)
+
+apatheme = theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+```
+
+### Data
+Load selected data based on 03_codebook
+```{r}
+data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
+```
+
+### Inclusion of Data
+```{r}
+data_included_documented <- data_included_documented %>%
+  mutate(continent1 = countrycode(country,
+                                 origin = "country.name",
+                                 destination = "region"),
+         continent1 = ifelse(country == "Micronesia",
+                            "East Asia & Pacific",
+                            continent1),
+         continent2 = countrycode(country,
+                                 origin = "country.name",
+                                 destination = "continent"),
+         continent2 = ifelse(country == "Micronesia",
+                            "Oceania",
+                            continent2))
+
+table(data_included_documented$continent1)
+table(data_included_documented$continent2)
+
+data_included_documented = data_included_documented %>%
+  mutate(continent_final = ifelse(continent2 == "Africa", "Africa",
+                                  ifelse(continent2 == "Asia", "Asia",
+                                         ifelse(continent2 == "Europe", "Europe",
+                           ifelse(continent2 == "Oceania", "Oceania",
+                                  ifelse(continent1 == "Latin America & Caribbean",
+                                         "Latin & South America",
+                                         ifelse(continent1 == "North America",
+                                                "North America", NA)))))))
+
+data_included_documented <- data_included_documented %>%
+  mutate(continent_final = ifelse(country %in% c("Afghanistan", "Bahrain", "Iran",
+                                                 "Iraq", "Israel", "Jordan", 
+                                                 "Kazakhstan", "Kuwait", "Kyrgyzstan",
+                                                 "Lebanon", "Pakistan", 
+                                                 "Palestinian Territories", "Qatar",
+                                                 "Saudi Arabia", "Syria", 
+                                                 "Turkey", "Turkmenistan",
+                                                 "United Arab Emirates", "Indonesia"),
+                                  "Middle East & Central Asia", continent_final),
+         continent_final = ifelse(country %in% c("Armenia", "Burma",
+                                                 "China",
+                                                 "East Timor (see Timor-Leste)", 
+                                                 "Georgia", "Hong Kong", "India",
+                                                 "Japan", "Malaysia", "Maldives",
+                                                 "Nepal", "Philippines", "Singapore",
+                                                 "South Korea", "Sri Lanka", 
+                                                 "Taiwan", "Thailand", "Vietnam"), 
+                                  "South & East Asia", continent_final))
+
+x <- data_included_documented %>% 
+  select(country, continent_final) %>%
+  group_by(country, continent_final) %>%
+  summarize(n = n()) %>%
+  arrange(continent_final, country)
+
+write.csv2(x, file = "country_continents.csv")
+
+continents <- x %>%
+  group_by(continent_final) %>%
+  summarize(countries = n(),
+            participants = sum(n))
+
+continents
+```
+We will include all regions with more than 500 participants. This allows us to show effect sizes for a diverse range of regions.
+
+These regions include the following countries (n)
+
+Africa (108):
+Algeria (7); Benin (2); Botswana (1); Cameroon (3); Central African Republic (2); Cote d'Ivoire (1); Egypt (3); Ethiopia (1); Ghana (3); Guinea-Bissau (1); Kenya (6); Madagascar (1); Mali (2); Mauritania (1); Mauritius (2); Morocco (16); Namibia (4); Nigeria (6); Senegal (5); South Africa (29); South Sudan (1); Swaziland (1); Tanzania (1); Tunisia (7); Uganda (1); Zimbabwe (1)
+
+Europe (7,417):
+Albania (2); Andorra (6); Austria (197); Belarus (13); Belgium (102); Bosnia and Herzegovina (6); Bulgaria (9); Croatia (6); Czechia (11); Denmark (395); Estonia (12); Finland (31); France (2013); Germany (1846); Greece (4); Hungary (9); Iceland (5); Ireland (59); Italy (968); Latvia (8); Liechtenstein (1); Lithuania (3); Luxembourg (13); Macedonia (1); Malta (2); Monaco (1); Montenegro (1); Netherlands (44); Norway (12); Poland (7); Portugal (51); Romania (24); Russia (155); Serbia (5); Slovakia (3); Slovenia (3); Spain (562); Sweden (27); Switzerland (280); Ukraine (21); United Kingdom (499)
+
+Latin & South America (3,325):
+Antigua and Barbuda (2); Argentina (217); Aruba (1); Bahamas, The (1); Barbados (1); Belize (1); Bolivia (23); Brazil (806); Chile (154); Colombia (387); Costa Rica (47); Cuba (1); Dominica (2); Dominican Republic (41); Ecuador (102); El Salvador (26); Grenada (1); Guatemala (61); Guyana (3); Haiti (4); Honduras (18); Jamaica (6); Mexico (1157); Nicaragua (15); Panama (15); Paraguay (11); Peru (119); Saint Lucia (2); Saint Vincent and the Grenadines (1); Sint Maarten (1); Trinidad and Tobago (8); Uruguay (24); Venezuela (67)
+
+Middle East & Central Asia (103):
+Afghanistan (1); Bahrain (3); Indonesia (18); Iran (7); Iraq (1); Israel (13); Jordan (2); Kazakhstan (9); Kuwait (1); Kyrgyzstan (2); Lebanon (3); Pakistan (8); Palestinian Territories (2); Qatar (2); Saudi Arabia (6); Syria (1); Turkey (8); Turkmenistan (2); United Arab Emirates (14)
+
+North America (1,592):
+Canada (338); United States of America (1254)
+
+Oceania (170):
+Australia (133); Fiji (1); Marshall Islands (1); Micronesia (1); New Zealand (34)
+
+South & East Asia (542):
+Armenia (2); Burma (1); China (90); East Timor (1); Georgia (3); Hong Kong (8); India (45); Japan (290); Malaysia (17); Maldives (1); Nepal (1); Philippines (36); Singapore (26); South Korea (5); Sri Lanka (3); Taiwan (7); Thailand (4); Vietnam (2)
+
+For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
+
+```{r}
+regions = continents %>% filter(participants > 500)
+data_included_documented_reg = data_included_documented %>%
+  filter(continent_final %in% regions$continent_final)
+```
+
+```{r}
+continents_reg =
+  data_included_documented_reg %>%
+  select(continent_final, country) %>%
+  table() %>%
+  as.data.frame() %>%
+  filter(Freq != 0) %>%
+  arrange(-Freq)
+
+
+continents_reg
+```
+
+
+### Analyses {.tabset .active}
+#### Political, Ethnic, and Religious Similarity {.tabset}
+##### H1a Preference for Similarity in Political Beliefs {.tabset}
+###### H1a(1) Linear Effect
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_politicalsim = data_included_documented_reg_wide %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_reg_wide$pref_politicalsim) ~ scale(.x),
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_lin_se = models_pref_politicalsim %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_politicalsim_lin_analyses = left_join(models_pref_politicalsim_lin_coef,
+                                            models_pref_politicalsim_lin_se,
+                                            by = "name") %>%
+  mutate(outcome = "H2a) Prefered Political Similarity - Linear Effect")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_politicalsim)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_politicalsim_lin_analyses$n = countries_reg$Freq
+data_included_documented_reg %>% filter(!is.na(pref_politicalsim)) %>% nrow()
+
+model = mvmeta(mean ~ 1, data = models_pref_politicalsim_lin_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+###### H1a(2) Quadratic Effect: Regression 1 (x <= breaking_point)
+
+```{r}
+data_included_documented_reg_wide_reg1 = data_included_documented_reg %>%
+  dplyr::filter(political_orientation <= 3) %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_politicalsim_reg1 = data_included_documented_reg_wide_reg1 %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_reg_wide_reg1$pref_politicalsim) ~
+            scale(.x),
+          data = data_included_documented_reg_wide_reg1)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef_reg1 = models_pref_politicalsim_reg1 %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+
+models_pref_politicalsim_quad_se_reg1 = models_pref_politicalsim_reg1 %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_politicalsim_quad_analyses_reg1 = left_join(models_pref_politicalsim_quad_coef_reg1,
+                                            models_pref_politicalsim_quad_se_reg1,
+                                            by = "name") %>%
+  mutate(outcome = "H2a(1)) Preferred Political Similarity - Quadratic Effect Regression 1")
+
+models_pref_politicalsim_quad_analyses_reg1$n = countries_reg$Freq
+
+data_included_documented_reg %>% filter(political_orientation <= 3, !is.na(pref_politicalsim)) %>% nrow()
+
+model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses_reg1, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+###### H1a(2) Quadratic Effect: Regression 2 (x >= breaking_point)
+```{r}
+data_included_documented_reg_wide_reg2 = data_included_documented_reg %>%
+  dplyr::filter(political_orientation >= 3) %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_politicalsim_reg2 = data_included_documented_reg_wide_reg2 %>%
+  select(-pref_politicalsim) %>%
+  map(~lm(scale(data_included_documented_reg_wide_reg2$pref_politicalsim) ~
+            scale(.x),
+          data = data_included_documented_reg_wide_reg2)) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef_reg2 = models_pref_politicalsim_reg2 %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+
+models_pref_politicalsim_quad_se_reg2 = models_pref_politicalsim_reg1 %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_politicalsim_quad_analyses_reg2 = left_join(models_pref_politicalsim_quad_coef_reg2,
+                                            models_pref_politicalsim_quad_se_reg2,
+                                            by = "name") %>%
+  mutate(outcome = "H2a(1)) Preferred Political Similarity - Quadratic Effect Regression 2")
+
+models_pref_politicalsim_quad_analyses_reg2$n = countries_reg$Freq
+
+data_included_documented_reg %>% filter(political_orientation >= 3, !is.na(pref_politicalsim)) %>% nrow()
+
+model = mvmeta(mean ~ 1, data = models_pref_politicalsim_quad_analyses_reg2, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H1b Preference for Similarity in Ethnicity/Race {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_ethnicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_ethnicalsim = data_included_documented_reg_wide %>%
+  select(-pref_ethnicalsim) %>%
+  map(~lm(data_included_documented_reg_wide$pref_ethnicalsim ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_ethnicalsim_coef = models_pref_ethnicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_ethnicalsim_se = models_pref_ethnicalsim %>%
+ map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_ethnicalsim_analyses = left_join(models_pref_ethnicalsim_coef,
+                                            models_pref_ethnicalsim_se,
+                                            by = "name") %>%
+  mutate(outcome = "H2b) Preferred Ethnic Similarity")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_ethnicalsim)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_ethnicalsim_analyses$n = countries_reg$Freq
+sum(models_pref_ethnicalsim_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_ethnicalsim_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H1c Preference for Similarity in Religion {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_religioussim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_religioussim = data_included_documented_reg_wide %>%
+  select(-pref_religioussim) %>%
+  map(~lm(data_included_documented_reg_wide$pref_religioussim ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_religioussim_coef = models_pref_religioussim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_religioussim_se = models_pref_religioussim %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_religioussim_analyses = left_join(models_pref_religioussim_coef,
+                                            models_pref_religioussim_se,
+                                            by = "name") %>%
+  mutate(outcome = "H2c) Preferred Religious Similarity")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_religioussim)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_religioussim_analyses$n = countries_reg$Freq
+sum(models_pref_religioussim_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_religioussim_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+#### Ideal Partner Preferences {.tabset}
+##### H2a Preference for the Level of Financial Security- Successfulness {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_level_financially_secure_successful_ambitious, Europe, 'South & East Asia', 'Latin & South America',
+         'North America')
+
+models_pref_level_financially_secure_successful_ambitious = data_included_documented_reg_wide %>%
+  select(-pref_level_financially_secure_successful_ambitious) %>%
+  map(~lm(data_included_documented_reg_wide$pref_level_financially_secure_successful_ambitious ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_financially_secure_successful_ambitious_coef = models_pref_level_financially_secure_successful_ambitious %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_financially_secure_successful_ambitious_se = models_pref_level_financially_secure_successful_ambitious %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+models_pref_level_financially_secure_successful_ambitious_analyses = left_join(models_pref_level_financially_secure_successful_ambitious_coef,
+                                            models_pref_level_financially_secure_successful_ambitious_se,
+                                            by = "name") %>%
+  mutate(outcome = "H3a) Financial Security-Successfulness")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_level_financially_secure_successful_ambitious)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_level_financially_secure_successful_ambitious_analyses$n = countries_reg$Freq
+sum(models_pref_level_financially_secure_successful_ambitious_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_level_financially_secure_successful_ambitious_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+
+##### H2b Preference for the Level of Confidence-Assertiveness {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_level_confident_assertive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_confident_assertive = data_included_documented_reg_wide %>%
+  select(-pref_level_confident_assertive) %>%
+  map(~lm(data_included_documented_reg_wide$pref_level_confident_assertive ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_confident_assertive_coef = models_pref_level_confident_assertive %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_confident_assertive_se = models_pref_level_confident_assertive %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_level_confident_assertive_analyses = left_join(models_pref_level_confident_assertive_coef,
+                                            models_pref_level_confident_assertive_se,
+                                            by = "name") %>%
+  mutate(outcome = "H3d) Confidence-Assertiveness")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_level_confident_assertive)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_level_confident_assertive_analyses$n = countries_reg$Freq
+sum(models_pref_level_confident_assertive_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_level_confident_assertive_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+
+##### H2c Preference for the Level of Education-Intelligence {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_level_intelligence_educated, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_intelligence_educated = data_included_documented_reg_wide %>%
+  select(-pref_level_intelligence_educated) %>%
+  map(~lm(data_included_documented_reg_wide$pref_level_intelligence_educated ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_intelligence_educated_coef = models_pref_level_intelligence_educated %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_intelligence_educated_se = models_pref_level_intelligence_educated %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_level_intelligence_educated_analyses = left_join(models_pref_level_intelligence_educated_coef,
+                                            models_pref_level_intelligence_educated_se,
+                                            by = "name") %>%
+  mutate(outcome = "H3e) Education-Intelligence")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_level_intelligence_educated)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_level_intelligence_educated_analyses$n = countries_reg$Freq
+sum(models_pref_level_intelligence_educated_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_level_intelligence_educated_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H2d Preference for the Level of Kindness-Supportiveness {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_level_kind_supportive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_kind_supportive = data_included_documented_reg_wide %>%
+  select(-pref_level_kind_supportive) %>%
+  map(~lm(data_included_documented_reg_wide$pref_level_kind_supportive ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_kind_supportive_coef = models_pref_level_kind_supportive %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_kind_supportive_se = models_pref_level_kind_supportive %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_level_kind_supportive_analyses = left_join(models_pref_level_kind_supportive_coef,
+                                            models_pref_level_kind_supportive_se,
+                                            by = "name") %>%
+  mutate(outcome = "H3b) Kindness-Supportiveness")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_level_kind_supportive)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_level_kind_supportive_analyses$n = countries_reg$Freq
+sum(models_pref_level_kind_supportive_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_level_kind_supportive_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H2e Preference for the Level of Attractiveness {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(pref_level_attractiveness, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_attractiveness = data_included_documented_reg_wide %>%
+  select(-pref_level_attractiveness) %>%
+  map(~lm(data_included_documented_reg_wide$pref_level_attractiveness ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_pref_level_attractiveness_coef = models_pref_level_attractiveness %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_attractiveness_se = models_pref_level_attractiveness %>%
+ map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_pref_level_attractiveness_analyses = left_join(models_pref_level_attractiveness_coef,
+                                            models_pref_level_attractiveness_se,
+                                            by = "name") %>%
+  mutate(outcome = "H3c) Attractiveness")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(pref_level_attractiveness)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_pref_level_attractiveness_analyses$n = countries_reg$Freq
+sum(models_pref_level_attractiveness_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_pref_level_attractiveness_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+#### Ideal Age and Height {.tabset}
+##### H3a(1) Ideal Age (Importance) {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(imp_age, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_imp_age = data_included_documented_reg_wide %>%
+  select(-imp_age) %>%
+  map(~lm(data_included_documented_reg_wide$imp_age ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_imp_age_coef = models_imp_age %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_imp_age_se = models_imp_age %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_imp_age_analyses = left_join(models_imp_age_coef,
+                                            models_imp_age_se,
+                                            by = "name") %>%
+  mutate(outcome = "H4a(1)) Ideal Age (Importance)")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(imp_age)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_imp_age_analyses$n = countries_reg$Freq
+sum(models_imp_age_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_imp_age_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H3a(2) Ideal Age (Level) {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(ideal_age_rel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_ideal_age_rel = data_included_documented_reg_wide %>%
+  select(-ideal_age_rel) %>%
+  map(~lm(data_included_documented_reg_wide$ideal_age_rel ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_ideal_age_rel_coef = models_ideal_age_rel %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_ideal_age_rel_se = models_ideal_age_rel %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_ideal_age_rel_analyses = left_join(models_ideal_age_rel_coef,
+                                            models_ideal_age_rel_se,
+                                            by = "name") %>%
+  mutate(outcome = "H4a(2)) Ideal Age (Level)")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(ideal_age_rel)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_ideal_age_rel_analyses$n = countries_reg$Freq
+sum(models_ideal_age_rel_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_ideal_age_rel_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H3b(1) Ideal Height (Importance) {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(imp_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_imp_height = data_included_documented_reg_wide %>%
+  select(-imp_height) %>%
+  map(~lm(data_included_documented_reg_wide$imp_height ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_imp_height_coef = models_imp_height %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_imp_height_se = models_imp_height %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_imp_height_analyses = left_join(models_imp_height_coef,
+                                            models_imp_height_se,
+                                            by = "name") %>%
+  mutate(outcome = "H4b(1)) Ideal Height (Importance)")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(imp_height)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_imp_height_analyses$n = countries_reg$Freq
+sum(models_imp_height_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_imp_height_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+##### H3b(2) Ideal Height (Level) {.tabset}
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(ideal_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_ideal_height = data_included_documented_reg_wide %>%
+  select(-ideal_height) %>%
+  map(~lm(data_included_documented_reg_wide$ideal_height ~ .x,
+      data = data_included_documented_reg_wide)) %>%
+  map(lm.beta)
+
+models_ideal_height_coef = models_ideal_height %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_ideal_height_se = models_ideal_height %>%
+  map(tidy) %>%
+  tibble(models_pref_politicalsim_lin_se = ., Names = names(.)) %>%
+  hoist(models_pref_politicalsim_lin_se, coefficients = "std.error") %>%
+  select(-models_pref_politicalsim_lin_se) %>%
+  unnest_wider(., coefficients, names_sep = "_") %>%
+  select(coefficients_2, Names) %>%
+  rename("name" = "Names",
+         "se" = "coefficients_2") %>%
+  mutate(name = ifelse(name == "South & East Asia",
+                       "South...East.Asia",
+                       ifelse(name == "Latin & South America",
+                       "Latin...South.America",
+                       ifelse(name == "North America",
+                       "North.America",
+                       name))))
+
+
+models_ideal_height_analyses = left_join(models_ideal_height_coef,
+                                            models_ideal_height_se,
+                                            by = "name") %>%
+  mutate(outcome = "H4b(2)) Ideal Height (Level)")
+
+countries_reg =
+  data_included_documented_reg %>%
+  filter(!is.na(ideal_height)) %>%
+  select(continent_final) %>%
+  table() %>%
+  as.data.frame() %>%
+  arrange(-Freq)
+
+models_ideal_height_analyses$n = countries_reg$Freq
+sum(models_ideal_height_analyses$n)
+
+model = mvmeta(mean ~ 1, data = models_ideal_height_analyses, S = se^2,
+               method = "fixed")
+summary(model)
+```
+
+
+### Graphs
+#### Models
+##### H1a Preference for similarity in political beliefs
+###### H1a(1) Linear Effect
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_politicalsim = data_included_documented_reg_wide %>%
+  select(-pref_politicalsim) %>%
+  map( ~ lm(
+    scale(data_included_documented_reg_wide$pref_politicalsim) ~ scale(.x),
+    data = data_included_documented_reg_wide
+  )) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_lin_coef = models_pref_politicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_lin_confint_low = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_politicalsim_lin_confint_high = models_pref_politicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_politicalsim_lin_graph = left_join(
+  left_join(
+    models_pref_politicalsim_lin_coef,
+    models_pref_politicalsim_lin_confint_low,
+    by = "name"
+  ),
+  models_pref_politicalsim_lin_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H1a(1)) Preferred Political \nSimilarity - Linear Effect")
+```
+
+###### H1a(2) Quadratic Effect
+####### Regression 1 (x <= breaking_point)
+```{r}
+data_included_documented_reg_wide_reg1 = data_included_documented_reg %>%
+  dplyr::filter(political_orientation <= 3) %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+
+
+models_pref_politicalsim_reg1 = data_included_documented_reg_wide_reg1 %>%
+  select(-pref_politicalsim) %>%
+  map( ~ lm(
+    scale(
+      data_included_documented_reg_wide_reg1$pref_politicalsim
+    ) ~
+      scale(.x),
+    data = data_included_documented_reg_wide_reg1
+  )) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef_reg1 = models_pref_politicalsim_reg1 %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_quad_confint_low_reg1 = models_pref_politicalsim_reg1 %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_politicalsim_quad_confint_high_reg1 = models_pref_politicalsim_reg1 %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_politicalsim_quad_graph_reg1 = left_join(
+  left_join(
+    models_pref_politicalsim_quad_coef_reg1,
+    models_pref_politicalsim_quad_confint_low_reg1,
+    by = "name"
+  ),
+  models_pref_politicalsim_quad_confint_high_reg1,
+  by = "name"
+) %>%
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO <= 3")
+```
+
+
+####### Regression 2 (x >= breaking_point)
+```{r}
+data_included_documented_reg_wide_reg2 = data_included_documented_reg %>%
+  dplyr::filter(political_orientation >= 3) %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_politicalsim_reg2 = data_included_documented_reg_wide_reg2 %>%
+  select(-pref_politicalsim) %>%
+  map( ~ lm(
+    scale(
+      data_included_documented_reg_wide_reg2$pref_politicalsim
+    ) ~
+      scale(.x),
+    data = data_included_documented_reg_wide_reg2
+  )) %>%
+  map(lm.beta)
+
+models_pref_politicalsim_quad_coef_reg2 = models_pref_politicalsim_reg2 %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_politicalsim_quad_confint_low_reg2 = models_pref_politicalsim_reg2 %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_politicalsim_quad_confint_high_reg2 = models_pref_politicalsim_reg2 %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_politicalsim_quad_graph_reg2 = left_join(
+  left_join(
+    models_pref_politicalsim_quad_coef_reg2,
+    models_pref_politicalsim_quad_confint_low_reg2,
+    by = "name"
+  ),
+  models_pref_politicalsim_quad_confint_high_reg2,
+  by = "name"
+) %>%
+  mutate(outcome = "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO >= 3")
+```
+
+##### H1b Preference for similarity in ethnicity/race
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_ethnicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_ethnicalsim = data_included_documented_reg_wide %>%
+  select(-pref_ethnicalsim) %>%
+  map( ~ lm(
+    scale(data_included_documented_reg_wide$pref_ethnicalsim) ~ scale(.x) +
+      I(scale(.x) ^ 2),
+    data = data_included_documented_reg_wide
+  )) %>%
+  map(lm.beta)
+
+models_pref_ethnicalsim_coef = models_pref_ethnicalsim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_ethnicalsim_confint_low = models_pref_ethnicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_ethnicalsim_confint_high = models_pref_ethnicalsim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_ethnicalsim_graph = left_join(
+  left_join(
+    models_pref_ethnicalsim_coef,
+    models_pref_ethnicalsim_confint_low,
+    by = "name"
+  ),
+  models_pref_ethnicalsim_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H1b) Preferred \nEthnic Similarity")
+```
+
+##### H1c Preference for similarity in religion
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_religioussim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_religioussim = data_included_documented_reg_wide %>%
+  select(-pref_religioussim) %>%
+  map( ~ lm(
+    scale(data_included_documented_reg_wide$pref_religioussim) ~ scale(.x) +
+      I(scale(.x) ^ 2),
+    data = data_included_documented_reg_wide
+  )) %>%
+  map(lm.beta)
+
+models_pref_religioussim_coef = models_pref_religioussim %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_religioussim_confint_low = models_pref_religioussim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_religioussim_confint_high = models_pref_religioussim %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname  == "scale(.x)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_religioussim_graph = left_join(
+  left_join(
+    models_pref_religioussim_coef,
+    models_pref_religioussim_confint_low,
+    by = "name"
+  ),
+  models_pref_religioussim_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H1c) Preferred \nReligious Similarity")
+```
+
+##### H2a Preference for the level of financial security- successfulness 
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_level_financially_secure_successful_ambitious, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_financially_secure_successful_ambitious = data_included_documented_reg_wide %>%
+  select(-pref_level_financially_secure_successful_ambitious) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$pref_level_financially_secure_successful_ambitious ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_pref_level_financially_secure_successful_ambitious_coef = models_pref_level_financially_secure_successful_ambitious %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_financially_secure_successful_ambitious_confint_low = models_pref_level_financially_secure_successful_ambitious %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_level_financially_secure_successful_ambitious_confint_high = models_pref_level_financially_secure_successful_ambitious %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_level_financially_secure_successful_ambitious_graph = left_join(
+  left_join(
+    models_pref_level_financially_secure_successful_ambitious_coef,
+    models_pref_level_financially_secure_successful_ambitious_confint_low,
+    by = "name"
+  ),
+  models_pref_level_financially_secure_successful_ambitious_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H2a) Financial Security-\nSuccessfulness")
+```
+
+##### H2b Preference for the level of confidence-assertiveness
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_level_confident_assertive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_confident_assertive = data_included_documented_reg_wide %>%
+  select(-pref_level_confident_assertive) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$pref_level_confident_assertive ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_pref_level_confident_assertive_coef = models_pref_level_confident_assertive %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_confident_assertive_confint_low = models_pref_level_confident_assertive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_level_confident_assertive_confint_high = models_pref_level_confident_assertive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_level_confident_assertive_graph = left_join(
+  left_join(
+    models_pref_level_confident_assertive_coef,
+    models_pref_level_confident_assertive_confint_low,
+    by = "name"
+  ),
+  models_pref_level_confident_assertive_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H2b) Confidence-\nAssertiveness")
+```
+
+##### H2c Preference for the level of education-intelligence
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_level_intelligence_educated, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_intelligence_educated = data_included_documented_reg_wide %>%
+  select(-pref_level_intelligence_educated) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$pref_level_intelligence_educated ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_pref_level_intelligence_educated_coef = models_pref_level_intelligence_educated %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_intelligence_educated_confint_low = models_pref_level_intelligence_educated %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_level_intelligence_educated_confint_high = models_pref_level_intelligence_educated %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_level_intelligence_educated_graph = left_join(
+  left_join(
+    models_pref_level_intelligence_educated_coef,
+    models_pref_level_intelligence_educated_confint_low,
+    by = "name"
+  ),
+  models_pref_level_intelligence_educated_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H2c) Education-\nIntelligence")
+```
+
+##### H2d Preference for the level of kindness-supportiveness
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_level_kind_supportive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_kind_supportive = data_included_documented_reg_wide %>%
+  select(-pref_level_kind_supportive) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$pref_level_kind_supportive ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_pref_level_kind_supportive_coef = models_pref_level_kind_supportive %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_kind_supportive_confint_low = models_pref_level_kind_supportive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_level_kind_supportive_confint_high = models_pref_level_kind_supportive %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_level_kind_supportive_graph = left_join(
+  left_join(
+    models_pref_level_kind_supportive_coef,
+    models_pref_level_kind_supportive_confint_low,
+    by = "name"
+  ),
+  models_pref_level_kind_supportive_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H2d) Kindness-\nSupportiveness")
+```
+
+##### H2e Preference for the level of attractiveness
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(
+    pref_level_attractiveness, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_pref_level_attractiveness = data_included_documented_reg_wide %>%
+  select(-pref_level_attractiveness) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$pref_level_attractiveness ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_pref_level_attractiveness_coef = models_pref_level_attractiveness %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_pref_level_attractiveness_confint_low = models_pref_level_attractiveness %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_pref_level_attractiveness_confint_high = models_pref_level_attractiveness %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_pref_level_attractiveness_graph = left_join(
+  left_join(
+    models_pref_level_attractiveness_coef,
+    models_pref_level_attractiveness_confint_low,
+    by = "name"
+  ),
+  models_pref_level_attractiveness_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H2e) Attractiveness")
+```
+
+
+##### H3a(1) Ideal age (importance)
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(imp_age, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_imp_age = data_included_documented_reg_wide %>%
+  select(-imp_age) %>%
+  map(
+    ~ lm(data_included_documented_reg_wide$imp_age ~ .x,
+         data = data_included_documented_reg_wide)
+  ) %>%
+  map(lm.beta)
+
+models_imp_age_coef = models_imp_age %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_imp_age_confint_low = models_imp_age %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_imp_age_confint_high = models_imp_age %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_imp_age_graph = left_join(
+  left_join(models_imp_age_coef,
+            models_imp_age_confint_low,
+            by = "name"),
+  models_imp_age_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H3a(1)) Ideal Age \n(Importance)")
+```
+
+##### H3a(2) Ideal age (level)
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(ideal_age_rel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_ideal_age_rel = data_included_documented_reg_wide %>%
+  select(-ideal_age_rel) %>%
+  map(
+    ~ lm(
+      data_included_documented_reg_wide$ideal_age_rel ~ .x,
+      data = data_included_documented_reg_wide
+    )
+  ) %>%
+  map(lm.beta)
+
+models_ideal_age_rel_coef = models_ideal_age_rel %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_ideal_age_rel_confint_low = models_ideal_age_rel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_ideal_age_rel_confint_high = models_ideal_age_rel %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_ideal_age_rel_graph = left_join(
+  left_join(
+    models_ideal_age_rel_coef,
+    models_ideal_age_rel_confint_low,
+    by = "name"
+  ),
+  models_ideal_age_rel_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H3a(2)) Ideal Age \n(Level)")
+```
+
+##### H3b(1) Ideal height (importance)
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(imp_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_imp_height = data_included_documented_reg_wide %>%
+  select(-imp_height) %>%
+  map(
+    ~ lm(data_included_documented_reg_wide$imp_height ~ .x,
+         data = data_included_documented_reg_wide)
+  ) %>%
+  map(lm.beta)
+
+models_imp_height_coef = models_imp_height %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_imp_height_confint_low = models_imp_height %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_imp_height_confint_high = models_imp_height %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_imp_height_graph = left_join(
+  left_join(models_imp_height_coef,
+            models_imp_height_confint_low,
+            by = "name"),
+  models_imp_height_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H3b(1)) Ideal Height \n(Importance)")
+```
+
+##### H3b(2) Ideal height (level)
+```{r}
+data_included_documented_reg_wide = data_included_documented_reg %>%
+  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  select(ideal_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+
+models_ideal_height = data_included_documented_reg_wide %>%
+  select(-ideal_height) %>%
+  map(
+    ~ lm(data_included_documented_reg_wide$ideal_height ~ .x,
+         data = data_included_documented_reg_wide)
+  ) %>%
+  map(lm.beta)
+
+models_ideal_height_coef = models_ideal_height %>%
+  map(coef) %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  rename(mean = value)
+
+models_ideal_height_confint_low = models_ideal_height %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "0.15")) %>%
+  rename(conf_low = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 7))
+
+models_ideal_height_confint_high = models_ideal_height %>%
+  map(confint, level = 0.997)  %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "rowname") %>%
+  filter(rowname != "(Intercept)") %>%
+  pivot_longer(cols = -rowname) %>%
+  select(-rowname) %>%
+  filter(str_detect(name, "99.85")) %>%
+  rename(conf_high = value) %>%
+  mutate(name = substr(name, 1, nchar(name) - 8))
+
+models_ideal_height_graph = left_join(
+  left_join(
+    models_ideal_height_coef,
+    models_ideal_height_confint_low,
+    by = "name"
+  ),
+  models_ideal_height_confint_high,
+  by = "name"
+) %>%
+  mutate(outcome = "H3b(2)) Ideal Height \n(Level)")
+```
+
+#### Combine Graph One
+```{r}
+data_graph = rbind(
+  models_pref_politicalsim_lin_graph,
+  models_pref_politicalsim_quad_graph_reg1,
+  models_pref_politicalsim_quad_graph_reg2,
+  models_pref_ethnicalsim_graph,
+  models_pref_religioussim_graph
+) %>%
+  mutate(outcome = factor(
+    outcome,
+    levels = c(
+      "H1c) Preferred \nReligious Similarity",
+      "H1b) Preferred \nEthnic Similarity",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO >= 3",
+      "H1a(2)) Preferred Political \nSimilarity - Quadratic Effect \nPO <= 3",
+      "H1a(1)) Preferred Political \nSimilarity - Linear Effect"
+    )
+  ))
+
+
+data_graph$name = factor(rep(
+  c(
+    paste0(
+      "Europe (n = ",
+      sum(data_included_documented_reg$continent_final == "Europe"),
+      ")"
+    ),
+    paste0(
+      "South & East Asia (n = ",
+      sum(data_included_documented_reg$continent_final == "South & East Asia"),
+      ")"
+    ),
+    paste0(
+      "Latin & South America (n = ",
+      sum(
+        data_included_documented_reg$continent_final == "Latin & South America"
+      ),
+      ")"
+    ),
+    paste0(
+      "North America (n = ",
+      sum(data_included_documented_reg$continent_final == "North America"),
+      ")"
+    )
+  ),
+  5
+))
+
+l_countries = levels(data_graph$name)
+data_graph$name = factor(data_graph$name,
+                         levels = rev(
+                           c(
+                             l_countries[1],
+                             l_countries[2],
+                             l_countries[3],
+                             l_countries[4])
+                         ))
+```
+
+#### Graph One Multiplot {.active}
+```{r}
+multiplot = ggplot(data_graph, aes(outcome, mean)) +
+  geom_hline(yintercept = 0, linewidth = 1.5)  +
+  geom_hline(yintercept = -.05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_hline(yintercept = .05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_pointrange(
+    data = data_graph,
+    mapping = aes(
+      x = outcome,
+      y = mean,
+      ymin = conf_low ,
+      ymax = conf_high ,
+      group = name,
+      color = name
+    ),
+    position = position_dodge(width = 0.4)
+  ) +
+  coord_flip() +
+  apatheme +
+  scale_colour_brewer(palette = "Dark2")  +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  theme(
+    text = element_text(size = 20),
+    axis.text.x = element_text(size = 15),
+    axis.text.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    plot.title = element_text(hjust = 0),
+    legend.background = element_rect(
+      fill = "grey",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  ) +
+  guides(col = guide_legend(reverse = TRUE))
+multiplot
+```
+
+##### Save image
+```{r}
+jpeg(
+  "kuschel-figure_exploratiory_regions1.jpeg",
+  width = 2*5000,
+  height = 2*3000,
+  res = 600
+)
+multiplot
+dev.off()
+```
+
+#### Combine Graph Two
+```{r}
+data_graph2 = rbind(
+  models_pref_level_financially_secure_successful_ambitious_graph,
+  models_pref_level_kind_supportive_graph,
+  models_pref_level_attractiveness_graph,
+  models_pref_level_confident_assertive_graph,
+  models_pref_level_intelligence_educated_graph,
+  models_imp_age_graph,
+  models_ideal_age_rel_graph,
+  models_imp_height_graph,
+  models_ideal_height_graph
+) %>%
+  mutate(outcome = factor(
+    outcome,
+    levels = c(
+      "H3b(2)) Ideal Height \n(Level)",
+      "H3b(1)) Ideal Height \n(Importance)",
+      "H3a(2)) Ideal Age \n(Level)",
+      "H3a(1)) Ideal Age \n(Importance)",
+      "H2e) Attractiveness",
+      "H2d) Kindness-\nSupportiveness",
+      "H2c) Education-\nIntelligence",
+      "H2b) Confidence-\nAssertiveness",
+      "H2a) Financial Security-\nSuccessfulness"
+    )
+  ))
+
+
+
+data_graph2$name = factor(rep(
+  c(
+    paste0(
+      "Europe (n = ",
+      sum(data_included_documented_reg$continent_final == "Europe"),
+      ")"
+    ),
+    paste0(
+      "South & East Asia (n = ",
+      sum(data_included_documented_reg$continent_final == "South & East Asia"),
+      ")"
+    ),
+    paste0(
+      "Latin & South America (n = ",
+      sum(
+        data_included_documented_reg$continent_final == "Latin & South America"
+      ),
+      ")"
+    ),
+    paste0(
+      "North America (n = ",
+      sum(data_included_documented_reg$continent_final == "North America"),
+      ")"
+    )
+  ),
+  9
+))
+
+l_countries = levels(data_graph2$name)
+data_graph2$name = factor(data_graph2$name,
+                         levels = rev(
+                           c(
+                             l_countries[1],
+                             l_countries[2],
+                             l_countries[3],
+                             l_countries[4])
+                         ))
+```
+
+#### Graph Two Multiplot
+```{r}
+multiplot2 = ggplot(data_graph2, aes(outcome, mean)) +
+  geom_hline(yintercept = 0, linewidth = 1.5)  +
+  geom_hline(yintercept = -.05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_hline(yintercept = .05,
+             linetype = "dotted",
+             linewidth = 1.5) +
+  geom_pointrange(
+    data = data_graph2,
+    mapping = aes(
+      x = outcome,
+      y = mean,
+      ymin = conf_low ,
+      ymax = conf_high ,
+      group = name,
+      color = name
+    ),
+    position = position_dodge(width = 0.4)
+  ) +
+  coord_flip() +
+  apatheme +
+  scale_colour_brewer(palette = "Dark2")  +
+  labs(y = "Effect of Political Orientation", x = "Outcome") +
+  theme(
+    text = element_text(size = 20),
+    axis.text.x = element_text(size = 15),
+    axis.text.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    plot.title = element_text(hjust = 0),
+    legend.background = element_rect(
+      fill = "grey",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  ) +
+  guides(col = guide_legend(reverse = TRUE))
+multiplot2
+```
+
+##### Save image
+```{r}
+jpeg(
+  "kuschel-figure_exploratiory_regions2.jpeg",
+  width = 2*5000,
+  height = 2*3000,
+  res = 2*300
+)
+multiplot2
+dev.off()
+```
+
