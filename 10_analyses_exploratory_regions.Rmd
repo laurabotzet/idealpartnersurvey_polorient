@@ -1,5 +1,5 @@
 ---
-title: <font color="#66C2A5">Exploratory Analyses Continents</font>
+title: <font color="#66C2A5">Exploratory Analyses Regions</font>
 csl: apa-custom-no-issue.csl
 output: 
   html_document:
@@ -52,34 +52,34 @@ data_included_documented = read.csv(file = "data_included_documented.csv")[,-1]
 ### Inclusion of Data
 ```{r}
 data_included_documented <- data_included_documented %>%
-  mutate(continent1 = countrycode(country,
+  mutate(region1 = countrycode(country,
                                  origin = "country.name",
                                  destination = "region"),
-         continent1 = ifelse(country == "Micronesia",
+         region1 = ifelse(country == "Micronesia",
                             "East Asia & Pacific",
-                            continent1),
-         continent2 = countrycode(country,
+                            region1),
+         region2 = countrycode(country,
                                  origin = "country.name",
                                  destination = "continent"),
-         continent2 = ifelse(country == "Micronesia",
+         region2 = ifelse(country == "Micronesia",
                             "Oceania",
-                            continent2))
+                            region2))
 
-table(data_included_documented$continent1)
-table(data_included_documented$continent2)
+table(data_included_documented$region1)
+table(data_included_documented$region2)
 
 data_included_documented = data_included_documented %>%
-  mutate(continent_final = ifelse(continent2 == "Africa", "Africa",
-                                  ifelse(continent2 == "Asia", "Asia",
-                                         ifelse(continent2 == "Europe", "Europe",
-                           ifelse(continent2 == "Oceania", "Oceania",
-                                  ifelse(continent1 == "Latin America & Caribbean",
+  mutate(region_final = ifelse(region2 == "Africa", "Africa",
+                                  ifelse(region2 == "Asia", "Asia",
+                                         ifelse(region2 == "Europe", "Europe",
+                           ifelse(region2 == "Oceania", "Oceania",
+                                  ifelse(region1 == "Latin America & Caribbean",
                                          "Latin & South America",
-                                         ifelse(continent1 == "North America",
+                                         ifelse(region1 == "North America",
                                                 "North America", NA)))))))
 
 data_included_documented <- data_included_documented %>%
-  mutate(continent_final = ifelse(country %in% c("Afghanistan", "Bahrain", "Iran",
+  mutate(region_final = ifelse(country %in% c("Afghanistan", "Bahrain", "Iran",
                                                  "Iraq", "Israel", "Jordan", 
                                                  "Kazakhstan", "Kuwait", "Kyrgyzstan",
                                                  "Lebanon", "Pakistan", 
@@ -87,8 +87,8 @@ data_included_documented <- data_included_documented %>%
                                                  "Saudi Arabia", "Syria", 
                                                  "Turkey", "Turkmenistan",
                                                  "United Arab Emirates", "Indonesia"),
-                                  "Middle East & Central Asia", continent_final),
-         continent_final = ifelse(country %in% c("Armenia", "Burma",
+                                  "Middle East & Central Asia", region_final),
+         region_final = ifelse(country %in% c("Armenia", "Burma",
                                                  "China",
                                                  "East Timor (see Timor-Leste)", 
                                                  "Georgia", "Hong Kong", "India",
@@ -96,22 +96,22 @@ data_included_documented <- data_included_documented %>%
                                                  "Nepal", "Philippines", "Singapore",
                                                  "South Korea", "Sri Lanka", 
                                                  "Taiwan", "Thailand", "Vietnam"), 
-                                  "South & East Asia", continent_final))
+                                  "South & East Asia", region_final))
 
 x <- data_included_documented %>% 
-  select(country, continent_final) %>%
-  group_by(country, continent_final) %>%
+  select(country, region_final) %>%
+  group_by(country, region_final) %>%
   summarize(n = n()) %>%
-  arrange(continent_final, country)
+  arrange(region_final, country)
 
-write.csv2(x, file = "country_continents.csv")
+write.csv2(x, file = "country_regions.csv")
 
-continents <- x %>%
-  group_by(continent_final) %>%
+regions <- x %>%
+  group_by(region_final) %>%
   summarize(countries = n(),
             participants = sum(n))
 
-continents
+regions
 ```
 We will include all regions with more than 500 participants. This allows us to show effect sizes for a diverse range of regions.
 
@@ -141,22 +141,22 @@ Armenia (2); Burma (1); China (90); East Timor (1); Georgia (3); Hong Kong (8); 
 For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
 
 ```{r}
-regions = continents %>% filter(participants > 500)
+regions = regions %>% filter(participants > 500)
 data_included_documented_reg = data_included_documented %>%
-  filter(continent_final %in% regions$continent_final)
+  filter(region_final %in% regions$region_final)
 ```
 
 ```{r}
-continents_reg =
+regions_reg =
   data_included_documented_reg %>%
-  select(continent_final, country) %>%
+  select(region_final, country) %>%
   table() %>%
   as.data.frame() %>%
   filter(Freq != 0) %>%
   arrange(-Freq)
 
 
-continents_reg
+regions_reg
 ```
 
 
@@ -166,7 +166,7 @@ continents_reg
 ###### H1a(1) Linear Effect
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_politicalsim = data_included_documented_reg_wide %>%
@@ -210,7 +210,7 @@ models_pref_politicalsim_lin_analyses = left_join(models_pref_politicalsim_lin_c
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_politicalsim)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -228,7 +228,7 @@ summary(model)
 ```{r}
 data_included_documented_reg_wide_reg1 = data_included_documented_reg %>%
   dplyr::filter(political_orientation <= 3) %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_politicalsim_reg1 = data_included_documented_reg_wide_reg1 %>%
@@ -284,7 +284,7 @@ summary(model)
 ```{r}
 data_included_documented_reg_wide_reg2 = data_included_documented_reg %>%
   dplyr::filter(political_orientation >= 3) %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_politicalsim_reg2 = data_included_documented_reg_wide_reg2 %>%
@@ -339,7 +339,7 @@ summary(model)
 ##### H1b Preference for Similarity in Ethnicity/Race {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_ethnicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_ethnicalsim = data_included_documented_reg_wide %>%
@@ -383,7 +383,7 @@ models_pref_ethnicalsim_analyses = left_join(models_pref_ethnicalsim_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_ethnicalsim)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -399,7 +399,7 @@ summary(model)
 ##### H1c Preference for Similarity in Religion {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_religioussim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_religioussim = data_included_documented_reg_wide %>%
@@ -443,7 +443,7 @@ models_pref_religioussim_analyses = left_join(models_pref_religioussim_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_religioussim)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -460,7 +460,7 @@ summary(model)
 ##### H2a Preference for the Level of Financial Security- Successfulness {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_level_financially_secure_successful_ambitious, Europe, 'South & East Asia', 'Latin & South America',
          'North America')
 
@@ -504,7 +504,7 @@ models_pref_level_financially_secure_successful_ambitious_analyses = left_join(m
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_level_financially_secure_successful_ambitious)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -521,7 +521,7 @@ summary(model)
 ##### H2b Preference for the Level of Confidence-Assertiveness {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_level_confident_assertive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_level_confident_assertive = data_included_documented_reg_wide %>%
@@ -565,7 +565,7 @@ models_pref_level_confident_assertive_analyses = left_join(models_pref_level_con
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_level_confident_assertive)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -582,7 +582,7 @@ summary(model)
 ##### H2c Preference for the Level of Education-Intelligence {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_level_intelligence_educated, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_level_intelligence_educated = data_included_documented_reg_wide %>%
@@ -626,7 +626,7 @@ models_pref_level_intelligence_educated_analyses = left_join(models_pref_level_i
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_level_intelligence_educated)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -642,7 +642,7 @@ summary(model)
 ##### H2d Preference for the Level of Kindness-Supportiveness {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_level_kind_supportive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_level_kind_supportive = data_included_documented_reg_wide %>%
@@ -686,7 +686,7 @@ models_pref_level_kind_supportive_analyses = left_join(models_pref_level_kind_su
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_level_kind_supportive)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -702,7 +702,7 @@ summary(model)
 ##### H2e Preference for the Level of Attractiveness {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(pref_level_attractiveness, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_pref_level_attractiveness = data_included_documented_reg_wide %>%
@@ -746,7 +746,7 @@ models_pref_level_attractiveness_analyses = left_join(models_pref_level_attracti
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(pref_level_attractiveness)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -763,7 +763,7 @@ summary(model)
 ##### H3a(1) Ideal Age (Importance) {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(imp_age, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_imp_age = data_included_documented_reg_wide %>%
@@ -807,7 +807,7 @@ models_imp_age_analyses = left_join(models_imp_age_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(imp_age)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -823,7 +823,7 @@ summary(model)
 ##### H3a(2) Ideal Age (Level) {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(ideal_age_rel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_ideal_age_rel = data_included_documented_reg_wide %>%
@@ -867,7 +867,7 @@ models_ideal_age_rel_analyses = left_join(models_ideal_age_rel_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(ideal_age_rel)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -883,7 +883,7 @@ summary(model)
 ##### H3b(1) Ideal Height (Importance) {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(imp_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_imp_height = data_included_documented_reg_wide %>%
@@ -927,7 +927,7 @@ models_imp_height_analyses = left_join(models_imp_height_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(imp_height)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -943,7 +943,7 @@ summary(model)
 ##### H3b(2) Ideal Height (Level) {.tabset}
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(ideal_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_ideal_height = data_included_documented_reg_wide %>%
@@ -987,7 +987,7 @@ models_ideal_height_analyses = left_join(models_ideal_height_coef,
 countries_reg =
   data_included_documented_reg %>%
   filter(!is.na(ideal_height)) %>%
-  select(continent_final) %>%
+  select(region_final) %>%
   table() %>%
   as.data.frame() %>%
   arrange(-Freq)
@@ -1007,7 +1007,7 @@ summary(model)
 ###### H1a(1) Linear Effect
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1067,7 +1067,7 @@ models_pref_politicalsim_lin_graph = left_join(
 ```{r}
 data_included_documented_reg_wide_reg1 = data_included_documented_reg %>%
   dplyr::filter(political_orientation <= 3) %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1132,7 +1132,7 @@ models_pref_politicalsim_quad_graph_reg1 = left_join(
 ```{r}
 data_included_documented_reg_wide_reg2 = data_included_documented_reg %>%
   dplyr::filter(political_orientation >= 3) %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1193,7 +1193,7 @@ models_pref_politicalsim_quad_graph_reg2 = left_join(
 ##### H1b Preference for similarity in ethnicity/race
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_ethnicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1252,7 +1252,7 @@ models_pref_ethnicalsim_graph = left_join(
 ##### H1c Preference for similarity in religion
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_religioussim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1311,7 +1311,7 @@ models_pref_religioussim_graph = left_join(
 ##### H2a Preference for the level of financial security- successfulness 
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_level_financially_secure_successful_ambitious, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1371,7 +1371,7 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(
 ##### H2b Preference for the level of confidence-assertiveness
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_level_confident_assertive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1431,7 +1431,7 @@ models_pref_level_confident_assertive_graph = left_join(
 ##### H2c Preference for the level of education-intelligence
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_level_intelligence_educated, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1491,7 +1491,7 @@ models_pref_level_intelligence_educated_graph = left_join(
 ##### H2d Preference for the level of kindness-supportiveness
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_level_kind_supportive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1551,7 +1551,7 @@ models_pref_level_kind_supportive_graph = left_join(
 ##### H2e Preference for the level of attractiveness
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
     pref_level_attractiveness, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
@@ -1612,7 +1612,7 @@ models_pref_level_attractiveness_graph = left_join(
 ##### H3a(1) Ideal age (importance)
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(imp_age, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_imp_age = data_included_documented_reg_wide %>%
@@ -1667,7 +1667,7 @@ models_imp_age_graph = left_join(
 ##### H3a(2) Ideal age (level)
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(ideal_age_rel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_ideal_age_rel = data_included_documented_reg_wide %>%
@@ -1726,7 +1726,7 @@ models_ideal_age_rel_graph = left_join(
 ##### H3b(1) Ideal height (importance)
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(imp_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_imp_height = data_included_documented_reg_wide %>%
@@ -1781,7 +1781,7 @@ models_imp_height_graph = left_join(
 ##### H3b(2) Ideal height (level)
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
-  pivot_wider(names_from = continent_final, values_from = political_orientation) %>%
+  pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(ideal_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
 
 models_ideal_height = data_included_documented_reg_wide %>%
@@ -1860,24 +1860,24 @@ data_graph$name = factor(rep(
   c(
     paste0(
       "Europe (n = ",
-      sum(data_included_documented_reg$continent_final == "Europe"),
+      sum(data_included_documented_reg$region_final == "Europe"),
       ")"
     ),
     paste0(
       "South & East Asia (n = ",
-      sum(data_included_documented_reg$continent_final == "South & East Asia"),
+      sum(data_included_documented_reg$region_final == "South & East Asia"),
       ")"
     ),
     paste0(
       "Latin & South America (n = ",
       sum(
-        data_included_documented_reg$continent_final == "Latin & South America"
+        data_included_documented_reg$region_final == "Latin & South America"
       ),
       ")"
     ),
     paste0(
       "North America (n = ",
-      sum(data_included_documented_reg$continent_final == "North America"),
+      sum(data_included_documented_reg$region_final == "North America"),
       ")"
     )
   ),
@@ -1983,24 +1983,24 @@ data_graph2$name = factor(rep(
   c(
     paste0(
       "Europe (n = ",
-      sum(data_included_documented_reg$continent_final == "Europe"),
+      sum(data_included_documented_reg$region_final == "Europe"),
       ")"
     ),
     paste0(
       "South & East Asia (n = ",
-      sum(data_included_documented_reg$continent_final == "South & East Asia"),
+      sum(data_included_documented_reg$region_final == "South & East Asia"),
       ")"
     ),
     paste0(
       "Latin & South America (n = ",
       sum(
-        data_included_documented_reg$continent_final == "Latin & South America"
+        data_included_documented_reg$region_final == "Latin & South America"
       ),
       ")"
     ),
     paste0(
       "North America (n = ",
-      sum(data_included_documented_reg$continent_final == "North America"),
+      sum(data_included_documented_reg$region_final == "North America"),
       ")"
     )
   ),
