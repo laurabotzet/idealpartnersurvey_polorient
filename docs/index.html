@@ -13,7 +13,7 @@
 
 <title>Left or Right? The Link Between Political Orientation and Partner Preferences in an International Sample of Single Women</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -262,7 +262,10 @@ $(document).ready(function () {
   <a href="06_robustness_analyses.html">Robustness Analyses</a>
 </li>
 <li>
-  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
+  <a href="09_analyses_exploratory.html">EA Countries</a>
+</li>
+<li>
+  <a href="10_analyses_exploratory_regions.html">EA Regions</a>
 </li>
 <li>
   <a href="12_supplement.html">Supplementary Analyses</a>
@@ -323,8 +326,11 @@ effects of right-wing political orientation on partner preferences.</li>
 analyses</a> additionally including age as a covariate in each
 model.</li>
 <li>Additionally, we <a href="09_analyses_exploratory.html">conducted
-exploratory analyses</a> as we we were interested in the heterogeneity
-in relationships between countries.</li>
+exploratory analyses on country level</a> as we we were interested in
+the heterogeneity in relationships between countries. We also <a
+href="10_analyses_exploratory_regions.html">conducted exploratory
+analyses on region level</a> as we we were interested in the
+heterogeneity in relationships between regions.</li>
 <li>Finally, we provide <a href="12_supplement.html">supplementary
 analyses</a> with a focus on preferred relationship options.</li>
 </ol>
@@ -339,7 +345,7 @@ class="email">botzet@uni-goettingen.de</a>)</p>
 class="email">lena.kuschel@stud.uni-goettingen.de</a>)</p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkxlZnQgb3IgUmlnaHQ/IFRoZSBMaW5rIEJldHdlZW4gUG9saXRpY2FsIE9yaWVudGF0aW9uIGFuZCBQYXJ0bmVyIFByZWZlcmVuY2VzIGluIGFuIEludGVybmF0aW9uYWwgU2FtcGxlIG9mIFNpbmdsZSBXb21lbjwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQo8ZGl2IGNsYXNzPSJyb3ciPg0KDQoNCjxkaXYgY2xhc3M9ImNvbC1tZC02IGNvbC1tZC1vZmZzZXQtMSI+DQohW0NvdW50cnkgRGlzdHJpYnV0aW9uIG9mIFBhcnRpY2lwYW50c10obWFwX2NvdW50cnlfZGlzdHJpYnV0aW9uLmpwZykNCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJjb2wtbWQtNSI+DQoNCg0KMS4gRmlyc3Qgd2UgW3dyYW5nbGVkIHRoZSBkYXRhXSgwMV9kYXRhd3JhbmdsaW5nLmh0bWwpLg0KMi4gV2UgW2RlY2lkZWQgd2hpY2ggZGF0YSB0byBrZWVwXSgwMl9leGNsdXNpb24uaHRtbCkuIFNlZSB0aGUgW2NvZGVib29rXSgwM19jb2RlYm9vay5odG1sKSBmb3IgZnVydGhlciBkZXRhaWxzDQozLiBUaGVuIHdlIFtsb29rZWQgYXQgc29tZSBkZXNjcmlwdGl2ZXNdKDA0X2Rlc2NyaXB0aXZlcy5odG1sKS4NCjQuIFRoZSBtYWluIGFuYWx5c2VzOiBXZSBbYW5hbHl6ZWRdKDA1X2FuYWx5c2VzLmh0bWwpIGVmZmVjdHMgb2YgcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gb24gcGFydG5lciBwcmVmZXJlbmNlcy4NCjUuIFRoZW4gd2UgW3JhbiBzb21lIHJvYnVzdG5lc3MgYW5hbHlzZXNdKDA2X3JvYnVzdG5lc3NfYW5hbHlzZXMuaHRtbCkgYWRkaXRpb25hbGx5IGluY2x1ZGluZyBhZ2UgYXMgYSBjb3ZhcmlhdGUgaW4gZWFjaCBtb2RlbC4NCjYuIEFkZGl0aW9uYWxseSwgd2UgW2NvbmR1Y3RlZCBleHBsb3JhdG9yeSBhbmFseXNlc10oMDlfYW5hbHlzZXNfZXhwbG9yYXRvcnkuaHRtbCkgYXMgd2Ugd2Ugd2VyZSBpbnRlcmVzdGVkIGluIHRoZSBoZXRlcm9nZW5laXR5IGluIHJlbGF0aW9uc2hpcHMgYmV0d2VlbiBjb3VudHJpZXMuDQo3LiBGaW5hbGx5LCB3ZSBwcm92aWRlIFtzdXBwbGVtZW50YXJ5IGFuYWx5c2VzXSgxMl9zdXBwbGVtZW50Lmh0bWwpIHdpdGggYSBmb2N1cyBvbiBwcmVmZXJyZWQgcmVsYXRpb25zaGlwIG9wdGlvbnMuDQoNCg0KDQo8L2Rpdj4NCg0KPC9kaXY+DQoNCg0KDQoNCjwvZGl2Pg0KDQojIyMjIEF1dGhvcnMgb2YgdGhpcyBXZWJzaXRlDQoNCkxhdXJhIEJvdHpldCAoYm90emV0QHVuaS1nb2V0dGluZ2VuLmRlKQ0KDQpMZW5hIEt1c2NoZWwgKGxlbmEua3VzY2hlbEBzdHVkLnVuaS1nb2V0dGluZ2VuLmRlKSAgDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPkxlZnQgb3IgUmlnaHQ/IFRoZSBMaW5rIEJldHdlZW4gUG9saXRpY2FsIE9yaWVudGF0aW9uIGFuZCBQYXJ0bmVyIFByZWZlcmVuY2VzIGluIGFuIEludGVybmF0aW9uYWwgU2FtcGxlIG9mIFNpbmdsZSBXb21lbjwvZm9udD4NCmNzbDogYXBhLWN1c3RvbS1uby1pc3N1ZS5jc2wNCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCi0tLQ0KDQo8ZGl2IGNsYXNzPSJyb3ciPg0KDQoNCjxkaXYgY2xhc3M9ImNvbC1tZC02IGNvbC1tZC1vZmZzZXQtMSI+DQohW0NvdW50cnkgRGlzdHJpYnV0aW9uIG9mIFBhcnRpY2lwYW50c10obWFwX2NvdW50cnlfZGlzdHJpYnV0aW9uLmpwZykNCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJjb2wtbWQtNSI+DQoNCg0KMS4gRmlyc3Qgd2UgW3dyYW5nbGVkIHRoZSBkYXRhXSgwMV9kYXRhd3JhbmdsaW5nLmh0bWwpLg0KMi4gV2UgW2RlY2lkZWQgd2hpY2ggZGF0YSB0byBrZWVwXSgwMl9leGNsdXNpb24uaHRtbCkuIFNlZSB0aGUgW2NvZGVib29rXSgwM19jb2RlYm9vay5odG1sKSBmb3IgZnVydGhlciBkZXRhaWxzDQozLiBUaGVuIHdlIFtsb29rZWQgYXQgc29tZSBkZXNjcmlwdGl2ZXNdKDA0X2Rlc2NyaXB0aXZlcy5odG1sKS4NCjQuIFRoZSBtYWluIGFuYWx5c2VzOiBXZSBbYW5hbHl6ZWRdKDA1X2FuYWx5c2VzLmh0bWwpIGVmZmVjdHMgb2YgcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gb24gcGFydG5lciBwcmVmZXJlbmNlcy4NCjUuIFRoZW4gd2UgW3JhbiBzb21lIHJvYnVzdG5lc3MgYW5hbHlzZXNdKDA2X3JvYnVzdG5lc3NfYW5hbHlzZXMuaHRtbCkgYWRkaXRpb25hbGx5IGluY2x1ZGluZyBhZ2UgYXMgYSBjb3ZhcmlhdGUgaW4gZWFjaCBtb2RlbC4NCjYuIEFkZGl0aW9uYWxseSwgd2UgW2NvbmR1Y3RlZCBleHBsb3JhdG9yeSBhbmFseXNlcyBvbiBjb3VudHJ5IGxldmVsXSgwOV9hbmFseXNlc19leHBsb3JhdG9yeS5odG1sKSBhcyB3ZSB3ZSB3ZXJlIGludGVyZXN0ZWQgaW4gdGhlIGhldGVyb2dlbmVpdHkgaW4gcmVsYXRpb25zaGlwcyBiZXR3ZWVuIGNvdW50cmllcy4gV2UgYWxzbyBbY29uZHVjdGVkIGV4cGxvcmF0b3J5IGFuYWx5c2VzIG9uIHJlZ2lvbiBsZXZlbF0oMTBfYW5hbHlzZXNfZXhwbG9yYXRvcnlfcmVnaW9ucy5odG1sKSBhcyB3ZSB3ZSB3ZXJlIGludGVyZXN0ZWQgaW4gdGhlIGhldGVyb2dlbmVpdHkgaW4gcmVsYXRpb25zaGlwcyBiZXR3ZWVuIHJlZ2lvbnMuDQo3LiBGaW5hbGx5LCB3ZSBwcm92aWRlIFtzdXBwbGVtZW50YXJ5IGFuYWx5c2VzXSgxMl9zdXBwbGVtZW50Lmh0bWwpIHdpdGggYSBmb2N1cyBvbiBwcmVmZXJyZWQgcmVsYXRpb25zaGlwIG9wdGlvbnMuDQoNCg0KDQo8L2Rpdj4NCg0KPC9kaXY+DQoNCg0KDQoNCjwvZGl2Pg0KDQojIyMjIEF1dGhvcnMgb2YgdGhpcyBXZWJzaXRlDQoNCkxhdXJhIEJvdHpldCAoYm90emV0QHVuaS1nb2V0dGluZ2VuLmRlKQ0KDQpMZW5hIEt1c2NoZWwgKGxlbmEua3VzY2hlbEBzdHVkLnVuaS1nb2V0dGluZ2VuLmRlKSAgDQoNCg0K</div>
 
 
 

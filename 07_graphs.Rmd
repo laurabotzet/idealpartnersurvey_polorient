@@ -2344,9 +2344,12 @@ South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India 
 Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
 Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
-  Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
-For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
+Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
+
+
+We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin & South America  (n = 3,325), North America  (n = 1,592), and South & East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East & Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
+
 
 ```{r}
 regions = regions %>% filter(participants > 500)
@@ -4028,9 +4031,12 @@ South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India 
 Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
 Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
-  Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
-For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
+Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
+
+
+We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin & South America  (n = 3,325), North America  (n = 1,592), and South & East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East & Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
+
 
 ```{r}
 regions = regions %>% filter(participants > 500)
