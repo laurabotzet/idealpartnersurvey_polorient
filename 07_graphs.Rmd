@@ -2333,26 +2333,18 @@ We will include all regions with more than 500 participants. This allows us to s
 
 These regions include the following countries (n)
 
-Africa (108):
-Algeria (7); Benin (2); Botswana (1); Cameroon (3); Central African Republic (2); Cote d'Ivoire (1); Egypt (3); Ethiopia (1); Ghana (3); Guinea-Bissau (1); Kenya (6); Madagascar (1); Mali (2); Mauritania (1); Mauritius (2); Morocco (16); Namibia (4); Nigeria (6); Senegal (5); South Africa (29); South Sudan (1); Swaziland (1); Tanzania (1); Tunisia (7); Uganda (1); Zimbabwe (1)
+Europe included 41 countries: France (n = 2,013); Germany (n = 1,846); Italy (n = 968); Spain (n = 562); United Kingdom (n = 499); Denmark (n = 395); Switzerland (n = 280); Austria (n = 197); Russia (n = 155); Belgium (n = 102); Ireland (n = 59); Portugal (n = 51); Netherlands (n = 44); Finland (n = 31); Sweden (n = 27); Romania (n = 24); Ukraine (n = 21); Belarus (n = 13); Luxembourg (n = 13); Estonia (n = 12); Norway (n = 12); Czechia (n = 11); Bulgaria (n = 9); Hungary (n = 9); Latvia (n = 8); Poland (n = 7); Andorra (n = 6); Bosnia and Herzegovina (n   =  6); Croatia (n = 6); Iceland (n = 5); Serbia (n = 5); Greece (n = 4); Lithuania (n = 3); Slovakia (n = 3); Slovenia (n = 3); Albania (n = 2); Malta (n = 2); Liechtenstein (n = 1); Macedonia (n = 1); Monaco (n = 1); and Montenegro (n = 1).
 
-Europe (7,417):
-Albania (2); Andorra (6); Austria (197); Belarus (13); Belgium (102); Bosnia and Herzegovina (6); Bulgaria (9); Croatia (6); Czechia (11); Denmark (395); Estonia (12); Finland (31); France (2013); Germany (1846); Greece (4); Hungary (9); Iceland (5); Ireland (59); Italy (968); Latvia (8); Liechtenstein (1); Lithuania (3); Luxembourg (13); Macedonia (1); Malta (2); Monaco (1); Montenegro (1); Netherlands (44); Norway (12); Poland (7); Portugal (51); Romania (24); Russia (155); Serbia (5); Slovakia (3); Slovenia (3); Spain (562); Sweden (27); Switzerland (280); Ukraine (21); United Kingdom (499)
+Latin & South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
 
-Latin & South America (3,325):
-Antigua and Barbuda (2); Argentina (217); Aruba (1); Bahamas, The (1); Barbados (1); Belize (1); Bolivia (23); Brazil (806); Chile (154); Colombia (387); Costa Rica (47); Cuba (1); Dominica (2); Dominican Republic (41); Ecuador (102); El Salvador (26); Grenada (1); Guatemala (61); Guyana (3); Haiti (4); Honduras (18); Jamaica (6); Mexico (1157); Nicaragua (15); Panama (15); Paraguay (11); Peru (119); Saint Lucia (2); Saint Vincent and the Grenadines (1); Sint Maarten (1); Trinidad and Tobago (8); Uruguay (24); Venezuela (67)
+North America included 2 countries: United States of America (n = 1254) and Canada (n = 338).
 
-Middle East & Central Asia (103):
-Afghanistan (1); Bahrain (3); Indonesia (18); Iran (7); Iraq (1); Israel (13); Jordan (2); Kazakhstan (9); Kuwait (1); Kyrgyzstan (2); Lebanon (3); Pakistan (8); Palestinian Territories (2); Qatar (2); Saudi Arabia (6); Syria (1); Turkey (8); Turkmenistan (2); United Arab Emirates (14)
+South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
 
-North America (1,592):
-Canada (338); United States of America (1254)
+Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
-Oceania (170):
-Australia (133); Fiji (1); Marshall Islands (1); Micronesia (1); New Zealand (34)
-
-South & East Asia (542):
-Armenia (2); Burma (1); China (90); East Timor (1); Georgia (3); Hong Kong (8); India (45); Japan (290); Malaysia (17); Maldives (1); Nepal (1); Philippines (36); Singapore (26); South Korea (5); Sri Lanka (3); Taiwan (7); Thailand (4); Vietnam (2)
+Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
+  Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
 For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
 
@@ -4025,26 +4017,18 @@ We will include all regions with more than 500 participants. This allows us to s
 
 These regions include the following countries (n)
 
-Africa (108):
-Algeria (7); Benin (2); Botswana (1); Cameroon (3); Central African Republic (2); Cote d'Ivoire (1); Egypt (3); Ethiopia (1); Ghana (3); Guinea-Bissau (1); Kenya (6); Madagascar (1); Mali (2); Mauritania (1); Mauritius (2); Morocco (16); Namibia (4); Nigeria (6); Senegal (5); South Africa (29); South Sudan (1); Swaziland (1); Tanzania (1); Tunisia (7); Uganda (1); Zimbabwe (1)
+Europe included 41 countries: France (n = 2,013); Germany (n = 1,846); Italy (n = 968); Spain (n = 562); United Kingdom (n = 499); Denmark (n = 395); Switzerland (n = 280); Austria (n = 197); Russia (n = 155); Belgium (n = 102); Ireland (n = 59); Portugal (n = 51); Netherlands (n = 44); Finland (n = 31); Sweden (n = 27); Romania (n = 24); Ukraine (n = 21); Belarus (n = 13); Luxembourg (n = 13); Estonia (n = 12); Norway (n = 12); Czechia (n = 11); Bulgaria (n = 9); Hungary (n = 9); Latvia (n = 8); Poland (n = 7); Andorra (n = 6); Bosnia and Herzegovina (n   =  6); Croatia (n = 6); Iceland (n = 5); Serbia (n = 5); Greece (n = 4); Lithuania (n = 3); Slovakia (n = 3); Slovenia (n = 3); Albania (n = 2); Malta (n = 2); Liechtenstein (n = 1); Macedonia (n = 1); Monaco (n = 1); and Montenegro (n = 1).
 
-Europe (7,417):
-Albania (2); Andorra (6); Austria (197); Belarus (13); Belgium (102); Bosnia and Herzegovina (6); Bulgaria (9); Croatia (6); Czechia (11); Denmark (395); Estonia (12); Finland (31); France (2013); Germany (1846); Greece (4); Hungary (9); Iceland (5); Ireland (59); Italy (968); Latvia (8); Liechtenstein (1); Lithuania (3); Luxembourg (13); Macedonia (1); Malta (2); Monaco (1); Montenegro (1); Netherlands (44); Norway (12); Poland (7); Portugal (51); Romania (24); Russia (155); Serbia (5); Slovakia (3); Slovenia (3); Spain (562); Sweden (27); Switzerland (280); Ukraine (21); United Kingdom (499)
+Latin & South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
 
-Latin & South America (3,325):
-Antigua and Barbuda (2); Argentina (217); Aruba (1); Bahamas, The (1); Barbados (1); Belize (1); Bolivia (23); Brazil (806); Chile (154); Colombia (387); Costa Rica (47); Cuba (1); Dominica (2); Dominican Republic (41); Ecuador (102); El Salvador (26); Grenada (1); Guatemala (61); Guyana (3); Haiti (4); Honduras (18); Jamaica (6); Mexico (1157); Nicaragua (15); Panama (15); Paraguay (11); Peru (119); Saint Lucia (2); Saint Vincent and the Grenadines (1); Sint Maarten (1); Trinidad and Tobago (8); Uruguay (24); Venezuela (67)
+North America included 2 countries: United States of America (n = 1254) and Canada (n = 338).
 
-Middle East & Central Asia (103):
-Afghanistan (1); Bahrain (3); Indonesia (18); Iran (7); Iraq (1); Israel (13); Jordan (2); Kazakhstan (9); Kuwait (1); Kyrgyzstan (2); Lebanon (3); Pakistan (8); Palestinian Territories (2); Qatar (2); Saudi Arabia (6); Syria (1); Turkey (8); Turkmenistan (2); United Arab Emirates (14)
+South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
 
-North America (1,592):
-Canada (338); United States of America (1254)
+Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
-Oceania (170):
-Australia (133); Fiji (1); Marshall Islands (1); Micronesia (1); New Zealand (34)
-
-South & East Asia (542):
-Armenia (2); Burma (1); China (90); East Timor (1); Georgia (3); Hong Kong (8); India (45); Japan (290); Malaysia (17); Maldives (1); Nepal (1); Philippines (36); Singapore (26); South Korea (5); Sri Lanka (3); Taiwan (7); Thailand (4); Vietnam (2)
+Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
+  Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
 For the exploratory analyses we can include the following regions: Europe (7,417), Latin & South America (3,325), North America (1,592), and South & East Asia (542). Sample sizes of other regions are too small (n < 500) to reach any conclusions.
 
