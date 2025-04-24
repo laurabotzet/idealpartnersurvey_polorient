@@ -2272,7 +2272,7 @@ data_included_documented <- data_included_documented %>%
                                  origin = "country.name",
                                  destination = "region"),
          region1 = ifelse(country == "Micronesia",
-                            "East Asia & Pacific",
+                            "East Asia and Pacific",
                             region1),
          region2 = countrycode(country,
                                  origin = "country.name",
@@ -2290,7 +2290,7 @@ data_included_documented = data_included_documented %>%
                                          ifelse(region2 == "Europe", "Europe",
                            ifelse(region2 == "Oceania", "Oceania",
                                   ifelse(region1 == "Latin America & Caribbean",
-                                         "Latin & South America",
+                                         "Latin and South America",
                                          ifelse(region1 == "North America",
                                                 "North America", NA)))))))
 
@@ -2303,7 +2303,7 @@ data_included_documented <- data_included_documented %>%
                                                  "Saudi Arabia", "Syria", 
                                                  "Turkey", "Turkmenistan",
                                                  "United Arab Emirates", "Indonesia"),
-                                  "Middle East & Central Asia", region_final),
+                                  "Middle East and Central Asia", region_final),
          region_final = ifelse(country %in% c("Armenia", "Burma",
                                                  "China",
                                                  "East Timor (see Timor-Leste)", 
@@ -2312,7 +2312,7 @@ data_included_documented <- data_included_documented %>%
                                                  "Nepal", "Philippines", "Singapore",
                                                  "South Korea", "Sri Lanka", 
                                                  "Taiwan", "Thailand", "Vietnam"), 
-                                  "South & East Asia", region_final))
+                                  "South and East Asia", region_final))
 
 x <- data_included_documented %>% 
   select(country, region_final) %>%
@@ -2335,20 +2335,20 @@ These regions include the following countries (n)
 
 Europe included 41 countries: France (n = 2,013); Germany (n = 1,846); Italy (n = 968); Spain (n = 562); United Kingdom (n = 499); Denmark (n = 395); Switzerland (n = 280); Austria (n = 197); Russia (n = 155); Belgium (n = 102); Ireland (n = 59); Portugal (n = 51); Netherlands (n = 44); Finland (n = 31); Sweden (n = 27); Romania (n = 24); Ukraine (n = 21); Belarus (n = 13); Luxembourg (n = 13); Estonia (n = 12); Norway (n = 12); Czechia (n = 11); Bulgaria (n = 9); Hungary (n = 9); Latvia (n = 8); Poland (n = 7); Andorra (n = 6); Bosnia and Herzegovina (n   =  6); Croatia (n = 6); Iceland (n = 5); Serbia (n = 5); Greece (n = 4); Lithuania (n = 3); Slovakia (n = 3); Slovenia (n = 3); Albania (n = 2); Malta (n = 2); Liechtenstein (n = 1); Macedonia (n = 1); Monaco (n = 1); and Montenegro (n = 1).
 
-Latin & South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
+Latin and South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
 
 North America included 2 countries: United States of America (n = 1254) and Canada (n = 338).
 
-South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
+South and East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
 
 Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
 Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
 
-Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
+Middle East and Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
 
-We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin & South America  (n = 3,325), North America  (n = 1,592), and South & East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East & Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
+We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin and South America  (n = 3,325), North America  (n = 1,592), and South and East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East and Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
 
 
 ```{r}
@@ -2377,7 +2377,7 @@ regions_reg
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_politicalsim, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_politicalsim = data_included_documented_reg_wide %>%
   select(-pref_politicalsim) %>%
@@ -2437,7 +2437,7 @@ data_included_documented_reg_wide_reg1 = data_included_documented_reg %>%
   dplyr::filter(political_orientation <= 3) %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_politicalsim, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 
 
@@ -2502,7 +2502,7 @@ data_included_documented_reg_wide_reg2 = data_included_documented_reg %>%
   dplyr::filter(political_orientation >= 3) %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_politicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_politicalsim, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_politicalsim_reg2 = data_included_documented_reg_wide_reg2 %>%
   select(-pref_politicalsim) %>%
@@ -2563,7 +2563,7 @@ models_pref_politicalsim_quad_graph_reg2 = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_ethnicalsim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_ethnicalsim, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_ethnicalsim = data_included_documented_reg_wide %>%
   select(-pref_ethnicalsim) %>%
@@ -2622,7 +2622,7 @@ models_pref_ethnicalsim_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_religioussim, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_religioussim, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_religioussim = data_included_documented_reg_wide %>%
   select(-pref_religioussim) %>%
@@ -2681,7 +2681,7 @@ models_pref_religioussim_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_level_financially_secure_successful_ambitious, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_level_financially_secure_successful_ambitious, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_level_financially_secure_successful_ambitious = data_included_documented_reg_wide %>%
   select(-pref_level_financially_secure_successful_ambitious) %>%
@@ -2741,7 +2741,7 @@ models_pref_level_financially_secure_successful_ambitious_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_level_confident_assertive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_level_confident_assertive, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_level_confident_assertive = data_included_documented_reg_wide %>%
   select(-pref_level_confident_assertive) %>%
@@ -2801,7 +2801,7 @@ models_pref_level_confident_assertive_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_level_intelligence_educated, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_level_intelligence_educated, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_level_intelligence_educated = data_included_documented_reg_wide %>%
   select(-pref_level_intelligence_educated) %>%
@@ -2861,7 +2861,7 @@ models_pref_level_intelligence_educated_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_level_kind_supportive, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_level_kind_supportive, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_level_kind_supportive = data_included_documented_reg_wide %>%
   select(-pref_level_kind_supportive) %>%
@@ -2921,7 +2921,7 @@ models_pref_level_kind_supportive_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    pref_level_attractiveness, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    pref_level_attractiveness, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_pref_level_attractiveness = data_included_documented_reg_wide %>%
   select(-pref_level_attractiveness) %>%
@@ -2981,7 +2981,7 @@ models_pref_level_attractiveness_graph = left_join(
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
-  select(imp_age, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+  select(imp_age, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_imp_age = data_included_documented_reg_wide %>%
   select(-imp_age) %>%
@@ -3036,7 +3036,7 @@ models_imp_age_graph = left_join(
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
-  select(ideal_age_rel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+  select(ideal_age_rel, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_ideal_age_rel = data_included_documented_reg_wide %>%
   select(-ideal_age_rel) %>%
@@ -3095,7 +3095,7 @@ models_ideal_age_rel_graph = left_join(
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
-  select(imp_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+  select(imp_height, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_imp_height = data_included_documented_reg_wide %>%
   select(-imp_height) %>%
@@ -3150,7 +3150,7 @@ models_imp_height_graph = left_join(
 ```{r}
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
-  select(ideal_height, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+  select(ideal_height, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_ideal_height = data_included_documented_reg_wide %>%
   select(-ideal_height) %>%
@@ -3232,14 +3232,14 @@ data_graph$name = factor(rep(
       ")"
     ),
     paste0(
-      "South & East Asia (n = ",
-      sum(data_included_documented_reg$region_final == "South & East Asia"),
+      "South and East Asia (n = ",
+      sum(data_included_documented_reg$region_final == "South and East Asia"),
       ")"
     ),
     paste0(
-      "Latin & South America (n = ",
+      "Latin and South America (n = ",
       sum(
-        data_included_documented_reg$region_final == "Latin & South America"
+        data_included_documented_reg$region_final == "Latin and South America"
       ),
       ")"
     ),
@@ -3355,14 +3355,14 @@ data_graph2$name = factor(rep(
       ")"
     ),
     paste0(
-      "South & East Asia (n = ",
-      sum(data_included_documented_reg$region_final == "South & East Asia"),
+      "South and East Asia (n = ",
+      sum(data_included_documented_reg$region_final == "South and East Asia"),
       ")"
     ),
     paste0(
-      "Latin & South America (n = ",
+      "Latin and South America (n = ",
       sum(
-        data_included_documented_reg$region_final == "Latin & South America"
+        data_included_documented_reg$region_final == "Latin and South America"
       ),
       ")"
     ),
@@ -3959,7 +3959,7 @@ data_included_documented <- data_included_documented %>%
                                  origin = "country.name",
                                  destination = "region"),
          region1 = ifelse(country == "Micronesia",
-                            "East Asia & Pacific",
+                            "East Asia and Pacific",
                             region1),
          region2 = countrycode(country,
                                  origin = "country.name",
@@ -3977,7 +3977,7 @@ data_included_documented = data_included_documented %>%
                                          ifelse(region2 == "Europe", "Europe",
                            ifelse(region2 == "Oceania", "Oceania",
                                   ifelse(region1 == "Latin America & Caribbean",
-                                         "Latin & South America",
+                                         "Latin and South America",
                                          ifelse(region1 == "North America",
                                                 "North America", NA)))))))
 
@@ -3990,7 +3990,7 @@ data_included_documented <- data_included_documented %>%
                                                  "Saudi Arabia", "Syria", 
                                                  "Turkey", "Turkmenistan",
                                                  "United Arab Emirates", "Indonesia"),
-                                  "Middle East & Central Asia", region_final),
+                                  "Middle East and Central Asia", region_final),
          region_final = ifelse(country %in% c("Armenia", "Burma",
                                                  "China",
                                                  "East Timor (see Timor-Leste)", 
@@ -3999,7 +3999,7 @@ data_included_documented <- data_included_documented %>%
                                                  "Nepal", "Philippines", "Singapore",
                                                  "South Korea", "Sri Lanka", 
                                                  "Taiwan", "Thailand", "Vietnam"), 
-                                  "South & East Asia", region_final))
+                                  "South and East Asia", region_final))
 
 x <- data_included_documented %>% 
   select(country, region_final) %>%
@@ -4022,20 +4022,20 @@ These regions include the following countries (n)
 
 Europe included 41 countries: France (n = 2,013); Germany (n = 1,846); Italy (n = 968); Spain (n = 562); United Kingdom (n = 499); Denmark (n = 395); Switzerland (n = 280); Austria (n = 197); Russia (n = 155); Belgium (n = 102); Ireland (n = 59); Portugal (n = 51); Netherlands (n = 44); Finland (n = 31); Sweden (n = 27); Romania (n = 24); Ukraine (n = 21); Belarus (n = 13); Luxembourg (n = 13); Estonia (n = 12); Norway (n = 12); Czechia (n = 11); Bulgaria (n = 9); Hungary (n = 9); Latvia (n = 8); Poland (n = 7); Andorra (n = 6); Bosnia and Herzegovina (n   =  6); Croatia (n = 6); Iceland (n = 5); Serbia (n = 5); Greece (n = 4); Lithuania (n = 3); Slovakia (n = 3); Slovenia (n = 3); Albania (n = 2); Malta (n = 2); Liechtenstein (n = 1); Macedonia (n = 1); Monaco (n = 1); and Montenegro (n = 1).
 
-Latin & South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
+Latin and South America included 33 countries: Mexico (n = 1157); Brazil (n = 806); Colombia (n = 387); Argentina (n = 217); Chile (n = 154); Peru (n = 119); Ecuador (n = 102); Venezuela (n = 67); Guatemala (n = 61); Costa Rica (n = 47); Dominican Republic (n = 41); El Salvador (n = 26); Uruguay (n = 24); Bolivia (n = 23); Honduras (n = 18); Nicaragua (n = 15); Panama (n = 15); Paraguay (n = 11); Trinidad and Tobago (n = 8); Jamaica (n = 6); Haiti (n = 4); Guyana (n = 3); Antigua and Barbuda (n = 2); Dominica (n = 2); Saint Lucia (n = 2); Aruba (n = 1); Bahamas (n = 1); Barbados (n = 1); Belize (n = 1); Cuba (n = 1); Grenada (n = 1); Saint Vincent and the Grenadines (n = 1); and Sint Maarten (n = 1).
 
 North America included 2 countries: United States of America (n = 1254) and Canada (n = 338).
 
-South & East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
+South and East Asia included 18 countries: Japan (n = 290); China (n = 90); India (n = 45); Philippines (n = 36); Singapore (n = 26); Malaysia (n = 17); Hong Kong (n = 8); Taiwan (n = 7); South Korea (n = 5); Thailand (n = 4); Georgia (n = 3); Sri Lanka (n = 3); Armenia (n = 2); Vietnam (n = 2); Burma (n = 1); East Timor (n = 1); Maldives (n = 1); and Nepal (n = 1).
 
 Oceania included 5 countries: Australia (n = 133); New Zealand (n = 34); Fiji (n = 1); Marshall Islands (n = 1); and Micronesia (n = 1).
 
 Africa included 26 countries: South Africa (n = 29); Morocco (n = 16); Algeria (n = 7); Tunisia (n = 7); Kenya (n = 6); Nigeria (n = 6); Senegal (n = 5); Namibia (n = 4); Cameroon (n = 3); Egypt (n = 3); Ghana (n = 3); Benin (n = 2); Central African Republic (n = 2); Mali (n = 2); Mauritius (n = 2); Botswana (n = 1); Cote d'Ivoire (n = 1); Ethiopia (n = 1); Guinea-Bissau (n = 1); Madagascar (n = 1); Mauritania (n = 1); South Sudan (n = 1); Swaziland (n = 1); Tanzania (n = 1); Uganda (n = 1); and Zimbabwe (n = 1).
 
-Middle East & Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
+Middle East and Central Asia included 19 countries: Indonesia (n = 18); United Arab Emirates (n = 14); Israel (n = 13); Kazakhstan (n = 9); Pakistan (n = 8); Turkey (n = 8); Iran (n = 7); Saudi Arabia (n = 6); Bahrain (n = 3); Lebanon (n = 3); Jordan (n = 2); Kyrgyzstan (n = 2); Palestinian Territories (n = 2); Qatar (n = 2); Turkmenistan (n = 2); Afghanistan (n = 1); Iraq (n = 1); Kuwait (n = 1); and Syria (n = 1).
 
 
-We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin & South America  (n = 3,325), North America  (n = 1,592), and South & East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East & Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
+We investigated how effects of political orientation on partner preferences differed between four different regions. Namely, these were Europe  (n = 7,417), Latin and South America  (n = 3,325), North America  (n = 1,592), and South and East Asia  (n = 542). We could not include Oceania  (n = 170), Africa  (n = 108), and Middle East and Central Asia  (n = 103) because sample sizes were too small (n < 500) to reach any conclusions.
 
 
 ```{r}
@@ -4063,7 +4063,7 @@ regions_reg
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    interest_single, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    interest_single, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_interest_single = data_included_documented_reg_wide %>%
   select(-interest_single) %>%
@@ -4121,7 +4121,7 @@ models_interest_single_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    interest_sexrel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    interest_sexrel, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_interest_sexrel = data_included_documented_reg_wide %>%
   select(-interest_sexrel) %>%
@@ -4179,7 +4179,7 @@ models_interest_sexrel_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    interest_nonmonrel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    interest_nonmonrel, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_interest_nonmonrel = data_included_documented_reg_wide %>%
   select(-interest_nonmonrel) %>%
@@ -4237,7 +4237,7 @@ models_interest_nonmonrel_graph = left_join(
 data_included_documented_reg_wide = data_included_documented_reg %>%
   pivot_wider(names_from = region_final, values_from = political_orientation) %>%
   select(
-    interest_monrel, Europe, 'South & East Asia', 'Latin & South America', 'North America')
+    interest_monrel, Europe, 'South and East Asia', 'Latin and South America', 'North America')
 
 models_interest_monrel = data_included_documented_reg_wide %>%
   select(-interest_monrel) %>%
@@ -4311,14 +4311,14 @@ data_graph$name = factor(rep(
       ")"
     ),
     paste0(
-      "South & East Asia (n = ",
-      sum(data_included_documented_reg$region_final == "South & East Asia"),
+      "South and East Asia (n = ",
+      sum(data_included_documented_reg$region_final == "South and East Asia"),
       ")"
     ),
     paste0(
-      "Latin & South America (n = ",
+      "Latin and South America (n = ",
       sum(
-        data_included_documented_reg$region_final == "Latin & South America"
+        data_included_documented_reg$region_final == "Latin and South America"
       ),
       ")"
     ),

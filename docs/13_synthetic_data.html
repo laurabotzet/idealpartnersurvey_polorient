@@ -11,11 +11,11 @@
 
 <meta name="author" content="Laura Botzet" />
 
-<meta name="date" content="2024-02-14" />
+<meta name="date" content="2025-04-24" />
 
 <title>13_synthetic_data</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -34,8 +34,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -69,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -374,7 +374,10 @@ $(document).ready(function () {
   <a href="06_robustness_analyses.html">Robustness Analyses</a>
 </li>
 <li>
-  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
+  <a href="09_analyses_exploratory.html">EA Countries</a>
+</li>
+<li>
+  <a href="10_analyses_exploratory_regions.html">EA Regions</a>
 </li>
 <li>
   <a href="12_supplement.html">Supplementary Analyses</a>
@@ -409,7 +412,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">13_synthetic_data</h1>
 <h4 class="author">Laura Botzet</h4>
-<h4 class="date">2024-02-14</h4>
+<h4 class="date">2025-04-24</h4>
 
 </div>
 
@@ -419,12 +422,18 @@ $(document).ready(function () {
 <div id="library" class="section level3">
 <h3>Library</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(synthpop)</span></code></pre></div>
-<pre><code>## Find out more at https://www.synthpop.org.uk/</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<pre><code>## Warning: Paket &#39;synthpop&#39; wurde unter R Version 4.4.3 erstellt</code></pre>
+<pre><code>## New version of synthpop (1.9-0) with disclosure functions
+## see disclosure.pdf for details and NEWS file for other changes
+## 
+## Find out more at https://www.synthpop.org.uk/</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
 <pre><code>## Lade nötiges Paket: carData</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(simstudy)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(simstudy)</span></code></pre></div>
+<pre><code>## Warning: Paket &#39;simstudy&#39; wurde unter R Version 4.4.3 erstellt</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code></pre></div>
+<pre><code>## Warning: Paket &#39;mice&#39; wurde unter R Version 4.4.3 erstellt</code></pre>
 <pre><code>## 
 ## Attache Paket: &#39;mice&#39;</code></pre>
 <pre><code>## Das folgende Objekt ist maskiert &#39;package:stats&#39;:
@@ -433,12 +442,12 @@ $(document).ready(function () {
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
 ## 
 ##     cbind, rbind</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.2     ✔ readr     2.1.4
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ## ✔ purrr     1.0.2</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter()    masks mice::filter(), stats::filter()
@@ -452,47 +461,47 @@ $(document).ready(function () {
 <h3>Function to simulate correlated data</h3>
 <p><a href="https://debruine.github.io/faux/index.html"
 class="uri">https://debruine.github.io/faux/index.html</a></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>rnorm_pre <span class="ot">&lt;-</span> <span class="cf">function</span> (x, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">empirical =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>{</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.vector</span>(x)) </span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be a vector&quot;</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) </span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be numeric&quot;</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>) </span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must have length &gt; 2&quot;</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>empirical) {</span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    sample_params <span class="ot">&lt;-</span> <span class="fu">sample_from_pop</span>(n, mu, sd, r)</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>mu</span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>    sd <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>sd</span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>    r <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>r</span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  }</span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n)</span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>  z <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">scale</span>(x)[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> r<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">scale</span>(stats<span class="sc">::</span><span class="fu">resid</span>(stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> </span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>                                                                          x)))[, <span class="dv">1</span>]</span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  yresult <span class="ot">&lt;-</span> mu <span class="sc">+</span> sd <span class="sc">*</span> z</span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="fu">return</span>(yresult)</span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>rnorm_pre <span class="ot">&lt;-</span> <span class="cf">function</span> (x, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">empirical =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>{</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.vector</span>(x)) </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be a vector&quot;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) </span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must be numeric&quot;</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>) </span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;x must have length &gt; 2&quot;</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>empirical) {</span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>    sample_params <span class="ot">&lt;-</span> <span class="fu">sample_from_pop</span>(n, mu, sd, r)</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>mu</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    sd <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>sd</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>    r <span class="ot">&lt;-</span> sample_params<span class="sc">$</span>r</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>  }</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>  z <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">scale</span>(x)[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> r<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">scale</span>(stats<span class="sc">::</span><span class="fu">resid</span>(stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> </span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a>                                                                          x)))[, <span class="dv">1</span>]</span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>  yresult <span class="ot">&lt;-</span> mu <span class="sc">+</span> sd <span class="sc">*</span> z</span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a>  <span class="fu">return</span>(yresult)</span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Load selected data based on 03_codebook</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
 </div>
 <div id="select-data-used-for-analyses" class="section level3">
 <h3>Select data used for analyses</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="fu">select</span>(language, country,</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>         political_orientation, age,</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>         pref_politicalsim, pref_ethnicalsim, pref_religioussim,</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;pref_level&quot;</span>),</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>         imp_age, , ideal_age,</span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>         imp_height, ideal_height,</span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;interest_&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">arrange</span>(language, country)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">select</span>(language, country,</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>         political_orientation, age,</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>         pref_politicalsim, pref_ethnicalsim, pref_religioussim,</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;pref_level&quot;</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>         imp_age, , ideal_age,</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>         imp_height, ideal_height,</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;interest_&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>  <span class="fu">arrange</span>(language, country)</span></code></pre></div>
 <p>###Simulate data</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>data_sim <span class="ot">=</span> <span class="fu">syn</span>(data_included_documented,</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>               <span class="at">seed =</span> <span class="dv">2019</span>, <span class="at">maxfaclevels =</span> <span class="dv">150</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>data_sim <span class="ot">=</span> <span class="fu">syn</span>(data_included_documented,</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>               <span class="at">seed =</span> <span class="dv">2019</span>, <span class="at">maxfaclevels =</span> <span class="dv">150</span>)</span></code></pre></div>
 <pre><code>## 
 ## Variable(s): language, country have been changed for synthesis from character to factor.
 ## Warning: In your synthesis there are numeric variables with 5 or fewer levels: ideal_height.
@@ -501,25 +510,25 @@ class="uri">https://debruine.github.io/faux/index.html</a></p>
 ## Synthesis
 ## -----------
 ##  language country political_orientation age pref_politicalsim pref_ethnicalsim pref_religioussim pref_level_financially_secure_successful_ambitious pref_level_financially_secure pref_level_successful_ambitious
-##  pref_level_kind_supportive pref_level_kind pref_level_supportive pref_level_attractiveness pref_level_attractive_body pref_level_attractive_face pref_level_confident_assertive pref_level_confident pref_level_assertive pref_level_intelligence_educated
-##  pref_level_intelligence pref_level_educated imp_age ideal_age imp_height ideal_height interest_single interest_sexrel interest_nonmonrel interest_monrel</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>data_sim <span class="ot">&lt;-</span> <span class="fu">sdc</span>(data_sim, data_included_documented, </span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;FAKE_DATA&quot;</span>) <span class="co"># Adds a &quot;FAKE_DATA&quot; label</span></span></code></pre></div>
+##  pref_level_confident_assertive pref_level_confident pref_level_assertive pref_level_intelligence_educated pref_level_intelligence pref_level_educated pref_level_kind_supportive pref_level_kind pref_level_supportive pref_level_attractiveness
+##  pref_level_attractive_body pref_level_attractive_face imp_age ideal_age imp_height ideal_height interest_single interest_sexrel interest_nonmonrel interest_monrel</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>data_sim <span class="ot">&lt;-</span> <span class="fu">sdc</span>(data_sim, data_included_documented, </span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;FAKE_DATA&quot;</span>) <span class="co"># Adds a &quot;FAKE_DATA&quot; label</span></span></code></pre></div>
 </div>
 <div id="extract-data" class="section level3">
 <h3>Extract data</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>dataframe_sim <span class="ot">=</span> <span class="fu">as.data.frame</span>(data_sim<span class="sc">$</span>syn)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>dataframe_sim <span class="ot">=</span> <span class="fu">as.data.frame</span>(data_sim<span class="sc">$</span>syn)</span></code></pre></div>
 </div>
 <div id="calculate-ideal_age_rel" class="section level3">
 <h3>Calculate ideal_age_rel</h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>dataframe_sim <span class="ot">&lt;-</span> dataframe_sim <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ideal_age_rel =</span> ideal_age <span class="sc">-</span> age)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>dataframe_sim <span class="ot">&lt;-</span> dataframe_sim <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ideal_age_rel =</span> ideal_age <span class="sc">-</span> age)</span></code></pre></div>
 </div>
 <div id="save-data" class="section level3">
 <h3>Save Data</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">save</span>(data_sim, <span class="at">file =</span> <span class="st">&quot;simulation.rdata&quot;</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">save</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.rdata&quot;</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">write.csv</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">save</span>(data_sim, <span class="at">file =</span> <span class="st">&quot;simulation.rdata&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">save</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.rdata&quot;</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">write.csv</span>(dataframe_sim, <span class="at">file =</span> <span class="st">&quot;SIMULATED_idealpartnersurvey_polorient.csv&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 

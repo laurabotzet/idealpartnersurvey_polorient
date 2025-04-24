@@ -13,7 +13,7 @@
 
 <title>Main Analyses</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -56,7 +56,7 @@
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -67,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -372,7 +372,10 @@ $(document).ready(function () {
   <a href="06_robustness_analyses.html">Robustness Analyses</a>
 </li>
 <li>
-  <a href="09_analyses_exploratory.html">Exploratory Analyses</a>
+  <a href="09_analyses_exploratory.html">EA Countries</a>
+</li>
+<li>
+  <a href="10_analyses_exploratory_regions.html">EA Regions</a>
 </li>
 <li>
   <a href="12_supplement.html">Supplementary Analyses</a>
@@ -427,11 +430,8 @@ Analyses</font></h1>
 ## Attache Paket: &#39;sjstats&#39;</code></pre>
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:effectsize&#39;:
 ## 
-##     cohens_f, phi</code></pre>
-<pre><code>## Das folgende Objekt ist maskiert &#39;package:formr&#39;:
-## 
-##     props</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span></code></pre></div>
+##     cohens_f, cramers_v, phi</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span></code></pre></div>
 <pre><code>## Lade nötiges Paket: lme4</code></pre>
 <pre><code>## Lade nötiges Paket: Matrix</code></pre>
 <pre><code>## 
@@ -442,7 +442,7 @@ Analyses</font></h1>
 <pre><code>## Das folgende Objekt ist maskiert &#39;package:stats&#39;:
 ## 
 ##     step</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attache Paket: &#39;dplyr&#39;</code></pre>
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:formr&#39;:
@@ -454,14 +454,14 @@ Analyses</font></h1>
 <pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
-## ✔ purrr     1.0.2     ✔ tidyr     1.3.0
-## ✔ readr     2.1.4</code></pre>
+## ✔ lubridate 1.9.4     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2     ✔ tidyr     1.3.1
+## ✔ readr     2.1.5</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ tidyr::expand() masks Matrix::expand()
 ## ✖ dplyr::filter() masks stats::filter()
@@ -471,7 +471,7 @@ Analyses</font></h1>
 ## ✖ tidyr::pack()   masks Matrix::pack()
 ## ✖ tidyr::unpack() masks Matrix::unpack()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)         </span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)         </span></code></pre></div>
 <pre><code>## Lade nötiges Paket: nlme
 ## 
 ## Attache Paket: &#39;nlme&#39;
@@ -484,10 +484,10 @@ Analyses</font></h1>
 ## 
 ##     lmList
 ## 
-## This is mgcv 1.8-42. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">library</span>(stringr)     </span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">library</span>(sandwich)     </span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">library</span>(lmtest) </span></code></pre></div>
+## This is mgcv 1.9-1. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">library</span>(stringr)     </span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">library</span>(sandwich)     </span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="fu">library</span>(lmtest) </span></code></pre></div>
 <pre><code>## Lade nötiges Paket: zoo
 ## 
 ## Attache Paket: &#39;zoo&#39;
@@ -495,12 +495,12 @@ Analyses</font></h1>
 ## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
 ## 
 ##     as.Date, as.Date.numeric</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">library</span>(minqa)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">library</span>(minqa)</span></code></pre></div>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Load selected data based on 03_codebook</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>data_included_documented <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data_included_documented.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
 </div>
 <div id="political-ethnic-and-religious-similarity"
 class="section level3 tabset active">
@@ -521,14 +521,14 @@ Orientation. Random intercept and random slope for country.</p>
 <h5 class="tabset">H1a(1) Linear Effect</h5>
 <div id="models" class="section level6">
 <h6>Models</h6>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>model_pref_politicalsim_lin <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>                       (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented, </span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>                       <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>model_pref_politicalsim_lin <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>                       (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented, </span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>                       <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary" class="section level6">
 <h6>Summary</h6>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_lin)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_lin)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -560,7 +560,7 @@ Orientation. Random intercept and random slope for country.</p>
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.838</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_lin, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_lin, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                           0.15 %     99.85 %
 ## .sig01                 0.5752608  1.24915249
@@ -572,7 +572,7 @@ Orientation. Random intercept and random slope for country.</p>
 </div>
 <div id="standardized-coefficients" class="section level6">
 <h6>Standardized Coefficients</h6>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_lin, <span class="at">method =</span> <span class="st">&quot;refit&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_lin, <span class="at">method =</span> <span class="st">&quot;refit&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -581,10 +581,10 @@ Orientation. Random intercept and random slope for country.</p>
 </div>
 <div id="plot" class="section level6 active">
 <h6 class="active">Plot</h6>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
@@ -604,12 +604,12 @@ slope for country.</p>
 </div>
 <div id="regression-1-x-breaking_point" class="section level6">
 <h6>Regression 1 (x &lt;= breaking_point)</h6>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>model_pref_politicalsim_1 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&lt;=</span> <span class="dv">3</span>), <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span>
-<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_1)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>model_pref_politicalsim_1 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&lt;=</span> <span class="dv">3</span>), <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_1)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -642,7 +642,7 @@ slope for country.</p>
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.815</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_1, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_1, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                            0.15 %    99.85 %
 ## .sig01                 0.48282467  1.2567244
@@ -651,23 +651,23 @@ slope for country.</p>
 ## .sigma                 1.74741488  1.8206102
 ## (Intercept)            3.39772953  4.2064773
 ## political_orientation -0.44132932 -0.1574817</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_1, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_1, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                     0     0.997  0       0    
 ## 2 political_orientation          -0.170 0.997 -0.237  -0.102</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_1))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_1))</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="regression-2-x-breaking_point" class="section level6">
 <h6>Regression 2 (x &gt;= breaking_point)</h6>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>model_pref_politicalsim_2 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
-<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&gt;=</span> <span class="dv">3</span>), <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span>
-<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_2)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>model_pref_politicalsim_2 <span class="ot">=</span> <span class="fu">lmer</span>(pref_politicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>                                 (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>                               <span class="at">data =</span> data_included_documented <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>                                 dplyr<span class="sc">::</span><span class="fu">filter</span>(political_orientation <span class="sc">&gt;=</span> <span class="dv">3</span>), <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a><span class="fu">summary</span>(model_pref_politicalsim_2)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -700,7 +700,7 @@ slope for country.</p>
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.911</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_2, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_politicalsim_2, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                            0.15 %   99.85 %
 ## .sig01                 0.32893449 1.6393578
@@ -709,13 +709,13 @@ slope for country.</p>
 ## .sigma                 1.77636620 1.8662207
 ## (Intercept)            1.08787002 2.3016652
 ## political_orientation  0.23113547 0.5549943</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_2, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_politicalsim_2, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                     0     0.997  0       0    
 ## 2 political_orientation           0.175 0.997  0.117   0.233</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_2))</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">allEffects</span>(model_pref_politicalsim_2))</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
@@ -730,11 +730,11 @@ ethnicity/race. Predictor: Political Orientation. Random intercept and
 random slope for country.</p>
 <div id="models-1" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>model_pref_ethnicalsim <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_ethnicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>model_pref_ethnicalsim <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_ethnicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-1" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_ethnicalsim)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_ethnicalsim)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -766,7 +766,7 @@ random slope for country.</p>
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.728</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_ethnicalsim, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_ethnicalsim, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                            0.15 %   99.85 %
 ## .sig01                 0.11069563 0.5700297
@@ -778,7 +778,7 @@ random slope for country.</p>
 </div>
 <div id="standardized-coefficients-1" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_ethnicalsim, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_ethnicalsim, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -787,10 +787,10 @@ random slope for country.</p>
 </div>
 <div id="plot-1" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_ethnicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_ethnicalsim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 </div>
@@ -805,11 +805,11 @@ Predictor: Political Orientation. Random intercept and random slope for
 country.</p>
 <div id="models-2" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>model_pref_religioussim <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_religioussim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>model_pref_religioussim <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_religioussim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-2" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_religioussim)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_religioussim)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -841,7 +841,7 @@ country.</p>
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.575</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_religioussim, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_religioussim, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                             0.15 %   99.85 %
 ## .sig01                 0.309523959 1.0217923
@@ -853,7 +853,7 @@ country.</p>
 </div>
 <div id="standardized-coefficients-2" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_religioussim, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_religioussim, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -862,10 +862,10 @@ country.</p>
 </div>
 <div id="plot-2" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_religioussim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb70-4"><a href="#cb70-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_religioussim <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb69-4"><a href="#cb69-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 </div>
@@ -884,19 +884,19 @@ security-successfulness. Predictor: Political Orientation. Random
 intercept and random slope for country.</p>
 <div id="models-3" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a>model_pref_level_financially_secure_successful_ambitious <span class="ot">&lt;-</span></span>
-<span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a>  <span class="fu">lmer</span>(</span>
-<span id="cb71-3"><a href="#cb71-3" tabindex="-1"></a>    pref_level_financially_secure_successful_ambitious <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span></span>
-<span id="cb71-4"><a href="#cb71-4" tabindex="-1"></a>                                                                                    political_orientation <span class="sc">|</span></span>
-<span id="cb71-5"><a href="#cb71-5" tabindex="-1"></a>                                                                                    country),</span>
-<span id="cb71-6"><a href="#cb71-6" tabindex="-1"></a>    <span class="at">data =</span> data_included_documented,</span>
-<span id="cb71-7"><a href="#cb71-7" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
-<span id="cb71-8"><a href="#cb71-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>model_pref_level_financially_secure_successful_ambitious <span class="ot">&lt;-</span></span>
+<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>  <span class="fu">lmer</span>(</span>
+<span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a>    pref_level_financially_secure_successful_ambitious <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span></span>
+<span id="cb70-4"><a href="#cb70-4" tabindex="-1"></a>                                                                                    political_orientation <span class="sc">|</span></span>
+<span id="cb70-5"><a href="#cb70-5" tabindex="-1"></a>                                                                                    country),</span>
+<span id="cb70-6"><a href="#cb70-6" tabindex="-1"></a>    <span class="at">data =</span> data_included_documented,</span>
+<span id="cb70-7"><a href="#cb70-7" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
+<span id="cb70-8"><a href="#cb70-8" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
 <div id="summary-3" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_financially_secure_successful_ambitious)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -930,7 +930,7 @@ intercept and random slope for country.</p>
 ## pltcl_rnttn -0.771
 ## optimizer (bobyqa) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_financially_secure_successful_ambitious, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_financially_secure_successful_ambitious, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in zeta(shiftpar, start = opt[seqpar1][-w]): NAs detected in profiling</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
@@ -2727,8 +2727,8 @@ intercept and random slope for country.</p>
 </div>
 <div id="standardized-coefficients-3" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1268"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="#cb1268-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_financially_secure_successful_ambitious, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1267"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1267-1"><a href="#cb1267-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_financially_secure_successful_ambitious, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -2737,11 +2737,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="#cb
 </div>
 <div id="plot-3" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1270"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="#cb1270-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_financially_secure_successful_ambitious <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1270-2"><a href="#cb1270-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1270-3"><a href="#cb1270-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1270-4"><a href="#cb1270-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1269"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1269-1"><a href="#cb1269-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_financially_secure_successful_ambitious <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1269-2"><a href="#cb1269-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1269-3"><a href="#cb1269-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1269-4"><a href="#cb1269-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
@@ -2758,13 +2758,13 @@ Predictor: Political Orientation. Random intercept and random slope for
 country.</p>
 <div id="models-4" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1272"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="#cb1272-1" tabindex="-1"></a>model_pref_level_confident_assertive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1271"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="#cb1271-1" tabindex="-1"></a>model_pref_level_confident_assertive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-4" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1273"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="#cb1273-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_confident_assertive)</span></code></pre></div>
+<div class="sourceCode" id="cb1272"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="#cb1272-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_confident_assertive)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: pref_level_confident_assertive ~ political_orientation + (1 +  
@@ -2795,272 +2795,185 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.544</code></pre>
-<div class="sourceCode" id="cb1275"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="#cb1275-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_confident_assertive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1274"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="#cb1274-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_confident_assertive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep</code></pre>
 <pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig02</code></pre>
@@ -3078,8 +2991,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-4" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1283"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="#cb1283-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_confident_assertive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="#cb1282-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_confident_assertive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -3088,11 +3001,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="#cb
 </div>
 <div id="plot-4" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1285"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="#cb1285-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1285-2"><a href="#cb1285-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-3"><a href="#cb1285-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1285-4"><a href="#cb1285-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1284"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="#cb1284-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_confident_assertive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1284-2"><a href="#cb1284-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1284-3"><a href="#cb1284-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1284-4"><a href="#cb1284-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 </div>
@@ -3107,13 +3020,13 @@ Political Orientation. Random intercept and random slope for
 country.</p>
 <div id="models-5" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1286"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="#cb1286-1" tabindex="-1"></a>model_pref_level_intelligence_educated <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1285"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="#cb1285-1" tabindex="-1"></a>model_pref_level_intelligence_educated <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-5" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1287"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="#cb1287-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_intelligence_educated)</span></code></pre></div>
+<div class="sourceCode" id="cb1286"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="#cb1286-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_intelligence_educated)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: pref_level_intelligence_educated ~ political_orientation + (1 +  
@@ -3144,273 +3057,185 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.556</code></pre>
-<div class="sourceCode" id="cb1289"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="#cb1289-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_intelligence_educated, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1288"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="#cb1288-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_intelligence_educated, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
 ## identical or NA .zeta values: using minstep</code></pre>
 <pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig02</code></pre>
@@ -3428,30 +3253,21 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-5" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1296"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1296-1"><a href="#cb1296-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1295"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="#cb1295-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI   CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                    0      0.997  0        0     
 ## 2 political_orientation          0.0351 0.997 -0.00712  0.0774</code></pre>
-<div class="sourceCode" id="cb1298"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="#cb1298-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_intelligence_educated, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 4
-##   Parameter                CI   CI_low CI_high
-##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept)           0.997  0        0     
-## 2 political_orientation 0.997 -0.00712  0.0774</code></pre>
-<div class="sourceCode" id="cb1300"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="#cb1300-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
 </div>
 <div id="plot-5" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1301"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="#cb1301-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1301-2"><a href="#cb1301-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1301-3"><a href="#cb1301-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1301-4"><a href="#cb1301-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1297"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1297-1"><a href="#cb1297-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_intelligence_educated <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1297-2"><a href="#cb1297-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1297-3"><a href="#cb1297-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1297-4"><a href="#cb1297-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
 ## Model failed to converge with max|grad| = 0.00200785 (tol = 0.002, component 1)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
@@ -3468,13 +3284,13 @@ Political Orientation. Random intercept and random slope for
 country.</p>
 <div id="models-6" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1303"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="#cb1303-1" tabindex="-1"></a>model_pref_level_kind_supportive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1299"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1299-1"><a href="#cb1299-1" tabindex="-1"></a>model_pref_level_kind_supportive <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-6" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1304"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="#cb1304-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_kind_supportive)</span></code></pre></div>
+<div class="sourceCode" id="cb1300"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="#cb1300-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_kind_supportive)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -3506,15 +3322,13 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.426</code></pre>
-<div class="sourceCode" id="cb1306"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="#cb1306-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_kind_supportive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1302"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1302-1"><a href="#cb1302-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_kind_supportive, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep</code></pre>
 <pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig01</code></pre>
@@ -3533,30 +3347,21 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-6" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1314"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="#cb1314-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1310"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1310-1"><a href="#cb1310-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI   CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept)                    0      0.997  0        0     
 ## 2 political_orientation          0.0215 0.997 -0.00640  0.0494</code></pre>
-<div class="sourceCode" id="cb1316"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1316-1"><a href="#cb1316-1" tabindex="-1"></a><span class="fu">ci</span>(<span class="fu">standardize_parameters</span>(model_pref_level_kind_supportive, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>), <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 4
-##   Parameter                CI   CI_low CI_high
-##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept)           0.997  0        0     
-## 2 political_orientation 0.997 -0.00640  0.0494</code></pre>
-<div class="sourceCode" id="cb1318"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1318-1"><a href="#cb1318-1" tabindex="-1"></a><span class="co">#calculate by hand to get exact numbers</span></span></code></pre></div>
 </div>
 <div id="plot-6" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1319"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1319-1"><a href="#cb1319-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1319-2"><a href="#cb1319-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1319-3"><a href="#cb1319-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1319-4"><a href="#cb1319-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1312"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1312-1"><a href="#cb1312-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_kind_supportive <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1312-2"><a href="#cb1312-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1312-3"><a href="#cb1312-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1312-4"><a href="#cb1312-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
 ## Model failed to converge with max|grad| = 0.00451923 (tol = 0.002, component 1)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
@@ -3572,13 +3377,13 @@ Political Orientation. Random intercept and random slope for
 country.</p>
 <div id="models-7" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1321"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1321-1"><a href="#cb1321-1" tabindex="-1"></a>model_pref_level_attractiveness <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1314"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="#cb1314-1" tabindex="-1"></a>model_pref_level_attractiveness <span class="ot">&lt;-</span> <span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-7" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1322"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="#cb1322-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_attractiveness)</span></code></pre></div>
+<div class="sourceCode" id="cb1315"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="#cb1315-1" tabindex="-1"></a><span class="fu">summary</span>(model_pref_level_attractiveness)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: 
@@ -3610,8 +3415,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.559</code></pre>
-<div class="sourceCode" id="cb1324"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="#cb1324-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_attractiveness, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1317"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="#cb1317-1" tabindex="-1"></a><span class="fu">confint</span>(model_pref_level_attractiveness, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                            0.15 %    99.85 %
 ## .sig01                 0.06770729 0.18832187
@@ -3623,8 +3428,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-7" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1327"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="#cb1327-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_attractiveness, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1320"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1320-1"><a href="#cb1320-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_pref_level_attractiveness, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -3633,11 +3438,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="#cb
 </div>
 <div id="plot-7" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1329"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1329-1"><a href="#cb1329-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1329-2"><a href="#cb1329-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1329-3"><a href="#cb1329-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1329-4"><a href="#cb1329-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1322"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="#cb1322-1" tabindex="-1"></a><span class="fu">lmer</span>(pref_level_attractiveness <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1322-2"><a href="#cb1322-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1322-3"><a href="#cb1322-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1322-4"><a href="#cb1322-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
 ## Model failed to converge with max|grad| = 0.002634 (tol = 0.002, component 1)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
@@ -3655,13 +3460,13 @@ Importance ratings for partner’s age. Predictor: Political Orientation.
 Random intercept and random slope for country.</p>
 <div id="models-8" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1331"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1331-1"><a href="#cb1331-1" tabindex="-1"></a>model_imp_age <span class="ot">&lt;-</span> <span class="fu">lmer</span>(imp_age <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1324"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="#cb1324-1" tabindex="-1"></a>model_imp_age <span class="ot">&lt;-</span> <span class="fu">lmer</span>(imp_age <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-8" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1332"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1332-1"><a href="#cb1332-1" tabindex="-1"></a><span class="fu">summary</span>(model_imp_age)</span></code></pre></div>
+<div class="sourceCode" id="cb1325"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1325-1"><a href="#cb1325-1" tabindex="-1"></a><span class="fu">summary</span>(model_imp_age)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: imp_age ~ political_orientation + (1 + political_orientation |  
@@ -3692,8 +3497,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1332-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.832</code></pre>
-<div class="sourceCode" id="cb1334"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="#cb1334-1" tabindex="-1"></a><span class="fu">confint</span>(model_imp_age, <span class="at">level=</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1327"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="#cb1327-1" tabindex="-1"></a><span class="fu">confint</span>(model_imp_age, <span class="at">level=</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                             0.15 %   99.85 %
 ## .sig01                 0.108667718 0.5631709
@@ -3705,8 +3510,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-8" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1337"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1337-1"><a href="#cb1337-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_imp_age, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1330"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1330-1"><a href="#cb1330-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_imp_age, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -3715,11 +3520,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1337-1"><a href="#cb
 </div>
 <div id="plot-8" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1339"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1339-1"><a href="#cb1339-1" tabindex="-1"></a><span class="fu">lmer</span>(imp_age <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1339-2"><a href="#cb1339-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1339-3"><a href="#cb1339-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1339-4"><a href="#cb1339-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1332"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1332-1"><a href="#cb1332-1" tabindex="-1"></a><span class="fu">lmer</span>(imp_age <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1332-2"><a href="#cb1332-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1332-3"><a href="#cb1332-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1332-4"><a href="#cb1332-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </div>
 </div>
@@ -3734,13 +3539,13 @@ partner’s age and women’s age (ideal_age_rel) Predictor: Political
 Orientation. Random intercept and random slope for country.</p>
 <div id="models-9" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1340"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1340-1"><a href="#cb1340-1" tabindex="-1"></a>model_ideal_age_rel <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ideal_age_rel <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1333"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1333-1"><a href="#cb1333-1" tabindex="-1"></a>model_ideal_age_rel <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ideal_age_rel <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 </div>
 <div id="summary-9" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1341"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1341-1"><a href="#cb1341-1" tabindex="-1"></a><span class="fu">summary</span>(model_ideal_age_rel)</span></code></pre></div>
+<div class="sourceCode" id="cb1334"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="#cb1334-1" tabindex="-1"></a><span class="fu">summary</span>(model_ideal_age_rel)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: ideal_age_rel ~ political_orientation + (1 + political_orientation |  
@@ -3771,8 +3576,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1341-1"><a href="#cb
 ## Correlation of Fixed Effects:
 ##             (Intr)
 ## pltcl_rnttn -0.871</code></pre>
-<div class="sourceCode" id="cb1343"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1343-1"><a href="#cb1343-1" tabindex="-1"></a><span class="fu">confint</span>(model_ideal_age_rel, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1336"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1336-1"><a href="#cb1336-1" tabindex="-1"></a><span class="fu">confint</span>(model_ideal_age_rel, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>##                           0.15 %     99.85 %
 ## .sig01                 0.2473102 1.931245124
@@ -3784,8 +3589,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1343-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-9" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1346"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1346-1"><a href="#cb1346-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_ideal_age_rel, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1339"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1339-1"><a href="#cb1339-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_ideal_age_rel, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI  CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -3794,11 +3599,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1346-1"><a href="#cb
 </div>
 <div id="plot-9" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1348"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1348-1"><a href="#cb1348-1" tabindex="-1"></a><span class="fu">lmer</span>(ideal_age_rel <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1348-2"><a href="#cb1348-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1348-3"><a href="#cb1348-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1348-4"><a href="#cb1348-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1341"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1341-1"><a href="#cb1341-1" tabindex="-1"></a><span class="fu">lmer</span>(ideal_age_rel <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1341-2"><a href="#cb1341-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1341-3"><a href="#cb1341-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1341-4"><a href="#cb1341-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <pre><code>## Warning: Model failed to converge with 1 negative eigenvalue: -1.7e+03</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
@@ -3813,14 +3618,14 @@ Outcome: Importance ratings for partner’s height. Predictor: Political
 Orientation. Random intercept and random slope for country.</p>
 <div id="models-10" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1351"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1351-1"><a href="#cb1351-1" tabindex="-1"></a>model_imp_height <span class="ot">&lt;-</span> <span class="fu">lmer</span>(imp_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1344"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1344-1"><a href="#cb1344-1" tabindex="-1"></a>model_imp_height <span class="ot">&lt;-</span> <span class="fu">lmer</span>(imp_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
 <div id="summary-10" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1353"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1353-1"><a href="#cb1353-1" tabindex="-1"></a><span class="fu">summary</span>(model_imp_height)</span></code></pre></div>
+<div class="sourceCode" id="cb1346"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1346-1"><a href="#cb1346-1" tabindex="-1"></a><span class="fu">summary</span>(model_imp_height)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: imp_height ~ political_orientation + (1 + political_orientation |  
@@ -3853,18 +3658,15 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1353-1"><a href="#cb
 ## pltcl_rnttn -0.597
 ## optimizer (bobyqa) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
-<div class="sourceCode" id="cb1355"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1355-1"><a href="#cb1355-1" tabindex="-1"></a><span class="fu">confint</span>(model_imp_height, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1348"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1348-1"><a href="#cb1348-1" tabindex="-1"></a><span class="fu">confint</span>(model_imp_height, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep
-
 ## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
 ## profile: using minstep</code></pre>
 <pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig01</code></pre>
@@ -3883,8 +3685,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1355-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-10" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1363"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1363-1"><a href="#cb1363-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_imp_height, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1356"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1356-1"><a href="#cb1356-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_imp_height, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -3893,11 +3695,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1363-1"><a href="#cb
 </div>
 <div id="plot-10" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1365"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1365-1"><a href="#cb1365-1" tabindex="-1"></a><span class="fu">lmer</span>(imp_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1365-2"><a href="#cb1365-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1365-3"><a href="#cb1365-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1365-4"><a href="#cb1365-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1358"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1358-1"><a href="#cb1358-1" tabindex="-1"></a><span class="fu">lmer</span>(imp_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1358-2"><a href="#cb1358-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1358-3"><a href="#cb1358-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1358-4"><a href="#cb1358-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 </div>
@@ -3911,14 +3713,14 @@ partner’s height. Predictor: Political Orientation. Random intercept and
 random slope for country.</p>
 <div id="models-11" class="section level5">
 <h5>Models</h5>
-<div class="sourceCode" id="cb1367"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1367-1"><a href="#cb1367-1" tabindex="-1"></a>model_ideal_height <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ideal_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1360"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1360-1"><a href="#cb1360-1" tabindex="-1"></a>model_ideal_height <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ideal_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country), <span class="at">data =</span> data_included_documented, <span class="at">control =</span><span class="fu">lmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>))</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
 <div id="summary-11" class="section level5">
 <h5>Summary</h5>
-<div class="sourceCode" id="cb1369"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1369-1"><a href="#cb1369-1" tabindex="-1"></a><span class="fu">summary</span>(model_ideal_height)</span></code></pre></div>
+<div class="sourceCode" id="cb1362"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1362-1"><a href="#cb1362-1" tabindex="-1"></a><span class="fu">summary</span>(model_ideal_height)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: ideal_height ~ political_orientation + (1 + political_orientation |  
@@ -3951,8 +3753,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1369-1"><a href="#cb
 ## pltcl_rnttn -0.556
 ## optimizer (bobyqa) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
-<div class="sourceCode" id="cb1371"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1371-1"><a href="#cb1371-1" tabindex="-1"></a><span class="fu">confint</span>(model_ideal_height, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1364"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1364-1"><a href="#cb1364-1" tabindex="-1"></a><span class="fu">confint</span>(model_ideal_height, <span class="at">level =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## Computing profile confidence intervals ...</code></pre>
 <pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig02</code></pre>
 <pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
@@ -3967,8 +3769,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1371-1"><a href="#cb
 </div>
 <div id="standardized-coefficients-11" class="section level5">
 <h5>Standardized Coefficients</h5>
-<div class="sourceCode" id="cb1376"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1376-1"><a href="#cb1376-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_ideal_height, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1369"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1369-1"><a href="#cb1369-1" tabindex="-1"></a><span class="fu">standardize_parameters</span>(model_ideal_height, <span class="at">method =</span> <span class="st">&quot;basic&quot;</span>, <span class="at">ci =</span> <span class="fl">0.997</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   Parameter             Std_Coefficient    CI  CI_low CI_high
 ##   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -3977,11 +3779,11 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1376-1"><a href="#cb
 </div>
 <div id="plot-11" class="section level5 active">
 <h5 class="active">Plot</h5>
-<div class="sourceCode" id="cb1378"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb1378-1"><a href="#cb1378-1" tabindex="-1"></a><span class="fu">lmer</span>(ideal_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
-<span id="cb1378-2"><a href="#cb1378-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
-<span id="cb1378-3"><a href="#cb1378-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1378-4"><a href="#cb1378-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1371"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb1371-1"><a href="#cb1371-1" tabindex="-1"></a><span class="fu">lmer</span>(ideal_height <span class="sc">~</span> political_orientation <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>political_orientation<span class="sc">|</span>country),</span>
+<span id="cb1371-2"><a href="#cb1371-2" tabindex="-1"></a>       <span class="at">data =</span> data_included_documented) <span class="sc">%&gt;%</span></span>
+<span id="cb1371-3"><a href="#cb1371-3" tabindex="-1"></a>    <span class="fu">allEffects</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1371-4"><a href="#cb1371-4" tabindex="-1"></a>    <span class="fu">plot</span>()</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p><img src="05_analyses_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 </div>
@@ -3989,7 +3791,7 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb1378-1"><a href="#cb
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPk1haW4gQW5hbHlzZXM8L2ZvbnQ+DQpjc2w6IGFwYS1jdXN0b20tbm8taXNzdWUuY3NsDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZm9sZGluZzogInNob3ciDQplZGl0b3Jfb3B0aW9uczogDQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQotLS0NCg0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZWZmZWN0cykNCmxpYnJhcnkoZWZmZWN0c2l6ZSkNCiNsaWJyYXJ5KGxtZTQpDQpsaWJyYXJ5KHNqc3RhdHMpDQpsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoUkNvbG9yQnJld2VyKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KG1nY3YpICAgICAgICAgDQpsaWJyYXJ5KHN0cmluZ3IpICAgICANCmxpYnJhcnkoc2FuZHdpY2gpICAgICANCmxpYnJhcnkobG10ZXN0KSANCmxpYnJhcnkobWlucWEpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQpgYGANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljLCBhbmQgUmVsaWdpb3VzIFNpbWlsYXJpdHkgey50YWJzZXQgLmFjdGl2ZX0NCiMjIyMgSDFhIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gUG9saXRpY2FsIEJlbGllZnMgey50YWJzZXR9DQpIMWEoMSkgVGhlcmUgaXMgbm8gbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciBwYXJ0bmVy4oCZcyBzaW1pbGFyIHBvbGl0aWNhbCBiZWxpZWZzIGFuZCB2YWx1ZXMuDQpIMWEoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBxdWFkcmF0aWMgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCg0KIyMjIyMgSDFhKDEpIExpbmVhciBFZmZlY3QgIHsudGFic2V0fQ0KIyMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4gPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIA0KICAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4pDQpjb25maW50KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbWV0aG9kID0gInJlZml0IiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMjIEgxYSgyKSBRdWFkcmF0aWMgRWZmZWN0IHsudGFic2V0fQ0KSGVyZSwgd2UgYXJlIGV4YW1pbmluZyB0aGUgcXVhZHJhdGljIGVmZmVjdCBvZiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBvbiBwcmVmZXJyZWQgcG9saXRpY2FsIHNpbWlsYXJpdHkgaW4gYSBwYXJ0bmVyIHVzaW5nIHRoZSBUd28gTGluZXMgQXBwcm9hY2ggKFNpbW9uc29obiwgMjAxOCkuIFdlIGFyZSB1c2luZyB0aGUgUm9iaW4gSG9vZCBBbGdvcml0aG0gaW4gb3JkZXIgdG8gc2V0IHRoZSBicmVha2luZyBwb2ludC4gVGhlbiwgd2UgYXJlIGNhbGN1bGF0aW5nIHR3byBtdWx0aWxldmVsIHJlZ3Jlc3Npb25zIG9uIGVpdGhlciBzaWRlIG9mIHRoZSBicmVha2luZyBwb2ludC4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcnM6IFBvbGl0aWNhbCBPcmllbnRhdGlvbiAmIEFnZS4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyMgQWxnb3JpdGhtOiBGaW5kIGJyZWFraW5nIHBvaW50DQpTZWUgMTFfdHdvbGluZXNfYW5hbHlzZXNfbXVsdGlsZXZlbA0KDQoNCiMjIyMjIyBSZWdyZXNzaW9uIDEgKHggPD0gYnJlYWtpbmdfcG9pbnQpDQpgYGB7cn0NCm1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEgPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZHBseXI6OmZpbHRlcihwb2xpdGljYWxfb3JpZW50YXRpb24gPD0gMyksIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCg0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKQ0KY29uZmludChtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xLCBsZXZlbCA9IDAuOTk3KQ0KDQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCnBsb3QoYWxsRWZmZWN0cyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKSkNCmBgYA0KDQojIyMjIyMgUmVncmVzc2lvbiAyICh4ID49IGJyZWFraW5nX3BvaW50KQ0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yID0gbG1lcihwcmVmX3BvbGl0aWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRwbHlyOjpmaWx0ZXIocG9saXRpY2FsX29yaWVudGF0aW9uID49IDMpLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQoNCnN1bW1hcnkobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikNCmNvbmZpbnQobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiwgbGV2ZWwgPSAwLjk5NykNCg0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikpDQpgYGANCg0KIyMjIyBIMWIgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBFdGhuaWNpdHkvUmFjZSB7LnRhYnNldH0NCkgxYiBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciBldGhuaWNpdHkvcmFjZS4gDQpPdXRjb21lOiBQcmVmZXJlbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBzaW1pbGFyIGV0aG5pY2l0eS9yYWNlLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfZXRobmljYWxzaW0gPC0gbG1lcihwcmVmX2V0aG5pY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfZXRobmljYWxzaW0pDQpjb25maW50KG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9ldGhuaWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KIyMjIyBIMWMgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBSZWxpZ2lvbiB7LnRhYnNldH0NCkgxYyBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4gIA0KT3V0Y29tZTogUHJlZmVyZW5jZSByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3JlbGlnaW91c3NpbSA8LSBsbWVyKHByZWZfcmVsaWdpb3Vzc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfcmVsaWdpb3Vzc2ltKQ0KY29uZmludChtb2RlbF9wcmVmX3JlbGlnaW91c3NpbSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9yZWxpZ2lvdXNzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9yZWxpZ2lvdXNzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KIyMjIyBIMmEgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEZpbmFuY2lhbCBTZWN1cml0eS0gU3VjY2Vzc2Z1bG5lc3Mgey50YWJzZXR9DQpIMmEgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBmaW5hbmNpYWwgc2VjdXJpdHkgYW5kIHN1Y2Nlc3NmdWxuZXNzLg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGZpbmFuY2lhbCBzZWN1cml0eS1zdWNjZXNzZnVsbmVzcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cyA8LQ0KICBsbWVyKA0KICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDEgKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcG9saXRpY2FsX29yaWVudGF0aW9uIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnkpLA0KICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsDQogICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKQ0KICApDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDJiIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBDb25maWRlbmNlLUFzc2VydGl2ZW5lc3Mgey50YWJzZXR9DQpIMmIgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBjb25maWRlbmNlIGFuZCBhc3NlcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgY29uZmlkZW5jZS1hc3NlcnRpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSA8LSBsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQojIyMjIEgyYyBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgRWR1Y2F0aW9uLUludGVsbGlnZW5jZSB7LnRhYnNldH0NCkgyYyBUaGVyZSBpcyBubyBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgdGhlIGxldmVsIG9mIGVkdWNhdGlvbiBhbmQgaW50ZWxsaWdlbmNlLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgZWR1Y2F0aW9uLWludGVsbGlnZW5jZS4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCA8LSBsbWVyKHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCmNpKHN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIG1ldGhvZCA9ICJiYXNpYyIpLCBjaSA9IDAuOTk3KQ0KI2NhbGN1bGF0ZSBieSBoYW5kIHRvIGdldCBleGFjdCBudW1iZXJzDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCg0KIyMjIyBIMmQgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEtpbmRuZXNzLVN1cHBvcnRpdmVuZXNzIHsudGFic2V0fQ0KSDJkIFRoZXJlIGlzIG5vIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2Yga2luZG5lc3MgYW5kIHN1cHBvcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mga2luZG5lc3Mtc3VwcG9ydGl2ZW5lc3MuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUgPC0gbG1lcihwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSkNCmNvbmZpbnQobW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpjaShzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCBtZXRob2QgPSAiYmFzaWMiKSwgY2kgPSAwLjk5NykNCiNjYWxjdWxhdGUgYnkgaGFuZCB0byBnZXQgZXhhY3QgbnVtYmVycw0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgyZSBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgQXR0cmFjdGl2ZW5lc3Mgey50YWJzZXR9DQpIMmUgVGhlcmUgaXMgbm8gbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBhdHRyYWN0aXZlbmVzcy4gIA0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGF0dHJhY3RpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MgPC0gbG1lcihwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcyB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQoNCiMjIyBJZGVhbCBBZ2UgYW5kIEhlaWdodCB7LnRhYnNldH0NCiMjIyMgSDNhKDEpIEltcG9ydGFuY2UgUmF0aW5ncyBmb3IgUGFydG5lcidzIEFnZSB7LnRhYnNldH0NCkgzYSgxKSBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBpbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXLigJlzIGFnZS4gDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBhZ2UuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2FnZSA8LSBsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2FnZSkNCmNvbmZpbnQobW9kZWxfaW1wX2FnZSwgbGV2ZWw9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9pbXBfYWdlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDNhKDIpIExldmVsIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBBZ2Ugey50YWJzZXR9DQpIM2EoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB0aGUgcmVsYXRpdmUgYWdlIGRpc2NyZXBhbmN5IGJldHdlZW4gaWRlYWwgcGFydG5lcuKAmXMgYWdlIGFuZCB3b21lbuKAmXMgYWdlLiAoZGlzY3JlcGFuY3kgY2FsY3VsYXRlZCBhcyBpZGVhbCBwYXJ0bmVy4oCZcyBhZ2Ug4oCTIHdvbWVu4oCZcyBhZ2UpDQpPdXRjb21lOiBEaXNjcmVwYW5jeSBiZXR3ZWVuIGxldmVsIHJhdGluZ3MgZm9yIGlkZWFsIHBhcnRuZXIncyBhZ2UgYW5kIHdvbWVuJ3MgYWdlIChpZGVhbF9hZ2VfcmVsKQ0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX2lkZWFsX2FnZV9yZWwgPC0gbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX2lkZWFsX2FnZV9yZWwpDQpjb25maW50KG1vZGVsX2lkZWFsX2FnZV9yZWwsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2FnZV9yZWwsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigxKSBJbXBvcnRhbmNlIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBIZWlnaHQgey50YWJzZXR9DQpIM2IoMSkgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgaW1wb3J0YW5jZSByYXRpbmdzIGZvciBwYXJ0bmVy4oCZcyBoZWlnaHQuDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBoZWlnaHQuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2hlaWdodCA8LSBsbWVyKGltcF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2hlaWdodCkNCmNvbmZpbnQobW9kZWxfaW1wX2hlaWdodCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfaW1wX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpbXBfaGVpZ2h0IH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigyKSBMZXZlbCBSYXRpbmdzIGZvciBQYXJ0bmVyJ3MgSGVpZ2h0IHsudGFic2V0fQ0KSDNiKDIpIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgaWRlYWwgcGFydG5lcuKAmXMgaGVpZ2h0Lg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgaWRlYWwgcGFydG5lcidzIGhlaWdodC4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9pZGVhbF9oZWlnaHQgPC0gbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaWRlYWxfaGVpZ2h0KQ0KY29uZmludChtb2RlbF9pZGVhbF9oZWlnaHQsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogPGZvbnQgY29sb3I9IiM2NkMyQTUiPk1haW4gQW5hbHlzZXM8L2ZvbnQ+DQpjc2w6IGFwYS1jdXN0b20tbm8taXNzdWUuY3NsDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZm9sZGluZzogInNob3ciDQplZGl0b3Jfb3B0aW9uczogDQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQotLS0NCg0KIyMgey50YWJzZXR9DQoNCiMjIyBMaWJyYXJ5DQpgYGB7ciBMaWJyYXJ5fQ0KbGlicmFyeShmb3JtcikNCmxpYnJhcnkoZWZmZWN0cykNCmxpYnJhcnkoZWZmZWN0c2l6ZSkNCiNsaWJyYXJ5KGxtZTQpDQpsaWJyYXJ5KHNqc3RhdHMpDQpsaWJyYXJ5KGxtZXJUZXN0KQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoUkNvbG9yQnJld2VyKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KG1nY3YpICAgICAgICAgDQpsaWJyYXJ5KHN0cmluZ3IpICAgICANCmxpYnJhcnkoc2FuZHdpY2gpICAgICANCmxpYnJhcnkobG10ZXN0KSANCmxpYnJhcnkobWlucWEpDQpgYGANCg0KIyMjIERhdGENCkxvYWQgc2VsZWN0ZWQgZGF0YSBiYXNlZCBvbiAwM19jb2RlYm9vaw0KYGBge3J9DQpkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQgPSByZWFkLmNzdihmaWxlID0gImRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZC5jc3YiKVssLTFdDQpgYGANCg0KIyMjIFBvbGl0aWNhbCwgRXRobmljLCBhbmQgUmVsaWdpb3VzIFNpbWlsYXJpdHkgey50YWJzZXQgLmFjdGl2ZX0NCiMjIyMgSDFhIFByZWZlcmVuY2UgZm9yIFNpbWlsYXJpdHkgaW4gUG9saXRpY2FsIEJlbGllZnMgey50YWJzZXR9DQpIMWEoMSkgVGhlcmUgaXMgbm8gbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciBwYXJ0bmVy4oCZcyBzaW1pbGFyIHBvbGl0aWNhbCBiZWxpZWZzIGFuZCB2YWx1ZXMuDQpIMWEoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBxdWFkcmF0aWMgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHBhcnRuZXLigJlzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCg0KIyMjIyMgSDFhKDEpIExpbmVhciBFZmZlY3QgIHsudGFic2V0fQ0KIyMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4gPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIA0KICAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV9saW4pDQpjb25maW50KG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltX2xpbiwgbWV0aG9kID0gInJlZml0IiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9wb2xpdGljYWxzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMjIEgxYSgyKSBRdWFkcmF0aWMgRWZmZWN0IHsudGFic2V0fQ0KSGVyZSwgd2UgYXJlIGV4YW1pbmluZyB0aGUgcXVhZHJhdGljIGVmZmVjdCBvZiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBvbiBwcmVmZXJyZWQgcG9saXRpY2FsIHNpbWlsYXJpdHkgaW4gYSBwYXJ0bmVyIHVzaW5nIHRoZSBUd28gTGluZXMgQXBwcm9hY2ggKFNpbW9uc29obiwgMjAxOCkuIFdlIGFyZSB1c2luZyB0aGUgUm9iaW4gSG9vZCBBbGdvcml0aG0gaW4gb3JkZXIgdG8gc2V0IHRoZSBicmVha2luZyBwb2ludC4gVGhlbiwgd2UgYXJlIGNhbGN1bGF0aW5nIHR3byBtdWx0aWxldmVsIHJlZ3Jlc3Npb25zIG9uIGVpdGhlciBzaWRlIG9mIHRoZSBicmVha2luZyBwb2ludC4NCk91dGNvbWU6IFByZWZlcmVuY2UgcmF0aW5ncyBmb3IgcGFydG5lcidzIHNpbWlsYXIgcG9saXRpY2FsIGJlbGllZnMgYW5kIHZhbHVlcy4NClByZWRpY3RvcnM6IFBvbGl0aWNhbCBPcmllbnRhdGlvbiAmIEFnZS4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyMgQWxnb3JpdGhtOiBGaW5kIGJyZWFraW5nIHBvaW50DQpTZWUgMTFfdHdvbGluZXNfYW5hbHlzZXNfbXVsdGlsZXZlbA0KDQoNCiMjIyMjIyBSZWdyZXNzaW9uIDEgKHggPD0gYnJlYWtpbmdfcG9pbnQpDQpgYGB7cn0NCm1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEgPSBsbWVyKHByZWZfcG9saXRpY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkICU+JQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZHBseXI6OmZpbHRlcihwb2xpdGljYWxfb3JpZW50YXRpb24gPD0gMyksIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCg0Kc3VtbWFyeShtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKQ0KY29uZmludChtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xLCBsZXZlbCA9IDAuOTk3KQ0KDQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfcG9saXRpY2Fsc2ltXzEsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQoNCnBsb3QoYWxsRWZmZWN0cyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8xKSkNCmBgYA0KDQojIyMjIyMgUmVncmVzc2lvbiAyICh4ID49IGJyZWFraW5nX3BvaW50KQ0KYGBge3J9DQptb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yID0gbG1lcihwcmVmX3BvbGl0aWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCAlPiUNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRwbHlyOjpmaWx0ZXIocG9saXRpY2FsX29yaWVudGF0aW9uID49IDMpLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQoNCnN1bW1hcnkobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikNCmNvbmZpbnQobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMiwgbGV2ZWwgPSAwLjk5NykNCg0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9wcmVmX3BvbGl0aWNhbHNpbV8yLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KDQpwbG90KGFsbEVmZmVjdHMobW9kZWxfcHJlZl9wb2xpdGljYWxzaW1fMikpDQpgYGANCg0KIyMjIyBIMWIgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBFdGhuaWNpdHkvUmFjZSB7LnRhYnNldH0NCkgxYiBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciBldGhuaWNpdHkvcmFjZS4gDQpPdXRjb21lOiBQcmVmZXJlbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBzaW1pbGFyIGV0aG5pY2l0eS9yYWNlLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfZXRobmljYWxzaW0gPC0gbG1lcihwcmVmX2V0aG5pY2Fsc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfZXRobmljYWxzaW0pDQpjb25maW50KG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfZXRobmljYWxzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9ldGhuaWNhbHNpbSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KIyMjIyBIMWMgUHJlZmVyZW5jZSBmb3IgU2ltaWxhcml0eSBpbiBSZWxpZ2lvbiB7LnRhYnNldH0NCkgxYyBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgcGFydG5lcuKAmXMgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4gIA0KT3V0Y29tZTogUHJlZmVyZW5jZSByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mgc2ltaWxhciByZWxpZ2lvdXMgYmVsaWVmcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX3JlbGlnaW91c3NpbSA8LSBsbWVyKHByZWZfcmVsaWdpb3Vzc2ltIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfcmVsaWdpb3Vzc2ltKQ0KY29uZmludChtb2RlbF9wcmVmX3JlbGlnaW91c3NpbSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9yZWxpZ2lvdXNzaW0sIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9yZWxpZ2lvdXNzaW0gfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyBJZGVhbCBQYXJ0bmVyIFByZWZlcmVuY2VzIHsudGFic2V0fQ0KIyMjIyBIMmEgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEZpbmFuY2lhbCBTZWN1cml0eS0gU3VjY2Vzc2Z1bG5lc3Mgey50YWJzZXR9DQpIMmEgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBmaW5hbmNpYWwgc2VjdXJpdHkgYW5kIHN1Y2Nlc3NmdWxuZXNzLg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGZpbmFuY2lhbCBzZWN1cml0eS1zdWNjZXNzZnVsbmVzcy4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cyA8LQ0KICBsbWVyKA0KICAgIHByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDEgKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcG9saXRpY2FsX29yaWVudGF0aW9uIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnkpLA0KICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsDQogICAgY29udHJvbCA9IGxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKQ0KICApDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfZmluYW5jaWFsbHlfc2VjdXJlX3N1Y2Nlc3NmdWxfYW1iaXRpb3VzKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ZpbmFuY2lhbGx5X3NlY3VyZV9zdWNjZXNzZnVsX2FtYml0aW91cywgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9maW5hbmNpYWxseV9zZWN1cmVfc3VjY2Vzc2Z1bF9hbWJpdGlvdXMgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDJiIFByZWZlcmVuY2UgZm9yIHRoZSBMZXZlbCBvZiBDb25maWRlbmNlLUFzc2VydGl2ZW5lc3Mgey50YWJzZXR9DQpIMmIgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBjb25maWRlbmNlIGFuZCBhc3NlcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgY29uZmlkZW5jZS1hc3NlcnRpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSA8LSBsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2NvbmZpZGVudF9hc3NlcnRpdmUpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9jb25maWRlbnRfYXNzZXJ0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfY29uZmlkZW50X2Fzc2VydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQojIyMjIEgyYyBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgRWR1Y2F0aW9uLUludGVsbGlnZW5jZSB7LnRhYnNldH0NCkgyYyBUaGVyZSBpcyBubyBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBwcmVmZXJlbmNlcyBmb3IgdGhlIGxldmVsIG9mIGVkdWNhdGlvbiBhbmQgaW50ZWxsaWdlbmNlLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3MgZWR1Y2F0aW9uLWludGVsbGlnZW5jZS4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCA8LSBsbWVyKHByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfaW50ZWxsaWdlbmNlX2VkdWNhdGVkKQ0KY29uZmludChtb2RlbF9wcmVmX2xldmVsX2ludGVsbGlnZW5jZV9lZHVjYXRlZCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfcHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9pbnRlbGxpZ2VuY2VfZWR1Y2F0ZWQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCg0KIyMjIyBIMmQgUHJlZmVyZW5jZSBmb3IgdGhlIExldmVsIG9mIEtpbmRuZXNzLVN1cHBvcnRpdmVuZXNzIHsudGFic2V0fQ0KSDJkIFRoZXJlIGlzIG5vIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgd29tZW7igJlzIHByZWZlcmVuY2VzIGZvciB0aGUgbGV2ZWwgb2Yga2luZG5lc3MgYW5kIHN1cHBvcnRpdmVuZXNzLiAgDQpPdXRjb21lOiBMZXZlbCByYXRpbmdzIGZvciBwYXJ0bmVyJ3Mga2luZG5lc3Mtc3VwcG9ydGl2ZW5lc3MuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUgPC0gbG1lcihwcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCwgY29udHJvbCA9bG1lckNvbnRyb2wob3B0aW1pemVyID0gImJvYnlxYSIpKQ0KYGBgDQoNCiMjIyMjIFN1bW1hcnkNCmBgYHtyfQ0Kc3VtbWFyeShtb2RlbF9wcmVmX2xldmVsX2tpbmRfc3VwcG9ydGl2ZSkNCmNvbmZpbnQobW9kZWxfcHJlZl9sZXZlbF9raW5kX3N1cHBvcnRpdmUsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKHByZWZfbGV2ZWxfa2luZF9zdXBwb3J0aXZlIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgyZSBQcmVmZXJlbmNlIGZvciB0aGUgTGV2ZWwgb2YgQXR0cmFjdGl2ZW5lc3Mgey50YWJzZXR9DQpIMmUgVGhlcmUgaXMgbm8gbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgcHJlZmVyZW5jZXMgZm9yIHRoZSBsZXZlbCBvZiBhdHRyYWN0aXZlbmVzcy4gIA0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgcGFydG5lcidzIGF0dHJhY3RpdmVuZXNzLg0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MgPC0gbG1lcihwcmVmX2xldmVsX2F0dHJhY3RpdmVuZXNzIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MpDQpjb25maW50KG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX3ByZWZfbGV2ZWxfYXR0cmFjdGl2ZW5lc3MsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgIFBsb3Qgey5hY3RpdmV9DQpgYGB7cn0NCmxtZXIocHJlZl9sZXZlbF9hdHRyYWN0aXZlbmVzcyB+IHBvbGl0aWNhbF9vcmllbnRhdGlvbiArICgxK3BvbGl0aWNhbF9vcmllbnRhdGlvbnxjb3VudHJ5KSwNCiAgICAgICBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkKSAlPiUNCiAgICBhbGxFZmZlY3RzKCkgJT4lDQogICAgcGxvdCgpDQpgYGANCg0KDQoNCiMjIyBJZGVhbCBBZ2UgYW5kIEhlaWdodCB7LnRhYnNldH0NCiMjIyMgSDNhKDEpIEltcG9ydGFuY2UgUmF0aW5ncyBmb3IgUGFydG5lcidzIEFnZSB7LnRhYnNldH0NCkgzYSgxKSBUaGVyZSBpcyBhIHBvc2l0aXZlIGxpbmVhciBsaW5rIGJldHdlZW4gcmlnaHQtd2luZyBwb2xpdGljYWwgb3JpZW50YXRpb24gYW5kIHdvbWVu4oCZcyBpbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXLigJlzIGFnZS4gDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBhZ2UuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2FnZSA8LSBsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2FnZSkNCmNvbmZpbnQobW9kZWxfaW1wX2FnZSwgbGV2ZWw9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjIFN0YW5kYXJkaXplZCBDb2VmZmljaWVudHMNCmBgYHtyfQ0Kc3RhbmRhcmRpemVfcGFyYW1ldGVycyhtb2RlbF9pbXBfYWdlLCBtZXRob2QgPSAiYmFzaWMiLCBjaSA9IDAuOTk3KQ0KYGBgDQoNCiMjIyMjICBQbG90IHsuYWN0aXZlfQ0KYGBge3J9DQpsbWVyKGltcF9hZ2UgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQoNCiMjIyMgSDNhKDIpIExldmVsIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBBZ2Ugey50YWJzZXR9DQpIM2EoMikgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB0aGUgcmVsYXRpdmUgYWdlIGRpc2NyZXBhbmN5IGJldHdlZW4gaWRlYWwgcGFydG5lcuKAmXMgYWdlIGFuZCB3b21lbuKAmXMgYWdlLiAoZGlzY3JlcGFuY3kgY2FsY3VsYXRlZCBhcyBpZGVhbCBwYXJ0bmVy4oCZcyBhZ2Ug4oCTIHdvbWVu4oCZcyBhZ2UpDQpPdXRjb21lOiBEaXNjcmVwYW5jeSBiZXR3ZWVuIGxldmVsIHJhdGluZ3MgZm9yIGlkZWFsIHBhcnRuZXIncyBhZ2UgYW5kIHdvbWVuJ3MgYWdlIChpZGVhbF9hZ2VfcmVsKQ0KUHJlZGljdG9yOiBQb2xpdGljYWwgT3JpZW50YXRpb24uIFJhbmRvbSBpbnRlcmNlcHQgYW5kIHJhbmRvbSBzbG9wZSBmb3IgY291bnRyeS4NCg0KIyMjIyMgTW9kZWxzDQpgYGB7cn0NCm1vZGVsX2lkZWFsX2FnZV9yZWwgPC0gbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLCBkYXRhID0gZGF0YV9pbmNsdWRlZF9kb2N1bWVudGVkLCBjb250cm9sID1sbWVyQ29udHJvbChvcHRpbWl6ZXIgPSAiYm9ieXFhIikpDQpgYGANCg0KIyMjIyMgU3VtbWFyeQ0KYGBge3J9DQpzdW1tYXJ5KG1vZGVsX2lkZWFsX2FnZV9yZWwpDQpjb25maW50KG1vZGVsX2lkZWFsX2FnZV9yZWwsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2FnZV9yZWwsIG1ldGhvZCA9ICJiYXNpYyIsIGNpID0gMC45OTcpDQpgYGANCg0KIyMjIyMgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9hZ2VfcmVsIH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigxKSBJbXBvcnRhbmNlIFJhdGluZ3MgZm9yIFBhcnRuZXIncyBIZWlnaHQgey50YWJzZXR9DQpIM2IoMSkgVGhlcmUgaXMgYSBwb3NpdGl2ZSBsaW5lYXIgbGluayBiZXR3ZWVuIHJpZ2h0LXdpbmcgcG9saXRpY2FsIG9yaWVudGF0aW9uIGFuZCB3b21lbuKAmXMgaW1wb3J0YW5jZSByYXRpbmdzIGZvciBwYXJ0bmVy4oCZcyBoZWlnaHQuDQpPdXRjb21lOiBJbXBvcnRhbmNlIHJhdGluZ3MgZm9yIHBhcnRuZXIncyBoZWlnaHQuDQpQcmVkaWN0b3I6IFBvbGl0aWNhbCBPcmllbnRhdGlvbi4gUmFuZG9tIGludGVyY2VwdCBhbmQgcmFuZG9tIHNsb3BlIGZvciBjb3VudHJ5Lg0KDQojIyMjIyBNb2RlbHMNCmBgYHtyfQ0KbW9kZWxfaW1wX2hlaWdodCA8LSBsbWVyKGltcF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaW1wX2hlaWdodCkNCmNvbmZpbnQobW9kZWxfaW1wX2hlaWdodCwgbGV2ZWwgPSAwLjk5NykNCmBgYA0KDQojIyMjIyBTdGFuZGFyZGl6ZWQgQ29lZmZpY2llbnRzDQpgYGB7cn0NCnN0YW5kYXJkaXplX3BhcmFtZXRlcnMobW9kZWxfaW1wX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpbXBfaGVpZ2h0IH4gcG9saXRpY2FsX29yaWVudGF0aW9uICsgKDErcG9saXRpY2FsX29yaWVudGF0aW9ufGNvdW50cnkpLA0KICAgICAgIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQpICU+JQ0KICAgIGFsbEVmZmVjdHMoKSAlPiUNCiAgICBwbG90KCkNCmBgYA0KDQojIyMjIEgzYigyKSBMZXZlbCBSYXRpbmdzIGZvciBQYXJ0bmVyJ3MgSGVpZ2h0IHsudGFic2V0fQ0KSDNiKDIpIFRoZXJlIGlzIGEgcG9zaXRpdmUgbGluZWFyIGxpbmsgYmV0d2VlbiByaWdodC13aW5nIHBvbGl0aWNhbCBvcmllbnRhdGlvbiBhbmQgaWRlYWwgcGFydG5lcuKAmXMgaGVpZ2h0Lg0KT3V0Y29tZTogTGV2ZWwgcmF0aW5ncyBmb3IgaWRlYWwgcGFydG5lcidzIGhlaWdodC4NClByZWRpY3RvcjogUG9saXRpY2FsIE9yaWVudGF0aW9uLiBSYW5kb20gaW50ZXJjZXB0IGFuZCByYW5kb20gc2xvcGUgZm9yIGNvdW50cnkuDQoNCiMjIyMjIE1vZGVscw0KYGBge3J9DQptb2RlbF9pZGVhbF9oZWlnaHQgPC0gbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksIGRhdGEgPSBkYXRhX2luY2x1ZGVkX2RvY3VtZW50ZWQsIGNvbnRyb2wgPWxtZXJDb250cm9sKG9wdGltaXplciA9ICJib2J5cWEiKSkNCmBgYA0KDQojIyMjIyBTdW1tYXJ5DQpgYGB7cn0NCnN1bW1hcnkobW9kZWxfaWRlYWxfaGVpZ2h0KQ0KY29uZmludChtb2RlbF9pZGVhbF9oZWlnaHQsIGxldmVsID0gMC45OTcpDQpgYGANCg0KIyMjIyMgU3RhbmRhcmRpemVkIENvZWZmaWNpZW50cw0KYGBge3J9DQpzdGFuZGFyZGl6ZV9wYXJhbWV0ZXJzKG1vZGVsX2lkZWFsX2hlaWdodCwgbWV0aG9kID0gImJhc2ljIiwgY2kgPSAwLjk5NykNCmBgYA0KDQojIyMjIyAgUGxvdCB7LmFjdGl2ZX0NCmBgYHtyfQ0KbG1lcihpZGVhbF9oZWlnaHQgfiBwb2xpdGljYWxfb3JpZW50YXRpb24gKyAoMStwb2xpdGljYWxfb3JpZW50YXRpb258Y291bnRyeSksDQogICAgICAgZGF0YSA9IGRhdGFfaW5jbHVkZWRfZG9jdW1lbnRlZCkgJT4lDQogICAgYWxsRWZmZWN0cygpICU+JQ0KICAgIHBsb3QoKQ0KYGBgDQo=</div>
 
 
 

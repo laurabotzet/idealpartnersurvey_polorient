@@ -243,8 +243,7 @@ confint(model_pref_level_intelligence_educated_robustcheck, level = 0.997)
 ##### Standardized Coefficients
 ```{r}
 standardize_parameters(model_pref_level_intelligence_educated_robustcheck, method = "basic", ci = 0.997)
-ci(standardize_parameters(model_pref_level_intelligence_educated_robustcheck, method = "basic"), ci = 0.997)
-#calculate by hand to get exact numbers
+
 ```
 
 ##### Plot {.active}
@@ -277,8 +276,7 @@ confint(model_pref_level_kind_supportive_robustcheck, level = 0.997)
 ```{r}
 standardize_parameters(model_pref_level_kind_supportive_robustcheck, method = "basic", ci = 0.997)
 
-ci(standardize_parameters(model_pref_level_kind_supportive_robustcheck, method = "basic"), ci = 0.997)
-#calculate by hand to get exact numbers
+
 ```
 
 ##### Plot {.active}
